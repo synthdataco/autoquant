@@ -47,11 +47,6 @@ integer metadata fields and prices that round-trip through 8 significant digits,
 output from a backtested model does not satisfy. `miner.py` fixes exactly that, and the gate proves
 it per champion.
 
-> `synth_lib.serving.unpack_champion` produced these legs, but do not point it at one. It reads the
-> **archive** layout — a `champion/` subtree, or a `workspace.bundle` checked out at `CHAMPION.sha` —
-> which is how the private results repo stores a leg, not how this repo publishes one. Against a
-> published leg it fails with `no champion source in ...: expected champion/ or workspace.bundle`.
-
 ## Warm the price store
 
 ```bash
