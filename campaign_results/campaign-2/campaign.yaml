@@ -1,0 +1,42 @@
+name: campaign-2
+objective: >-
+  Improve the Synth SN50 miner: produce the best possible price-simulation model as measured by
+  CRPS. Your champion will be evaluated on the 10 days following your data cutoff, across the
+  three competitions (CRYPTO_24H, COM_EQU_24H, CRYPTO_1H), against the real field of miners,
+  using the validator's weighted ranking — your Score is your simulated emissions relative to
+  the field's best miner (see the constitution). Choose your own research questions. Find
+  something publishable — honest failures count too.
+models:
+  - {id: claude, cli: claude-code, model: claude-opus-5-model}
+  - {id: codex, cli: codex, model: gpt-5, wire_api: responses}
+budget_usd_per_model: 100.0
+# 18h (down from 24): across bakeoff-1/2 every agent's model gains were complete within its
+# first ~2-3h and no one productively used more than 7.6h — but the v3 constitution invites
+# GPU/pretrained strategies, which need real hours; 18h keeps room for a fine-tune + proper
+# validation while cutting the campaign calendar by a quarter.
+deadline_hours_per_model: 18
+# Snapshot window. Full per-venue history (per-venue GCS stores, single instrument per asset):
+# Binance + HYPE from their 2025-08-01 first trades, HL equity/commodity perps from each
+# market's listing. The 3-competition split (2026-06-23) still floors FIELD-RELATIVE RANKS —
+# stated in the constitution — but price history for fitting goes all the way back, which is
+# what the v3 GPU/pretrained-model invitation needs.
+data_start: 2025-08-01
+# RE-DERIVE AT LAUNCH: launch day minus 11 days — the verdict backtests the 10 days following
+# the cutoff (pre-registered in the constitution), a window that matches the validator's 24h
+# smoothing so champions are scored steady-state, with no new-miner backfill penalty. The whole
+# window must be settled by verdict time (it is, by construction: it ends the day before
+# launch). Trade-off, accepted: the window already exists during the runs — the constitution's
+# hard rule 1 therefore forbids querying ANY API for times after the cutoff (transcript-audited).
+data_cutoff: 2026-07-27
+forward_window_days: 10
+baselines:
+  - {name: synth_default, module: harness/verdict/baseline_default.py}
+hardware: >-
+  GCP g2-standard-16: 16 vCPU / 64GB RAM / 1x NVIDIA L4 (24GB VRAM). Your sandbox gets 14 CPU,
+  48GB RAM and the GPU. torch is already in your pyproject — no need to add it.
+proxy_url: http://localhost:4000
+gpu: true
+sandbox_memory_gb: 48
+sandbox_cpus: 14
+poll_seconds: 30
+

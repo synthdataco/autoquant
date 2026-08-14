@@ -1,0 +1,74 @@
+{
+  "tag": "v4",
+  "comp": "com-equ-24h",
+  "days": 3,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-15",
+      "asset": "AAPLX",
+      "mean_crps": 1707.9912665389093,
+      "rank": 223,
+      "n_miners": 257,
+      "recent_med": 219,
+      "recent_min": 218,
+      "prompts": 72,
+      "rw": 1.1683184566047028e-07
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "GOOGLX",
+      "mean_crps": 1345.9098269323956,
+      "rank": 220,
+      "n_miners": 257,
+      "recent_med": 211,
+      "recent_min": 211,
+      "prompts": 72,
+      "rw": 2.031737601228445e-07
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "XAU",
+      "mean_crps": 1347.599504068116,
+      "rank": 254,
+      "n_miners": 257,
+      "recent_med": 254,
+      "recent_min": 254,
+      "prompts": 72,
+      "rw": 5.472858792492258e-11
+    },
+    {
+      "window": "2026-07-22",
+      "asset": "AAPLX",
+      "mean_crps": 1931.4923942781961,
+      "rank": 221,
+      "n_miners": 257,
+      "recent_med": 173,
+      "recent_min": 172,
+      "prompts": 72,
+      "rw": 3.863173631093346e-08
+    },
+    {
+      "window": "2026-07-22",
+      "asset": "GOOGLX",
+      "mean_crps": 1684.0514800135486,
+      "rank": 212,
+      "n_miners": 257,
+      "recent_med": 210,
+      "recent_min": 209,
+      "prompts": 72,
+      "rw": 1.6010890121317007e-09
+    },
+    {
+      "window": "2026-07-22",
+      "asset": "XAU",
+      "mean_crps": 996.9546993596252,
+      "rank": 226,
+      "n_miners": 256,
+      "recent_med": 219,
+      "recent_min": 219,
+      "prompts": 72,
+      "rw": 7.650150480006143e-08
+    }
+  ]
+}

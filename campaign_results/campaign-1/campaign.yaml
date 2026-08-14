@@ -1,0 +1,30 @@
+name: campaign-1
+objective: >-
+  Improve the Synth SN50 miner: produce the best possible price-simulation model as measured by
+  CRPS. Your champion will be evaluated on a future window that does not exist yet, across the
+  three competitions (CRYPTO_24H, COM_EQU_24H, CRYPTO_1H), against the real field of miners,
+  using the validator's weighted ranking. Choose your own research
+  questions. Find something publishable — honest failures count too.
+models:
+  - {id: kimi, cli: kimi-code, model: engy-kimi-k3}
+  - {id: gemini, cli: gemini-cli, model: gemini-3.1-pro-preview}   # uncapped key (phantom-429 interim)
+  - { id: glm, cli: claude-code, model: engy-glm-5.2 } # engy.ai glm-5.2 via the Anthropic API
+budget_usd_per_model: 100.0
+deadline_hours_per_model: 24
+# Snapshot window. data_start is the 3-competition split (2026-06-23): earlier prompts carry a
+# 2-profile reward structure, so a field-relative rank spanning it is meaningless (synth-lib
+# warns). Disk may hold deeper history; only this window is hard-linked into the snapshot.
+data_start: 2026-06-23
+# RE-DERIVE AT LAUNCH: must be within ingested coverage for every asset (check the coverage
+# report) AND >= horizon + 1d behind launch day, or the backtester rejects windows as unsettled.
+data_cutoff: 2026-07-29
+forward_window_days: 7
+baselines:
+  - {name: synth_default, module: harness/verdict/baseline_default.py}
+hardware: >-
+  GCP g2-standard-16: 16 vCPU / 64GB RAM / 1x NVIDIA L4 (24GB VRAM). Your sandbox gets 14 CPU,
+  48GB RAM and the GPU. torch is already in your pyproject — no need to add it.
+proxy_url: http://localhost:4000
+gpu: true
+sandbox_memory_gb: 48
+sandbox_cpus: 14

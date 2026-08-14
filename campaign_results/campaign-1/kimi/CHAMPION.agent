@@ -1,0 +1,23 @@
+# Synth SN50 bakeoff-2 champion (kimi)
+sha: 00a6798f92e7033739fad3b3ca8a669cc72343c1
+agent_dir: agent
+profiles: [low, high]
+notes: >
+  Parametric Student-t simulation model in agent/modeling.py — no learned
+  artifacts, fully offline, self-calibrating per prompt from the 7-day minute
+  context. EWMA variance (1d half-life) at the scored increment, full-strength
+  median-based hour-of-day seasonality, mean reversion toward a robust 7-day
+  target (median of per-day variances, 2d half-life), kurtosis-estimated
+  Student-t df, GARCH-in-sim vol clustering (alpha 0.15, persistence 0.94),
+  stratified quantile-grid serving with per-step permutation. Covers both
+  formats: 24h/5-min (low: CRYPTO_24H, COM_EQU_24H) and 1h/1-min (high).
+  Honors num_simulations (serves exactly what is requested; validator uses
+  1000). Interface smoke-tested at 1000 sims on both formats: correct path
+  count, time_length//time_increment+1 points per path, paths start at the
+  last context price, values round-trip the validator's %.7e rule, ~0.3 s per
+  prompt. Validation (validator-exact CRPS + ranking vs the offline field,
+  1000 sims): W1 calm 24h weighted rank 49.5 (rank 1 on
+  BTC/SOL/HYPE/XAU/NVDAX/GOOGLX), W2 high-vol 24h rank 121.8, W1 crypto-1h
+  rank 49.3, W2 crypto-1h weighted rank 2.0 (rank 1 on BTC/ETH/SOL/HYPE),
+  SP500 slice rank 77/138. See agent/report.md and agent/journal.md for the
+  full campaign log.

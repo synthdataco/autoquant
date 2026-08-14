@@ -1,0 +1,19 @@
+{
+  "tag": "repro2",
+  "comp": "crypto-1h",
+  "days": 2,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-22",
+      "asset": "BTC",
+      "mean_crps": 584.7411709564083,
+      "rank": 151,
+      "n_miners": 257,
+      "recent_med": 147,
+      "recent_min": 133,
+      "prompts": 288,
+      "rw": 0.0008041860197709928
+    }
+  ]
+}

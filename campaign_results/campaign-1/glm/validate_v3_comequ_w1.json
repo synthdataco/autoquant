@@ -1,0 +1,85 @@
+{
+  "tag": "v3_comequ_w1",
+  "comp": "com-equ-24h",
+  "days": 3,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-15",
+      "asset": "XAU",
+      "mean_crps": 1347.6275195148182,
+      "rank": 254,
+      "n_miners": 257,
+      "recent_med": 254,
+      "recent_min": 254,
+      "prompts": 72,
+      "rw": 5.4499083611458306e-11
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "AAPLX",
+      "mean_crps": 1707.8642732765256,
+      "rank": 223,
+      "n_miners": 257,
+      "recent_med": 219,
+      "recent_min": 217,
+      "prompts": 72,
+      "rw": 1.1907870149748104e-07
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "GOOGLX",
+      "mean_crps": 1346.476275865389,
+      "rank": 220,
+      "n_miners": 257,
+      "recent_med": 211,
+      "recent_min": 211,
+      "prompts": 72,
+      "rw": 1.8662369884645885e-07
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "NVDAX",
+      "mean_crps": 2432.7600571599523,
+      "rank": 251,
+      "n_miners": 257,
+      "recent_med": 236,
+      "recent_min": 235,
+      "prompts": 72,
+      "rw": 7.006877552101411e-11
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "TSLAX",
+      "mean_crps": 2157.687599344121,
+      "rank": 249,
+      "n_miners": 257,
+      "recent_med": 235,
+      "recent_min": 229,
+      "prompts": 72,
+      "rw": 5.389248640950461e-12
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "WTIOIL",
+      "mean_crps": 4559.392945419072,
+      "rank": 115,
+      "n_miners": 257,
+      "recent_med": 160,
+      "recent_min": 113,
+      "prompts": 72,
+      "rw": 9.181241180351011e-11
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "SPCX",
+      "mean_crps": 3984.674506935753,
+      "rank": 226,
+      "n_miners": 257,
+      "recent_med": 251,
+      "recent_min": 226,
+      "prompts": 48,
+      "rw": 8.484938604332928e-33
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "tag": "v3_crypto24h_w1",
+  "comp": "crypto-24h",
+  "days": 3,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-15",
+      "asset": "BTC",
+      "mean_crps": 2313.668816096038,
+      "rank": 240,
+      "n_miners": 257,
+      "recent_med": 241,
+      "recent_min": 240,
+      "prompts": 72,
+      "rw": 1.0815682859298399e-07
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "ETH",
+      "mean_crps": 3441.1954250269678,
+      "rank": 242,
+      "n_miners": 257,
+      "recent_med": 254,
+      "recent_min": 242,
+      "prompts": 72,
+      "rw": 1.4387774252804558e-07
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "SOL",
+      "mean_crps": 3514.2737990910596,
+      "rank": 241,
+      "n_miners": 257,
+      "recent_med": 241,
+      "recent_min": 241,
+      "prompts": 72,
+      "rw": 1.567628778169075e-08
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "XRP",
+      "mean_crps": 2939.2912520591854,
+      "rank": 207,
+      "n_miners": 257,
+      "recent_med": 191,
+      "recent_min": 163,
+      "prompts": 72,
+      "rw": 2.25181371555327e-06
+    },
+    {
+      "window": "2026-07-15",
+      "asset": "HYPE",
+      "mean_crps": 4213.553461981876,
+      "rank": 235,
+      "n_miners": 257,
+      "recent_med": 250,
+      "recent_min": 235,
+      "prompts": 72,
+      "rw": 2.4326973763669994e-08
+    }
+  ]
+}

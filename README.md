@@ -19,12 +19,10 @@ miner earns.
 | Model | Campaign | Score | Mean rank | crypto-1h | crypto-24h | com-equ-24h |
 | --- | --- | --- | --- | --- | --- | --- |
 | claude-opus-5 | campaign-2 | **30.1** | 78 | 1/257 (μ60.5) | 81/257 (μ132.6) | 152/191 (μ181.8) |
-| claude-opus-5 | campaign-1 | **19.5** | — | 55/257 | 236/257 | 181/191 |
-| glm-5.2 | campaign-1 | **13.7** | — | 136/257 | 257/257 | 190/191 |
-| gemini-3.1-pro-preview | campaign-1 | **11** | — | 183/257 | 257/257 | 191/191 |
 | gpt-5 | campaign-2 | **10.2** | 211 | 194/257 (μ163.3) | 252/257 (μ253.8) | 187/191 (μ217.6) |
-| gemini-3.1-pro-preview | campaign-2 | **8.1** | 210 | 206/257 (μ173.9) | 238/257 (μ242.2) | 186/191 (μ217) |
-| kimi-k3 | campaign-1 | **4.3** | — | 203/257 | 246/257 | 191/191 |
+| gemini-3.1-pro-preview | campaign-1 | **6.7** | 206.3 | 196/257 (μ182.5) | 238/257 (μ239) | 185/191 (μ204.9) |
+| glm-5.2 | campaign-1 | **6.6** | 207.7 | 195/257 (μ185.3) | 243/257 (μ246.4) | 185/191 (μ211.8) |
+| kimi-k3 | campaign-1 | **2.1** | 197.7 | 185/257 (μ203.4) | 231/257 (μ235.3) | 177/191 (μ193.8) |
 
 Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷
 the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the final-round
@@ -79,18 +77,14 @@ miner: [docs/deploy-a-champion.md](docs/deploy-a-champion.md).
 
 | Campaign | Panel | Envelope |
 | --- | --- | --- |
-| campaign-1 | claude-opus-5, gpt-5, gemini-3.1-pro-preview, glm-5.2, kimi-k3 | $100 / 24 h per model |
-| campaign-2 | claude-opus-5, gpt-5, gemini-3.1-pro-preview, revised constitution | $100 / 18 h per model |
+| [campaign-1](campaign_results/campaign-1/) | gemini-3.1-pro-preview, glm-5.2, kimi-k3 | $100 / 24 h per model |
+| [campaign-2](campaign_results/campaign-2/) | claude-opus-5, gpt-5, revised constitution | $100 / 18 h per model |
 
-> **Results are not published in this repo yet.** `campaign_results/` is held back while every
-> champion is re-unpacked and re-scored against its nominated commit; the leaderboard above is the
-> table those verdicts produced. Each campaign directory will land here, per leg: `report.md`,
-> `journal.md`, `CHAMPION`, the champion's source at that commit, and `verdict.json`.
-
-Each campaign directory holds its report and, per leg, `report.md` (the agent's own write-up — the
-most interesting artifact here), `journal.md` (one entry per iteration, failures included),
-`CHAMPION`, `champion_source/`, `verdict.json` plus any `verdict-<tag>.json` diagnostic windows,
-`BUDGET.md`, `CAMPAIGN.md`, `suggestions.md`.
+Each leg directory **is** the champion: the agent's whole workspace at the commit it nominated —
+`modeling.py` and the calibration artifacts it loads, `report.md` (the agent's own write-up, the most
+interesting artifact here), `journal.md` (one entry per iteration, failures included), its research
+scripts — plus `CHAMPION` (the nomination record), `verdict.json` and any `verdict-<tag>.json`
+diagnostic windows, and the serving shell `miner.py` / `entrypoint.sh` that runs it as a live miner.
 
 campaign-2 also carries three older **in-sample** windows per leg. They are the overfitting check, not
 a second leaderboard: they showed the 1-hour edge decaying with distance from the data cutoff while

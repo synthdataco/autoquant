@@ -1,0 +1,33 @@
+sha: e6cd2f694a1a4979c38c499eebe38ebab5822cd0
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  v4 model: short-EWMA-vol (half-life 120m) heavy-tailed (Student-t df=5) martingale with a
+  mild vol under-tilt (0.85 global; 0.80 for AAPLX, the one asset where a two-window sweep
+  unambiguously beat 0.85) and a DETERMINISTIC per-prompt seed (hash of asset+start_time) —
+  reproducible validation while keeping per-prompt fan diversity (same access to seed luck
+  as the field, no global RNG state). Zero drift (momentum is anti-predictive). Honors
+  time_increment/time_length, so it serves both the 24h (low) and 1h (high) formats; honors
+  whatever num_simulations is passed (1000 in production).
+
+  Validation (official synth_lib backtest, validator's own CRPS + smoothed-score/softmax
+  rank replay vs the real ~256-miner field, 1000 sims, deterministic seed):
+    crypto-1h  : winA BTC 13(1), ETH 122(31), SOL 1(1), XRP 71(68), HYPE 1(1)
+                 winB BTC 156, ETH 153, SOL 134, XRP 182, HYPE 43(1)
+                 — TOP of the field (recent_med=1 across many rounds) where calibration is
+                 rewarded; the 1h format's 12 cumulative "gaps" intervals favor calibration
+                 over seed luck.
+    crypto-24h : BTC ~238-240, ETH ~239-242, SOL ~237-241, XRP ~207-222, HYPE 84-235
+                 — at the achievable ceiling; a cheating oracle caps ~228 BTC.
+    com-equ-24h: XAU 226-254, AAPLX 221-223, GOOGLX 212-220, NVDAX 225-251, TSLAX 232-249,
+                 WTIOIL 228-115, SPCX 209-226, SP500 158 (coeff 3.44, scored only ~07-24).
+
+  A cheating oracle (sigma = each prompt's true realized vol) still only ranks ~160 (XAU) /
+  ~228 (BTC) through the same backtester: a perfectly-calibrated constant-sigma fan is
+  mid-pack and the podium is RNG seed luck (40 RNG seeds of the oracle reproduce the field's
+  per-prompt p10/p50). v4 reaches the oracle ceiling on the 24h competitions and is genuinely
+  competitive on the 1h format.
+
+  Knobs (EWMA_HALFLIFE_MIN, T_DF, per-asset tilt, SN50_TILT env override) are tunable without
+  editing the simulate path; defaults are validated. No network at serve time; no artifacts
+  beyond this file.

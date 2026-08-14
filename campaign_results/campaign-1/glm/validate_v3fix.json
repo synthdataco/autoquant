@@ -1,0 +1,30 @@
+{
+  "tag": "v3fix",
+  "comp": "com-equ-24h",
+  "days": 3,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-22",
+      "asset": "XAU",
+      "mean_crps": 996.7842750354365,
+      "rank": 226,
+      "n_miners": 256,
+      "recent_med": 219,
+      "recent_min": 219,
+      "prompts": 72,
+      "rw": 7.84627678268782e-08
+    },
+    {
+      "window": "2026-07-22",
+      "asset": "AAPLX",
+      "mean_crps": 1932.3050519502362,
+      "rank": 221,
+      "n_miners": 257,
+      "recent_med": 173,
+      "recent_min": 172,
+      "prompts": 72,
+      "rw": 3.4193315774397673e-08
+    }
+  ]
+}

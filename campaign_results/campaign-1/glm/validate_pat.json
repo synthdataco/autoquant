@@ -1,0 +1,19 @@
+{
+  "tag": "pat",
+  "comp": "com-equ-24h",
+  "days": 3,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-15",
+      "asset": "XAU",
+      "mean_crps": 1346.5442224366088,
+      "rank": 254,
+      "n_miners": 257,
+      "recent_med": 254,
+      "recent_min": 254,
+      "prompts": 72,
+      "rw": 6.411500659399954e-11
+    }
+  ]
+}

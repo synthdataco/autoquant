@@ -1,0 +1,30 @@
+{
+  "tag": "v3fix1h",
+  "comp": "crypto-1h",
+  "days": 2,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-22",
+      "asset": "BTC",
+      "mean_crps": 584.3520894244195,
+      "rank": 148,
+      "n_miners": 257,
+      "recent_med": 144,
+      "recent_min": 114,
+      "prompts": 288,
+      "rw": 0.0009034821664859116
+    },
+    {
+      "window": "2026-07-22",
+      "asset": "SOL",
+      "mean_crps": 737.5762696535281,
+      "rank": 134,
+      "n_miners": 257,
+      "recent_med": 154,
+      "recent_min": 133,
+      "prompts": 288,
+      "rw": 0.0006965884893512309
+    }
+  ]
+}

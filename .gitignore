@@ -2,7 +2,6 @@
 market_data/
 offline_data/
 campaign_runs/
-campaign_results/
 champions/
 metering/.env.proxy
 .env

@@ -1,0 +1,30 @@
+{
+  "tag": "tilt_1.20",
+  "comp": "com-equ-24h",
+  "days": 3,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-22",
+      "asset": "XAU",
+      "mean_crps": 1002.1515729647876,
+      "rank": 226,
+      "n_miners": 256,
+      "recent_med": 221,
+      "recent_min": 219,
+      "prompts": 72,
+      "rw": 3.5095480665458774e-08
+    },
+    {
+      "window": "2026-07-22",
+      "asset": "AAPLX",
+      "mean_crps": 2009.0512682883127,
+      "rank": 256,
+      "n_miners": 257,
+      "recent_med": 252,
+      "recent_min": 251,
+      "prompts": 72,
+      "rw": 3.425543731714712e-13
+    }
+  ]
+}

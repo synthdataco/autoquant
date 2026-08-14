@@ -1,0 +1,65 @@
+sha: 3538822
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Deseasonalized HAR volatility forecast with bootstrapped fat-tailed innovations, per-(asset,
+  increment) CRPS dispersion calibration, an MA(1) increment filter for the horizon profile, and
+  session-conditional innovation pools for the tokenized equity/commodity perps. Runs offline from
+  committed artifacts; no network, no data beyond the context_prices passed in.
+
+  BACKTESTED FIELD-RELATIVE NUMBERS (official synth_lib backtester via agent/research/rank.py,
+  1000 paths, 12 days ending 2026-07-26, against the cached field of real miners). The Score term
+  is min(1, our combined reward weight / top miner's), i.e. the pre-registered per-competition term.
+
+    competition   rank        reward weight   top weight   SCORE TERM
+    crypto-1h     174/257     0.000705        0.002611     0.2701
+    crypto-24h     76/257     0.001283        0.006581     0.1949
+    com-equ-24h   201/250     0.000001        0.029486     0.0000
+
+  Score = 100 * mean(0.2701, 0.1949, 0.0000) ~= 15.5
+
+  All three re-run end to end at 1000 paths against THIS build. crypto-24h was 112/257 and 0.1362
+  before iterations 39/41/42's dispersion-level correction (PARAMS["kc5_crypto"] = 1.09):
+
+    kc5_crypto   1.00      1.04      1.09 (adopted)   1.14
+    rank         112/257   87/257    76/257           112/257
+    Score term   0.1362    0.1881    0.1949           0.1398
+
+  The optimum is BRACKETED, not merely best-of-grid. crypto-1h moved 0.2698 -> 0.2701, i.e. unchanged
+  within the +/-0.003 noise floor, confirming the change is correctly confined to the 5-minute
+  increment; com-equ is excluded by construction (equity assets take the opposite dispersion bias).
+
+  Measurement noise on a Score term is +/-0.003 at these settings (simulate() uses an unseeded
+  default_rng), established by re-running an unchanged model across container resets.
+
+  HONEST ASSESSMENT. This model is well-calibrated and not competitive for emissions. The reward
+  softmax is steep and the field is a near-degenerate cluster (on crypto-1h the top ten miners are
+  identical to four decimal places at 0.0026), so sitting near the field median pays almost nothing.
+  com-equ-24h is a genuine 0.0000: section 5.6 of report.md shows a perfect per-prompt dispersion
+  oracle closes only 10-15% of that gap, and section 7.4 shows that even succeeding there would be
+  worth ~0.01 of a Score term -- it is both unreachable and, at the exchange rate, not worth
+  reaching.
+
+  THE SINGLE MOST TRANSFERABLE RESULT is iteration 39 + 40, and it is a process result rather than a
+  modelling one. The per-interval dispersion diagnostic (research/perinterval.py) is a property of a
+  COMPETITION, not of a model, and it re-scores already-served paths for free -- but I ran it on one
+  of the three competitions and treated it as closed for twenty iterations. Run on crypto-24h it
+  showed every scored interval on every asset wanting k > 1 (a flat profile = a LEVEL error, fixed by
+  a constant, worth +0.052 of a Score term); run the same day on crypto-1h it showed a monotone
+  sign-changing profile (a TILT = the MA(1) channel, already at its optimum, worth nothing). The
+  second run is what makes the first trustworthy.
+
+  WHAT IS ACTUALLY LOAD-BEARING, in descending order of measured value: the dispersion LEVEL
+  (kcal, several percent, and pointing in opposite directions for crypto and equities); the horizon
+  PROFILE of dispersion via the MA(1) filter (~0.4%, and unreachable by any scale parameter);
+  session-conditional innovation SHAPE on the equity perps (0.33-0.47%); stratified innovation
+  draws, which remove the O(1/M) finite-ensemble CRPS bias for free.
+
+  CLOSED WITH EVIDENCE, so nobody repeats them: volatility forecasting in any form (oracle-bounded
+  at 0.34% on crypto), stochastic volatility, Hurst/horizon scaling, tail shape beyond "use a fat
+  tail", zero-inflation on tick-discrete feeds, drift terms on the equity perps, MA(2), per-asset
+  dispersion refits on crypto, and -- from this session -- the entire HYPE investigation
+  (iteration 37: distribution shape, tails, ticks, level, horizon profile, forecast skill,
+  intra-prompt sigma path, location/drift, anchor and data history ALL match or beat BTC, on the
+  asset carrying 57% of the crypto-1h score gap) and the intra-hour volatility SHAPE channel
+  (iteration 38: a -3.9% oracle whose input is predictable at beta~0.09, hence worth -0.03%).

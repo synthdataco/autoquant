@@ -1,0 +1,33 @@
+sha: 957a7236207913f047cc47723e88895c47d237b3
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  OPERATOR-AUTHORED NOMINATION. The agent completed 52 research iterations and repeatedly recorded
+  "Do not nominate; wrap docs" / "Stop without nomination", judging its own Score estimate
+  (~1.95-2.12 / 100) insufficient to nominate. It also never committed: its workspace held a single
+  scaffold-baseline commit, with the tuned model, agent/config.json and its own tooling present only
+  as uncommitted files. The commit this sha points at is an operator snapshot of its final working
+  tree, verbatim, taken so the leg produces a scoreable artifact instead of nothing. The model is
+  the agent's; the decision to nominate is not.
+
+  MODEL. Log-normal martingale on 1-minute returns with EWMA volatility, horizon-aware tails
+  (Student-t for the 1h format, Gaussian for 24h), dispersion multipliers per horizon and per asset,
+  the EWMA scale aligned to a MAD estimate and clipped to [0.85, 1.15], and a weak OU mean-reversion
+  drift toward a 12h EMA anchor on the 24h horizon. Per-asset settings live in agent/config.json
+  (SP500 long_sigma_mult 0.94 theta 0.02; AAPLX 0.98/0.02; XAU 0.98/0.02; crypto 24h overrides plus
+  1h mixture tails for BTC/ETH/SOL). Config-gated experiments (normal-inverse-Gaussian and
+  variance-gamma mixtures, variance regimes, per-minute early-hour multipliers) remain in the code
+  but are OFF in the final config. Interface verified at both formats: 289 points at 300s and 61 at
+  60s, finite, num_simulations honoured.
+
+  FIELD-RELATIVE NUMBERS ARE THE AGENT'S OWN, and per-competition RANKS from the official backtester
+  are the ones it reported in its report.md rather than in these notes: CRYPTO_1H rank 168/256
+  (reward_weight ~2.46e-4), CRYPTO_24H 256/257 (~8.84e-12), COM_EQU_24H 256/257 (~1.91e-10), with a
+  self-computed Score estimate of ~1.95 at 1000 paths (agent/tools/score_estimate.py). Its own
+  conclusion: "not nomination-ready ... competition-level ranks remain far from the reward-earning
+  top of field." The verdict on the pre-registered window is the only independent measurement.
+
+  RESEARCH WORTH KEEPING. The 24h competitions are the binding constraint and heavier tails do not
+  help them: NIG and variance-gamma mixtures were each measured and discarded (SP500 533.50 vs
+  532.72 for Gaussian plus a gentle variance regime; AAPLX 2158.08 vs 2157.95). Summarised by the
+  agent as "for 24h, light adaptive width outperforms heavier-tailed mixtures in these windows."

@@ -1,0 +1,4 @@
+sha: 66b142fa169426b9fc56b7fe5f1b4e84310f3159
+agent_dir: agent
+profiles: [low, high]
+notes: "GARCH-like mean-reverting volatility with Student-t shocks"

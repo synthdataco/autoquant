@@ -1,0 +1,19 @@
+{
+  "tag": "v3_sp500",
+  "comp": "com-equ-24h",
+  "days": 2,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-25",
+      "asset": "SP500",
+      "mean_crps": 1150.6875087243213,
+      "rank": 158,
+      "n_miners": 257,
+      "recent_med": 256,
+      "recent_min": 158,
+      "prompts": 11,
+      "rw": 1.949829594223588e-07
+    }
+  ]
+}

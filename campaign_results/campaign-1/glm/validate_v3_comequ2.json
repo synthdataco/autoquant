@@ -1,0 +1,19 @@
+{
+  "tag": "v3_comequ2",
+  "comp": "com-equ-24h",
+  "days": 3,
+  "nsim": 1000,
+  "rows": [
+    {
+      "window": "2026-07-22",
+      "asset": "SPCX",
+      "mean_crps": 4155.134186240092,
+      "rank": 209,
+      "n_miners": 257,
+      "recent_med": 209,
+      "recent_min": 205,
+      "prompts": 72,
+      "rw": 1.5127974939787102e-21
+    }
+  ]
+}

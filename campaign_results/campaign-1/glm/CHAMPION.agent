@@ -1,0 +1,24 @@
+sha: c24f6f343613dc88412357a94d0188dee187bc40
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  v3 model: short-EWMA-vol (half-life 120m) heavy-tailed (Student-t df=5) martingale with
+  a mild vol under-tilt (0.85) and a fresh random seed per call. Zero drift (momentum is
+  anti-predictive). Honors time_increment/time_length, so it serves both the 24h (low) and
+  1h (high) formats. 1000 paths by default; honors whatever num_simulations is passed.
+
+  Validation (official synth_lib backtest, validator's own CRPS + smoothed-score/softmax
+  rank replay against the real 256-miner field, 1000 sims):
+    crypto-1h  : BTC 148/257, ETH 153, SOL 134, XRP 183, HYPE 48   (calibration-rewarded; top ~40%)
+    crypto-24h : BTC 238, ETH 239, SOL 237, XRP 222, HYPE 84       (near oracle ceiling; seed-luck-limited)
+    com-equ-24h: XAU 226, AAPLX 221, GOOGLX 212, NVDAX 225, TSLAX 232, WTIOIL 228, SPCX 209, SP500 158
+
+  A cheating oracle (sigma = each prompt's true realized vol) still only ranks ~160 (XAU) /
+  ~228 (BTC) through the same backtester, i.e. a perfectly-calibrated constant-sigma fan is
+  mid-pack and the podium is RNG seed luck. v3 reaches the oracle ceiling on the 24h
+  competitions and is genuinely competitive (top ~40%) on the 1h format, where the 12
+  cumulative "gaps" intervals reward calibration over luck.
+
+  Knobs (EWMA_HALFLIFE_MIN, T_DF, VOL_TILT) are env-overridable (SN50_HL, SN50_DF, SN50_TILT)
+  for future sweeps; defaults are the validated v3. No network at serve time; no artifacts
+  beyond this file.

@@ -1,8 +1,9 @@
 # Reproduce a published verdict
 
 Every scored champion in this repo can be rescored from what is published here: the champion's source
-at its nominated commit (`campaign_results/<campaign>/<leg>/champion_source/`), the campaign config,
-and the window recorded in its `verdict.json`. The field's scores and realized paths come from the
+at its nominated commit (`campaign_results/<campaign>/<leg>/`, whose `modeling.py` is the nominated
+code and whose `CHAMPION` records the sha), the campaign config, and the window recorded in its
+`verdict.json`. The field's scores and realized paths come from the
 public Synth API, so you do not need our snapshot to reproduce a *score* — only to reproduce an
 agent's own backtests.
 

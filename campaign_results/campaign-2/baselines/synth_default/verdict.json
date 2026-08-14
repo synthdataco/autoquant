@@ -1,0 +1,208 @@
+{
+  "score": 0.0,
+  "mean_competition_rank": 235.0,
+  "score_definition": "100 x mean over competitions of min(1, candidate_total_reward / top_other_miner_total_reward) (validator reward_weight summed over the window; bounded 0-100: 0 = earned nothing, 100 = matched or beat the field's best in every competition; per-competition beats_field flags when the cap binds)",
+  "mean_reward_vs_top": 1.1111704330010856e-08,
+  "mean_competition_percentile": 0.004339234420518645,
+  "per_competition": {
+    "crypto-24h": {
+      "rank": 257,
+      "field_size": 257,
+      "percentile": 0.0038910505836575737,
+      "rank_over_rounds": {
+        "best_rank": 227,
+        "mean_rank": 255.1,
+        "field_size": 257
+      },
+      "rewards": {
+        "reward_share": 5.712639902649744e-10,
+        "reward_vs_top": 3.333507907303058e-08,
+        "reward_rank": 257,
+        "beats_field": false
+      },
+      "assets_failed": [],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 2541.447217461004,
+          "num_prompts": 212,
+          "best_rank": 228,
+          "mean_rank": 255.4,
+          "field_size": 257
+        },
+        "ETH": {
+          "mean_crps": 3487.370104114079,
+          "num_prompts": 216,
+          "best_rank": 225,
+          "mean_rank": 254.8,
+          "field_size": 257
+        },
+        "SOL": {
+          "mean_crps": 3736.8904176524397,
+          "num_prompts": 199,
+          "best_rank": 227,
+          "mean_rank": 254.9,
+          "field_size": 257
+        },
+        "XRP": {
+          "mean_crps": 3895.253950191736,
+          "num_prompts": 217,
+          "best_rank": 232,
+          "mean_rank": 254.7,
+          "field_size": 257
+        },
+        "HYPE": {
+          "mean_crps": 5375.332822632327,
+          "num_prompts": 217,
+          "best_rank": 230,
+          "mean_rank": 254.7,
+          "field_size": 257
+        }
+      }
+    },
+    "com-equ-24h": {
+      "rank": 191,
+      "field_size": 191,
+      "percentile": 0.005235602094240788,
+      "rank_over_rounds": {
+        "best_rank": 191,
+        "mean_rank": 219.6,
+        "field_size": 191
+      },
+      "rewards": {
+        "reward_share": 1.512928269140574e-15,
+        "reward_vs_top": 3.391700198442614e-14,
+        "reward_rank": 257,
+        "beats_field": false
+      },
+      "assets_failed": [
+        "SPYX"
+      ],
+      "per_asset": {
+        "XAU": {
+          "mean_crps": 2258.3107980291957,
+          "num_prompts": 217,
+          "best_rank": 191,
+          "mean_rank": 227.3,
+          "field_size": 191
+        },
+        "SPYX": {
+          "error": "NoScoresAvailable('no scored prompts for asset=SPYX, time_length=86400, range=[2026-07-28 00:00:00+00:00, 2026-08-08 00:50:00+00:00]')"
+        },
+        "NVDAX": {
+          "mean_crps": 3993.3724302084674,
+          "num_prompts": 216,
+          "best_rank": 230,
+          "mean_rank": 254.6,
+          "field_size": 257
+        },
+        "GOOGLX": {
+          "mean_crps": 3333.6886782755487,
+          "num_prompts": 217,
+          "best_rank": 232,
+          "mean_rank": 253.9,
+          "field_size": 257
+        },
+        "TSLAX": {
+          "mean_crps": 3602.415480594746,
+          "num_prompts": 217,
+          "best_rank": 231,
+          "mean_rank": 254.9,
+          "field_size": 257
+        },
+        "AAPLX": {
+          "mean_crps": 3006.6183736565467,
+          "num_prompts": 216,
+          "best_rank": 231,
+          "mean_rank": 253.5,
+          "field_size": 257
+        },
+        "WTIOIL": {
+          "mean_crps": 5297.733387385554,
+          "num_prompts": 216,
+          "best_rank": 193,
+          "mean_rank": 210.2,
+          "field_size": 202
+        },
+        "SPCX": {
+          "mean_crps": 8173.639748662046,
+          "num_prompts": 200,
+          "best_rank": 227,
+          "mean_rank": 253.3,
+          "field_size": 257
+        },
+        "SP500": {
+          "mean_crps": 1307.093995543287,
+          "num_prompts": 216,
+          "best_rank": 169,
+          "mean_rank": 248.3,
+          "field_size": 257
+        }
+      }
+    },
+    "crypto-1h": {
+      "rank": 257,
+      "field_size": 257,
+      "percentile": 0.0038910505836575737,
+      "rank_over_rounds": {
+        "best_rank": 257,
+        "mean_rank": 257.0,
+        "field_size": 257
+      },
+      "rewards": {
+        "reward_share": 2.0369831276592896e-44,
+        "reward_vs_top": 2.3258233334892538e-42,
+        "reward_rank": 257,
+        "beats_field": false
+      },
+      "assets_failed": [],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 601.3223653918573,
+          "num_prompts": 1437,
+          "best_rank": 257,
+          "mean_rank": 257.0,
+          "field_size": 257
+        },
+        "ETH": {
+          "mean_crps": 824.2236628304511,
+          "num_prompts": 1436,
+          "best_rank": 257,
+          "mean_rank": 257.0,
+          "field_size": 257
+        },
+        "SOL": {
+          "mean_crps": 1055.2064943786688,
+          "num_prompts": 1437,
+          "best_rank": 257,
+          "mean_rank": 257.0,
+          "field_size": 257
+        },
+        "XRP": {
+          "mean_crps": 1209.1858171596355,
+          "num_prompts": 1437,
+          "best_rank": 257,
+          "mean_rank": 257.0,
+          "field_size": 257
+        },
+        "HYPE": {
+          "mean_crps": 1344.3806559556392,
+          "num_prompts": 1437,
+          "best_rank": 257,
+          "mean_rank": 257.0,
+          "field_size": 257
+        }
+      }
+    }
+  },
+  "window": {
+    "start": "2026-07-28",
+    "end": "2026-08-07",
+    "note": "pseudo-out-of-sample: after the data cutoff, but agents had live field-API access during their runs"
+  },
+  "champion_sha": null,
+  "cadence_minutes": {
+    "86400": 60,
+    "3600": 10
+  },
+  "num_simulations": 1000
+}
