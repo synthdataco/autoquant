@@ -2407,7 +2407,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "synth-lib", extras = ["benchmark"], git = "https://github.com/synthdataco/synth-lib?rev=7c217c6899a5ef9b766ac91a0995e9ffe98a6107" }]
+requires-dist = [{ name = "synth-lib", extras = ["benchmark"], git = "https://github.com/synthdataco/synth-lib?rev=6a9f0a3a3a15b979bad93a9e1c4931394d1ed9db" }]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=9.0" }]
@@ -2415,7 +2415,7 @@ dev = [{ name = "pytest", specifier = ">=9.0" }]
 [[package]]
 name = "synth-lib"
 version = "0.1.0"
-source = { git = "https://github.com/synthdataco/synth-lib?rev=7c217c6899a5ef9b766ac91a0995e9ffe98a6107#7c217c6899a5ef9b766ac91a0995e9ffe98a6107" }
+source = { git = "https://github.com/synthdataco/synth-lib?rev=6a9f0a3a3a15b979bad93a9e1c4931394d1ed9db#6a9f0a3a3a15b979bad93a9e1c4931394d1ed9db" }
 dependencies = [
     { name = "matplotlib" },
     { name = "pandas" },
