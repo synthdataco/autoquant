@@ -1,0 +1,27 @@
+# Local campaign machinery — never published
+market_data/
+offline_data/
+campaign_runs/
+campaign_results/
+champions/
+metering/.env.proxy
+.env
+
+# Python / tooling
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+dist/
+*.egg-info/
+
+# An unpacked champion is a working tree, and a scratch file the agent left behind travels with it.
+# These are noise in a published leg, not part of the model.
+campaign_results/**/*.tmp
+campaign_results/**/journal.md}*
+campaign_results/**/tmp/
+
+# OS
+.DS_Store

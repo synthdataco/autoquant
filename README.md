@@ -1,0 +1,118 @@
+# synth-bench
+
+**A quant research benchmark whose leaderboard is a live market.**
+
+Give a coding agent a sandbox, $100 of credit and a day. Its task: build a model that beats
+professional quants who are being paid, right now, to beat it.
+
+The task is real work — the kind that normally takes a skilled quant months of open-ended research.
+The opponents are ~250 live miners on [Synth SN50](https://synthdata.co), financially incentivised to
+win. The scorer is the subnet's own validator code. The metric is money.
+
+**Still unsolved.** No frontier model, given one shot inside that envelope, has taken the top spot.
+The best champion so far leads *one* of three competitions and earns 30% of what the field's best
+miner earns.
+
+## Leaderboard
+
+<!-- LEADERBOARD:BEGIN -->
+| Model | Campaign | Score | Mean rank | crypto-1h | crypto-24h | com-equ-24h |
+| --- | --- | --- | --- | --- | --- | --- |
+| claude-opus-5 | campaign-2 | **30.1** | 78 | 1/257 (μ60.5) | 81/257 (μ132.6) | 152/191 (μ181.8) |
+| claude-opus-5 | campaign-1 | **19.5** | — | 55/257 | 236/257 | 181/191 |
+| glm-5.2 | campaign-1 | **13.7** | — | 136/257 | 257/257 | 190/191 |
+| gemini-3.1-pro-preview | campaign-1 | **11** | — | 183/257 | 257/257 | 191/191 |
+| gpt-5 | campaign-2 | **10.2** | 211 | 194/257 (μ163.3) | 252/257 (μ253.8) | 187/191 (μ217.6) |
+| gemini-3.1-pro-preview | campaign-2 | **8.1** | 210 | 206/257 (μ173.9) | 238/257 (μ242.2) | 186/191 (μ217) |
+| kimi-k3 | campaign-1 | **4.3** | — | 203/257 | 246/257 | 191/191 |
+
+Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷
+the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the final-round
+rank out of the field, with the mean rank over the window's scoring rounds in parentheses.
+Measured spend and wall time per leg are in each campaign's report.
+<!-- LEADERBOARD:END -->
+
+Generated with `synth-bench-leaderboard --write README.md`; every number is read from an archived
+verdict, never typed by hand. `--tag is-0620` renders a diagnostic window instead.
+
+## Why this benchmark is hard to fake
+
+- **The opponents are paid to win.** Not a held-out test set: a live field of professional quants
+  competing for real emissions, who improve every week.
+- **It cannot be trained for.** Scoring runs on market data that did not exist when the model was
+  written, and the field moves. There is no answer key to memorise and no static set to overfit.
+- **It is ongoing.** Every campaign is scored on a fresh window, so a result is a claim about a
+  specific ten days that anyone can re-verify.
+- **The skill transfers.** What it takes to win — calibrated uncertainty on real price paths under a
+  deadline — is what any serious modelling job needs. A system that wins here is a system you can
+  point at other well-defined modelling work.
+- **Anyone can enter.** Bring your own model, agent framework or harness; the engine is public and a
+  dry run costs nothing. A champion that reaches the top of the field earns subnet emissions — and
+  the bragging rights of having beaten paid quants with an agent.
+
+Beat it and you have a runnable, provably-scored AI quant, plus the receipts.
+
+## How it works
+
+**The task.** One *campaign* runs one *leg* per model, sequentially on identical hardware. A leg gets
+a deliberately minimal starter model, a frozen snapshot of 1-minute prices, the subnet's official
+backtester, and a constitution: no lookahead, prices from the snapshot only, deliverables (journal,
+report, champion commit), and the scoring formula — pre-registered, so agents design for the metric
+instead of guessing it. [docs/task.md](docs/task.md).
+
+**The envelope.** A fixed credit budget and wall clock, metered through one proxy ledger so every
+model is measured with the same instrument. At 85% of either the harness issues a non-negotiable
+landing order; nominating is final and forfeits the rest. Where an agent chooses to stop is part of
+what is measured.
+
+**The score.** The champion is injected into the archived field and run through the validator's own
+aggregation. Because the subnet pays via a softmax, the Score is deliberately top-heavy: mid-pack
+earns ≈ 0, so **ranks are published beside it** — per competition and per asset — to show how close a
+zero was. [docs/scoring.md](docs/scoring.md).
+
+**Reproducibility.** Every campaign publishes its config, the constitution each agent read, its
+journal and report, the champion's source at the nominated commit, and the verdict JSON.
+Rescore any champion yourself: [docs/reproduce.md](docs/reproduce.md). Or deploy one as a live
+miner: [docs/deploy-a-champion.md](docs/deploy-a-champion.md).
+
+## Results
+
+| Campaign | Panel | Envelope |
+| --- | --- | --- |
+| campaign-1 | claude-opus-5, gpt-5, gemini-3.1-pro-preview, glm-5.2, kimi-k3 | $100 / 24 h per model |
+| campaign-2 | claude-opus-5, gpt-5, gemini-3.1-pro-preview, revised constitution | $100 / 18 h per model |
+
+> **Results are not published in this repo yet.** `campaign_results/` is held back while every
+> champion is re-unpacked and re-scored against its nominated commit; the leaderboard above is the
+> table those verdicts produced. Each campaign directory will land here, per leg: `report.md`,
+> `journal.md`, `CHAMPION`, the champion's source at that commit, and `verdict.json`.
+
+Each campaign directory holds its report and, per leg, `report.md` (the agent's own write-up — the
+most interesting artifact here), `journal.md` (one entry per iteration, failures included),
+`CHAMPION`, `champion_source/`, `verdict.json` plus any `verdict-<tag>.json` diagnostic windows,
+`BUDGET.md`, `CAMPAIGN.md`, `suggestions.md`.
+
+campaign-2 also carries three older **in-sample** windows per leg. They are the overfitting check, not
+a second leaderboard: they showed the 1-hour edge decaying with distance from the data cutoff while
+the 24-hour model held up. Read them with [docs/scoring.md](docs/scoring.md#the-evaluation-window).
+
+## Enter it yourself
+
+The engine is [`synth_lib.benchmark`](https://github.com/synthdataco/synth-lib); this repo is the
+campaigns and results. `uv sync`, then [docs/run-a-campaign.md](docs/run-a-campaign.md). A full panel
+needs a GPU-capable box, provider keys and a few hundred dollars; a `cli: fake` dry run costs nothing.
+
+## Caveats worth reading before quoting a number
+
+- **The field is alive.** Scores are relative to whoever was mining that week; only legs scored on the
+  *same* window compare cleanly.
+- **Windows are short.** Ten days of scoring rounds; per-asset ranks are noisier than they look.
+- **One box, sequential legs.** No interference between models, but no control over regime differences
+  between them either.
+- Constitutions, journals and reports are published **verbatim**, as the agents received and wrote
+  them, with one exception: rule 5 of the constitution named a directory in the operator's own
+  research repository, and that path is redacted here. Nothing else was edited.
+
+## License
+
+MIT (this repo). Agent-authored reports and journals are published as written.

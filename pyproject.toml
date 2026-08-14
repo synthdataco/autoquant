@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["synth_bench"]
+
+[project]
+name = "synth-bench"
+version = "0.1.0"
+description = "An autonomous-agent benchmark: coding agents doing quantitative research against a live prediction market"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+# The engine lives in synth-lib; this repo holds the campaigns, the results and the leaderboard.
+dependencies = ["synth-lib[benchmark]"]
+
+[project.scripts]
+synth-bench-leaderboard = "synth_bench.leaderboard:main"
+
+[dependency-groups]
+dev = ["pytest>=9.0"]
+
+[tool.uv.sources]
+# Pin the engine. This rev should match the synth-lib rev pinned in the agent workspace scaffold
+# (synth_lib/benchmark/scaffold/workspace/pyproject.toml): host and sandbox resolving different
+# versions of the backtester is a silent source of unreproducible scores.
+synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "7c217c6899a5ef9b766ac91a0995e9ffe98a6107" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

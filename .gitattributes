@@ -1,0 +1,29 @@
+# Binaries inside a published campaign go to LFS; everything else in a leg is text and stays in
+# plain git, so a champion's model, journal and report all stay readable and diffable on GitHub.
+#
+# Patterns are anchored on `campaign_results/**` rather than on a subdirectory name: an unpacked
+# champion's layout is up to whoever unpacks it (`<campaign>/<leg>/artifacts/…` today), and a
+# pattern tied to one layout silently stops matching the day the layout changes — which is how a
+# 192 MB bundle ended up staged as a plain blob, past GitHub's 100 MB hard limit.
+#
+# LFS needs a filter to be installed, not just an attribute. Before the first `git add` of any file
+# below, run once per clone:
+#     git lfs install
+# Check a specific file is really covered with:
+#     git check-attr filter -- <path>     # expect "filter: lfs", not "unspecified"
+
+# Champion git history: `git clone workspace.bundle` reproduces the nominated commit.
+campaign_results/**/*.bundle filter=lfs diff=lfs merge=lfs -text
+
+# Fitted model artifacts: calibration tables, innovation pools, weights.
+campaign_results/**/*.npz filter=lfs diff=lfs merge=lfs -text
+campaign_results/**/*.npy filter=lfs diff=lfs merge=lfs -text
+campaign_results/**/*.parquet filter=lfs diff=lfs merge=lfs -text
+campaign_results/**/*.pt filter=lfs diff=lfs merge=lfs -text
+campaign_results/**/*.pth filter=lfs diff=lfs merge=lfs -text
+campaign_results/**/*.safetensors filter=lfs diff=lfs merge=lfs -text
+campaign_results/**/*.pkl filter=lfs diff=lfs merge=lfs -text
+campaign_results/**/*.joblib filter=lfs diff=lfs merge=lfs -text
+
+# NOT in LFS, deliberately: verdicts, configs and an artifact's json sidecar are small text that
+# reviewers read in the browser and the leaderboard parses (`*.json`, `*.yaml`, `*.md`, `*.py`).
