@@ -9,6 +9,7 @@ objective: >-
 models:
   - {id: claude, cli: claude-code, model: claude-opus-5-model}
   - {id: codex, cli: codex, model: gpt-5, wire_api: responses}
+  - {id: gemini, cli: gemini-cli, model: gemini-3.1-pro-preview}
 budget_usd_per_model: 100.0
 # 18h (down from 24): across bakeoff-1/2 every agent's model gains were complete within its
 # first ~2-3h and no one productively used more than 7.6h — but the v3 constitution invites

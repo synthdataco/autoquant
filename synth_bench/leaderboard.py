@@ -72,6 +72,24 @@ def rows(results_dir: Path, tag: str | None) -> list[dict]:
     return out
 
 
+def best_per_model(data: list[dict]) -> list[dict]:
+    """One row per model: its best Score, and the campaign that produced it.
+
+    A model that entered more than one campaign has more than one champion, and listing all of them
+    reads as several competitors rather than one entrant's best attempt. The rows are already sorted
+    best-first, so the first occurrence of a model wins; an unscored leg is kept only when that model
+    has no scored one, so a "pending" row never displaces a real result.
+    """
+    seen: set[str] = set()
+    kept = []
+    for row in data:
+        if row["model"] in seen:
+            continue
+        seen.add(row["model"])
+        kept.append(row)
+    return kept
+
+
 def competition_cell(per_competition: dict, slug: str) -> str:
     entry = per_competition.get(slug)
     if not entry:
@@ -85,8 +103,10 @@ def competition_cell(per_competition: dict, slug: str) -> str:
     return f"{cell} (μ{mean:g})" if mean else cell
 
 
-def render(results_dir: Path, tag: str | None) -> str:
+def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     data = rows(results_dir, tag)
+    if not all_legs:
+        data = best_per_model(data)
     lines = [
         "| Model | Campaign | Score | Mean rank | crypto-1h | crypto-24h | com-equ-24h |",
         "| --- | --- | --- | --- | --- | --- | --- |",
@@ -105,6 +125,7 @@ def render(results_dir: Path, tag: str | None) -> str:
         "Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷",
         "the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the final-round",
         "rank out of the field, with the mean rank over the window's scoring rounds in parentheses.",
+        "One row per model — its best Score, and the campaign that produced it.",
         "Measured spend and wall time per leg are in each campaign's report.",
     ]
     return "\n".join(lines)
@@ -115,9 +136,10 @@ def main() -> None:
     ap.add_argument("--results-dir", type=Path, default=Path("campaign_results"))
     ap.add_argument("--tag", default=None, help="read verdict-<tag>.json instead of verdict.json")
     ap.add_argument("--write", type=Path, default=None, help="replace the LEADERBOARD block in this file")
+    ap.add_argument("--all-legs", action="store_true", help="every champion, not just each model's best")
     args = ap.parse_args()
 
-    table = render(args.results_dir, args.tag)
+    table = render(args.results_dir, args.tag, args.all_legs)
     if args.write is None:
         print(table)
         return

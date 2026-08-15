@@ -1,0 +1,8 @@
+sha: 9417e6cde667a387da684c6f1ae01112aecb7978
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Backtested performance metrics (smoothed scores relative to field best, lower is better):
+  - CRYPTO_1H (BTC): 98.3
+  - CRYPTO_24H (BTC): 94.2
+  - COM_EQU_24H (SP500): 49.2

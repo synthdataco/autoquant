@@ -6,7 +6,7 @@ do not hand-edit.
 
 import json
 
-from synth_bench.leaderboard import competition_cell, model_label, render, rows
+from synth_bench.leaderboard import best_per_model, competition_cell, model_label, render, rows
 
 
 def _leg(results, campaign, leg, *, score=None, mean_rank=None, champion=True, budget=True):
@@ -79,3 +79,34 @@ def test_tagged_window_reads_its_own_file(tmp_path):
     (d / "verdict-is-0620.json").write_text(json.dumps({"score": 1.5, "per_competition": {}}))
     assert rows(tmp_path, tag="is-0620")[0]["score"] == 1.5
     assert rows(tmp_path, tag=None)[0]["score"] == 30.1
+
+
+def test_one_row_per_model_keeps_its_best_score(tmp_path):
+    """A model that entered two campaigns has two champions; listing both reads as two competitors
+    rather than one entrant's best attempt. The rows arrive best-first, so the first wins."""
+    _leg(tmp_path, "camp-a", "gemini", score=6.7)
+    _leg(tmp_path, "camp-b", "gemini", score=8.1)
+
+    kept = best_per_model(rows(tmp_path, tag=None))
+    assert [(r["campaign"], r["score"]) for r in kept] == [("camp-b", 8.1)]
+
+    table = render(tmp_path, tag=None)
+    assert table.count("| some-model-5 |") == 1
+    assert "8.1" in table and "6.7" not in table
+
+
+def test_all_legs_shows_every_champion(tmp_path):
+    _leg(tmp_path, "camp-a", "gemini", score=6.7)
+    _leg(tmp_path, "camp-b", "gemini", score=8.1)
+    table = render(tmp_path, tag=None, all_legs=True)
+    assert "8.1" in table and "6.7" in table
+
+
+def test_a_pending_leg_never_displaces_a_scored_one(tmp_path):
+    """Same model, one campaign scored and one still pending: the score is what belongs on the table."""
+    _leg(tmp_path, "camp-a", "gemini", score=8.1)
+    _leg(tmp_path, "camp-b", "gemini")  # champion, no verdict yet
+
+    kept = best_per_model(rows(tmp_path, tag=None))
+    assert [(r["campaign"], r["score"]) for r in kept] == [("camp-a", 8.1)]
+    assert "pending" not in render(tmp_path, tag=None)

@@ -1,0 +1,173 @@
+{
+  "score": 0.5,
+  "mean_competition_rank": 217.5,
+  "score_definition": "100 x mean over competitions of min(1, candidate_total_reward / top_other_miner_total_reward) (validator reward_weight summed over the window; bounded 0-100: 0 = earned nothing, 100 = matched or beat the field's best in every competition; per-competition beats_field flags when the cap binds)",
+  "mean_reward_vs_top": 0.004838705772518492,
+  "mean_competition_percentile": 0.154296875,
+  "per_competition": {
+    "crypto-24h": {
+      "rank": 233,
+      "field_size": 256,
+      "percentile": 0.09375,
+      "rank_over_rounds": {
+        "best_rank": 229,
+        "mean_rank": 236.0,
+        "field_size": 256
+      },
+      "rewards": {
+        "reward_share": 3.983167217497253e-08,
+        "reward_vs_top": 6.78269932279984e-07,
+        "reward_rank": 237,
+        "beats_field": false
+      },
+      "assets_failed": [],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 2306.8920143611836,
+          "num_prompts": 173,
+          "best_rank": 217,
+          "mean_rank": 227.6,
+          "field_size": 257
+        },
+        "ETH": {
+          "mean_crps": 2946.8528500661264,
+          "num_prompts": 176,
+          "best_rank": 216,
+          "mean_rank": 225.8,
+          "field_size": 256
+        },
+        "SOL": {
+          "mean_crps": 3686.438052333723,
+          "num_prompts": 177,
+          "best_rank": 230,
+          "mean_rank": 235.5,
+          "field_size": 256
+        },
+        "XRP": {
+          "mean_crps": 3557.6254851436433,
+          "num_prompts": 176,
+          "best_rank": 186,
+          "mean_rank": 221.7,
+          "field_size": 256
+        },
+        "HYPE": {
+          "mean_crps": 7470.541638014372,
+          "num_prompts": 171,
+          "best_rank": 219,
+          "mean_rank": 242.0,
+          "field_size": 256
+        }
+      }
+    },
+    "com-equ-24h": {
+      "rank": null,
+      "field_size": null,
+      "percentile": null,
+      "rank_over_rounds": null,
+      "rewards": null,
+      "assets_failed": [
+        "XAU",
+        "SPYX",
+        "NVDAX",
+        "GOOGLX",
+        "TSLAX",
+        "AAPLX",
+        "WTIOIL",
+        "SPCX",
+        "SP500"
+      ],
+      "per_asset": {
+        "XAU": {
+          "error": "RuntimeError('Synth API returned no rewards history for prompt_name=com-equ-24h, range=[2026-05-11 00:36:00+00:00, 2026-05-20 23:01:00+00:00]')"
+        },
+        "SPYX": {
+          "error": "RuntimeError('Synth API returned no rewards history for prompt_name=com-equ-24h, range=[2026-05-11 00:46:00+00:00, 2026-05-20 23:13:00+00:00]')"
+        },
+        "NVDAX": {
+          "error": "RuntimeError('Synth API returned no rewards history for prompt_name=com-equ-24h, range=[2026-05-11 00:51:00+00:00, 2026-05-20 23:19:00+00:00]')"
+        },
+        "GOOGLX": {
+          "error": "RuntimeError('Synth API returned no rewards history for prompt_name=com-equ-24h, range=[2026-05-11 00:05:00+00:00, 2026-05-20 23:37:00+00:00]')"
+        },
+        "TSLAX": {
+          "error": "RuntimeError('Synth API returned no rewards history for prompt_name=com-equ-24h, range=[2026-05-11 00:56:00+00:00, 2026-05-20 23:25:00+00:00]')"
+        },
+        "AAPLX": {
+          "error": "RuntimeError('Synth API returned no rewards history for prompt_name=com-equ-24h, range=[2026-05-11 00:00:00+00:00, 2026-05-20 23:31:00+00:00]')"
+        },
+        "WTIOIL": {
+          "error": "RuntimeError('Synth API returned no rewards history for prompt_name=com-equ-24h, range=[2026-05-11 00:21:00+00:00, 2026-05-20 23:55:00+00:00]')"
+        },
+        "SPCX": {
+          "error": "NoScoresAvailable('no scored prompts for asset=SPCX, time_length=86400, range=[2026-05-11 00:00:00+00:00, 2026-05-22 00:50:00+00:00]')"
+        },
+        "SP500": {
+          "error": "NoScoresAvailable('no scored prompts for asset=SP500, time_length=86400, range=[2026-05-11 00:00:00+00:00, 2026-05-22 00:50:00+00:00]')"
+        }
+      }
+    },
+    "crypto-1h": {
+      "rank": 202,
+      "field_size": 256,
+      "percentile": 0.21484375,
+      "rank_over_rounds": {
+        "best_rank": 181,
+        "mean_rank": 198.9,
+        "field_size": 256
+      },
+      "rewards": {
+        "reward_share": 8.789301772765167e-05,
+        "reward_vs_top": 0.009676733275104705,
+        "reward_rank": 200,
+        "beats_field": false
+      },
+      "assets_failed": [
+        "XRP"
+      ],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 491.73586516907733,
+          "num_prompts": 949,
+          "best_rank": 172,
+          "mean_rank": 190.4,
+          "field_size": 257
+        },
+        "ETH": {
+          "mean_crps": 629.7365906909587,
+          "num_prompts": 949,
+          "best_rank": 168,
+          "mean_rank": 188.6,
+          "field_size": 256
+        },
+        "SOL": {
+          "mean_crps": 802.5392459810439,
+          "num_prompts": 949,
+          "best_rank": 176,
+          "mean_rank": 198.1,
+          "field_size": 256
+        },
+        "XRP": {
+          "error": "NoScoresAvailable('no scored prompts for asset=XRP, time_length=3600, range=[2026-05-11 00:00:00+00:00, 2026-05-21 01:50:00+00:00]')"
+        },
+        "HYPE": {
+          "mean_crps": 1502.197196616403,
+          "num_prompts": 949,
+          "best_rank": 198,
+          "mean_rank": 200.3,
+          "field_size": 256
+        }
+      }
+    }
+  },
+  "window": {
+    "start": "2026-05-11",
+    "end": "2026-05-21",
+    "note": "pseudo-out-of-sample: after the data cutoff, but agents had live field-API access during their runs"
+  },
+  "champion_sha": "6e520de0352d68d2160b6d482e3ad3820d139f45",
+  "cadence_minutes": {
+    "86400": 60,
+    "3600": 10
+  },
+  "num_simulations": 1000
+}
