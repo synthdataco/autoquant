@@ -24,7 +24,7 @@ dev = ["pytest>=9.0"]
 # Pin the engine. This rev should match the synth-lib rev pinned in the agent workspace scaffold
 # (synth_lib/benchmark/scaffold/workspace/pyproject.toml): host and sandbox resolving different
 # versions of the backtester is a silent source of unreproducible scores.
-synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "f94ee3197afb18460c5edf0054a6d151006f0a95" }
+synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "1c5921fe540c8b1971f192fbe463bf2ecc5b190c" }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
