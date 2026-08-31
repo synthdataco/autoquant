@@ -1,4 +1,4 @@
-# synth-bench
+# AutoQuant - The final boss of Quant benchmarks
 
 **A quant research benchmark whose leaderboard is a live market.**
 
