@@ -63,6 +63,40 @@ Proof a leg is alive, in order of reliability: the `run` process exists (`pgrep 
 transcript is still growing. A container that disappears for less than a poll interval is a per-turn
 CLI between turns, not a stopped leg.
 
+## Restart a campaign, or one of its legs
+
+A leg's virtual key exists in **two** places — `state.json` and the proxy's database — and any edit
+that lets them disagree produces one of two loops: `400` on `/key/generate` because the alias is
+still in the DB, or `401` inside the agent because the state's key no longer is. Reset both sides
+with nothing running. The API's alias-delete removes only one row per alias, so duplicates from
+earlier attempts survive it — delete in the DB.
+
+The database container's name comes from the compose project, which is the directory name, so find
+it rather than assuming: `docker ps --format '{{.Names}}' | grep -E 'db|postgres'`.
+
+```bash
+C=<campaign>
+DB=$(docker ps --format '{{.Names}}' | grep -E 'db|postgres' | head -1)
+
+# Stop first. A live run minting keys mid-reset re-creates the desync.
+pkill -f "run_campaign run"
+docker ps -aq --filter name=synthbench | xargs -r docker rm -f
+
+# Whole campaign: drop every key it minted, then the workspace (setup refuses a non-empty one).
+docker exec "$DB" sh -c "psql -U \"\$POSTGRES_USER\" -d \"\$POSTGRES_DB\" -c \
+  \"delete from \\\"LiteLLM_VerificationToken\\\" where key_alias like '$C-%';\""
+rm -rf campaign_runs/$C
+```
+
+To restart **some** legs and keep the finished ones, narrow the delete to `key_alias = '$C-<leg>'`
+per leg, then drop those legs from `runs_done` and `virtual_keys` in `campaign_runs/$C/state.json`
+and leave the workspace alone. Verify with
+`select key_alias from "LiteLLM_VerificationToken" where key_alias like '$C-%'` — only the finished
+legs' aliases may remain.
+
+Renaming the legs in the campaign yaml sidesteps the whole problem: new ids mint new aliases, so a
+re-run needs no database surgery at all.
+
 ## Inspect a finished campaign
 
 ```bash
