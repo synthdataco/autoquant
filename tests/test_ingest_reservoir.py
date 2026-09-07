@@ -12,6 +12,8 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 import pytest
+from synth_lib.benchmark.generate_predictions import load_minute_prices
+from synth_lib.preparation.minute_price_store import MinutePriceStore
 
 _SPEC = importlib.util.spec_from_file_location(
     "ingest_reservoir", Path(__file__).resolve().parents[1] / "scripts" / "ingest_reservoir.py"
@@ -24,9 +26,10 @@ UTC = timezone.utc
 
 
 def day_file(rows: list[tuple[str, str, str]]) -> bytes:
-    """A day partition with Reservoir's real types: decimal128 close, millisecond timestamps.
+    """A day partition with Reservoir's real types: decimal128 close/volume, ms timestamps.
 
-    rows: (coin, "YYYY-MM-DD HH:MM:SS", close_str)
+    rows: (coin, "YYYY-MM-DD HH:MM:SS", close_str) — volume is 1.0 and trade_count 1 per row, so a
+    minute's summed volume equals the number of 1-second rows it contains.
     """
     table = pa.table(
         {
@@ -36,6 +39,8 @@ def day_file(rows: list[tuple[str, str, str]]) -> bytes:
                 pa.timestamp("ms", tz="UTC"),
             ),
             "close": pa.array([Decimal(r[2]) for r in rows], pa.decimal128(20, 10)),
+            "volume": pa.array([Decimal("1.0") for _ in rows], pa.decimal128(20, 10)),
+            "trade_count": pa.array([1 for _ in rows], pa.uint32()),
         }
     )
     sink = io.BytesIO()
@@ -92,23 +97,40 @@ def test_minute_close_is_the_last_second_in_the_minute():
             ]
         )
     )
-    out = ingest_reservoir.fetch_day_minute_closes(client, "xyz", date(2026, 3, 18), ["xyz:SP500"])
+    out = ingest_reservoir.fetch_day_minute_ohlcv(client, "xyz", date(2026, 3, 18), ["xyz:SP500"])
 
     # Coin filtering keeps only what was asked for — xyz:CL shared the file but was not requested.
     assert list(out) == ["xyz:SP500"]
-    series = out["xyz:SP500"]
-    assert list(series) == [7414.5, 7415.0]
-    assert list(series.index) == [
+    frame = out["xyz:SP500"]
+    assert list(frame["close"]) == [7414.5, 7415.0]
+    assert list(frame.index) == [
         pd.Timestamp("2026-03-18 00:00", tz="UTC"),
         pd.Timestamp("2026-03-18 00:01", tz="UTC"),
     ]
 
 
+def test_ohlc_is_derived_from_the_second_closes():
+    """open/high/low come from first/max/min of the 1s closes; volume and trade_count sum."""
+    client = FakeS3(
+        day_file(
+            [
+                ("xyz:SP500", "2026-03-18 00:00:01", "7413.9"),
+                ("xyz:SP500", "2026-03-18 00:00:20", "7420.0"),
+                ("xyz:SP500", "2026-03-18 00:00:40", "7410.0"),
+                ("xyz:SP500", "2026-03-18 00:00:59", "7414.5"),
+            ]
+        )
+    )
+    row = ingest_reservoir.fetch_day_minute_ohlcv(client, "xyz", date(2026, 3, 18), ["xyz:SP500"])["xyz:SP500"].iloc[0]
+    assert (row["open"], row["high"], row["low"], row["close"]) == (7413.9, 7420.0, 7410.0, 7414.5)
+    assert row["volume"] == 4.0 and row["trade_count"] == 4
+
+
 def test_decimal_close_survives_the_float_cast_exactly():
     """decimal128 -> float64 is not correctly rounded; the string hop keeps 7413.9 at 7413.9."""
     client = FakeS3(day_file([("xyz:SP500", "2026-03-18 00:00:01", "7413.9")]))
-    out = ingest_reservoir.fetch_day_minute_closes(client, "xyz", date(2026, 3, 18), ["xyz:SP500"])
-    assert out["xyz:SP500"].iloc[0] == 7413.9
+    out = ingest_reservoir.fetch_day_minute_ohlcv(client, "xyz", date(2026, 3, 18), ["xyz:SP500"])
+    assert out["xyz:SP500"]["close"].iloc[0] == 7413.9
 
 
 def test_one_read_serves_every_coin_on_the_dex():
@@ -121,7 +143,7 @@ def test_one_read_serves_every_coin_on_the_dex():
             ]
         )
     )
-    out = ingest_reservoir.fetch_day_minute_closes(
+    out = ingest_reservoir.fetch_day_minute_ohlcv(
         client, "xyz", date(2026, 3, 18), ["xyz:SP500", "xyz:CL", "xyz:GOLD"]
     )
     assert sorted(out) == ["xyz:CL", "xyz:GOLD", "xyz:SP500"]
@@ -129,7 +151,7 @@ def test_one_read_serves_every_coin_on_the_dex():
 
 
 def test_missing_partition_returns_empty():
-    assert ingest_reservoir.fetch_day_minute_closes(FakeS3(None), "xyz", date(2025, 10, 1), ["xyz:SP500"]) == {}
+    assert ingest_reservoir.fetch_day_minute_ohlcv(FakeS3(None), "xyz", date(2025, 10, 1), ["xyz:SP500"]) == {}
 
 
 def test_non_404_propagates():
@@ -140,29 +162,48 @@ def test_non_404_propagates():
             )
 
     with pytest.raises(ingest_reservoir.botocore.exceptions.ClientError):
-        ingest_reservoir.fetch_day_minute_closes(Denied(b""), "xyz", date(2026, 3, 18), ["xyz:SP500"])
+        ingest_reservoir.fetch_day_minute_ohlcv(Denied(b""), "xyz", date(2026, 3, 18), ["xyz:SP500"])
 
 
 def test_write_day_matches_the_store_partition_contract(tmp_path: Path):
-    from synth_lib.preparation.minute_price_store import MinutePriceStore
-
     store = MinutePriceStore("SP500", root=tmp_path)
-    series = pd.Series(
-        [7413.9, 7415.0],
+    minutes = pd.DataFrame(
+        {"open": [7413.9, 7415.0], "high": [7420.0, 7416.0], "low": [7410.0, 7414.0],
+         "close": [7414.5, 7415.5], "volume": [4.0, 2.0], "trade_count": [4.0, 2.0]},
         index=pd.DatetimeIndex(
             [pd.Timestamp("2026-03-18 00:00", tz="UTC"), pd.Timestamp("2026-03-18 00:01", tz="UTC")],
             name="timestamp",
         ),
     )
-    ingest_reservoir.write_day(store, date(2026, 3, 18), series)
+    ingest_reservoir.write_day(store, date(2026, 3, 18), minutes)
 
     frame = pd.read_parquet(store.day_path(date(2026, 3, 18)))
-    assert list(frame.columns) == ["timestamp", "close", "source", "ingested_at", "is_final"]
+    assert list(frame.columns) == [
+        "timestamp", "open", "high", "low", "close", "volume", "trade_count",
+        "source", "ingested_at", "is_final",
+    ]
     assert len(frame) == 1440  # full minute grid, NaN where no trade
     assert frame["close"].dtype == "float64"
     assert frame["close"].notna().sum() == 2
-    assert frame["close"].iloc[0] == 7413.9
+    assert frame["close"].iloc[0] == 7414.5
+    # A minute with no rows is NaN, never a 0 volume: "no record" is not "nothing traded".
+    assert frame["volume"].isna().sum() == 1438
     assert bool(frame["is_final"].iloc[0]) is True
+
+
+def test_scoring_reader_still_sees_the_partition(tmp_path: Path):
+    """The scoring reader consumes the partition this script writes, columns and all."""
+    store = MinutePriceStore("SP500", root=tmp_path / "prices" / "SP500" / "1m")
+    minutes = pd.DataFrame(
+        {"open": [1.0], "high": [2.0], "low": [0.5], "close": [1.5], "volume": [3.0], "trade_count": [3.0]},
+        index=pd.DatetimeIndex([pd.Timestamp("2026-03-18 00:00", tz="UTC")], name="timestamp"),
+    )
+    ingest_reservoir.write_day(store, date(2026, 3, 18), minutes)
+    frame = load_minute_prices(
+        tmp_path, "SP500", pd.Timestamp("2026-03-18 00:00", tz="UTC"), pd.Timestamp("2026-03-18 00:05", tz="UTC")
+    )
+    assert frame["close"].iloc[0] == 1.5
+    assert (frame.iloc[0][["open", "high", "low", "volume"]] == [1.0, 2.0, 0.5, 3.0]).all()
 
 
 def test_first_trade_covers_every_hyperliquid_asset():

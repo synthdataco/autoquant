@@ -6,8 +6,12 @@ candle endpoint serves. A campaign whose `data_cutoff` is more than a few days o
 Hyperliquid history at all from the venue, and `com-equ-24h` — a third of the Score — is unfittable.
 
 Reservoir publishes Hyperliquid history as 1-second candles, partitioned by dex and day. This script
-reads them, resamples to the venue's own 1-minute close, and writes the partitions
-`MinutePriceStore` expects, so the result is indistinguishable from a venue-fetched day.
+reads them, resamples to 1-minute OHLCV, and writes the partitions `MinutePriceStore` expects,
+widened with `open/high/low/volume/trade_count`. `close` keeps the venue's own definition (the last
+1-second close in the minute), so the scored series is unchanged by the widening.
+
+The archive records one close, one volume and one trade count per second, so `open`/`high`/`low` are
+`first`/`max`/`min` over the 1-second closes inside each minute and `volume`/`trade_count` sum.
 
     uv sync --extra reservoir
     AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start 2025-08-01 --end 2026-08-29
@@ -17,8 +21,7 @@ carries `RequestPayer=requester`. Credentials must be in the commercial partitio
 
 Cost: one day file serves every coin on that dex, so the reads are grouped by (dex, day) rather than
 by asset — eight of the nine assets share the `xyz` dex, which is the difference between 9 reads a
-day and 2. Column projection does the rest: a 20 MB day file yields well under 1 MB for the two
-columns needed.
+day and 2. Column projection does the rest.
 """
 
 from __future__ import annotations
@@ -43,8 +46,13 @@ RESERVOIR_BUCKET = "hydromancer-reservoir"
 RESERVOIR_REGION = "ap-northeast-1"
 SOURCE_NAME = "hydromancer-reservoir"
 
-# Only what the store needs. Projection is what keeps a requester-pays read small.
-CANDLE_COLUMNS = ["coin", "timestamp", "close"]
+# Projection is what keeps a requester-pays read small. `close` is the only column the archive is
+# guaranteed to carry; the rest are taken when present and derived when not.
+CANDLE_COLUMNS = ["coin", "timestamp", "close", "volume", "trade_count"]
+
+# The widened partition. Readers select by name (`generate_predictions` takes timestamp+close only),
+# so the extra columns reach agents without touching scoring.
+OHLCV_COLUMNS = ["open", "high", "low", "close", "volume", "trade_count"]
 
 # First day each market traded on the archive. Reads before these return nothing because the market
 # did not exist — a fact about the market, not a gap. `@107` is the exception: 2025-08-01 is where
@@ -131,12 +139,13 @@ def reservoir_client() -> Any:
     return boto3.client("s3", region_name=RESERVOIR_REGION, config=config)
 
 
-def fetch_day_minute_closes(client: Any, dex: str, day: date, coins: Sequence[str]) -> dict[str, pd.Series]:
-    """1-minute closes for `coins` on `day`, resampled from the 1-second candles.
+def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str]) -> dict[str, pd.DataFrame]:
+    """1-minute OHLCV for `coins` on `day`, resampled from the 1-second candles.
 
-    A minute's close is the last 1s close inside it, which is by definition the venue's own 1-minute
-    candle close. Returns {} when the partition does not exist; coins absent that day are simply
-    missing from the result rather than present and empty.
+    `close` is the last 1s close in the minute, which is by definition the venue's own 1-minute
+    candle close. open/high/low are first/max/min over those same closes; volume and trade_count
+    sum. Returns {} when the partition does not exist; coins absent that day are missing from the
+    result rather than present and empty.
     """
     key = candles_key(dex, day)
     try:
@@ -148,29 +157,36 @@ def fetch_day_minute_closes(client: Any, dex: str, day: date, coins: Sequence[st
 
     source = S3RangeFile(client, RESERVOIR_BUCKET, key, size)
     table = pq.read_table(source, columns=CANDLE_COLUMNS)
-    # `close` is decimal128 upstream. Route to float64 via string: Arrow's decimal -> float64 is not
-    # correctly rounded (7413.9 lands on 7413.900000000001), which would leave an archive-derived
-    # minute one ULP from the same price fetched as JSON from the venue.
-    table = table.set_column(
-        table.schema.get_field_index("close"),
-        "close",
-        table["close"].cast(pa.string()),
-    )
+    # Prices and volumes are decimal128 upstream. Route to float64 via string: Arrow's decimal ->
+    # float64 is not correctly rounded (7413.9 lands on 7413.900000000001), which would leave an
+    # archive-derived minute one ULP from the same price fetched as JSON from the venue.
+    for name in ("close", "volume"):
+        table = table.set_column(
+            table.schema.get_field_index(name), name, table[name].cast(pa.string())
+        )
     frame = table.to_pandas()
     frame = frame.loc[frame["coin"].isin(list(coins))]
     if frame.empty:
         return {}
     frame["close"] = frame["close"].astype("float64")
-    # Sort before bucketing so "last in the minute" is well defined.
+    frame["volume"] = frame["volume"].astype("float64")
+    # Sort before bucketing so "first"/"last in the minute" are well defined.
     frame["timestamp"] = pd.to_datetime(frame["timestamp"], utc=True)
     frame = frame.sort_values("timestamp", kind="stable")
     frame["minute"] = frame["timestamp"].dt.floor("min")
 
-    out: dict[str, pd.Series] = {}
+    out: dict[str, pd.DataFrame] = {}
     for coin, group in frame.groupby("coin", sort=True):
-        series = group.groupby("minute")["close"].last()
-        series.index.name = "timestamp"
-        out[str(coin)] = series
+        per_minute = group.groupby("minute").agg(
+            open=("close", "first"),
+            high=("close", "max"),
+            low=("close", "min"),
+            close=("close", "last"),
+            volume=("volume", "sum"),
+            trade_count=("trade_count", "sum"),
+        )
+        per_minute.index.name = "timestamp"
+        out[str(coin)] = per_minute
     print(
         f"  {dex} {day.isoformat()}: {source.bytes_fetched / 1e6:.2f} of {size / 1e6:.2f} MB, "
         f"coins={sorted(out)}",
@@ -179,19 +195,21 @@ def fetch_day_minute_closes(client: Any, dex: str, day: date, coins: Sequence[st
     return out
 
 
-def write_day(store: MinutePriceStore, day: date, minute_closes: pd.Series) -> None:
-    """Persist one asset-day in the partition contract `MinutePriceStore` produces."""
+def write_day(store: MinutePriceStore, day: date, minutes: pd.DataFrame) -> None:
+    """Persist one asset-day: the store's partition contract, widened with OHLCV."""
     store.ensure_root()
     day_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC)
     grid = pd.date_range(day_start, periods=MINUTES_PER_DAY, freq="1min", tz="UTC")
-    frame = pd.DataFrame(index=grid)
     # float NaN, not pd.NA: a scalar pd.NA makes the column object dtype, which reads back as None
-    # and breaks float()/np.isfinite() consumers.
-    frame["close"] = minute_closes.reindex(grid).astype("float64")
+    # and breaks float()/np.isfinite() consumers. NaN everywhere, never a 0 volume: a minute with no
+    # rows is one we have no record of, which is not the same claim as "nothing traded".
+    frame = minutes.reindex(grid).astype("float64")
+    frame.index.name = "timestamp"
+    frame = frame[OHLCV_COLUMNS]
     frame["source"] = SOURCE_NAME
     frame["ingested_at"] = datetime.now(tz=UTC).replace(microsecond=0)
     frame["is_final"] = day < datetime.now(tz=UTC).date()
-    frame = frame.reset_index(names="timestamp")
+    frame = frame.reset_index()
     frame.to_parquet(store.day_path(day), index=False)
 
 
@@ -226,14 +244,14 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
             print(f"  {day.isoformat()}: would read {sorted(wanted)} for {targets}")
             continue
         for dex, coins in wanted.items():
-            for coin, series in fetch_day_minute_closes(client, dex, day, coins).items():
+            for coin, minutes in fetch_day_minute_ohlcv(client, dex, day, coins).items():
                 # Never persist an empty day: an all-NaN partition is indistinguishable from a real
                 # zero-trade day to every downstream reader, and `ingest_day` will skip it forever.
-                if series.empty:
+                if minutes.empty:
                     continue
                 asset = asset_of[coin]
-                write_day(stores[asset], day, series)
-                written[asset] += int(series.notna().sum())
+                write_day(stores[asset], day, minutes)
+                written[asset] += int(minutes["close"].notna().sum())
 
     if dry_run:
         return

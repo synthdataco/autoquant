@@ -25,10 +25,13 @@ synth-bench-leaderboard = "synth_bench.leaderboard:main"
 dev = ["pytest>=9.0"]
 
 [tool.uv.sources]
-# Pin the engine. This rev should match the synth-lib rev pinned in the agent workspace scaffold
-# (synth_lib/benchmark/scaffold/workspace/pyproject.toml): host and sandbox resolving different
-# versions of the backtester is a silent source of unreproducible scores.
-synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "1c5921fe540c8b1971f192fbe463bf2ecc5b190c" }
+# Pin the engine. The scaffold pins synth-lib too
+# (synth_lib/benchmark/scaffold/workspace/pyproject.toml), and the two must resolve the same
+# library code: host and sandbox on different backtesters is a silent source of unreproducible
+# scores. The scaffold necessarily names the commit BEFORE this one — a commit cannot contain its
+# own hash — so the revs differ by exactly the commit that moves the scaffold's own pin, and
+# nothing else. Two revs further apart than that is the bug.
+synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "39d72da50d410f04284d1a34c47f22ec6d962855" }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
