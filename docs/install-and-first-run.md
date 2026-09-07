@@ -7,7 +7,7 @@ root of this repo: `sandbox/`, `metering/` and `campaigns/` are here, and the en
 ## 1. Install
 
 ```bash
-uv sync --extra benchmark
+uv sync   # synth-lib[benchmark] is a required dependency; there is no extra to ask for
 
 # Proxy: one master key + your provider keys. NEVER commit this file.
 cp metering/.env.proxy.example metering/.env.proxy
@@ -40,57 +40,72 @@ partitions (`market_data/prices/{ASSET}/1m/date=YYYY-MM-DD.parquet`, a full 1440
 NaN where no trade occurred):
 
 ```bash
-# one asset at a time; --days N ends today, omit it for the default 15-month window
+# Binance-routed assets: deep history straight from the venue. --days N ends today.
 for A in BTC ETH SOL XRP; do uv run python -m synth_lib.preparation.market_data --asset $A --days 400; done
-for A in HYPE XAU NVDAX; do uv run python -m synth_lib.preparation.market_data --asset $A --days 3; done
 
-# every supported asset, default window
-uv run python -m synth_lib.preparation.market_data
+# Hyperliquid-routed assets: the venue holds ~3.5 days, so ask for 2 and no more (see below).
+for A in HYPE XAU NVDAX GOOGLX TSLAX AAPLX WTIOIL SPCX SP500; do
+  uv run python -m synth_lib.preparation.market_data --asset $A --days 2
+done
 ```
 
-**History depth differs by venue.** Binance serves deep minute history for the crypto assets.
-Hyperliquid's candle endpoint returns at most ~5000 minutes (about 3.5 days), so the tokenised
-equity/commodity perps and HYPE cannot be backfilled from the venue beyond that. Two ways to proceed:
+**History depth differs by venue, and this is the step that decides your launch date.** Binance
+serves deep minute history for the crypto assets. Hyperliquid's candle endpoint returns at most ~5000
+minutes (about 3.5 days), so for HYPE and every tokenised equity/commodity perp the venue can only
+fill the last three days. A campaign whose `data_cutoff` is older than that gets **no** Hyperliquid
+history from `market_data` at all — and `com-equ-24h` is a third of the Score.
 
-1. **Read a 1-second candle archive.** Hydromancer publishes Hyperliquid history on S3 as 1-second
-   candles, partitioned by dex and day:
+Hence `--days 2`, not 3. A request the venue cannot serve returns nothing, and `ingest_day` persists
+that as a 1440-row all-NaN partition marked final: `build_snapshot` links it (it only errors when
+*no* partition matches), agents read it as "listed, and traded zero times all day", and every later
+ingest skips it.
 
-   ```
-   s3://hydromancer-reservoir/by_dex/{dex}/candles/1s/date=YYYY-MM-DD/candles.parquet
-   ```
+Everything older comes from the archive:
 
-   `{dex}` is the part of the coin id before the colon (`xyz:SP500` → `xyz`); native perps and spot
-   indices are under `hyperliquid`. The bucket is in `ap-northeast-1` and requester-pays: reads need
-   AWS credentials that can be billed, arranged with the provider, and `RequestPayer=requester` on
-   every call. Column projection keeps the cost small — `coin`, `timestamp`, `close` is a fraction of
-   a day file. Note that `pyarrow.fs.S3FileSystem` has no `request_payer` option, so a projected read
-   needs a boto3 range-read wrapper.
+```bash
+uv sync --extra reservoir
+AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py \
+    --start 2025-08-01 --end <data_cutoff>          # --dry-run first
+```
 
-   No ingester ships with the engine; the fetch and the store write are yours. Four things decide
-   whether the result is usable:
+`scripts/ingest_reservoir.py` reads Hydromancer's Reservoir, an S3 archive of Hyperliquid history as
+1-second candles partitioned by dex and day:
 
-   - **Listing dates bound the range.** The HIP-3 markets these tokenised assets trade on appear only
-     from the day their market launched, so there is no history before that — a fact about the market,
-     not a gap in the archive.
-   - **Aggregate to the last close in each minute.** `last(close)` over the 1-second candles inside a
-     minute reproduces the venue's own 1-minute candle close. Aggregate a trade/candle close series;
-     an order-book mid is a different series and will not match.
-   - **Watch the numeric type.** Prices arrive as fixed-point decimals, and decimal → float64
-     conversion is not always correctly rounded (7413.9 can land on 7413.900000000001), which leaves
-     an archive-derived minute one ULP from the same price fetched as JSON. Cast via string when the
-     two must agree exactly.
-   - **Mirror the partition contract**: one `date=YYYY-MM-DD.parquet` per asset-day, a full 1440-row
-     minute grid, NaN where no trade occurred. That is what `MinutePriceStore.ingest_day` produces and
-     what the snapshot builder and `generate_predictions.py` expect.
+```
+s3://hydromancer-reservoir/by_dex/{dex}/candles/1s/date=YYYY-MM-DD/candles.parquet
+```
 
-   When validating archive-derived minutes against minutes swept live from the API, compare against a
-   bulk-fetched window: a sweep that requests data up to `now` receives the current, still-forming
-   candle, whose close is only the last trade so far, so disagreement there reflects the live-swept
-   side rather than the aggregation.
+`{dex}` is the part of the coin id before the colon (`xyz:SP500` → `xyz`); native perps and spot
+indices are under `hyperliquid`. The bucket is in `ap-northeast-1` and **requester-pays**: reads are
+billed to your own AWS account, need credentials arranged with the provider, and carry
+`RequestPayer=requester` on every call. Those credentials must be in the commercial partition — an
+AWS European Sovereign Cloud account cannot reach the bucket, and no IAM policy bridges partitions.
 
-2. **Restrict the campaign** to the crypto competitions (`crypto-24h`, `crypto-1h`). Scoring still
-   works for all three — scoring truth comes from the API, not from your store — but an agent cannot
-   fit a model on data it does not have.
+Four things decide whether archive-derived minutes are usable. The script handles all four; they are
+here because they are what to check if you write your own, or if a day looks wrong:
+
+- **Listing dates bound the range.** The HIP-3 markets these tokenised assets trade on appear only
+  from the day their market launched, so there is no history before that — a fact about the market,
+  not a gap in the archive. The per-asset first-trade dates are in the script's `FIRST_TRADE`.
+- **Aggregate to the last close in each minute.** `last(close)` over the 1-second candles inside a
+  minute reproduces the venue's own 1-minute candle close. Aggregate a trade/candle close series;
+  an order-book mid is a different series and will not match.
+- **Watch the numeric type.** Prices arrive as fixed-point decimals, and decimal → float64
+  conversion is not always correctly rounded (7413.9 can land on 7413.900000000001), which leaves
+  an archive-derived minute one ULP from the same price fetched as JSON. Cast via string when the
+  two must agree exactly.
+- **Mirror the partition contract**: one `date=YYYY-MM-DD.parquet` per asset-day, a full 1440-row
+  minute grid, NaN where no trade occurred. That is what `MinutePriceStore.ingest_day` produces and
+  what the snapshot builder and `generate_predictions.py` expect.
+
+Reads are grouped by `(dex, day)` and column-projected, so the nine assets cost two reads a day rather
+than nine. Writing your own: `pyarrow.fs.S3FileSystem` has no `request_payer` option, so a projected
+read of a requester-pays object needs a boto3 range-read wrapper.
+
+When validating archive-derived minutes against minutes swept live from the API, compare against a
+bulk-fetched window: a sweep that requests data up to `now` receives the current, still-forming
+candle, whose close is only the last trade so far, so disagreement there reflects the live-swept
+side rather than the aggregation.
 
 ### Realized paths (before `setup`)
 
