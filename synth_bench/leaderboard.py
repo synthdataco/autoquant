@@ -26,8 +26,9 @@ END = "<!-- LEADERBOARD:END -->"
 
 def model_label(alias: str) -> str:
     """The model behind a proxy-served alias: aliases carry provider prefixes and local suffixes
-    (`engy-glm-5.2`, `claude-opus-5-model`) that name how it was served, not what ran."""
-    return re.sub(r"-model$", "", re.sub(r"^engy-", "", alias))
+    (`engy-glm-5.2`, `gateway-gpt-6-astra`, `claude-opus-5-model`) that name how it was served,
+    not what ran."""
+    return re.sub(r"-model$", "", re.sub(r"^(engy|gateway)-", "", alias))
 
 
 def model_of(leg_dir: Path, campaign_dir: Path) -> str:

@@ -1,0 +1,41 @@
+name: campaign-3
+objective: >-
+  Improve the Synth SN50 miner: produce the best possible price-simulation model as measured by
+  CRPS. Your champion will be evaluated on the 10 days following your data cutoff, across the
+  three competitions (CRYPTO_24H, COM_EQU_24H, CRYPTO_1H), against the real field of miners,
+  using the validator's weighted ranking — your Score is your simulated emissions relative to
+  the field's best miner (see the constitution). Choose your own research questions. Find
+  something publishable — honest failures count too.
+models:
+  - {id: fable, cli: claude-code, model: claude-fable-5-1-model}
+  - {id: sol, cli: codex, model: gateway-gpt-5.6-sol, wire_api: responses}
+  - {id: astra, cli: codex, model: gateway-gpt-6-astra, wire_api: responses}
+# Unchanged from campaign-2 on purpose: the envelope is part of what is measured, and only legs
+# that ran the same one compare on the leaderboard. campaign-2's best leg landed at $25.67 / 3.8h.
+budget_usd_per_model: 100.0
+deadline_hours_per_model: 18
+# Snapshot window: full history per venue, one instrument per asset — Binance + HYPE from their
+# 2025-08-01 first trades, the Hyperliquid equity/commodity perps from each market's listing.
+# The 3-competition split (2026-06-23) still floors FIELD-RELATIVE RANKS — stated in the
+# constitution — but price history for fitting goes all the way back.
+data_start: 2025-08-01
+# RE-DERIVE AT LAUNCH: launch day minus 11 days — the verdict backtests the 10 days following
+# the cutoff (pre-registered in the constitution), a window that matches the validator's 24h
+# smoothing so champions are scored steady-state, with no new-miner backfill penalty. Set for a
+# 2026-09-09 launch; the verdict window is 2026-08-30 → 2026-09-09 and is settled from 09-11.
+# Trade-off, accepted: the window already exists during the runs — the constitution's hard rule 1
+# therefore forbids querying ANY API for times after the cutoff (transcript-audited).
+data_cutoff: 2026-08-29
+forward_window_days: 10
+# Dotted module, not a path: the default baseline ships inside the installed engine, and the
+# repo-relative `harness/verdict/...` path campaign-1/-2 named no longer exists.
+baselines:
+  - {name: synth_default}
+hardware: >-
+  GCP g2-standard-16: 16 vCPU / 64GB RAM / 1x NVIDIA L4 (24GB VRAM). Your sandbox gets 14 CPU,
+  48GB RAM and the GPU. torch is already in your pyproject — no need to add it.
+proxy_url: http://localhost:4000
+gpu: true
+sandbox_memory_gb: 48
+sandbox_cpus: 14
+poll_seconds: 30

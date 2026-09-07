@@ -42,6 +42,7 @@ def test_model_label_strips_alias_decoration():
     assert model_label("claude-opus-5-model") == "claude-opus-5"
     assert model_label("engy-glm-5.2") == "glm-5.2"
     assert model_label("gpt-5") == "gpt-5"
+    assert model_label("gateway-gpt-6-astra") == "gpt-6-astra"
 
 
 def test_competition_cell_shows_final_rank_and_mean():
