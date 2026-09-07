@@ -31,7 +31,7 @@ dev = ["pytest>=9.0"]
 # scores. The scaffold necessarily names the commit BEFORE this one — a commit cannot contain its
 # own hash — so the revs differ by exactly the commit that moves the scaffold's own pin, and
 # nothing else. Two revs further apart than that is the bug.
-synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "39d72da50d410f04284d1a34c47f22ec6d962855" }
+synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "adc0e354a217b4ef1d39bde66044cab5c050ed0a" }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
