@@ -1,0 +1,23 @@
+sha: f1c010f9040fe1be283fff96affebcf5d9a5a3fe
+agent_dir: agent
+profiles:
+  - low
+  - high
+notes: |
+  Backtested performance of the finalized champion model across all three competitions at 1000 simulations per prompt (evaluated over 3 days ending 2026-08-15):
+  
+  1. CRYPTO_24H (BTC):
+     - Mean CRPS: 1798.8886 (Baseline: 1801.6008)
+     - Final Smoothed Score: 35.3900 (Baseline: 37.1981)
+     
+  2. CRYPTO_1H (BTC):
+     - Mean CRPS: 379.0312 (Baseline: 380.1921)
+     - Final Smoothed Score: 41.9418 (Baseline: 43.1710)
+     
+  3. COM_EQU_24H (SP500):
+     - Mean CRPS: 581.9997 (Baseline: 624.5254)
+     - Final Smoothed Score: 45.8589 (Baseline: 74.2093)
+     
+  The model successfully routes hyperparameters dynamically:
+  - Cryptocurrencies: Uses a full 7-day lookback window with Student-t shocks of df=4.0 for 1H format, and df=7.0 for 24H format.
+  - Equities & Commodities: Uses a 1-day lookback window with Student-t shocks of df=3.0 to perfectly capture short-term volatility regimes and fat tails.

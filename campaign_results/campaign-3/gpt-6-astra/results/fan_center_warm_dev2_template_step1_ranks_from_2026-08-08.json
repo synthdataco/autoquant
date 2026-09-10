@@ -1,0 +1,11 @@
+{
+  "warm_dev2/stackcenter:1/crypto-24h": {
+    "reward_rank": 61,
+    "final_rank": 45,
+    "miners": 257,
+    "reward_ratio": 0.3811840144148411,
+    "reward_rounds": 1043,
+    "first_round": "2026-08-08 00:48:00+00:00",
+    "last_round": "2026-08-17 23:31:00+00:00"
+  }
+}

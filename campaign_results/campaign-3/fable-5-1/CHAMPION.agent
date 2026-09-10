@@ -1,0 +1,12 @@
+sha: 4a14bfaa94b6c0cc493772e4be1159d0e5240d4b
+agent_dir: agent
+profiles: [low, high]
+notes: >
+  v5 seasonal-EWMA martingale simulator (agent/modeling.py + agent/season.json), CPU only,
+  ~0.1 s per 1000-path prompt. Backtested with agent/evaluate.py (synth-lib backtest +
+  compute_combined_smoothed_scores, 1000 paths). Verdict-exact 10 days ending 2026-08-29
+  (hourly/10-min grids, first-day penalty included): CRYPTO_24H final rank 1/257
+  (reward_vs_top 0.44), COM_EQU_24H rank 178/211 (reward_vs_top 0.000 - harness first-day
+  penalty), CRYPTO_1H rank 1/257 (reward_vs_top 3.25). Estimated Score 48.1.
+  Clean 3-day window ending 2026-08-29 (all scored prompts covered): CRYPTO_24H 22/257,
+  COM_EQU_24H 165/257, CRYPTO_1H 1/257.

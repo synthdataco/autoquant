@@ -1,0 +1,43 @@
+{
+  "diagnostics": {
+    "control/0.001": -0.00015622180540537432,
+    "control/0.01": 8.003356705813398e-06,
+    "control/0.1": 4.076330893117094e-05,
+    "control/1.0": -3.364795647935922e-05,
+    "extra/0.001": -0.0005637524247483936,
+    "extra/0.01": -0.0003933544864837805,
+    "extra/0.1": -0.00026437489574398555,
+    "extra/1.0": -0.0002480459109663637
+  },
+  "choices": {
+    "control": {
+      "surrogate_change": -0.00015622180540537432,
+      "penalty": 0.001
+    },
+    "extra": {
+      "surrogate_change": -0.0005637524247483936,
+      "penalty": 0.001
+    }
+  },
+  "verification_ratios": {
+    "crypto": {
+      "control_identity": 1.0006650957140966,
+      "extra_identity": 1.0004713909571092,
+      "extra_control": 0.9998064239895875,
+      "passed_gate": false
+    },
+    "com_equ": {
+      "control_identity": 0.9993577707280195,
+      "extra_identity": 0.9990718885103718,
+      "extra_control": 0.9997139340624335,
+      "passed_gate": true
+    }
+  },
+  "curvature_floor": 1.3031494868953075,
+  "training_rows": 5284,
+  "validation_rows": 566,
+  "paths": 1000,
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "fingerprint": "d97f6ff5c48d9e6df9b8f4690bf2933f37be77b7ad71625a9e22dbd39801de59"
+}

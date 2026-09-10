@@ -1,0 +1,33 @@
+{
+  "com-equ-24h": {
+    "reward_rank": 239,
+    "final_rank": 187,
+    "miners": 257,
+    "reward_ratio": 8.932241239935243e-08,
+    "reward_rounds": 1499,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:50:00+00:00",
+    "assets": 8
+  },
+  "crypto-1h": {
+    "reward_rank": 216,
+    "final_rank": 216,
+    "miners": 257,
+    "reward_ratio": 0.0013422304760198297,
+    "reward_rounds": 1624,
+    "first_round": "2026-08-02 00:04:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00",
+    "assets": 5
+  },
+  "crypto-24h": {
+    "reward_rank": 236,
+    "final_rank": 252,
+    "miners": 257,
+    "reward_ratio": 0.008370256665243691,
+    "reward_rounds": 1015,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00",
+    "assets": 5
+  },
+  "score_estimate": 0.3237525487891974
+}

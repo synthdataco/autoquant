@@ -1,0 +1,20 @@
+{
+  "dev1/sharp:48:0.5:0.75:0:sobol/crypto-24h": {
+    "reward_rank": 58,
+    "final_rank": 93,
+    "miners": 257,
+    "reward_ratio": 0.2496209015222649,
+    "reward_rounds": 1015,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00"
+  },
+  "dev2/sharp:48:0.5:0.75:0:sobol/crypto-24h": {
+    "reward_rank": 163,
+    "final_rank": 172,
+    "miners": 257,
+    "reward_ratio": 0.09963573669112419,
+    "reward_rounds": 1044,
+    "first_round": "2026-08-08 00:23:00+00:00",
+    "last_round": "2026-08-17 23:31:00+00:00"
+  }
+}

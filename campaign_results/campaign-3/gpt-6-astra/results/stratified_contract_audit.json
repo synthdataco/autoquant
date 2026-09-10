@@ -1,0 +1,157 @@
+{
+  "status": "passed",
+  "comparisons": [
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 1,
+      "seconds": 0.25421624901355244
+    },
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 17,
+      "seconds": 0.05144276699866168
+    },
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 1000,
+      "seconds": 0.14327948301797733
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 1,
+      "seconds": 0.0245623970113229
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 17,
+      "seconds": 0.02070789798744954
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 1000,
+      "seconds": 0.028757674008375034
+    },
+    {
+      "asset": "HYPE",
+      "length": 86400,
+      "count": 1,
+      "seconds": 0.05129538901383057
+    },
+    {
+      "asset": "HYPE",
+      "length": 86400,
+      "count": 17,
+      "seconds": 0.051530272990930825
+    },
+    {
+      "asset": "HYPE",
+      "length": 86400,
+      "count": 1000,
+      "seconds": 0.14121112099383026
+    },
+    {
+      "asset": "HYPE",
+      "length": 3600,
+      "count": 1,
+      "seconds": 0.02448684099363163
+    },
+    {
+      "asset": "HYPE",
+      "length": 3600,
+      "count": 17,
+      "seconds": 0.02069205799489282
+    },
+    {
+      "asset": "HYPE",
+      "length": 3600,
+      "count": 1000,
+      "seconds": 0.02884732699021697
+    },
+    {
+      "asset": "SP500",
+      "length": 86400,
+      "count": 1,
+      "seconds": 0.05436613000347279
+    },
+    {
+      "asset": "SP500",
+      "length": 86400,
+      "count": 17,
+      "seconds": 0.05203571301535703
+    },
+    {
+      "asset": "SP500",
+      "length": 86400,
+      "count": 1000,
+      "seconds": 0.14146557898493484
+    },
+    {
+      "asset": "SP500",
+      "length": 3600,
+      "count": 1,
+      "seconds": 0.02462916198419407
+    },
+    {
+      "asset": "SP500",
+      "length": 3600,
+      "count": 17,
+      "seconds": 0.02104331797454506
+    },
+    {
+      "asset": "SP500",
+      "length": 3600,
+      "count": 1000,
+      "seconds": 0.02872249300708063
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 1,
+      "seconds": 0.050763289007591084
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 17,
+      "seconds": 0.05029150500195101
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 1000,
+      "seconds": 0.13786756701301783
+    },
+    {
+      "asset": "AAPLX",
+      "length": 3600,
+      "count": 1,
+      "seconds": 0.024157909996574745
+    },
+    {
+      "asset": "AAPLX",
+      "length": 3600,
+      "count": 17,
+      "seconds": 0.020168524992186576
+    },
+    {
+      "asset": "AAPLX",
+      "length": 3600,
+      "count": 1000,
+      "seconds": 0.027928780997171998
+    }
+  ],
+  "edge_cases": [
+    "NaNs",
+    "future rows",
+    "unsorted rows",
+    "constant/single close",
+    "zero horizon",
+    "pre-weight fallback"
+  ]
+}

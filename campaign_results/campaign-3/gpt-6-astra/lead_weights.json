@@ -1,0 +1,17 @@
+{
+  "initial_validation_loss": 1.013794183731079,
+  "best_validation_loss": 0.9973704814910889,
+  "best_epoch": 168,
+  "training_rows": 23337,
+  "validation_rows": 2508,
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "edges_minutes": [
+    0,
+    60,
+    180,
+    360,
+    720,
+    1440
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "group_ratios": {
+    "stackphase:control:1": {
+      "dev1": 0.9996786465897387,
+      "dev2": 0.9998246748343007
+    },
+    "stackphase:shifted:0": {
+      "dev1": 1.0,
+      "dev2": 1.0
+    },
+    "stackphase:shifted:1": {
+      "dev1": 0.9998293101020655,
+      "dev2": 0.9995423000085848
+    }
+  },
+  "asset_ratios": {
+    "('dev1', 'BTC')": {
+      "stackphase:control:1": 0.9996581156416203,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 0.999749194909099
+    },
+    "('dev1', 'ETH')": {
+      "stackphase:control:1": 0.9996249851390837,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 0.999782053040914
+    },
+    "('dev1', 'HYPE')": {
+      "stackphase:control:1": 1.0001733201651046,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 1.000368230017984
+    },
+    "('dev1', 'SOL')": {
+      "stackphase:control:1": 0.9996181731676166,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 0.9997931633415013
+    },
+    "('dev1', 'XRP')": {
+      "stackphase:control:1": 0.9993186388352675,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 0.9994539092008293
+    },
+    "('dev2', 'BTC')": {
+      "stackphase:control:1": 1.0002935641457051,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 1.0001473015629592
+    },
+    "('dev2', 'ETH')": {
+      "stackphase:control:1": 0.9997360002751199,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 0.9990598508039011
+    },
+    "('dev2', 'HYPE')": {
+      "stackphase:control:1": 1.0000811302891923,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 1.0000186635469688
+    },
+    "('dev2', 'SOL')": {
+      "stackphase:control:1": 0.9994211793178055,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 0.9991649713863957
+    },
+    "('dev2', 'XRP')": {
+      "stackphase:control:1": 0.9995915001436804,
+      "stackphase:shifted:0": 1.0,
+      "stackphase:shifted:1": 0.9993207127426998
+    }
+  }
+}

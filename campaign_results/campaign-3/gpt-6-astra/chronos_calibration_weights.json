@@ -1,0 +1,41 @@
+{
+  "initial_validation_loss": 1.0079036779569983,
+  "diagnostics": {
+    "intercept/0.001": {
+      "loss": 1.008234046219582,
+      "success": true
+    },
+    "intercept/0.01": {
+      "loss": 1.0082213193771636,
+      "success": true
+    },
+    "intercept/0.1": {
+      "loss": 1.0081330454633575,
+      "success": true
+    },
+    "intercept": {
+      "best_validation_loss": 1.0079036779569983,
+      "penalty": null
+    },
+    "pretrained/0.001": {
+      "loss": 1.0090242436934587,
+      "success": true
+    },
+    "pretrained/0.01": {
+      "loss": 1.0087570836815707,
+      "success": true
+    },
+    "pretrained/0.1": {
+      "loss": 1.008303056025717,
+      "success": true
+    },
+    "pretrained": {
+      "best_validation_loss": 1.0079036779569983,
+      "penalty": null
+    }
+  },
+  "model_revision": "0e96a1377adca89eebae3bbde4f859dc3b9f4b46",
+  "label_cutoff": "2026-07-26",
+  "training_rows": 23457,
+  "validation_rows": 2508
+}

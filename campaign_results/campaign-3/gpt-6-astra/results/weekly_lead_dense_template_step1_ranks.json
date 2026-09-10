@@ -1,0 +1,38 @@
+{
+  "dev1/stackweekly:1/com-equ-24h": {
+    "reward_rank": 111,
+    "final_rank": 107,
+    "miners": 257,
+    "reward_ratio": 0.05654726991085792,
+    "reward_rounds": 1499,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:50:00+00:00"
+  },
+  "dev1/stackweekly:1/crypto-24h": {
+    "reward_rank": 33,
+    "final_rank": 81,
+    "miners": 257,
+    "reward_ratio": 0.39391036722632755,
+    "reward_rounds": 1015,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00"
+  },
+  "dev2/stackweekly:1/com-equ-24h": {
+    "reward_rank": 200,
+    "final_rank": 192,
+    "miners": 257,
+    "reward_ratio": 0.03442215608820661,
+    "reward_rounds": 1474,
+    "first_round": "2026-08-08 00:03:00+00:00",
+    "last_round": "2026-08-17 23:56:00+00:00"
+  },
+  "dev2/stackweekly:1/crypto-24h": {
+    "reward_rank": 78,
+    "final_rank": 45,
+    "miners": 257,
+    "reward_ratio": 0.25506992810270834,
+    "reward_rounds": 1044,
+    "first_round": "2026-08-08 00:23:00+00:00",
+    "last_round": "2026-08-17 23:31:00+00:00"
+  }
+}

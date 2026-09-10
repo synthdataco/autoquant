@@ -1,0 +1,20 @@
+{
+  "dev1/stackfine:1/com-equ-24h": {
+    "reward_rank": 111,
+    "final_rank": 107,
+    "miners": 257,
+    "reward_ratio": 0.056454904402016254,
+    "reward_rounds": 1499,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:50:00+00:00"
+  },
+  "dev2/stackfine:1/com-equ-24h": {
+    "reward_rank": 200,
+    "final_rank": 193,
+    "miners": 257,
+    "reward_ratio": 0.03324062017790722,
+    "reward_rounds": 1474,
+    "first_round": "2026-08-08 00:03:00+00:00",
+    "last_round": "2026-08-17 23:56:00+00:00"
+  }
+}

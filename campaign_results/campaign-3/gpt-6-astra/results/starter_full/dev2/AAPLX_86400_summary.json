@@ -1,0 +1,7 @@
+{
+  "miner_name": "starter_full",
+  "miner_id": 999,
+  "num_prompts": 240,
+  "mean_crps": 1513.461549497406,
+  "final_smoothed_score": 373.81738400936183
+}

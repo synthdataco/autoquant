@@ -1,0 +1,8 @@
+{
+  "contexts": 25965,
+  "target_cutoff": "2026-07-26",
+  "recency_half_life_days": null,
+  "epochs": 40,
+  "initialization": "Original likelihood model",
+  "last_batch_training_loss": 1.0486578941345215
+}

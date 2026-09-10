@@ -1,0 +1,131 @@
+{
+  "status": "passed",
+  "synthetic_interface_fixture_only": true,
+  "counts_and_formats": [
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 1
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 2
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 17
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 999
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 1000
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 1001
+    },
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 1
+    },
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 2
+    },
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 999
+    },
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 1001
+    },
+    {
+      "asset": "AAPLX",
+      "length": 3600,
+      "count": 1
+    },
+    {
+      "asset": "AAPLX",
+      "length": 3600,
+      "count": 2
+    },
+    {
+      "asset": "AAPLX",
+      "length": 3600,
+      "count": 17
+    },
+    {
+      "asset": "AAPLX",
+      "length": 3600,
+      "count": 999
+    },
+    {
+      "asset": "AAPLX",
+      "length": 3600,
+      "count": 1000
+    },
+    {
+      "asset": "AAPLX",
+      "length": 3600,
+      "count": 1001
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 1
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 2
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 999
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 1001
+    }
+  ],
+  "network_disabled": true,
+  "training_runtimes_absent": true,
+  "timestamp_units_and_nan_invariance": true,
+  "pre_weight_artifacts_not_loaded": true,
+  "frozen_artifacts_unchanged": true
+}

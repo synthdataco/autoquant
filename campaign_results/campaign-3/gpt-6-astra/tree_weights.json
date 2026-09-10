@@ -1,0 +1,20 @@
+{
+  "initial_validation_loss": 1.0079036779569983,
+  "best_validation_loss": 1.0045438181557376,
+  "kind": "pretrained",
+  "stages": 200,
+  "diagnostics": {
+    "static/50": 1.0063354324835452,
+    "static/100": 1.006454686013903,
+    "static/200": 1.0066805183881822,
+    "temporal/50": 1.00538319901704,
+    "temporal/100": 1.005001603886337,
+    "temporal/200": 1.0046099297148599,
+    "pretrained/50": 1.0054184128883006,
+    "pretrained/100": 1.0049969559187715,
+    "pretrained/200": 1.0045438181557376
+  },
+  "label_cutoff": "2026-07-26",
+  "training_rows": 23457,
+  "validation_rows": 2508
+}
