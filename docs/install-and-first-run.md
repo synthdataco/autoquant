@@ -13,7 +13,7 @@ uv sync   # synth-lib[benchmark] is a required dependency; there is no extra to 
 cp metering/.env.proxy.example metering/.env.proxy
 $EDITOR metering/.env.proxy          # LITELLM_MASTER_KEY=$(openssl rand -hex 32), provider keys
 
-docker compose -f metering/docker-compose.yaml up -d
+docker compose -f metering/docker-compose.yaml up -d --force-recreate
 curl -s localhost:4000/health/liveliness           # -> I'm alive!
 
 docker build -t synth-bench-sandbox sandbox/

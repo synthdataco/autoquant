@@ -20,6 +20,8 @@ docker ps -a --filter name=synthbench --format '{{.Names}}' | grep . && echo "LE
 docker compose -f metering/docker-compose.yaml exec litellm sh -c \
   'for v in LITELLM_MASTER_KEY ANTHROPIC_API_KEY OPENAI_API_KEY GEMINI_API_KEY; do eval "n=\${#$v}"; echo "$v $n"; done'
 
+# after ANY edit to litellm_config.yaml or .env.proxy — recreate, do not restart
+docker compose -f metering/docker-compose.yaml up -d --force-recreate litellm && sleep 12
 curl -s localhost:4000/health/liveliness
 docker images synth-bench-sandbox --format '{{.Repository}} {{.Size}}'
 
@@ -96,6 +98,19 @@ legs' aliases may remain.
 
 Renaming the legs in the campaign yaml sidesteps the whole problem: new ids mint new aliases, so a
 re-run needs no database surgery at all.
+
+**Resuming a leg rather than resetting it** keeps its key, its workspace and its spend — drop it from
+`runs_done` and leave everything else. One thing has to be repaired first: the sandbox runs as root,
+so the container leaves root-owned files behind, and the next launch fails on the host's own
+`~/.codex/config.toml` write. The driver rewrites `agent/BUDGET.md` every poll, so fix both trees:
+
+```bash
+sudo chown -R $(id -u):$(id -g) \
+  campaign_runs/$C/runs/<leg> campaign_runs/$C/runs/<leg>-home
+```
+
+The clock is in-process, so a resumed leg gets a fresh deadline while its spend continues — budget,
+not time, is what binds after a restart.
 
 ## Inspect a finished campaign
 
