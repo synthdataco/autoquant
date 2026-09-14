@@ -10,23 +10,28 @@ The opponents are ~250 live miners on [Synth SN50](https://synthdata.co), financ
 win. The scorer is the subnet's own validator code. The metric is money.
 
 **Still unsolved.** No frontier model, given one shot inside that envelope, has taken the top spot.
-The best champion so far leads *one* of three competitions and earns 30% of what the field's best
-miner earns.
+The best champion so far leads *two* of three competitions on its final round and earns 35% of what
+the field's best miner earns — and it is last but sixteen in the third.
 
 ## Leaderboard
 
 <!-- LEADERBOARD:BEGIN -->
 | Model | Campaign | Score | Mean rank | crypto-1h | crypto-24h | com-equ-24h |
 | --- | --- | --- | --- | --- | --- | --- |
+| gpt-6-astra | campaign-3 | **34.8** | 81 | 1/257 (μ27.1) | 1/257 (μ167.1) | 241/257 (μ235.9) |
 | claude-opus-5 | campaign-2 | **30.1** | 78 | 1/257 (μ60.5) | 81/257 (μ132.6) | 152/191 (μ181.8) |
+| claude-fable-5-1 | campaign-3 | **10.8** | 208.3 | 221/257 (μ202.1) | 188/257 (μ190.5) | 216/257 (μ231) |
 | gpt-5 | campaign-2 | **10.2** | 211 | 194/257 (μ163.3) | 252/257 (μ253.8) | 187/191 (μ217.6) |
 | gemini-3.1-pro-preview | campaign-2 | **8.1** | 210 | 206/257 (μ173.9) | 238/257 (μ242.2) | 186/191 (μ217) |
 | glm-5.2 | campaign-1 | **6.6** | 207.7 | 195/257 (μ185.3) | 243/257 (μ246.4) | 185/191 (μ211.8) |
+| gpt-5.6-sol | campaign-3 | **2.7** | 212.3 | 136/257 (μ222.8) | 247/257 (μ249.4) | 254/257 (μ252) |
 | kimi-k3 | campaign-1 | **2.1** | 197.7 | 185/257 (μ203.4) | 231/257 (μ235.3) | 177/191 (μ193.8) |
+| gemini-3.8-flash | campaign-3 | **0.2** | 249.3 | 247/257 (μ249.9) | 247/257 (μ246.1) | 254/257 (μ252.9) |
 
 Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷
 the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the final-round
 rank out of the field, with the mean rank over the window's scoring rounds in parentheses.
+One row per model — its best Score, and the campaign that produced it.
 Measured spend and wall time per leg are in each campaign's report.
 <!-- LEADERBOARD:END -->
 
@@ -79,6 +84,7 @@ miner: [docs/deploy-a-champion.md](docs/deploy-a-champion.md).
 | --- | --- | --- |
 | [campaign-1](campaign_results/campaign-1/) | gemini-3.1-pro-preview, glm-5.2, kimi-k3 | $100 / 24 h per model |
 | [campaign-2](campaign_results/campaign-2/) | claude-opus-5, gpt-5, revised constitution | $100 / 18 h per model |
+| [campaign-3](campaign_results/campaign-3/) | claude-fable-5-1, gpt-5.6-sol, gpt-6-astra, gemini-3.8-flash | $100 / 18 h per model |
 
 Each leg directory **is** the champion: the agent's whole workspace at the commit it nominated —
 `modeling.py` and the calibration artifacts it loads, `report.md` (the agent's own write-up, the most
@@ -99,7 +105,9 @@ needs a GPU-capable box, provider keys and a few hundred dollars; a `cli: fake` 
 ## Caveats worth reading before quoting a number
 
 - **The field is alive.** Scores are relative to whoever was mining that week; only legs scored on the
-  *same* window compare cleanly.
+  *same* window compare cleanly. The table above mixes two: campaign-3 was scored on 2026-08-30 →
+  09-09, campaign-1 and campaign-2 on 07-28 → 08-07. Rows from different windows are not a
+  head-to-head.
 - **Windows are short.** Ten days of scoring rounds; per-asset ranks are noisier than they look.
 - **One box, sequential legs.** No interference between models, but no control over regime differences
   between them either.
