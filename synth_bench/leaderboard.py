@@ -22,8 +22,6 @@ from pathlib import Path
 
 BEGIN = "<!-- LEADERBOARD:BEGIN -->"
 END = "<!-- LEADERBOARD:END -->"
-LEGS_BEGIN = "<!-- LEGS:BEGIN -->"
-LEGS_END = "<!-- LEGS:END -->"
 
 
 def model_label(alias: str) -> str:
@@ -106,25 +104,24 @@ def competition_cell(per_competition: dict, slug: str) -> str:
     return f"{cell} (μ{mean:g})" if mean else cell
 
 
-def budget(leg_dir: Path) -> tuple[str, str]:
-    """(wall time, spend) from the leg's archived BUDGET.md — the harness's own last poll.
+def budget(leg_dir: Path) -> str:
+    """What the leg used of its envelope, as `<hours> h / $<spend>`, from its archived BUDGET.md.
 
-    It records the LAST attempt, so a leg that was restarted reports that attempt only, and a leg
-    that resumed on its original key reports cumulative spend against a clock that restarted. Both
-    shapes are in the archive; neither is inferable from this file, which is why the table is
-    footnoted rather than silently reconciled.
+    The file is the harness's own last poll, so a restarted leg reports only its final attempt and
+    a leg resumed on its original key reports cumulative spend against a clock that restarted.
+    Neither shape is inferable from the file, hence the footnote rather than a silent reconciliation.
     """
     path = leg_dir / "BUDGET.md"
     if not path.exists():
-        return "—", "—"
+        return "—"
     text = path.read_text()
     spend = re.search(r"Credits:\s*([0-9.]+)\s*/", text)
     hours = re.search(r"Time\s*:\s*([0-9.]+)\s*h elapsed", text)
     # A scored champion cannot have been produced in zero elapsed time: the file is a fresh budget
     # from a restart that never got a poll. Report nothing rather than six cents.
-    if hours and float(hours.group(1)) == 0.0:
-        return "—", "—"
-    return (f"{hours.group(1)} h" if hours else "—", f"${spend.group(1)}" if spend else "—")
+    if not (spend and hours) or float(hours.group(1)) == 0.0:
+        return "—"
+    return f"{hours.group(1)} h / ${spend.group(1)}"
 
 
 def render_legs(results_dir: Path, tag: str | None) -> str:
@@ -155,14 +152,15 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     if not all_legs:
         data = best_per_model(data)
     lines = [
-        "| Model | Campaign | Score | Mean rank | crypto-1h | crypto-24h | com-equ-24h |",
-        "| --- | --- | --- | --- | --- | --- | --- |",
+        "| Model | Campaign | Score | Mean rank | Spend | crypto-1h | crypto-24h | com-equ-24h |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- |",
     ]
     for r in data:
         score = f"**{r['score']:g}**" if r["score"] is not None else ("pending" if r["landed"] else "no champion")
         mean_rank = f"{r['mean_rank']:g}" if r["mean_rank"] is not None else "—"
         lines.append(
             f"| {r['model']} | {r['campaign']} | {score} | {mean_rank} "
+            f"| {budget(results_dir / r['campaign'] / r['leg'])} "
             f"| {competition_cell(r['per_competition'], 'crypto-1h')} "
             f"| {competition_cell(r['per_competition'], 'crypto-24h')} "
             f"| {competition_cell(r['per_competition'], 'com-equ-24h')} |"
@@ -172,8 +170,9 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
         "Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷",
         "the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the final-round",
         "rank out of the field, with the mean rank over the window's scoring rounds in parentheses.",
-        "One row per model — its best Score, and the campaign that produced it.",
-        "Measured spend and wall time per leg are in each campaign's report.",
+        "One row per model — its best Score, and the campaign that produced it. Spend is wall time and",
+        "credits from the leg's own budget file, against an envelope of $100 and 18 h (24 h in",
+        "campaign-1); a leg that was restarted reports only its final attempt.",
     ]
     return "\n".join(lines)
 
@@ -191,15 +190,11 @@ def main() -> None:
         print(table)
         return
     text = args.write.read_text()
-    for begin, end, block in ((BEGIN, END, table), (LEGS_BEGIN, LEGS_END, render_legs(args.results_dir, args.tag))):
-        if begin not in text or end not in text:
-            if begin == BEGIN:
-                raise SystemExit(f"{args.write} has no {begin} / {end} markers")
-            continue  # the per-leg block is optional
-        head, rest = text.split(begin, 1)
-        _, tail = rest.split(end, 1)
-        text = f"{head}{begin}\n{block}\n{end}{tail}"
-    args.write.write_text(text)
+    if BEGIN not in text or END not in text:
+        raise SystemExit(f"{args.write} has no {BEGIN} / {END} markers")
+    head, rest = text.split(BEGIN, 1)
+    _, tail = rest.split(END, 1)
+    args.write.write_text(f"{head}{BEGIN}\n{table}\n{END}{tail}")
     print(f"leaderboard written into {args.write}")
 
 
