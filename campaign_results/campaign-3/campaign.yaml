@@ -8,8 +8,10 @@ objective: >-
   something publishable — honest failures count too.
 models:
   - {id: fable-5-1, cli: claude-code, model: claude-fable-5-1-model}
-  - {id: gpt-5-6-sol, cli: codex, model: gateway-gpt-5.6-sol, wire_api: responses}
-  - {id: gpt-6-astra, cli: codex, model: gateway-gpt-6-astra, wire_api: responses}
+  - {id: gpt-5-6-sol, cli: codex, model: gpt-5.6-sol, wire_api: responses}
+  - {id: gpt-6-astra, cli: codex, model: gpt-6-astra, wire_api: responses}
+  # The /gemini passthrough puts `model` in the URL path, so this must be the real Google id.
+  - {id: gemini-3-8-flash, cli: gemini-cli, model: gemini-3.8-flash}
 # Unchanged from campaign-2 on purpose: the envelope is part of what is measured, and only legs
 # that ran the same one compare on the leaderboard. campaign-2's best leg landed at $25.67 / 3.8h.
 budget_usd_per_model: 100.0
