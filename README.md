@@ -38,6 +38,27 @@ Measured spend and wall time per leg are in each campaign's report.
 Generated with `synth-bench-leaderboard --write README.md`; every number is read from an archived
 verdict, never typed by hand. `--tag is-0620` renders a diagnostic window instead.
 
+### Every leg, and what it cost
+
+<!-- LEGS:BEGIN -->
+| Model | Campaign | Wall time | Spend | crypto-1h | crypto-24h | com-equ-24h |
+| --- | --- | --- | --- | --- | --- | --- |
+| gpt-6-astra | campaign-3 | 3.2 h | $93.60 | 1/257 (μ27.1) | 1/257 (μ167.1) | 241/257 (μ235.9) |
+| claude-opus-5 | campaign-2 | 3.8 h | $25.67 | 1/257 (μ60.5) | 81/257 (μ132.6) | 152/191 (μ181.8) |
+| claude-fable-5-1 | campaign-3 | 2.9 h | $58.55 | 221/257 (μ202.1) | 188/257 (μ190.5) | 216/257 (μ231) |
+| gpt-5 | campaign-2 | — | — | 194/257 (μ163.3) | 252/257 (μ253.8) | 187/191 (μ217.6) |
+| gemini-3.1-pro-preview | campaign-2 | — | — | 206/257 (μ173.9) | 238/257 (μ242.2) | 186/191 (μ217) |
+| gemini-3.1-pro-preview | campaign-1 | — | — | 196/257 (μ182.5) | 238/257 (μ239) | 185/191 (μ204.9) |
+| glm-5.2 | campaign-1 | 2.4 h | $5.78 | 195/257 (μ185.3) | 243/257 (μ246.4) | 185/191 (μ211.8) |
+| gpt-5.6-sol | campaign-3 | 4.3 h | $23.55 | 136/257 (μ222.8) | 247/257 (μ249.4) | 254/257 (μ252) |
+| kimi-k3 | campaign-1 | 2.4 h | $4.96 | 185/257 (μ203.4) | 231/257 (μ235.3) | 177/191 (μ193.8) |
+| gemini-3.8-flash | campaign-3 | 0.3 h | $1.51 | 247/257 (μ249.9) | 247/257 (μ246.1) | 254/257 (μ252.9) |
+
+Wall time and spend are the harness's own last poll of `BUDGET.md`, against an envelope of
+$100 and 18 h (24 h in campaign-1). A leg that was restarted reports only its final attempt,
+so these are lower bounds where a campaign report says a leg ran twice.
+<!-- LEGS:END -->
+
 ## Why this benchmark is hard to fake
 
 - **The opponents are paid to win.** Not a held-out test set: a live field of professional quants

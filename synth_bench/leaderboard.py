@@ -22,6 +22,8 @@ from pathlib import Path
 
 BEGIN = "<!-- LEADERBOARD:BEGIN -->"
 END = "<!-- LEADERBOARD:END -->"
+LEGS_BEGIN = "<!-- LEGS:BEGIN -->"
+LEGS_END = "<!-- LEGS:END -->"
 
 
 def model_label(alias: str) -> str:
@@ -104,6 +106,50 @@ def competition_cell(per_competition: dict, slug: str) -> str:
     return f"{cell} (μ{mean:g})" if mean else cell
 
 
+def budget(leg_dir: Path) -> tuple[str, str]:
+    """(wall time, spend) from the leg's archived BUDGET.md — the harness's own last poll.
+
+    It records the LAST attempt, so a leg that was restarted reports that attempt only, and a leg
+    that resumed on its original key reports cumulative spend against a clock that restarted. Both
+    shapes are in the archive; neither is inferable from this file, which is why the table is
+    footnoted rather than silently reconciled.
+    """
+    path = leg_dir / "BUDGET.md"
+    if not path.exists():
+        return "—", "—"
+    text = path.read_text()
+    spend = re.search(r"Credits:\s*([0-9.]+)\s*/", text)
+    hours = re.search(r"Time\s*:\s*([0-9.]+)\s*h elapsed", text)
+    # A scored champion cannot have been produced in zero elapsed time: the file is a fresh budget
+    # from a restart that never got a poll. Report nothing rather than six cents.
+    if hours and float(hours.group(1)) == 0.0:
+        return "—", "—"
+    return (f"{hours.group(1)} h" if hours else "—", f"${spend.group(1)}" if spend else "—")
+
+
+def render_legs(results_dir: Path, tag: str | None) -> str:
+    """Every leg, with what it cost — the per-leg companion to the one-row-per-model table."""
+    lines = [
+        "| Model | Campaign | Wall time | Spend | crypto-1h | crypto-24h | com-equ-24h |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for r in rows(results_dir, tag):
+        hours, spend = budget(results_dir / r["campaign"] / r["leg"])
+        lines.append(
+            f"| {r['model']} | {r['campaign']} | {hours} | {spend} "
+            f"| {competition_cell(r['per_competition'], 'crypto-1h')} "
+            f"| {competition_cell(r['per_competition'], 'crypto-24h')} "
+            f"| {competition_cell(r['per_competition'], 'com-equ-24h')} |"
+        )
+    lines += [
+        "",
+        "Wall time and spend are the harness's own last poll of `BUDGET.md`, against an envelope of",
+        "$100 and 18 h (24 h in campaign-1). A leg that was restarted reports only its final attempt,",
+        "so these are lower bounds where a campaign report says a leg ran twice.",
+    ]
+    return "\n".join(lines)
+
+
 def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     data = rows(results_dir, tag)
     if not all_legs:
@@ -145,11 +191,15 @@ def main() -> None:
         print(table)
         return
     text = args.write.read_text()
-    if BEGIN not in text or END not in text:
-        raise SystemExit(f"{args.write} has no {BEGIN} / {END} markers")
-    head, rest = text.split(BEGIN, 1)
-    _, tail = rest.split(END, 1)
-    args.write.write_text(f"{head}{BEGIN}\n{table}\n{END}{tail}")
+    for begin, end, block in ((BEGIN, END, table), (LEGS_BEGIN, LEGS_END, render_legs(args.results_dir, args.tag))):
+        if begin not in text or end not in text:
+            if begin == BEGIN:
+                raise SystemExit(f"{args.write} has no {begin} / {end} markers")
+            continue  # the per-leg block is optional
+        head, rest = text.split(begin, 1)
+        _, tail = rest.split(end, 1)
+        text = f"{head}{begin}\n{block}\n{end}{tail}"
+    args.write.write_text(text)
     print(f"leaderboard written into {args.write}")
 
 
