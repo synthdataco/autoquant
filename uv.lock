@@ -2463,7 +2463,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "boto3", marker = "extra == 'reservoir'", specifier = ">=1.35" },
-    { name = "synth-lib", extras = ["benchmark"], git = "https://github.com/synthdataco/synth-lib?rev=26eab7facb8a60a974fb75c88fa618b4d82f1921" },
+    { name = "synth-lib", extras = ["benchmark"], git = "https://github.com/synthdataco/synth-lib?rev=286429e79572fd900882a64abf23fa84fddd7e10" },
 ]
 provides-extras = ["reservoir"]
 
@@ -2473,7 +2473,7 @@ dev = [{ name = "pytest", specifier = ">=9.0" }]
 [[package]]
 name = "synth-lib"
 version = "0.1.0"
-source = { git = "https://github.com/synthdataco/synth-lib?rev=26eab7facb8a60a974fb75c88fa618b4d82f1921#26eab7facb8a60a974fb75c88fa618b4d82f1921" }
+source = { git = "https://github.com/synthdataco/synth-lib?rev=286429e79572fd900882a64abf23fa84fddd7e10#286429e79572fd900882a64abf23fa84fddd7e10" }
 dependencies = [
     { name = "matplotlib" },
     { name = "pandas" },
