@@ -45,17 +45,24 @@ def model_of(leg_dir: Path, campaign_dir: Path) -> str:
 
 
 def rows(results_dir: Path, tag: str | None) -> list[dict]:
+    """One row per leg. With a tag, a leg that has no tagged verdict falls back to its canonical
+    one and is flagged, so a partially rescored archive still renders — visibly mixed, not
+    silently."""
     name = f"verdict-{tag}.json" if tag else "verdict.json"
     out: list[dict] = []
     for campaign_dir in sorted(p for p in results_dir.iterdir() if p.is_dir()):
         for leg_dir in sorted(p for p in campaign_dir.iterdir() if p.is_dir() and p.name != "baselines"):
             champion = (leg_dir / "CHAMPION").exists()
             verdict = leg_dir / name
+            fallback = bool(tag) and not verdict.exists() and (leg_dir / "verdict.json").exists()
+            if fallback:
+                verdict = leg_dir / "verdict.json"
             row = {
                 "campaign": campaign_dir.name,
                 "leg": leg_dir.name,
                 "model": model_of(leg_dir, campaign_dir),
                 "landed": champion,
+                "fallback": fallback,
             }
             if verdict.exists():
                 data = json.loads(verdict.read_text())
@@ -157,6 +164,8 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     ]
     for r in data:
         score = f"**{r['score']:g}**" if r["score"] is not None else ("pending" if r["landed"] else "no champion")
+        if r.get("fallback"):
+            score += " \\*"
         mean_rank = f"{r['mean_rank']:g}" if r["mean_rank"] is not None else "—"
         lines.append(
             f"| {r['model']} | {r['campaign']} | {score} | {mean_rank} "
@@ -173,6 +182,12 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
         "One row per model — its best Score, and the campaign that produced it. Spend is wall time and",
         "credits from the leg's own budget file, against an envelope of $100 and 18 h (24 h in",
         "campaign-1); a leg that was restarted reports only its final attempt.",
+        "",
+        "\\* scored before the generation lead-in fix, which repaired a harness artifact that",
+        "penalised the candidate's first horizon of rounds. The correction is not uniform — it lifts",
+        "a strong champion far more than a weak one (3.2x, 1.4x and 0.0x on the three campaign-3",
+        "legs rescored so far) — so a marked row is not comparable to an unmarked one, and the",
+        "ordering between them is unreliable rather than merely conservative.",
     ]
     return "\n".join(lines)
 
