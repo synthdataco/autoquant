@@ -1,0 +1,9 @@
+sha: 5de025a38bf85c73e6866578b83ba7979f199778
+agent_dir: agent
+profiles: [low, high]
+notes: >-
+  Official synth-lib exact-start 1000-path full-window ranks: CRYPTO_24H 170/257
+  (10 days ending 2026-08-29), COM_EQU_24H 192/211 (10 days ending
+  2026-08-29, retired SPYX excluded), and CRYPTO_1H 237/257 (5 days ending
+  2026-08-28). The deterministic model honors arbitrary path counts and supports
+  NaN-bearing raw context for both 24h/5m and 1h/1m formats.

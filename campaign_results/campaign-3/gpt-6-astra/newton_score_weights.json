@@ -1,0 +1,25 @@
+{
+  "surrogate_change": -0.0009282355238929243,
+  "penalty": 0.001,
+  "diagnostics": {
+    "0.001": -0.0009282355238929243,
+    "0.01": -0.0008147266775201443,
+    "0.1": -0.0007753160993672831,
+    "1.0": -0.000817581908664034
+  },
+  "curvature_floor": 1.2841703017980066,
+  "training_rows": 5284,
+  "validation_rows": 566,
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "paths": 1000,
+  "constant_competition_normalizers": [
+    4675.615019952949,
+    2142.4707273066324
+  ],
+  "verification_ratios": {
+    "crypto": 0.9999907017853268,
+    "com_equ": 0.9990398627815044
+  },
+  "passes_verification": true
+}

@@ -1,0 +1,38 @@
+{
+  "dev1/stackphase:control:1/crypto-24h": {
+    "reward_rank": 39,
+    "final_rank": 61,
+    "miners": 257,
+    "reward_ratio": 0.38472383406488003,
+    "reward_rounds": 1015,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00"
+  },
+  "dev1/stackphase:shifted:1/crypto-24h": {
+    "reward_rank": 44,
+    "final_rank": 79,
+    "miners": 257,
+    "reward_ratio": 0.35292575091339784,
+    "reward_rounds": 1015,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00"
+  },
+  "dev2/stackphase:control:1/crypto-24h": {
+    "reward_rank": 82,
+    "final_rank": 45,
+    "miners": 257,
+    "reward_ratio": 0.24612881736434508,
+    "reward_rounds": 1044,
+    "first_round": "2026-08-08 00:23:00+00:00",
+    "last_round": "2026-08-17 23:31:00+00:00"
+  },
+  "dev2/stackphase:shifted:1/crypto-24h": {
+    "reward_rank": 78,
+    "final_rank": 44,
+    "miners": 257,
+    "reward_ratio": 0.2703138848761343,
+    "reward_rounds": 1044,
+    "first_round": "2026-08-08 00:23:00+00:00",
+    "last_round": "2026-08-17 23:31:00+00:00"
+  }
+}

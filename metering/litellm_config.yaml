@@ -107,6 +107,68 @@ model_list:
       output_cost_per_token: 0.000006             # $6.00 / 1M
       cache_read_input_token_cost: 0.00000025     # $0.25 / 1M
       cache_creation_input_token_cost: 0.0000025  # $2.50 / 1M
+  # Claude Fable 5.1, Anthropic's own hosting. Prices pinned explicitly rather than left to
+  # LiteLLM's built-in table: the model postdates the proxy image, and a model LiteLLM has no
+  # price for meters as ZERO spend, which disables the budget cap without erroring.
+  # Anthropic list, 2026-09: cache writes are the 5-minute rate (1.25x input).
+  - model_name: claude-fable-5-1-model
+    litellm_params:
+      model: anthropic/claude-fable-5-1
+      api_key: os.environ/ANTHROPIC_API_KEY
+    model_info:
+      input_cost_per_token: 0.00001               # $10.00 / 1M
+      output_cost_per_token: 0.00005              # $50.00 / 1M
+      cache_read_input_token_cost: 0.00000025     # $0.25 / 1M
+      cache_creation_input_token_cost: 0.0000125  # $12.50 / 1M
+  # GPT-5.6 Sol and GPT-6 Astra via the Vercel AI Gateway, pinned to OpenAI's own hosting.
+  # The alias is the REAL model id, not a `gateway-` name: codex resolves a model's context window
+  # by alias, and an unknown one falls back to a default small enough that a long thread reports no
+  # room left. The agent is then told it has zero tokens and refuses to work, while the driver
+  # relaunches it every poll interval — a livelock that outlives the whole leg
+  # (`only` = fail rather than silently switch host). The gateway speaks the Responses API,
+  # which is the wire protocol codex 0.146.0 requires; it is also the route that survives the
+  # dropped-terminal-event bug on direct OpenAI Responses streams.
+  # Prices are the GATEWAY's rates (it bills us, and its gpt-5.6-sol rate is half OpenAI's own
+  # list) — reconcile against the Vercel dashboard on the first metered call. Flat rates: the
+  # >272K-input premium tier OpenAI applies is not modelled here.
+  - model_name: gpt-5.6-sol
+    litellm_params:
+      model: openai/openai/gpt-5.6-sol
+      api_base: https://ai-gateway.vercel.sh/v1
+      api_key: os.environ/AI_GATEWAY_API_KEY
+      extra_body:
+        providerOptions:
+          gateway:
+            only: ["openai"]
+    model_info:
+      input_cost_per_token: 0.000002             # $2.00 / 1M
+      output_cost_per_token: 0.00001             # $10.00 / 1M
+      cache_read_input_token_cost: 0.0000002     # $0.20 / 1M
+  - model_name: gpt-6-astra
+    litellm_params:
+      model: openai/openai/gpt-6-astra
+      api_base: https://ai-gateway.vercel.sh/v1
+      api_key: os.environ/AI_GATEWAY_API_KEY
+      extra_body:
+        providerOptions:
+          gateway:
+            only: ["openai"]
+    model_info:
+      input_cost_per_token: 0.00001              # $10.00 / 1M
+      output_cost_per_token: 0.00005             # $50.00 / 1M
+      cache_read_input_token_cost: 0.000001      # $1.00 / 1M (OpenAI list; gateway page omits it)
+
+  # Gemini 3.8 Flash. The /gemini passthrough forwards the CLI's URL verbatim, so this entry earns
+  # its place through cost attribution rather than routing — and the model postdates the proxy
+  # image, so the price has to be explicit or the leg meters as zero spend and never hits its cap.
+  # Introductory rates, in force to 2026-12-31; they double on 2027-01-01.
+  - model_name: gemini-3.8-flash
+    litellm_params:
+      model: gemini/gemini-3.8-flash
+      api_key: os.environ/GEMINI_API_KEY
+    model_info:
+      input_cost_per_token: 0.00000075   # $0.75 / 1M
+      output_cost_per_token: 0.00000375  # $3.75 / 1M
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

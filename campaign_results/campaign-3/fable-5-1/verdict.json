@@ -1,0 +1,197 @@
+{
+  "score": 10.8,
+  "mean_competition_rank": 208.3,
+  "score_definition": "100 x mean over competitions of min(1, candidate_total_reward / top_other_miner_total_reward) (validator reward_weight summed over the window; bounded 0-100: 0 = earned nothing, 100 = matched or beat the field's best in every competition; per-competition beats_field flags when the cap binds)",
+  "mean_reward_vs_top": 0.10777377710759777,
+  "mean_competition_percentile": 0.1932555123216602,
+  "per_competition": {
+    "crypto-24h": {
+      "rank": 188,
+      "field_size": 257,
+      "percentile": 0.27237354085603116,
+      "rank_over_rounds": {
+        "best_rank": 168,
+        "mean_rank": 190.5,
+        "field_size": 257
+      },
+      "rewards": {
+        "reward_share": 0.00027558912621591735,
+        "reward_vs_top": 0.013410401750976204,
+        "reward_rank": 180,
+        "beats_field": false
+      },
+      "assets_failed": [
+        "ETH",
+        "SOL",
+        "XRP"
+      ],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 2450.725173983672,
+          "num_prompts": 210,
+          "best_rank": 139,
+          "mean_rank": 204.2,
+          "field_size": 257
+        },
+        "ETH": {
+          "error": "RuntimeError('All matched predictions resulted in crps=-1 (scoring failures). No valid backtest results to report.')"
+        },
+        "SOL": {
+          "error": "RuntimeError('All matched predictions resulted in crps=-1 (scoring failures). No valid backtest results to report.')"
+        },
+        "XRP": {
+          "error": "RuntimeError('All matched predictions resulted in crps=-1 (scoring failures). No valid backtest results to report.')"
+        },
+        "HYPE": {
+          "mean_crps": 4804.2881939709905,
+          "num_prompts": 217,
+          "best_rank": 142,
+          "mean_rank": 184.5,
+          "field_size": 257
+        }
+      }
+    },
+    "com-equ-24h": {
+      "rank": 216,
+      "field_size": 257,
+      "percentile": 0.16342412451361865,
+      "rank_over_rounds": {
+        "best_rank": 216,
+        "mean_rank": 231.0,
+        "field_size": 257
+      },
+      "rewards": {
+        "reward_share": 1.947976238890581e-05,
+        "reward_vs_top": 0.0008347058543385383,
+        "reward_rank": 234,
+        "beats_field": false
+      },
+      "assets_failed": [
+        "SPYX"
+      ],
+      "per_asset": {
+        "XAU": {
+          "mean_crps": 1559.4026898761715,
+          "num_prompts": 211,
+          "best_rank": 201,
+          "mean_rank": 219.0,
+          "field_size": 257
+        },
+        "SPYX": {
+          "error": "NoScoresAvailable('no scored prompts for asset=SPYX, time_length=86400, range=[2026-08-30 00:00:00+00:00, 2026-09-10 00:50:00+00:00]')"
+        },
+        "NVDAX": {
+          "mean_crps": 1804.9985458979627,
+          "num_prompts": 210,
+          "best_rank": 219,
+          "mean_rank": 226.5,
+          "field_size": 257
+        },
+        "GOOGLX": {
+          "mean_crps": 1332.4192285070294,
+          "num_prompts": 217,
+          "best_rank": 199,
+          "mean_rank": 224.6,
+          "field_size": 257
+        },
+        "TSLAX": {
+          "mean_crps": 2591.0935786897044,
+          "num_prompts": 191,
+          "best_rank": 224,
+          "mean_rank": 238.7,
+          "field_size": 257
+        },
+        "AAPLX": {
+          "mean_crps": 1375.985490378296,
+          "num_prompts": 216,
+          "best_rank": 216,
+          "mean_rank": 222.5,
+          "field_size": 257
+        },
+        "WTIOIL": {
+          "mean_crps": 3454.296284116668,
+          "num_prompts": 135,
+          "best_rank": 191,
+          "mean_rank": 210.2,
+          "field_size": 257
+        },
+        "SPCX": {
+          "mean_crps": 2435.281049686701,
+          "num_prompts": 217,
+          "best_rank": 150,
+          "mean_rank": 181.8,
+          "field_size": 257
+        },
+        "SP500": {
+          "mean_crps": 655.428690735863,
+          "num_prompts": 208,
+          "best_rank": 124,
+          "mean_rank": 170.9,
+          "field_size": 257
+        }
+      }
+    },
+    "crypto-1h": {
+      "rank": 221,
+      "field_size": 257,
+      "percentile": 0.14396887159533078,
+      "rank_over_rounds": {
+        "best_rank": 79,
+        "mean_rank": 202.1,
+        "field_size": 257
+      },
+      "rewards": {
+        "reward_share": 0.0025319780764530894,
+        "reward_vs_top": 0.30907622371747856,
+        "reward_rank": 202,
+        "beats_field": false
+      },
+      "assets_failed": [
+        "ETH",
+        "SOL",
+        "XRP"
+      ],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 515.7267421921479,
+          "num_prompts": 1437,
+          "best_rank": 27,
+          "mean_rank": 203.3,
+          "field_size": 257
+        },
+        "ETH": {
+          "error": "RuntimeError('All matched predictions resulted in crps=-1 (scoring failures). No valid backtest results to report.')"
+        },
+        "SOL": {
+          "error": "RuntimeError('All matched predictions resulted in crps=-1 (scoring failures). No valid backtest results to report.')"
+        },
+        "XRP": {
+          "error": "RuntimeError('All matched predictions resulted in crps=-1 (scoring failures). No valid backtest results to report.')"
+        },
+        "HYPE": {
+          "mean_crps": 1007.1116750589866,
+          "num_prompts": 1437,
+          "best_rank": 4,
+          "mean_rank": 119.6,
+          "field_size": 257
+        }
+      }
+    }
+  },
+  "window": {
+    "start": "2026-08-30",
+    "end": "2026-09-09",
+    "note": "pseudo-out-of-sample: after the data cutoff, but agents had live field-API access during their runs"
+  },
+  "champion_sha": "9157d051638cbbb283c9f8ee98897d0313633bcc",
+  "sandbox_image": {
+    "name": "synth-bench-sandbox",
+    "id": "sha256:e228ed4c2015d0449582b1f943c478ba895f705d87dce59d1bffad5a04a11ce6",
+    "digest": "synth-bench-sandbox@sha256:e228ed4c2015d0449582b1f943c478ba895f705d87dce59d1bffad5a04a11ce6"
+  },
+  "cadence_minutes": {
+    "86400": 60,
+    "3600": 10
+  },
+  "num_simulations": 1000
+}

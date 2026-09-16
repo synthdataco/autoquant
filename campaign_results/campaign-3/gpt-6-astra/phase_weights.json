@@ -1,0 +1,20 @@
+{
+  "initial_validation_loss": 1.0096284444563821,
+  "best_control_loss": 1.0081142789076842,
+  "best_shifted_loss": 1.0075779521707495,
+  "stages": 200,
+  "passes_phase_gate": true,
+  "diagnostics": {
+    "control/50": 1.0085932724427362,
+    "control/100": 1.0082949323993078,
+    "control/200": 1.0081142789076842,
+    "shifted/50": 1.0082220031762001,
+    "shifted/100": 1.007813638619606,
+    "shifted/200": 1.0075779521707495
+  },
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "training_pairs": 23452,
+  "validation_pairs": 2496,
+  "weight_fingerprint": "1d331a2144855987"
+}

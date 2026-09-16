@@ -12,7 +12,7 @@ provider keys you need, never commit it. Commands below run from `metering/`.
 ## 1. Proxy up, and a throwaway capped key
 
 ```bash
-docker compose -f docker-compose.yaml up -d && sleep 10
+docker compose -f docker-compose.yaml up -d --force-recreate && sleep 10
 curl -s http://localhost:4000/health/liveliness        # expected: "I'm alive!"
 source .env.proxy
 VKEY=$(curl -s -X POST http://localhost:4000/key/generate \

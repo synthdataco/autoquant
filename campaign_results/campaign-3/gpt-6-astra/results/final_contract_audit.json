@@ -1,0 +1,217 @@
+{
+  "status": "passed",
+  "comparisons": [
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "BTC",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 17
+    },
+    {
+      "asset": "BTC",
+      "length": 3600,
+      "count": 1000
+    },
+    {
+      "asset": "ETH",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "ETH",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "ETH",
+      "length": 3600,
+      "count": 17
+    },
+    {
+      "asset": "ETH",
+      "length": 3600,
+      "count": 1000
+    },
+    {
+      "asset": "SOL",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "SOL",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "SOL",
+      "length": 3600,
+      "count": 17
+    },
+    {
+      "asset": "SOL",
+      "length": 3600,
+      "count": 1000
+    },
+    {
+      "asset": "XRP",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "XRP",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "XRP",
+      "length": 3600,
+      "count": 17
+    },
+    {
+      "asset": "XRP",
+      "length": 3600,
+      "count": 1000
+    },
+    {
+      "asset": "HYPE",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "HYPE",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "HYPE",
+      "length": 3600,
+      "count": 17
+    },
+    {
+      "asset": "HYPE",
+      "length": 3600,
+      "count": 1000
+    },
+    {
+      "asset": "XAU",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "XAU",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "NVDAX",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "NVDAX",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "GOOGLX",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "GOOGLX",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "TSLAX",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "TSLAX",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "AAPLX",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "WTIOIL",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "WTIOIL",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "SPCX",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "SPCX",
+      "length": 86400,
+      "count": 1000
+    },
+    {
+      "asset": "SP500",
+      "length": 86400,
+      "count": 17
+    },
+    {
+      "asset": "SP500",
+      "length": 86400,
+      "count": 1000
+    }
+  ],
+  "weights": {
+    "volatility_weights.npz": {
+      "bytes": 15452,
+      "sha256": "6770795ab5976b5a1317fd3a4606917662f745232bda7b0a3f565ed0c5af351d"
+    },
+    "temporal_exact_weights.npz": {
+      "bytes": 82682,
+      "sha256": "58d2940d3f72442937dc2547a9eeacf56f0b2a434e66d22320c577fd78ee0364"
+    },
+    "lead_weights.npz": {
+      "bytes": 15400,
+      "sha256": "ef26925c890389c106fa83f6c54ce0a04ec6c6c0a080855b5b7c472594276aa3"
+    },
+    "lead_temporal_weights.npz": {
+      "bytes": 5594,
+      "sha256": "c6b85c106114c483147e52c79a3b870db08ed4052006d43ab2710a739ba4a8ed"
+    },
+    "tree_student_weights.npz": {
+      "bytes": 1697690,
+      "sha256": "1a283bf6a79dd99dadbca9a6276b9d26a563cd54638c362e2bfb9a331711e23e"
+    },
+    "periodic_weights.npz": {
+      "bytes": 2070,
+      "sha256": "461247e0fe83eb6d19afef895c1dc45d8feca2c0d9018fa267a8868fa8bf8ab0"
+    },
+    "lead_finetune_weights.npz": {
+      "bytes": 83558,
+      "sha256": "40274926ebaabeb4ea4e35aecaf7aff3d3b6b6382087edd2259926721a6b2f57"
+    }
+  },
+  "model_sha256": "1d95b79fb38eccb025571852ed16a62161562642c0b778b7028ddddca467275f",
+  "context_time": "2026-08-12 15:23:00+00:00"
+}

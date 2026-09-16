@@ -25,7 +25,7 @@ uv sync
 
 # 2. the metering proxy: one master key + your provider keys, never committed
 cp metering/.env.proxy.example metering/.env.proxy
-docker compose -f metering/docker-compose.yaml up -d
+docker compose -f metering/docker-compose.yaml up -d --force-recreate
 docker build -t synth-bench-sandbox sandbox/
 
 # 3. data: a minute store for the model's context, plus realized paths and the field-scores bundle

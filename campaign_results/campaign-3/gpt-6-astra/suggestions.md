@@ -1,0 +1,12 @@
+# Suggestions and infrastructure observations
+
+- The starter `predict.py` uses strict `MinutePriceStore.load_range`, despite campaign text describing it as a sanctioned lenient example. Read raw partitions for context so legitimate NaNs remain intact.
+- Campaign prose calls smoothing 24 hours; the pinned competition config specifies 10-day daily and 5-day hourly scoring windows. Report the implemented windows explicitly.
+- The official warmup trimmer silently keeps all rounds if trimming would leave none. Expose whether warmup actually occurred, and distinguish the simulation-input interval from the reported reward interval.
+- Combined reward replay can omit earlier reporting rounds while retaining the full prompt history. Exact official comparisons verify this optimization. Cache keys must include the reporting cutoff so a shortened result cannot masquerade as a full-window replay.
+- Reference interface checks should include NumPy integer Unix seconds, raw NaNs, missing optional columns, arbitrary path counts and equivalent timezone representations. NumPy integer timestamps otherwise risk accidental nanosecond interpretation.
+- `DATA.md` says only close is populated, but inspected BTC partitions also contain real OHLCV and trade-count values. The model will depend only on close so this discrepancy cannot affect portability.
+- No operator-private research code has been encountered or used.
+- Expanded OHLC audit: the July 25 snapshot has real OHLCV/trade-count observations for all seven inspected assets, including Hyperliquid assets, generally at the same density as close. `DATA.md`'s close-only description should be corrected; it can materially misdirect model design. Models must still handle genuinely absent auxiliary fields.
+- The offline score bundle starts around July 27, 2026, rather than spanning the entire price-history window described in the campaign. Development windows were shifted accordingly.
+- A single score-only API probe explicitly requested July 1–3, 2026, to check for earlier training history. Although HTTP status was 200, response timestamps violated the requested bounds. The response was rejected before saving or analyzing any CRPS values; no dates or scores from that response were used. Do not rely on server-side historical filtering without a client-side bound check. All evaluation remains on the frozen offline bundle, and evaluators now fail closed if its environment setting is missing.

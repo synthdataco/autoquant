@@ -1,0 +1,11 @@
+{
+  "dev1/stackcenter:1/crypto-24h": {
+    "reward_rank": 32,
+    "final_rank": 61,
+    "miners": 257,
+    "reward_ratio": 0.5121464748836272,
+    "reward_rounds": 1015,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "contexts": 6081,
+  "valid_heads": 9575,
+  "official_crps_evaluations": 95750,
+  "paths_per_training_curve": 128,
+  "initial_interpolated_validation_ratio": 0.9929695725440979,
+  "best_interpolated_validation_ratio": 0.9925611615180969,
+  "best_epoch": 5,
+  "target_cutoff": "2026-07-26",
+  "chronological_validation_start": "2026-07-01",
+  "warning": "Interpolated training objective is not a final CRPS or field evaluation."
+}

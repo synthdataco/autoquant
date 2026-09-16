@@ -1,0 +1,14 @@
+{
+  "baseline_validation_mse": 1.8245247825016422,
+  "best_validation_mse": 1.8245247825016422,
+  "penalty": null,
+  "diagnostics": {
+    "100": 1.8423813574091485,
+    "1000": 1.840659140773415,
+    "10000": 1.832052250299767
+  },
+  "training_rows": 20215,
+  "validation_rows": 2208,
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01"
+}

@@ -42,6 +42,7 @@ def test_model_label_strips_alias_decoration():
     assert model_label("claude-opus-5-model") == "claude-opus-5"
     assert model_label("engy-glm-5.2") == "glm-5.2"
     assert model_label("gpt-5") == "gpt-5"
+    assert model_label("gateway-gpt-6-astra") == "gpt-6-astra"
 
 
 def test_competition_cell_shows_final_rank_and_mean():
@@ -71,7 +72,21 @@ def test_render_marks_pending_and_no_champion(tmp_path):
     assert "| **30.1** |" in table and "7/250 (μ11.5)" in table
     assert "pending" in table and "no champion" in table
     assert table.count("|") > 20  # a table, not a stub
-    assert "Spend" not in table  # cost is per-report, not per-row: a restarted leg resets its budget file
+    assert "Spend" in table and "3.5 h / $12.34" in table
+
+
+def test_spend_is_absent_rather_than_wrong(tmp_path):
+    """No budget file, or one claiming a champion took zero hours, prints nothing.
+
+    A restart leaves a fresh budget file that never got a poll; published verbatim it advertises a
+    real Score for a few cents of spend.
+    """
+    from synth_bench.leaderboard import budget
+
+    assert budget(_leg(tmp_path, "c", "nofile", budget=False)) == "—"
+    stale = _leg(tmp_path, "c", "stale")
+    (stale / "BUDGET.md").write_text("- Credits: 0.06 / 100.00 USD (0%)\n- Time   : 0.0 h elapsed\n")
+    assert budget(stale) == "—"
 
 
 def test_tagged_window_reads_its_own_file(tmp_path):

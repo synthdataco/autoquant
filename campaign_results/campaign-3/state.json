@@ -1,0 +1,14 @@
+{
+  "runs_done": [
+    "fable-5-1",
+    "gpt-5-6-sol",
+    "gemini-3-8-flash",
+    "gpt-6-astra"
+  ],
+  "sandbox_image": {
+    "name": "synth-bench-sandbox",
+    "id": "sha256:e228ed4c2015d0449582b1f943c478ba895f705d87dce59d1bffad5a04a11ce6",
+    "digest": "synth-bench-sandbox@sha256:e228ed4c2015d0449582b1f943c478ba895f705d87dce59d1bffad5a04a11ce6"
+  },
+  "forward_window_start": "2026-09-09T16:16:06.982061+00:00"
+}

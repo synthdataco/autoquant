@@ -1,0 +1,32 @@
+sha: 16529c49ce49830c88bf050d0684e0c02d331e7e
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Supports daily 86400-second/300-second paths and hourly 3600-second/60-second
+  paths, honoring the requested num_simulations and raw NaN-containing contexts.
+  Serving code and seven required numerical archives are unchanged from the
+  pre-final-validation freeze at 9bc60e9adff582d9d58a223ecaff6396aec23e2e.
+
+  Official synth-lib backtesting through agent/predict.py and agent/field_eval.py,
+  1000 paths per prompt, simulation/scoring input August 8-28, 2026, with rewards
+  reported only August 18-28 (exclusive end) after ten prior simulation days:
+  COM_EQU_24H: cumulative reward rank 162/257, reward/best-field ratio
+  0.028641953742380485; final-round rank 165; 1529 reward rounds.
+  CRYPTO_24H: cumulative reward rank 47/257, reward/best-field ratio
+  0.10524606889697077; final-round rank 38; 1034 reward rounds.
+  CRYPTO_1H: cumulative reward rank 42/257, reward/best-field ratio
+  0.46019129972065925; final-round rank 135; 3435 reward rounds.
+  Reserved historical Score estimate: 19.802644078667015.
+
+  This is weaker than the warmed development estimate of 45.09516889117868.
+  No model selection or parameter changes follow the reserved result. These are
+  historical estimates, not the campaign's unknown post-cutoff Score.
+  Metrics: agent/results/frozen_final/final/competition_metrics.json.
+  Report: agent/report.md. Research record: agent/journal.md.
+
+  Offline NumPy/pandas/SciPy serving uses volatility_weights.npz,
+  temporal_exact_weights.npz, lead_weights.npz, lead_temporal_weights.npz,
+  tree_student_weights.npz, periodic_weights.npz and lead_finetune_weights.npz.
+  All are committed, numerical-only, and hash-verified. Weekly-lead and micro-score
+  research archives are not deployed. Offline/import, arbitrary-count, timestamp,
+  raw-NaN and serving/research-equivalence audits pass.

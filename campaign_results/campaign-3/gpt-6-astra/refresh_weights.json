@@ -1,0 +1,10 @@
+{
+  "contexts": 27200,
+  "activation_date": "2026-08-07 00:00:00+00:00",
+  "all_target_endpoints_before": "2026-08-07 00:00:00+00:00",
+  "recency_half_life_days": 60,
+  "epochs": 40,
+  "seed": 95,
+  "initialization": "Original likelihood model",
+  "last_batch_training_loss": 1.0228115320205688
+}

@@ -1,0 +1,20 @@
+{
+  "initial_validation_loss": 1.0085931742458771,
+  "best_validation_loss": 1.0076145027333907,
+  "kind": "activity",
+  "stages": 200,
+  "best_control_loss": 1.007667345449062,
+  "passes_activity_gate": false,
+  "diagnostics": {
+    "control/50": 1.0081078974053232,
+    "control/100": 1.0079099916646146,
+    "control/200": 1.007667345449062,
+    "activity/50": 1.008270087284474,
+    "activity/100": 1.0080569566913709,
+    "activity/200": 1.0076145027333907
+  },
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "training_rows": 23457,
+  "validation_rows": 2508
+}

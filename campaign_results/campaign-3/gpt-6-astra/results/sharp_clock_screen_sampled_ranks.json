@@ -1,0 +1,182 @@
+{
+  "dev1/combined_exact:1:0.5/com-equ-24h": {
+    "reward_rank": 167,
+    "final_rank": 167,
+    "miners": 207,
+    "reward_ratio": 0.00297812097856186,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev1/combined_exact:1:0.5/crypto-24h": {
+    "reward_rank": 141,
+    "final_rank": 141,
+    "miners": 257,
+    "reward_ratio": 0.17802842142886446,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev1/sharp:48:1:0.75:0/com-equ-24h": {
+    "reward_rank": 153,
+    "final_rank": 153,
+    "miners": 207,
+    "reward_ratio": 0.008280970494673325,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev1/sharp:48:1:0.75:0/crypto-24h": {
+    "reward_rank": 103,
+    "final_rank": 103,
+    "miners": 257,
+    "reward_ratio": 0.24422563399957584,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev1/sharp:96:1:0.75:0/com-equ-24h": {
+    "reward_rank": 150,
+    "final_rank": 150,
+    "miners": 207,
+    "reward_ratio": 0.013262836715680845,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev1/sharp:96:1:0.75:0/crypto-24h": {
+    "reward_rank": 103,
+    "final_rank": 103,
+    "miners": 257,
+    "reward_ratio": 0.2481439500956661,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev1/sharp:96:1:0.75:1/com-equ-24h": {
+    "reward_rank": 151,
+    "final_rank": 151,
+    "miners": 207,
+    "reward_ratio": 0.011474908945310282,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev1/sharp:96:1:0.75:1/crypto-24h": {
+    "reward_rank": 103,
+    "final_rank": 103,
+    "miners": 257,
+    "reward_ratio": 0.25179798976452544,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev1/sharp:96:1:1:0/com-equ-24h": {
+    "reward_rank": 129,
+    "final_rank": 129,
+    "miners": 207,
+    "reward_ratio": 0.01868883484775828,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev1/sharp:96:1:1:0/crypto-24h": {
+    "reward_rank": 134,
+    "final_rank": 134,
+    "miners": 257,
+    "reward_ratio": 0.18237996705681736,
+    "reward_rounds": 1,
+    "first_round": "2026-08-06 23:59:59+00:00",
+    "last_round": "2026-08-06 23:59:59+00:00"
+  },
+  "dev2/combined_exact:1:0.5/com-equ-24h": {
+    "reward_rank": 215,
+    "final_rank": 215,
+    "miners": 257,
+    "reward_ratio": 0.0020870956391000825,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  },
+  "dev2/combined_exact:1:0.5/crypto-24h": {
+    "reward_rank": 164,
+    "final_rank": 164,
+    "miners": 257,
+    "reward_ratio": 0.14349420578001257,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  },
+  "dev2/sharp:48:1:0.75:0/com-equ-24h": {
+    "reward_rank": 215,
+    "final_rank": 215,
+    "miners": 257,
+    "reward_ratio": 0.003384131246825054,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  },
+  "dev2/sharp:48:1:0.75:0/crypto-24h": {
+    "reward_rank": 164,
+    "final_rank": 164,
+    "miners": 257,
+    "reward_ratio": 0.14410424360969373,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  },
+  "dev2/sharp:96:1:0.75:0/com-equ-24h": {
+    "reward_rank": 215,
+    "final_rank": 215,
+    "miners": 257,
+    "reward_ratio": 0.003917964559680312,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  },
+  "dev2/sharp:96:1:0.75:0/crypto-24h": {
+    "reward_rank": 171,
+    "final_rank": 171,
+    "miners": 257,
+    "reward_ratio": 0.1283654037920695,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  },
+  "dev2/sharp:96:1:0.75:1/com-equ-24h": {
+    "reward_rank": 215,
+    "final_rank": 215,
+    "miners": 257,
+    "reward_ratio": 0.00415131177811132,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  },
+  "dev2/sharp:96:1:0.75:1/crypto-24h": {
+    "reward_rank": 171,
+    "final_rank": 171,
+    "miners": 257,
+    "reward_ratio": 0.13035322461054352,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  },
+  "dev2/sharp:96:1:1:0/com-equ-24h": {
+    "reward_rank": 215,
+    "final_rank": 215,
+    "miners": 257,
+    "reward_ratio": 0.005012806264294604,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  },
+  "dev2/sharp:96:1:1:0/crypto-24h": {
+    "reward_rank": 182,
+    "final_rank": 182,
+    "miners": 257,
+    "reward_ratio": 0.09785703100299563,
+    "reward_rounds": 1,
+    "first_round": "2026-08-17 23:59:59+00:00",
+    "last_round": "2026-08-17 23:59:59+00:00"
+  }
+}

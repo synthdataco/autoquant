@@ -1,0 +1,42 @@
+{
+  "ratios": {
+    "('dev1', 'com_equ')": 1.0000004409434151,
+    "('dev1', 'crypto')": 1.0,
+    "('dev1', 'hourly')": 1.0,
+    "('dev2', 'com_equ')": 1.0000054596271222,
+    "('dev2', 'crypto')": 1.0,
+    "('dev2', 'hourly')": 1.0
+  },
+  "coverage": {
+    "('dev1', 'com_equ')": {
+      "total": 480.0,
+      "affected": 14.0,
+      "maximum": 6.0
+    },
+    "('dev1', 'crypto')": {
+      "total": 300.0,
+      "affected": 0.0,
+      "maximum": 0.0
+    },
+    "('dev1', 'hourly')": {
+      "total": 300.0,
+      "affected": 0.0,
+      "maximum": 0.0
+    },
+    "('dev2', 'com_equ')": {
+      "total": 480.0,
+      "affected": 36.0,
+      "maximum": 5.0
+    },
+    "('dev2', 'crypto')": {
+      "total": 300.0,
+      "affected": 0.0,
+      "maximum": 0.0
+    },
+    "('dev2', 'hourly')": {
+      "total": 300.0,
+      "affected": 0.0,
+      "maximum": 0.0
+    }
+  }
+}

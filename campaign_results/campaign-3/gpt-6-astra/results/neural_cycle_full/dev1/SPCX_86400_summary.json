@@ -1,0 +1,7 @@
+{
+  "miner_name": "neural_cycle_full",
+  "miner_id": 999,
+  "num_prompts": 240,
+  "mean_crps": 6338.872119290997,
+  "final_smoothed_score": 268.9909890756333
+}

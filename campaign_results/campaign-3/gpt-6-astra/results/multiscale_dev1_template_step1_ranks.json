@@ -1,0 +1,20 @@
+{
+  "dev1/stackrank:multiscale:1/com-equ-24h": {
+    "reward_rank": 108,
+    "final_rank": 107,
+    "miners": 257,
+    "reward_ratio": 0.06220605461470929,
+    "reward_rounds": 1499,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:50:00+00:00"
+  },
+  "dev1/stackrank:multiscale:1/crypto-24h": {
+    "reward_rank": 32,
+    "final_rank": 61,
+    "miners": 257,
+    "reward_ratio": 0.460716711708985,
+    "reward_rounds": 1015,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00"
+  }
+}

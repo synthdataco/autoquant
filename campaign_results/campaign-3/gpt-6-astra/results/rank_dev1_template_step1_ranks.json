@@ -1,0 +1,29 @@
+{
+  "dev1/stratified/com-equ-24h": {
+    "reward_rank": 111,
+    "final_rank": 107,
+    "miners": 257,
+    "reward_ratio": 0.05988411218101849,
+    "reward_rounds": 1499,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:50:00+00:00"
+  },
+  "dev1/stratified/crypto-1h": {
+    "reward_rank": 21,
+    "final_rank": 41,
+    "miners": 257,
+    "reward_ratio": 0.9719844885136087,
+    "reward_rounds": 1624,
+    "first_round": "2026-08-02 00:04:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00"
+  },
+  "dev1/stratified/crypto-24h": {
+    "reward_rank": 32,
+    "final_rank": 81,
+    "miners": 257,
+    "reward_ratio": 0.420628267386689,
+    "reward_rounds": 1015,
+    "first_round": "2026-07-28 00:13:00+00:00",
+    "last_round": "2026-08-06 23:59:00+00:00"
+  }
+}

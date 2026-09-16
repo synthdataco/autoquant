@@ -1,0 +1,27 @@
+{
+  "initial_validation_objective": 0.8004807829856873,
+  "best_validation_objective": 0.7996371388435364,
+  "best_epoch": 299,
+  "paths": 1000,
+  "contexts": 6081,
+  "official_crps_calls": 86175,
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "constant_competition_scales": [
+    1002.2764904618496,
+    4689.377711252395,
+    2091.4338190315234
+  ],
+  "base_family": "lead:0.5; training response curves, not causal historical forecasts",
+  "scale_grid": [
+    0.85,
+    0.9,
+    0.95,
+    0.975,
+    1.0,
+    1.025,
+    1.05,
+    1.1,
+    1.2
+  ]
+}

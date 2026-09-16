@@ -1,0 +1,257 @@
+{
+ "tag": "v1",
+ "verdict_exact": false,
+ "days": 3,
+ "eval_end": "2026-08-29",
+ "num_simulations": 1000,
+ "per_competition": {
+  "crypto-24h": {
+   "per_asset": {
+    "BTC": {
+     "num_prompts": 71,
+     "missing": 1,
+     "mean_crps": 4218.18,
+     "my_gap": 1106.09,
+     "best_other_gap": 34.214,
+     "median_other_gap": 65.379,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 257.0
+    },
+    "ETH": {
+     "num_prompts": 72,
+     "missing": 0,
+     "mean_crps": 5276.36,
+     "my_gap": 1601.33,
+     "best_other_gap": 35.251,
+     "median_other_gap": 66.642,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 257.0
+    },
+    "SOL": {
+     "num_prompts": 72,
+     "missing": 0,
+     "mean_crps": 8035.23,
+     "my_gap": 1809.872,
+     "best_other_gap": 108.061,
+     "median_other_gap": 154.554,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 257.0
+    },
+    "XRP": {
+     "num_prompts": 72,
+     "missing": 0,
+     "mean_crps": 9756.62,
+     "my_gap": 3463.255,
+     "best_other_gap": 67.528,
+     "median_other_gap": 141.593,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 257.0
+    },
+    "HYPE": {
+     "num_prompts": 69,
+     "missing": 3,
+     "mean_crps": 9019.81,
+     "my_gap": 1893.877,
+     "best_other_gap": 47.789,
+     "median_other_gap": 115.409,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 257.0
+    }
+   },
+   "assets_failed": [],
+   "rank": 257,
+   "field_size": 257,
+   "rewards": {
+    "reward_share": 2.5705999493563294e-99,
+    "reward_vs_top": 2.7457232910449293e-98,
+    "reward_rank": 257,
+    "beats_field": false
+   },
+   "my_smoothed": 1846.728,
+   "best_other_smoothed": 67.777,
+   "median_other_smoothed": 105.514
+  },
+  "com-equ-24h": {
+   "per_asset": {
+    "XAU": {
+     "num_prompts": 72,
+     "missing": 0,
+     "mean_crps": 1929.14,
+     "my_gap": 214.638,
+     "best_other_gap": 14.531,
+     "median_other_gap": 26.669,
+     "gap_rank": 253,
+     "n_miners": 257,
+     "final_rank": 254.2
+    },
+    "NVDAX": {
+     "num_prompts": 72,
+     "missing": 0,
+     "mean_crps": 4458.41,
+     "my_gap": 347.328,
+     "best_other_gap": 95.62,
+     "median_other_gap": 151.934,
+     "gap_rank": 250,
+     "n_miners": 257,
+     "final_rank": 219.0
+    },
+    "GOOGLX": {
+     "num_prompts": 72,
+     "missing": 0,
+     "mean_crps": 1834.41,
+     "my_gap": 359.273,
+     "best_other_gap": 18.092,
+     "median_other_gap": 32.851,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 257.0
+    },
+    "TSLAX": {
+     "num_prompts": 72,
+     "missing": 0,
+     "mean_crps": 3012.57,
+     "my_gap": 527.642,
+     "best_other_gap": 25.056,
+     "median_other_gap": 41.018,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 257.0
+    },
+    "AAPLX": {
+     "num_prompts": 72,
+     "missing": 0,
+     "mean_crps": 1943.18,
+     "my_gap": 339.633,
+     "best_other_gap": 17.662,
+     "median_other_gap": 28.581,
+     "gap_rank": 253,
+     "n_miners": 257,
+     "final_rank": 254.0
+    },
+    "WTIOIL": {
+     "num_prompts": 69,
+     "missing": 3,
+     "mean_crps": 3584.66,
+     "my_gap": 342.086,
+     "best_other_gap": 25.203,
+     "median_other_gap": 37.316,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 237.3
+    },
+    "SPCX": {
+     "num_prompts": 71,
+     "missing": 1,
+     "mean_crps": 3800.88,
+     "my_gap": 699.662,
+     "best_other_gap": 47.011,
+     "median_other_gap": 92.613,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 257.0
+    },
+    "SP500": {
+     "num_prompts": 72,
+     "missing": 0,
+     "mean_crps": 904.87,
+     "my_gap": 163.403,
+     "best_other_gap": 7.093,
+     "median_other_gap": 14.956,
+     "gap_rank": 257,
+     "n_miners": 257,
+     "final_rank": 257.0
+    }
+   },
+   "assets_failed": [],
+   "rank": 257,
+   "field_size": 257,
+   "rewards": {
+    "reward_share": 1.0514135299138545e-16,
+    "reward_vs_top": 8.32052242315858e-15,
+    "reward_rank": 257,
+    "beats_field": false
+   },
+   "my_smoothed": 316.004,
+   "best_other_smoothed": 33.737,
+   "median_other_smoothed": 41.565
+  },
+  "crypto-1h": {
+   "per_asset": {
+    "BTC": {
+     "num_prompts": 432,
+     "missing": 0,
+     "mean_crps": 663.92,
+     "my_gap": 29.528,
+     "best_other_gap": 26.664,
+     "median_other_gap": 29.369,
+     "gap_rank": 178,
+     "n_miners": 257,
+     "final_rank": 162.4
+    },
+    "ETH": {
+     "num_prompts": 432,
+     "missing": 0,
+     "mean_crps": 822.56,
+     "my_gap": 39.125,
+     "best_other_gap": 36.611,
+     "median_other_gap": 40.666,
+     "gap_rank": 89,
+     "n_miners": 257,
+     "final_rank": 102.2
+    },
+    "SOL": {
+     "num_prompts": 432,
+     "missing": 0,
+     "mean_crps": 1347.66,
+     "my_gap": 61.485,
+     "best_other_gap": 62.025,
+     "median_other_gap": 65.619,
+     "gap_rank": 1,
+     "n_miners": 257,
+     "final_rank": 57.2
+    },
+    "XRP": {
+     "num_prompts": 432,
+     "missing": 0,
+     "mean_crps": 1361.81,
+     "my_gap": 77.074,
+     "best_other_gap": 68.163,
+     "median_other_gap": 78.051,
+     "gap_rank": 99,
+     "n_miners": 257,
+     "final_rank": 69.2
+    },
+    "HYPE": {
+     "num_prompts": 432,
+     "missing": 0,
+     "mean_crps": 1526.33,
+     "my_gap": 63.978,
+     "best_other_gap": 59.372,
+     "median_other_gap": 66.714,
+     "gap_rank": 94,
+     "n_miners": 257,
+     "final_rank": 110.9
+    }
+   },
+   "assets_failed": [],
+   "rank": 80,
+   "field_size": 257,
+   "rewards": {
+    "reward_share": 0.005021547383176031,
+    "reward_vs_top": 0.4183686621485513,
+    "reward_rank": 109,
+    "beats_field": false
+   },
+   "my_smoothed": 50.325,
+   "best_other_smoothed": 48.0,
+   "median_other_smoothed": 52.215
+  }
+ },
+ "score": 13.9,
+ "elapsed_s": 379.2
+}

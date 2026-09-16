@@ -1,0 +1,9 @@
+{
+  "best_validation_likelihood": 1.0193390846252441,
+  "best_epoch": 2,
+  "inputs": 49,
+  "training_contexts": 23457,
+  "validation_contexts": 2508,
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01"
+}

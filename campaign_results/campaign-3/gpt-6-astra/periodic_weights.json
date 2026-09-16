@@ -1,0 +1,25 @@
+{
+  "initial_validation_loss": 1.022643237983029,
+  "best_validation_loss": 1.016232607983034,
+  "penalty": 0.001,
+  "diagnostics": {
+    "0.001": {
+      "validation_loss": 1.016232607983034,
+      "optimizer_success": true,
+      "iterations": 19
+    },
+    "0.01": {
+      "validation_loss": 1.0163920998671905,
+      "optimizer_success": true,
+      "iterations": 11
+    },
+    "0.1": {
+      "validation_loss": 1.0182016892143733,
+      "optimizer_success": true,
+      "iterations": 6
+    }
+  },
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "interpretation": "Smooth bounded positive scale only; no session gates or closures."
+}

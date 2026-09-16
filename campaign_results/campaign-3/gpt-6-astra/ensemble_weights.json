@@ -1,0 +1,11 @@
+{
+  "seeds": [
+    20260909,
+    73,
+    420,
+    2026
+  ],
+  "combination": "equal-weight log multipliers",
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01"
+}

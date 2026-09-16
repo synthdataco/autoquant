@@ -1,0 +1,7 @@
+{
+  "miner_name": "incumbent_warm_dev2",
+  "miner_id": 999,
+  "num_prompts": 480,
+  "mean_crps": 2493.737312578806,
+  "final_smoothed_score": 64.49206327095757
+}

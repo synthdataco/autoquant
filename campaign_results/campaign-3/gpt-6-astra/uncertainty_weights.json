@@ -1,0 +1,21 @@
+{
+  "fitting_targets_end_before": "2026-07-02",
+  "training_start_times_before": "2026-07-01",
+  "expected_path_scale": 0.921317731923561,
+  "counts": {
+    "0/0/0": 3285,
+    "0/0/1": 7792,
+    "0/0/2": 2003,
+    "0/1/0": 4104,
+    "0/1/1": 4166,
+    "0/1/2": 2107,
+    "1/0/0": 3285,
+    "1/0/1": 7792,
+    "1/0/2": 2003,
+    "1/1/0": 4104,
+    "1/1/1": 4166,
+    "1/1/2": 2107
+  },
+  "quantiles": 101,
+  "interpretation": "Latent future-volatility forecast-error pools; not raw-return bootstrapping."
+}

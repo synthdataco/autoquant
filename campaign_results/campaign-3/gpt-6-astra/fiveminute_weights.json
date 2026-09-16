@@ -1,0 +1,17 @@
+{
+  "training_rows": 23322,
+  "validation_rows": 2487,
+  "baseline_validation_loss": [
+    1.0405213947065088,
+    1.1618796216350777
+  ],
+  "ridge_validation_loss": [
+    1.023865951552612,
+    1.105166437086694
+  ],
+  "device": "cuda",
+  "fitting_targets_end_before": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "neural_validation_loss": 1.0441514253616333,
+  "neural_best_epoch": 144
+}

@@ -1,0 +1,14 @@
+{
+  "initial_weighted_validation_loss": 0.7958695292472839,
+  "best_weighted_validation_loss": 0.7955265045166016,
+  "best_epoch": 28,
+  "constant_competition_scales": [
+    1008.6393462997662,
+    4754.1308508515085,
+    2170.4999456897367
+  ],
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "objective": "Raw official CRPS, asset-coefficient and asset-frequency weighting; constant group scaling only",
+  "paths_per_training_curve": 128
+}

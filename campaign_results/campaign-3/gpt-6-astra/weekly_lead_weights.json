@@ -1,0 +1,27 @@
+{
+  "initial_validation_loss": 0.9836482840119133,
+  "best_validation_loss": 0.983480924095569,
+  "penalty": 0.01,
+  "diagnostics": {
+    "0.01": {
+      "loss": 0.983480924095569,
+      "success": true,
+      "iterations": 6
+    },
+    "0.1": {
+      "loss": 0.983583833385751,
+      "success": true,
+      "iterations": 3
+    },
+    "1.0": {
+      "loss": 0.98363846820602,
+      "success": true,
+      "iterations": 2
+    }
+  },
+  "training_rows": 23337,
+  "validation_rows": 2508,
+  "target_cutoff": "2026-07-26",
+  "validation_start": "2026-07-01",
+  "passed_gate": true
+}

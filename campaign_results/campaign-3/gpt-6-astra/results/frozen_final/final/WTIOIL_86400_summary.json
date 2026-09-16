@@ -1,0 +1,7 @@
+{
+  "miner_name": "frozen_final",
+  "miner_id": 999,
+  "num_prompts": 480,
+  "mean_crps": 2812.986865140544,
+  "final_smoothed_score": 46.39855663945375
+}

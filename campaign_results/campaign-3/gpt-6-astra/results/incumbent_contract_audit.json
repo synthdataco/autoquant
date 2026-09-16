@@ -1,0 +1,161 @@
+{
+  "status": "passed",
+  "comparisons": [
+    {
+      "asset": "BTC",
+      "increment": 60,
+      "count": 1,
+      "seconds": 0.13578295000479557
+    },
+    {
+      "asset": "BTC",
+      "increment": 60,
+      "count": 17,
+      "seconds": 0.09642788101336919
+    },
+    {
+      "asset": "BTC",
+      "increment": 60,
+      "count": 1000,
+      "seconds": 0.11775126599241048
+    },
+    {
+      "asset": "BTC",
+      "increment": 300,
+      "count": 1,
+      "seconds": 0.9249327959842049
+    },
+    {
+      "asset": "BTC",
+      "increment": 300,
+      "count": 17,
+      "seconds": 0.21941806201357394
+    },
+    {
+      "asset": "BTC",
+      "increment": 300,
+      "count": 1000,
+      "seconds": 0.31490158301312476
+    },
+    {
+      "asset": "HYPE",
+      "increment": 60,
+      "count": 1,
+      "seconds": 0.11163044802378863
+    },
+    {
+      "asset": "HYPE",
+      "increment": 60,
+      "count": 17,
+      "seconds": 0.09694941298221238
+    },
+    {
+      "asset": "HYPE",
+      "increment": 60,
+      "count": 1000,
+      "seconds": 0.1134813129901886
+    },
+    {
+      "asset": "HYPE",
+      "increment": 300,
+      "count": 1,
+      "seconds": 0.2219952019804623
+    },
+    {
+      "asset": "HYPE",
+      "increment": 300,
+      "count": 17,
+      "seconds": 0.22319430598872714
+    },
+    {
+      "asset": "HYPE",
+      "increment": 300,
+      "count": 1000,
+      "seconds": 0.32384647501748987
+    },
+    {
+      "asset": "SP500",
+      "increment": 60,
+      "count": 1,
+      "seconds": 0.1069573610147927
+    },
+    {
+      "asset": "SP500",
+      "increment": 60,
+      "count": 17,
+      "seconds": 0.10052764997817576
+    },
+    {
+      "asset": "SP500",
+      "increment": 60,
+      "count": 1000,
+      "seconds": 0.1140188239805866
+    },
+    {
+      "asset": "SP500",
+      "increment": 300,
+      "count": 1,
+      "seconds": 0.2380323009856511
+    },
+    {
+      "asset": "SP500",
+      "increment": 300,
+      "count": 17,
+      "seconds": 0.22988467902177945
+    },
+    {
+      "asset": "SP500",
+      "increment": 300,
+      "count": 1000,
+      "seconds": 0.3286461720126681
+    },
+    {
+      "asset": "AAPLX",
+      "increment": 60,
+      "count": 1,
+      "seconds": 0.10667894399375655
+    },
+    {
+      "asset": "AAPLX",
+      "increment": 60,
+      "count": 17,
+      "seconds": 0.09498679300304502
+    },
+    {
+      "asset": "AAPLX",
+      "increment": 60,
+      "count": 1000,
+      "seconds": 0.11573384099756368
+    },
+    {
+      "asset": "AAPLX",
+      "increment": 300,
+      "count": 1,
+      "seconds": 0.22227938097785227
+    },
+    {
+      "asset": "AAPLX",
+      "increment": 300,
+      "count": 17,
+      "seconds": 0.2204420259804465
+    },
+    {
+      "asset": "AAPLX",
+      "increment": 300,
+      "count": 1000,
+      "seconds": 0.3201522780000232
+    }
+  ],
+  "edge_cases": [
+    "NaN auxiliary columns",
+    "raw vs dropped NaNs",
+    "future rows excluded",
+    "unsorted rows",
+    "1/17/1000 paths",
+    "constant history",
+    "single close",
+    "zero horizon",
+    "pre-weight fallback"
+  ],
+  "audit_correction": "Reference features must use the same open-left seven-day context as both serving and actual evaluation."
+}

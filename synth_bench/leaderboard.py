@@ -26,8 +26,9 @@ END = "<!-- LEADERBOARD:END -->"
 
 def model_label(alias: str) -> str:
     """The model behind a proxy-served alias: aliases carry provider prefixes and local suffixes
-    (`engy-glm-5.2`, `claude-opus-5-model`) that name how it was served, not what ran."""
-    return re.sub(r"-model$", "", re.sub(r"^engy-", "", alias))
+    (`engy-glm-5.2`, `gateway-gpt-6-astra`, `claude-opus-5-model`) that name how it was served,
+    not what ran."""
+    return re.sub(r"-model$", "", re.sub(r"^(engy|gateway)-", "", alias))
 
 
 def model_of(leg_dir: Path, campaign_dir: Path) -> str:
@@ -44,17 +45,24 @@ def model_of(leg_dir: Path, campaign_dir: Path) -> str:
 
 
 def rows(results_dir: Path, tag: str | None) -> list[dict]:
+    """One row per leg. With a tag, a leg that has no tagged verdict falls back to its canonical
+    one and is flagged, so a partially rescored archive still renders — visibly mixed, not
+    silently."""
     name = f"verdict-{tag}.json" if tag else "verdict.json"
     out: list[dict] = []
     for campaign_dir in sorted(p for p in results_dir.iterdir() if p.is_dir()):
         for leg_dir in sorted(p for p in campaign_dir.iterdir() if p.is_dir() and p.name != "baselines"):
             champion = (leg_dir / "CHAMPION").exists()
             verdict = leg_dir / name
+            fallback = bool(tag) and not verdict.exists() and (leg_dir / "verdict.json").exists()
+            if fallback:
+                verdict = leg_dir / "verdict.json"
             row = {
                 "campaign": campaign_dir.name,
                 "leg": leg_dir.name,
                 "model": model_of(leg_dir, campaign_dir),
                 "landed": champion,
+                "fallback": fallback,
             }
             if verdict.exists():
                 data = json.loads(verdict.read_text())
@@ -103,19 +111,65 @@ def competition_cell(per_competition: dict, slug: str) -> str:
     return f"{cell} (μ{mean:g})" if mean else cell
 
 
+def budget(leg_dir: Path) -> str:
+    """What the leg used of its envelope, as `<hours> h / $<spend>`, from its archived BUDGET.md.
+
+    The file is the harness's own last poll, so a restarted leg reports only its final attempt and
+    a leg resumed on its original key reports cumulative spend against a clock that restarted.
+    Neither shape is inferable from the file, hence the footnote rather than a silent reconciliation.
+    """
+    path = leg_dir / "BUDGET.md"
+    if not path.exists():
+        return "—"
+    text = path.read_text()
+    spend = re.search(r"Credits:\s*([0-9.]+)\s*/", text)
+    hours = re.search(r"Time\s*:\s*([0-9.]+)\s*h elapsed", text)
+    # A scored champion cannot have been produced in zero elapsed time: the file is a fresh budget
+    # from a restart that never got a poll. Report nothing rather than six cents.
+    if not (spend and hours) or float(hours.group(1)) == 0.0:
+        return "—"
+    return f"{hours.group(1)} h / ${spend.group(1)}"
+
+
+def render_legs(results_dir: Path, tag: str | None) -> str:
+    """Every leg, with what it cost — the per-leg companion to the one-row-per-model table."""
+    lines = [
+        "| Model | Campaign | Wall time | Spend | crypto-1h | crypto-24h | com-equ-24h |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for r in rows(results_dir, tag):
+        hours, spend = budget(results_dir / r["campaign"] / r["leg"])
+        lines.append(
+            f"| {r['model']} | {r['campaign']} | {hours} | {spend} "
+            f"| {competition_cell(r['per_competition'], 'crypto-1h')} "
+            f"| {competition_cell(r['per_competition'], 'crypto-24h')} "
+            f"| {competition_cell(r['per_competition'], 'com-equ-24h')} |"
+        )
+    lines += [
+        "",
+        "Wall time and spend are the harness's own last poll of `BUDGET.md`, against an envelope of",
+        "$100 and 18 h (24 h in campaign-1). A leg that was restarted reports only its final attempt,",
+        "so these are lower bounds where a campaign report says a leg ran twice.",
+    ]
+    return "\n".join(lines)
+
+
 def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     data = rows(results_dir, tag)
     if not all_legs:
         data = best_per_model(data)
     lines = [
-        "| Model | Campaign | Score | Mean rank | crypto-1h | crypto-24h | com-equ-24h |",
-        "| --- | --- | --- | --- | --- | --- | --- |",
+        "| Model | Campaign | Score | Mean rank | Spend | crypto-1h | crypto-24h | com-equ-24h |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- |",
     ]
     for r in data:
         score = f"**{r['score']:g}**" if r["score"] is not None else ("pending" if r["landed"] else "no champion")
+        if r.get("fallback"):
+            score += " \\*"
         mean_rank = f"{r['mean_rank']:g}" if r["mean_rank"] is not None else "—"
         lines.append(
             f"| {r['model']} | {r['campaign']} | {score} | {mean_rank} "
+            f"| {budget(results_dir / r['campaign'] / r['leg'])} "
             f"| {competition_cell(r['per_competition'], 'crypto-1h')} "
             f"| {competition_cell(r['per_competition'], 'crypto-24h')} "
             f"| {competition_cell(r['per_competition'], 'com-equ-24h')} |"
@@ -125,8 +179,15 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
         "Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷",
         "the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the final-round",
         "rank out of the field, with the mean rank over the window's scoring rounds in parentheses.",
-        "One row per model — its best Score, and the campaign that produced it.",
-        "Measured spend and wall time per leg are in each campaign's report.",
+        "One row per model — its best Score, and the campaign that produced it. Spend is wall time and",
+        "credits from the leg's own budget file, against an envelope of $100 and 18 h (24 h in",
+        "campaign-1); a leg that was restarted reports only its final attempt.",
+        "",
+        "\\* scored before the generation lead-in fix, which repaired a harness artifact that",
+        "penalised the candidate's first horizon of rounds. The correction is not uniform — it lifts",
+        "a strong champion far more than a weak one (3.2x, 1.4x and 0.0x on the three campaign-3",
+        "legs rescored so far) — so a marked row is not comparable to an unmarked one, and the",
+        "ordering between them is unreliable rather than merely conservative.",
     ]
     return "\n".join(lines)
 

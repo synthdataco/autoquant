@@ -20,6 +20,8 @@ docker ps -a --filter name=synthbench --format '{{.Names}}' | grep . && echo "LE
 docker compose -f metering/docker-compose.yaml exec litellm sh -c \
   'for v in LITELLM_MASTER_KEY ANTHROPIC_API_KEY OPENAI_API_KEY GEMINI_API_KEY; do eval "n=\${#$v}"; echo "$v $n"; done'
 
+# after ANY edit to litellm_config.yaml or .env.proxy — recreate, do not restart
+docker compose -f metering/docker-compose.yaml up -d --force-recreate litellm && sleep 12
 curl -s localhost:4000/health/liveliness
 docker images synth-bench-sandbox --format '{{.Repository}} {{.Size}}'
 
@@ -62,6 +64,53 @@ Proof a leg is alive, in order of reliability: the `run` process exists (`pgrep 
 `BUDGET.md`'s mtime is fresher than one poll interval (the driver rewrites it every poll); the newest
 transcript is still growing. A container that disappears for less than a poll interval is a per-turn
 CLI between turns, not a stopped leg.
+
+## Restart a campaign, or one of its legs
+
+A leg's virtual key exists in **two** places — `state.json` and the proxy's database — and any edit
+that lets them disagree produces one of two loops: `400` on `/key/generate` because the alias is
+still in the DB, or `401` inside the agent because the state's key no longer is. Reset both sides
+with nothing running. The API's alias-delete removes only one row per alias, so duplicates from
+earlier attempts survive it — delete in the DB.
+
+The database container's name comes from the compose project, which is the directory name, so find
+it rather than assuming: `docker ps --format '{{.Names}}' | grep -E 'db|postgres'`.
+
+```bash
+C=<campaign>
+DB=$(docker ps --format '{{.Names}}' | grep -E 'db|postgres' | head -1)
+
+# Stop first. A live run minting keys mid-reset re-creates the desync.
+pkill -f "run_campaign run"
+docker ps -aq --filter name=synthbench | xargs -r docker rm -f
+
+# Whole campaign: drop every key it minted, then the workspace (setup refuses a non-empty one).
+docker exec "$DB" sh -c "psql -U \"\$POSTGRES_USER\" -d \"\$POSTGRES_DB\" -c \
+  \"delete from \\\"LiteLLM_VerificationToken\\\" where key_alias like '$C-%';\""
+rm -rf campaign_runs/$C
+```
+
+To restart **some** legs and keep the finished ones, narrow the delete to `key_alias = '$C-<leg>'`
+per leg, then drop those legs from `runs_done` and `virtual_keys` in `campaign_runs/$C/state.json`
+and leave the workspace alone. Verify with
+`select key_alias from "LiteLLM_VerificationToken" where key_alias like '$C-%'` — only the finished
+legs' aliases may remain.
+
+Renaming the legs in the campaign yaml sidesteps the whole problem: new ids mint new aliases, so a
+re-run needs no database surgery at all.
+
+**Resuming a leg rather than resetting it** keeps its key, its workspace and its spend — drop it from
+`runs_done` and leave everything else. One thing has to be repaired first: the sandbox runs as root,
+so the container leaves root-owned files behind, and the next launch fails on the host's own
+`~/.codex/config.toml` write. The driver rewrites `agent/BUDGET.md` every poll, so fix both trees:
+
+```bash
+sudo chown -R $(id -u):$(id -g) \
+  campaign_runs/$C/runs/<leg> campaign_runs/$C/runs/<leg>-home
+```
+
+The clock is in-process, so a resumed leg gets a fresh deadline while its spend continues — budget,
+not time, is what binds after a restart.
 
 ## Inspect a finished campaign
 
