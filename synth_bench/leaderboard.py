@@ -183,11 +183,12 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
         "credits from the leg's own budget file, against an envelope of $100 and 18 h (24 h in",
         "campaign-1); a leg that was restarted reports only its final attempt.",
         "",
-        "\\* scored before the generation lead-in fix, which repaired a harness artifact that",
-        "penalised the candidate's first horizon of rounds. The correction is not uniform — it lifts",
-        "a strong champion far more than a weak one (3.2x, 1.4x and 0.0x on the three campaign-3",
-        "legs rescored so far) — so a marked row is not comparable to an unmarked one, and the",
-        "ordering between them is unreliable rather than merely conservative.",
+        "\\* scored before two harness corrections: the generation lead-in, which had been charging",
+        "the candidate a horizon of worst-score rounds it was never given the chance to answer, and",
+        "uniform realized truth, without which missing minutes in the operator's price store shrank",
+        "the CRPS sum and flattered the champion. They pull in opposite directions and neither is",
+        "uniform across champions, so a marked row is not comparable to an unmarked one, and the",
+        "ordering between them is unreliable rather than merely optimistic or conservative.",
     ]
     return "\n".join(lines)
 

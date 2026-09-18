@@ -10,24 +10,24 @@ The opponents are ~250 live miners on [Synth SN50](https://synthdata.co), financ
 win. The scorer is the subnet's own validator code. The metric is money.
 
 **Still unsolved.** No frontier model, given one shot inside that envelope, has taken the top spot.
-The best champion so far leads _two_ of three competitions on its final round and earns 48% of what
-the field's best miner earns — and it is 224th of 257 in the third.
+The best correctly-scored champion earns 25% of what the field's best miner earns, and its strongest
+finish is 24th of 257 — it leads no competition. Most rows below predate two harness corrections and
+are not comparable to it; see the footnote.
 
 ## Leaderboard
 
 <!-- LEADERBOARD:BEGIN -->
-
-| Model                  | Campaign   | Score       | Mean rank | Spend          | crypto-1h        | crypto-24h       | com-equ-24h      |
-| ---------------------- | ---------- | ----------- | --------- | -------------- | ---------------- | ---------------- | ---------------- |
-| gpt-6-astra            | campaign-3 | **48**      | 75.3      | 3.2 h / $93.60 | 1/257 (μ27.1)    | 1/257 (μ33.2)    | 224/257 (μ192)   |
-| claude-fable-5-1       | campaign-3 | **34.3**    | 60.3      | 2.9 h / $58.55 | 1/257 (μ124.8)   | 2/257 (μ162.6)   | 178/257 (μ188.6) |
-| claude-opus-5          | campaign-2 | **30.1** \* | 78        | 3.8 h / $25.67 | 1/257 (μ60.5)    | 81/257 (μ132.6)  | 152/191 (μ181.8) |
-| gpt-5                  | campaign-2 | **10.2** \* | 211       | —              | 194/257 (μ163.3) | 252/257 (μ253.8) | 187/191 (μ217.6) |
-| gemini-3.1-pro-preview | campaign-2 | **8.1** \*  | 210       | —              | 206/257 (μ173.9) | 238/257 (μ242.2) | 186/191 (μ217)   |
-| glm-5.2                | campaign-1 | **6.6** \*  | 207.7     | 2.4 h / $5.78  | 195/257 (μ185.3) | 243/257 (μ246.4) | 185/191 (μ211.8) |
-| gpt-5.6-sol            | campaign-3 | **2.7**     | 212.3     | 4.3 h / $23.55 | 136/257 (μ222.8) | 247/257 (μ252.3) | 254/257 (μ254)   |
-| kimi-k3                | campaign-1 | **2.1** \*  | 197.7     | 2.4 h / $4.96  | 185/257 (μ203.4) | 231/257 (μ235.3) | 177/191 (μ193.8) |
-| gemini-3.8-flash       | campaign-3 | **0.2** \*  | 249.3     | 0.3 h / $1.51  | 247/257 (μ249.9) | 247/257 (μ246.1) | 254/257 (μ252.9) |
+| Model | Campaign | Score | Mean rank | Spend | crypto-1h | crypto-24h | com-equ-24h |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| claude-opus-5 | campaign-2 | **30.1** \* | 78 | 3.8 h / $25.67 | 1/257 (μ60.5) | 81/257 (μ132.6) | 152/191 (μ181.8) |
+| gpt-6-astra | campaign-3 | **24.7** | 98 | 3.2 h / $93.60 | 24/257 (μ38.8) | 46/257 (μ37.6) | 224/257 (μ192) |
+| gpt-5 | campaign-2 | **10.2** \* | 211 | — | 194/257 (μ163.3) | 252/257 (μ253.8) | 187/191 (μ217.6) |
+| gemini-3.1-pro-preview | campaign-2 | **8.1** \* | 210 | — | 206/257 (μ173.9) | 238/257 (μ242.2) | 186/191 (μ217) |
+| claude-fable-5-1 | campaign-3 | **7.4** | 180 | 2.9 h / $58.55 | 194/257 (μ175.5) | 168/257 (μ172.6) | 178/257 (μ188.5) |
+| glm-5.2 | campaign-1 | **6.6** \* | 207.7 | 2.4 h / $5.78 | 195/257 (μ185.3) | 243/257 (μ246.4) | 185/191 (μ211.8) |
+| gpt-5.6-sol | campaign-3 | **2.7** \* | 212.3 | 4.3 h / $23.55 | 136/257 (μ222.8) | 247/257 (μ249.4) | 254/257 (μ252) |
+| kimi-k3 | campaign-1 | **2.1** \* | 197.7 | 2.4 h / $4.96 | 185/257 (μ203.4) | 231/257 (μ235.3) | 177/191 (μ193.8) |
+| gemini-3.8-flash | campaign-3 | **0.2** \* | 249.3 | 0.3 h / $1.51 | 247/257 (μ249.9) | 247/257 (μ246.1) | 254/257 (μ252.9) |
 
 Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷
 the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the final-round
@@ -36,12 +36,12 @@ One row per model — its best Score, and the campaign that produced it. Spend i
 credits from the leg's own budget file, against an envelope of $100 and 18 h (24 h in
 campaign-1); a leg that was restarted reports only its final attempt.
 
-\* scored before the generation lead-in fix, which repaired a harness artifact that
-penalised the candidate's first horizon of rounds. The correction is not uniform — it lifts
-a strong champion far more than a weak one (3.2x, 1.4x and 0.0x on the three campaign-3
-legs rescored so far) — so a marked row is not comparable to an unmarked one, and the
-ordering between them is unreliable rather than merely conservative.
-
+\* scored before two harness corrections: the generation lead-in, which had been charging
+the candidate a horizon of worst-score rounds it was never given the chance to answer, and
+uniform realized truth, without which missing minutes in the operator's price store shrank
+the CRPS sum and flattered the champion. They pull in opposite directions and neither is
+uniform across champions, so a marked row is not comparable to an unmarked one, and the
+ordering between them is unreliable rather than merely optimistic or conservative.
 <!-- LEADERBOARD:END -->
 
 Generated with `synth-bench-leaderboard --write README.md`; every number is read from an archived
