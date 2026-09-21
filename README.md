@@ -10,8 +10,9 @@ The opponents are ~250 live miners on [Synth SN50](https://synthdata.co), financ
 win. The scorer is the subnet's own validator code. The metric is money.
 
 **Still unsolved.** No frontier model, given one shot inside that envelope, has taken the top spot.
-The best correctly-scored champion earns 25% of what the field's best miner earns, and its strongest
-finish is 24th of 257 — it leads no competition. Most rows below predate two harness corrections and
+The best correctly-scored champion earns 40% of what the field's best miner earns and leads one of
+three competitions outright, with a 4th of 257 in another — but it is 100th of 191 in the third, and
+that third is a third of the Score. Six of the nine rows below predate two harness corrections and
 are not comparable to it; see the footnote.
 
 ## Leaderboard
@@ -19,7 +20,7 @@ are not comparable to it; see the footnote.
 <!-- LEADERBOARD:BEGIN -->
 | Model | Campaign | Score | Mean rank | Spend | crypto-1h | crypto-24h | com-equ-24h |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| claude-opus-5 | campaign-2 | **30.1** \* | 78 | 3.8 h / $25.67 | 1/257 (μ60.5) | 81/257 (μ132.6) | 152/191 (μ181.8) |
+| claude-opus-5 | campaign-2 | **39.6** | 35 | 3.8 h / $25.67 | 1/257 (μ61.8) | 4/257 (μ70.3) | 100/191 (μ85.1) |
 | gpt-6-astra | campaign-3 | **24.7** | 98 | 3.2 h / $93.60 | 24/257 (μ38.8) | 46/257 (μ37.6) | 224/257 (μ192) |
 | gpt-5 | campaign-2 | **10.2** \* | 211 | — | 194/257 (μ163.3) | 252/257 (μ253.8) | 187/191 (μ217.6) |
 | gemini-3.1-pro-preview | campaign-2 | **8.1** \* | 210 | — | 206/257 (μ173.9) | 238/257 (μ242.2) | 186/191 (μ217) |
