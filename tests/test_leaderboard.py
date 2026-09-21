@@ -45,11 +45,14 @@ def test_model_label_strips_alias_decoration():
     assert model_label("gateway-gpt-6-astra") == "gpt-6-astra"
 
 
-def test_competition_cell_shows_final_rank_and_mean():
+def test_competition_cell_leads_with_the_mean_rank():
+    """The Score sums reward weight over every round, so the mean is its companion, not one round."""
     per = {"crypto-1h": {"rank": 7, "field_size": 250, "rank_over_rounds": {"mean_rank": 11.5}}}
-    assert competition_cell(per, "crypto-1h") == "7/250 (μ11.5)"
+    assert competition_cell(per, "crypto-1h") == "μ11.5 (final 7/250)"
     assert competition_cell(per, "missing") == "—"
     assert competition_cell({"x": {"rank": None}}, "x") == "n/a"
+    # A verdict predating rank_over_rounds still renders, with the only rank it has.
+    assert competition_cell({"x": {"rank": 7, "field_size": 250}}, "x") == "7/250"
 
 
 def test_rows_sort_scored_first_and_carry_model_names(tmp_path):
@@ -69,7 +72,7 @@ def test_render_marks_pending_and_no_champion(tmp_path):
     _leg(tmp_path, "camp", "failed", champion=False)
 
     table = render(tmp_path, tag=None)
-    assert "| **30.1** |" in table and "7/250 (μ11.5)" in table
+    assert "| **30.1** |" in table and "μ11.5 (final 7/250)" in table
     assert "pending" in table and "no champion" in table
     assert table.count("|") > 20  # a table, not a stub
     assert "Spend" in table and "3.5 h / $12.34" in table
