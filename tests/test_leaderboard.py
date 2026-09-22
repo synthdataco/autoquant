@@ -108,9 +108,9 @@ def test_one_row_per_model_keeps_its_best_score(tmp_path):
     kept = best_per_model(rows(tmp_path, tag=None))
     assert [(r["campaign"], r["score"]) for r in kept] == [("camp-b", 8.1)]
 
-    table = render(tmp_path, tag=None)
-    assert table.count("| some-model-5 |") == 1
-    assert "8.1" in table and "6.7" not in table
+    scores, ranks = render(tmp_path, tag=None).split("### Where each champion placed")
+    assert scores.count("| some-model-5 |") == 1 and ranks.count("| some-model-5 |") == 1
+    assert "8.1" in scores and "6.7" not in scores
 
 
 def test_all_legs_shows_every_champion(tmp_path):
@@ -128,3 +128,22 @@ def test_a_pending_leg_never_displaces_a_scored_one(tmp_path):
     kept = best_per_model(rows(tmp_path, tag=None))
     assert [(r["campaign"], r["score"]) for r in kept] == [("camp-a", 8.1)]
     assert "pending" not in render(tmp_path, tag=None)
+
+
+def test_ranks_move_to_their_own_table_with_the_window(tmp_path):
+    """A rank means nothing without the window it was measured over, and the campaigns differ."""
+    _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)
+
+    scores, ranks = render(tmp_path, tag=None).split("### Where each champion placed")
+    assert "Spend" in scores and "crypto-1h" not in scores
+    assert "| 2026-07-28 | 2026-08-07 |" in ranks
+    assert "μ11.5 (final 7/250)" in ranks and "μ190 (final 200/250)" in ranks
+
+
+def test_a_fallback_row_is_marked_in_both_tables(tmp_path):
+    """The corrections moved ranks as well as Scores, so the mark has to follow the rows."""
+    _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)  # verdict.json only
+
+    scores, ranks = render(tmp_path, tag="lead-in-2").split("### Where each champion placed")
+    assert "**30.1** \\*" in scores
+    assert "| camp \\* |" in ranks
