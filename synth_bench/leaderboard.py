@@ -99,16 +99,24 @@ def best_per_model(data: list[dict]) -> list[dict]:
 
 
 def competition_cell(per_competition: dict, slug: str) -> str:
+    """Mean rank over the window's scoring rounds, with the final round in parentheses.
+
+    The mean leads because the Score does: reward weight is summed over every round, so a single
+    round's rank is the wrong companion to it — and on a 10-day window that is one draw out of a
+    few hundred."""
     entry = per_competition.get(slug)
     if not entry:
         return "—"
     rank, size = entry.get("rank"), entry.get("field_size")
-    over_rounds = entry.get("rank_over_rounds") or {}
-    mean = over_rounds.get("mean_rank")
-    if rank is None:
+    mean = (entry.get("rank_over_rounds") or {}).get("mean_rank")
+    if rank is None and mean is None:
         return "n/a"
-    cell = f"{rank}/{size}" if size else str(rank)
-    return f"{cell} (μ{mean:g})" if mean else cell
+    if mean is None:
+        return f"{rank}/{size}" if size else str(rank)
+    # The mean carries no denominator: field_size is the FINAL round's, and a mean taken while the
+    # field was larger can exceed it — campaign-1 and -2 show means above their 191.
+    final = f"{rank}/{size}" if size else f"{rank}"
+    return f"μ{mean:g} (final {final})" if rank is not None else f"μ{mean:g}"
 
 
 def budget(leg_dir: Path) -> str:
@@ -177,8 +185,9 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     lines += [
         "",
         "Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷",
-        "the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the final-round",
-        "rank out of the field, with the mean rank over the window's scoring rounds in parentheses.",
+        "the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the MEAN rank",
+        "over the window's scoring rounds, out of the field, with the final round in parentheses: the",
+        "Score sums reward weight over every round, so the mean is what it corresponds to.",
         "One row per model — its best Score, and the campaign that produced it. Spend is wall time and",
         "credits from the leg's own budget file, against an envelope of $100 and 18 h (24 h in",
         "campaign-1); a leg that was restarted reports only its final attempt.",
