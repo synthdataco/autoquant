@@ -4,9 +4,8 @@ The published table is generated, never hand-maintained: every number comes from
 `campaign_results/<campaign>/<leg>/verdict*.json` written by the scoring runner. A hand-written table
 drifts from the verdicts within one campaign; this cannot.
 
-Cost is deliberately not a column: a leg restarted after an interruption gets a fresh budget file, so
-the archive records only its last attempt. Measured spend and wall time are in each campaign's report,
-accounted across attempts.
+Two tables come out of one pass over the same rows: what each champion earned, and where it placed.
+They share Model + Campaign as their key.
 
     synth-bench-leaderboard                    # markdown to stdout
     synth-bench-leaderboard --tag is-0620      # a diagnostic window instead of the canonical one
@@ -22,6 +21,12 @@ from pathlib import Path
 
 BEGIN = "<!-- LEADERBOARD:BEGIN -->"
 END = "<!-- LEADERBOARD:END -->"
+
+COMPETITIONS = ("crypto-1h", "crypto-24h", "com-equ-24h")
+
+# Marks a row scored before the harness corrections. It is appended in both tables and explained
+# once, after them.
+FALLBACK_MARK = " \\*"
 
 
 def model_label(alias: str) -> str:
@@ -66,14 +71,16 @@ def rows(results_dir: Path, tag: str | None) -> list[dict]:
             }
             if verdict.exists():
                 data = json.loads(verdict.read_text())
+                window = data.get("window") or {}
                 row["score"] = data.get("score")
                 row["mean_rank"] = data.get("mean_competition_rank")
                 row["per_competition"] = data.get("per_competition") or {}
-                row["window"] = (data.get("window") or {}).get("start", "")
+                row["window_start"] = window.get("start", "")
+                row["window_end"] = window.get("end", "")
             else:
                 row["score"] = row["mean_rank"] = None
                 row["per_competition"] = {}
-                row["window"] = ""
+                row["window_start"] = row["window_end"] = ""
             out.append(row)
     # Scored legs first, best Score first; unscored legs keep campaign order at the bottom.
     out.sort(key=lambda r: (r["score"] is None, -(r["score"] or 0), r["campaign"], r["leg"]))
@@ -139,25 +146,55 @@ def budget(leg_dir: Path) -> str:
     return f"{hours.group(1)} h / ${spend.group(1)}"
 
 
-def render_legs(results_dir: Path, tag: str | None) -> str:
-    """Every leg, with what it cost — the per-leg companion to the one-row-per-model table."""
+def render_scores(data: list[dict], results_dir: Path) -> str:
+    """What each champion earned."""
     lines = [
-        "| Model | Campaign | Wall time | Spend | crypto-1h | crypto-24h | com-equ-24h |",
-        "| --- | --- | --- | --- | --- | --- | --- |",
+        "| Model | Campaign | Score | Mean final rank | Spend |",
+        "| --- | --- | --- | --- | --- |",
     ]
-    for r in rows(results_dir, tag):
-        hours, spend = budget(results_dir / r["campaign"] / r["leg"])
+    for r in data:
+        score = f"**{r['score']:g}**" if r["score"] is not None else ("pending" if r["landed"] else "no champion")
+        if r["fallback"]:
+            score += FALLBACK_MARK
+        mean_rank = f"{r['mean_rank']:g}" if r["mean_rank"] is not None else "—"
         lines.append(
-            f"| {r['model']} | {r['campaign']} | {hours} | {spend} "
-            f"| {competition_cell(r['per_competition'], 'crypto-1h')} "
-            f"| {competition_cell(r['per_competition'], 'crypto-24h')} "
-            f"| {competition_cell(r['per_competition'], 'com-equ-24h')} |"
+            f"| {r['model']} | {r['campaign']} | {score} | {mean_rank} "
+            f"| {budget(results_dir / r['campaign'] / r['leg'])} |"
         )
     lines += [
         "",
-        "Wall time and spend are the harness's own last poll of `BUDGET.md`, against an envelope of",
-        "$100 and 18 h (24 h in campaign-1). A leg that was restarted reports only its final attempt,",
-        "so these are lower bounds where a campaign report says a leg ran twice.",
+        "Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷",
+        "the best other miner's) — see [docs/scoring.md](docs/scoring.md). One row per model: its best",
+        "Score, and the campaign that produced it. Mean final rank averages the three competitions'",
+        "final-round ranks — not the μ figures below, which average over rounds within one competition.",
+        "Spend is wall time and credits from the leg's own budget file, against an envelope of $100 and",
+        "18 h (24 h in campaign-1); a leg that was restarted reports only its final attempt.",
+    ]
+    return "\n".join(lines)
+
+
+def render_ranks(data: list[dict]) -> str:
+    """Where each champion placed, and over which window."""
+    lines = [
+        "| Model | Campaign | Start | End | crypto-1h | crypto-24h | com-equ-24h |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for r in data:
+        campaign = r["campaign"] + (FALLBACK_MARK if r["fallback"] else "")
+        cells = " ".join(f"| {competition_cell(r['per_competition'], slug)}" for slug in COMPETITIONS)
+        lines.append(
+            f"| {r['model']} | {campaign} | {r['window_start'] or '—'} | {r['window_end'] or '—'} "
+            f"{cells} |"
+        )
+    lines += [
+        "",
+        "Start and End bound the verdict window: the forward, out-of-sample period the champion was",
+        "scored over, which begins the day after its campaign's data cutoff. campaign-1 and -2 share a",
+        "window and campaign-3 ran on a later one, so two ranks are comparable only where the dates",
+        "match. Each cell is the MEAN rank over that window's scoring rounds, with the final round in",
+        "parentheses out of the field it faced. The Score sums reward weight over every round, so the",
+        "mean is what it corresponds to; the mean carries no denominator because the field size shown",
+        "is the final round's, and the field was larger earlier in the window.",
     ]
     return "\n".join(lines)
 
@@ -166,40 +203,22 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     data = rows(results_dir, tag)
     if not all_legs:
         data = best_per_model(data)
-    lines = [
-        "| Model | Campaign | Score | Mean rank | Spend | crypto-1h | crypto-24h | com-equ-24h |",
-        "| --- | --- | --- | --- | --- | --- | --- | --- |",
-    ]
-    for r in data:
-        score = f"**{r['score']:g}**" if r["score"] is not None else ("pending" if r["landed"] else "no champion")
-        if r.get("fallback"):
-            score += " \\*"
-        mean_rank = f"{r['mean_rank']:g}" if r["mean_rank"] is not None else "—"
-        lines.append(
-            f"| {r['model']} | {r['campaign']} | {score} | {mean_rank} "
-            f"| {budget(results_dir / r['campaign'] / r['leg'])} "
-            f"| {competition_cell(r['per_competition'], 'crypto-1h')} "
-            f"| {competition_cell(r['per_competition'], 'crypto-24h')} "
-            f"| {competition_cell(r['per_competition'], 'com-equ-24h')} |"
-        )
-    lines += [
-        "",
-        "Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷",
-        "the best other miner's) — see [docs/scoring.md](docs/scoring.md). Rank cells are the MEAN rank",
-        "over the window's scoring rounds, out of the field, with the final round in parentheses: the",
-        "Score sums reward weight over every round, so the mean is what it corresponds to.",
-        "One row per model — its best Score, and the campaign that produced it. Spend is wall time and",
-        "credits from the leg's own budget file, against an envelope of $100 and 18 h (24 h in",
-        "campaign-1); a leg that was restarted reports only its final attempt.",
-        "",
-        "\\* scored before two harness corrections: the generation lead-in, which had been charging",
-        "the candidate a horizon of worst-score rounds it was never given the chance to answer, and",
-        "uniform realized truth, without which missing minutes in the operator's price store shrank",
-        "the CRPS sum and flattered the champion. They pull in opposite directions and neither is",
-        "uniform across champions, so a marked row is not comparable to an unmarked one, and the",
-        "ordering between them is unreliable rather than merely optimistic or conservative.",
-    ]
-    return "\n".join(lines)
+    return "\n".join(
+        [
+            render_scores(data, results_dir),
+            "",
+            "### Where each champion placed",
+            "",
+            render_ranks(data),
+            "",
+            "\\* scored before two harness corrections: the generation lead-in, which had been charging",
+            "the candidate a horizon of worst-score rounds it was never given the chance to answer, and",
+            "uniform realized truth, without which missing minutes in the operator's price store shrank",
+            "the CRPS sum and flattered the champion. They pull in opposite directions and neither is",
+            "uniform across champions, so a marked row is not comparable to an unmarked one, and the",
+            "ordering between them is unreliable rather than merely optimistic or conservative.",
+        ]
+    )
 
 
 def main() -> None:
