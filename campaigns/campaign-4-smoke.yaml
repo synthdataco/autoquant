@@ -1,0 +1,35 @@
+name: campaign-4-smoke
+objective: >-
+  Smoke campaign: make ONE single trivial micro-improvement to the model in your agent folder
+  (e.g. a parameter), journal it, then land immediately (report.md + CHAMPION).
+# The whole panel, on purpose. Two models and all three CLI versions are new, and the failure
+# they cause is a livelock rather than an error: codex resolves a model's context window by alias
+# name, and an unknown alias falls back to a window small enough that a long thread reports no
+# room left. The agent then says it is out of tokens while BUDGET.md disagrees, and the driver
+# relaunches it every poll for the rest of the leg.
+# Check transcript-0 of each leg for `Model metadata for <alias> not found` before the real run.
+models:
+  - {id: fable-5-1, cli: claude-code, model: claude-fable-5-1-model}
+  - {id: opus-5, cli: claude-code, model: claude-opus-5-model}
+  - {id: opus-5-5, cli: claude-code, model: claude-opus-5-5-model}
+  - {id: gpt-6-astra, cli: codex, model: gpt-6-astra, wire_api: responses}
+  - {id: gpt-6-sol, cli: codex, model: gpt-6-sol, wire_api: responses}
+budget_usd_per_model: 2.0
+deadline_hours_per_model: 0.5
+data_start: 2025-08-01
+# Last settled day: eval_end must be <= now - (horizon + 1d). Re-derive on the day you run this.
+data_cutoff: 2026-09-22  # today - 2; re-derive on the day you run this
+forward_window_days: 1
+baselines:
+  - {name: synth_default}
+hardware: >-
+  GCP g2-standard-16: 16 vCPU / 64GB RAM / 1x NVIDIA L4 (24GB VRAM). Your sandbox gets 14 CPU,
+  48GB RAM and the GPU. torch is already in your pyproject — no need to add it.
+proxy_url: http://localhost:4000
+# Matches campaign-4: the smoke has to exercise the GPU path, the sandbox limits and the image
+# the real run will use, or it proves nothing about them.
+gpu: true
+sandbox_memory_gb: 48
+sandbox_cpus: 14
+poll_seconds: 30
+landing_grace_seconds: 120
