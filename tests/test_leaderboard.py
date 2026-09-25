@@ -149,3 +149,42 @@ def test_a_fallback_row_is_marked_in_both_tables(tmp_path):
     scores, ranks = render(tmp_path, tag="lead-in-2").split("### Where each champion placed")
     assert "**30.1** \\*" in scores
     assert "| camp \\* |" in ranks
+
+
+def _with_failure(results, error, asset="XAU"):
+    d = _leg(results, "camp", "leg", score=30.1, mean_rank=78)
+    v = json.loads((d / "verdict.json").read_text())
+    v["per_competition"]["crypto-24h"]["assets_failed"] = [asset]
+    v["per_competition"]["crypto-24h"]["per_asset"] = {asset: {"error": error}}
+    (d / "verdict.json").write_text(json.dumps(v))
+    return d
+
+
+def test_a_failed_asset_blocks_the_leaderboard(tmp_path):
+    """A champion scored on fewer assets than the competition has does not have that Score."""
+    _with_failure(tmp_path, "ArrowInvalid('cannot convert')")
+    with pytest.raises(SystemExit, match="fewer assets"):
+        render(tmp_path, tag=None)
+
+
+def test_a_retired_asset_is_not_a_failure_after_it_retired(tmp_path):
+    """SPYX stopped being prompted on 2026-07-23; the fixture window starts after that."""
+    _with_failure(tmp_path, "NoScoresAvailable('no scored prompts')", asset="SPYX")
+    assert "**30.1**" in render(tmp_path, tag=None)
+
+
+def test_a_retired_asset_still_blocks_a_window_that_precedes_its_retirement(tmp_path):
+    """Before 2026-07-23 the field WAS scored on SPYX, so a failure there is a real gap."""
+    d = _with_failure(tmp_path, "NoScoresAvailable('no scored prompts')", asset="SPYX")
+    v = json.loads((d / "verdict.json").read_text())
+    v["window"]["start"] = "2026-07-01"
+    (d / "verdict.json").write_text(json.dumps(v))
+    with pytest.raises(SystemExit, match="SPYX"):
+        render(tmp_path, tag=None)
+
+
+def test_another_asset_failing_for_the_same_reason_still_blocks(tmp_path):
+    """The old check keyed on the error string, so a genuine no-scores gap on a live asset passed."""
+    _with_failure(tmp_path, "NoScoresAvailable('no scored prompts')", asset="XAU")
+    with pytest.raises(SystemExit, match="XAU"):
+        render(tmp_path, tag=None)

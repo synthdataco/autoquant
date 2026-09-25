@@ -111,6 +111,20 @@ def best_per_model(data: list[dict]) -> list[dict]:
     return kept
 
 
+def blocking_failures(row: dict) -> list[str]:
+    """Failed assets that are not a retirement the window is entirely after."""
+    out = []
+    window_start = row.get("window_start") or ""
+    for slug, entry in (row.get("per_competition") or {}).items():
+        for asset in entry.get("assets_failed") or []:
+            retired = RETIRED_ASSETS.get(asset)
+            if retired is not None and window_start >= retired:
+                continue
+            error = ((entry.get("per_asset") or {}).get(asset) or {}).get("error", "")
+            out.append(f"{row['campaign']}/{row['leg']} {slug}/{asset}: {error or 'no error recorded'}")
+    return out
+
+
 def competition_cell(per_competition: dict, slug: str) -> str:
     """Mean rank over the window's scoring rounds, with the final round in parentheses.
 
@@ -206,6 +220,12 @@ def render_ranks(data: list[dict]) -> str:
 
 def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     data = rows(results_dir, tag)
+    blocked = [line for row in data for line in blocking_failures(row)]
+    if blocked:
+        raise SystemExit(
+            "refusing to render: a champion was scored on fewer assets than the competition has, "
+            "so its Score is not comparable to a complete one.\n  " + "\n  ".join(blocked)
+        )
     if not all_legs:
         data = best_per_model(data)
     return "\n".join(
