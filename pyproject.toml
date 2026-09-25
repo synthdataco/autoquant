@@ -24,13 +24,11 @@ synth-bench-leaderboard = "synth_bench.leaderboard:main"
 dev = ["pytest>=9.0", "black==26.5.1"]
 
 [tool.uv.sources]
-# Pin the engine. The scaffold pins synth-lib too
-# (synth_lib/benchmark/scaffold/workspace/pyproject.toml), and the two must resolve the same
-# library code: host and sandbox on different backtesters is a silent source of unreproducible
-# scores. The scaffold necessarily names the commit BEFORE this one — a commit cannot contain its
-# own hash — so the revs differ by exactly the commit that moves the scaffold's own pin, and
-# nothing else. Two revs further apart than that is the bug.
-synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "32c121d44e04a83c59790b90cc09ae1612208934" }
+# Pin the engine. The agent workspace no longer carries a rev of its own: the scaffold holds a
+# placeholder and create_workspace substitutes whatever commit THIS pin resolved to, so host and
+# sandbox run the same library by construction. Setup fails rather than scaffolding a workspace
+# when the install has no commit to name — an editable or path install.
+synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "534a9049a5381208bc0727547f0782e7964cd279" }
 
 [tool.black]
 line-length = 120
