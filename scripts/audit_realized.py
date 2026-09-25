@@ -13,7 +13,8 @@ safety net. This script fails if any asset the verdict will score lacks paths ov
     uv run python scripts/audit_realized.py --cutoff 2026-09-14 --days 32
 
 `--days` is the `--days` passed to build_offline_bundle, since that is what decides how far back
-the paths were fetched.
+the paths were fetched. The printed span is what an agent can actually backtest against: outside it
+a holed slice has nothing to fall back on.
 """
 
 from __future__ import annotations
@@ -41,20 +42,22 @@ def main() -> None:
     for comp in COMPETITIONS:
         shape = f"{comp.time_length}_{comp.time_increment}"
         print(f"{comp.label}  ({shape})")
+        print(f"  {'asset':8} {'first':>11} {'last':>11} {'days':>6}")
         for asset in comp.asset_list:
             day_dir = args.realized / asset / shape
-            if not day_dir.is_dir():
-                print(f"  ABSENT  {asset:7} no cached paths at all")
+            days = (
+                sorted(date.fromisoformat(f.stem[5:]) for f in day_dir.glob("date=*.parquet"))
+                if day_dir.is_dir()
+                else []
+            )
+            if not days:
+                print(f"  {asset:8} {'—':>11} {'—':>11} {0:>6}   ABSENT: no cached paths at all")
                 failed += 1
                 continue
-            have = [
-                d
-                for d in (date.fromisoformat(f.stem[5:]) for f in day_dir.glob("date=*.parquet"))
-                if start <= d <= args.cutoff
-            ]
-            if len(have) < want:
-                print(f"  SHORT   {asset:7} {len(have)}/{want} days")
-                failed += 1
+            inside = [d for d in days if start <= d <= args.cutoff]
+            note = "" if len(inside) >= want else f"   SHORT over the bundle window: {len(inside)}/{want}"
+            failed += bool(note)
+            print(f"  {asset:8} {days[0].isoformat():>11} {days[-1].isoformat():>11} {len(days):>6}{note}")
         print()
     if failed:
         print(f"{failed} asset/competition pair(s) without paths over the window.")
