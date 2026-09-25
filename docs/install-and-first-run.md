@@ -114,13 +114,18 @@ links the files that exist and `manifest.json` records only their names, so a st
 days passes every structural check there is:
 
 ```bash
-uv run python scripts/audit_store.py --cutoff <data_cutoff>
+uv run python scripts/audit_store.py --cutoff <data_cutoff> --require-from 2026-02-01
 uv run python scripts/audit_realized.py --cutoff <data_cutoff> --days 32
 ```
 
 `audit_store.py` separates DAMAGE — a defect with a known repair — from review lines, which are
 minutes in which nothing traded. Every asset trades 24/7, so those are a liquidity fact rather than
 a session gap, and how many matter at a 24-hour horizon is your call, not the script's.
+
+It also walks back from the cutoff and reports the oldest day on which EVERY asset has an
+unbroken run — the real floor for any backtest that uses the whole field. `--require-from`
+fails below a date you name, and separates an asset whose history simply begins there from one
+with a hole to fill.
 
 `audit_realized.py` fails when an asset has no cached validator paths: the backtester then scores it
 from the local slice alone, and because a CRPS is a sum with NaN points dropped, a holed store

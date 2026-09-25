@@ -28,13 +28,20 @@ import pandas as pd
 from synth_lib.preparation.config import ALL_SYMBOLS, BINANCE_SYMBOLS, MINUTES_PER_DAY
 
 
-def audit_asset(asset: str, store: Path, start: date, cutoff: date) -> tuple[list[str], list[str]]:
-    """Returns (damage, review) findings for one asset."""
+def audit_asset(
+    asset: str, store: Path, start: date, cutoff: date
+) -> tuple[list[str], list[str], tuple[date, date] | None]:
+    """Returns (damage, review, complete_from) for one asset.
+
+    The third value is (first partition in the window, start of the unbroken run back from the
+    cutoff). When they differ there is a hole between them; when they match, that is simply where
+    this asset's history begins.
+    """
     day_dir = store / asset / "1m"
     files = sorted(day_dir.glob("date=*.parquet")) if day_dir.is_dir() else []
     files = [f for f in files if start <= date.fromisoformat(f.stem[5:]) <= cutoff]
     if not files:
-        return [f"no partitions between {start} and {cutoff}"], []
+        return [f"no partitions between {start} and {cutoff}"], [], None
 
     damage: list[str] = []
     review: list[str] = []
@@ -91,7 +98,13 @@ def audit_asset(asset: str, store: Path, start: date, cutoff: date) -> tuple[lis
         # The majors are quoted continuously and deeply; a gap there is far more likely a short
         # fetch than an empty minute, so it is worth a second look even though it is not proof.
         (damage if asset in BINANCE_SYMBOLS else review).append(note)
-    return damage, review
+    have = {date.fromisoformat(f.stem[5:]) for f in files}
+    if cutoff not in have:
+        return damage, review, None
+    complete_from = cutoff
+    while (earlier := complete_from - timedelta(days=1)) in have:
+        complete_from = earlier
+    return damage, review, (min(have), complete_from)
 
 
 def main() -> None:
@@ -100,13 +113,22 @@ def main() -> None:
     ap.add_argument("--start", type=date.fromisoformat, default=None, metavar="YYYY-MM-DD")
     ap.add_argument("--store", type=Path, default=Path("market_data/prices"))
     ap.add_argument("--days", type=int, default=None, help="audit only this many days back from the cutoff")
+    ap.add_argument(
+        "--require-from",
+        type=date.fromisoformat,
+        default=None,
+        metavar="YYYY-MM-DD",
+        help="fail unless every asset is complete back to this day",
+    )
     args = ap.parse_args()
 
     start = args.start or (args.cutoff - timedelta(days=args.days) if args.days else date(2025, 8, 1))
     print(f"{args.store}   {start} .. {args.cutoff}\n")
     failed = flagged = 0
+    complete: dict[str, date | None] = {}
     for asset in sorted(ALL_SYMBOLS):
-        damage, review = audit_asset(asset, args.store, start, args.cutoff)
+        damage, review, complete_from = audit_asset(asset, args.store, start, args.cutoff)
+        complete[asset] = complete_from
         failed += bool(damage)
         flagged += bool(review)
         if damage:
@@ -114,9 +136,29 @@ def main() -> None:
         for note in review:
             print(f"  review  {asset:7} {note}")
     if not failed and not flagged:
-        print("  every asset complete to the cutoff")
+        print("  no damage, nothing to review")
+
     print(f"\n{failed} asset(s) with damage, {flagged} for review.")
-    print("Damage has a repair; review is a liquidity fact only you can judge.")
+    print("Damage has a repair; review is a liquidity fact only you can judge.\n")
+
+    gaps = [a for a, d in complete.items() if d is None]
+    if gaps:
+        print(f"  no unbroken run back from the cutoff: {', '.join(sorted(gaps))}")
+        failed += len(gaps)
+    else:
+        runs = {a: v[1] for a, v in complete.items()}  # type: ignore[index]
+        binding = max(runs, key=lambda a: runs[a])
+        print(f"  all {len(runs)} assets complete from {runs[binding]}  (bound by {binding})")
+        if args.require_from:
+            late = {a: v for a, v in complete.items() if v[1] > args.require_from}  # type: ignore[index]
+            if late:
+                print(f"\n  REQUIRED from {args.require_from}, but these start later:")
+                for asset, (seen, run) in sorted(late.items(), key=lambda kv: kv[1][1], reverse=True):
+                    why = "history starts here" if seen == run else f"GAP — partitions exist from {seen}"
+                    print(f"      {asset:7} {run}   ({why})")
+                failed += len(late)
+            else:
+                print(f"  requirement met: every asset complete from {args.require_from}")
     sys.exit(1 if failed else 0)
 
 
