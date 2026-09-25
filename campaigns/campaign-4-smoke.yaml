@@ -17,8 +17,10 @@ models:
 budget_usd_per_model: 2.0
 deadline_hours_per_model: 0.5
 data_start: 2025-08-01
-# Last settled day: eval_end must be <= now - (horizon + 1d). Re-derive on the day you run this.
-data_cutoff: 2026-09-22  # today - 2; re-derive on the day you run this
+# campaign-4's cutoff, on purpose: the smoke then builds and mounts the SAME snapshot the real
+# run will, so it exercises the data as well as the panel. forward_window_days 1 settles long
+# since, so nothing here waits on the market.
+data_cutoff: 2026-09-14
 forward_window_days: 1
 baselines:
   - {name: synth_default}
