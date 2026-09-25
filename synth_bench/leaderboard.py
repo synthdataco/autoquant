@@ -183,8 +183,7 @@ def render_ranks(data: list[dict]) -> str:
         campaign = r["campaign"] + (FALLBACK_MARK if r["fallback"] else "")
         cells = " ".join(f"| {competition_cell(r['per_competition'], slug)}" for slug in COMPETITIONS)
         lines.append(
-            f"| {r['model']} | {campaign} | {r['window_start'] or '—'} | {r['window_end'] or '—'} "
-            f"{cells} |"
+            f"| {r['model']} | {campaign} | {r['window_start'] or '—'} | {r['window_end'] or '—'} " f"{cells} |"
         )
     lines += [
         "",

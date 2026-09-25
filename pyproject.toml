@@ -21,7 +21,7 @@ dependencies = [
 synth-bench-leaderboard = "synth_bench.leaderboard:main"
 
 [dependency-groups]
-dev = ["pytest>=9.0"]
+dev = ["pytest>=9.0", "black==26.5.1"]
 
 [tool.uv.sources]
 # Pin the engine. The scaffold pins synth-lib too
@@ -31,6 +31,12 @@ dev = ["pytest>=9.0"]
 # own hash — so the revs differ by exactly the commit that moves the scaffold's own pin, and
 # nothing else. Two revs further apart than that is the bug.
 synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "181e958ebd220744577e2ea5996ef2a5d45022d3" }
+
+[tool.black]
+line-length = 120
+# Champion trees are agent-authored and published verbatim — formatting them would rewrite the
+# record a verdict was produced from.
+extend-exclude = "campaign_results/"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
