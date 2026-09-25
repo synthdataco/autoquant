@@ -9,7 +9,9 @@ better than it is. It nominates on that, and the verdict scores it correctly.
     uv run python scripts/audit_store.py --cutoff 2026-09-14
     uv run python scripts/audit_store.py --cutoff 2026-09-14 --store campaign_runs/c4/snapshot/prices
 
-Two severities. DAMAGE is a store defect with a known repair and exits non-zero. REVIEW is a fact
+Two severities. DAMAGE is a store defect with a known repair and exits non-zero — a day the
+partition itself marks unsettled, a day of pure NaN, a missing file, a store short of the
+cutoff. REVIEW is a fact
 about the market that only the operator can judge: every asset here trades 24/7, so a NaN minute is
 a minute in which nothing traded, not a session gap. Thin assets have many; how many is too many
 for a 24-hour horizon is a judgement, not a rule.
@@ -37,26 +39,31 @@ def audit_asset(asset: str, store: Path, start: date, cutoff: date) -> tuple[lis
     damage: list[str] = []
     review: list[str] = []
     empty_days: list[str] = []
-    truncated: list[tuple[str, int]] = []
-    holed: list[tuple[str, int]] = []
+    partial: list[tuple[str, int]] = []
+    holed: list[tuple[str, int, int]] = []
     total = missing = 0
 
     for path in files:
-        closes = pd.read_parquet(path, columns=["close"])["close"]
+        frame = pd.read_parquet(path, columns=["close", "is_final"])
+        closes = frame["close"]
         nan = int(closes.isna().sum())
         total += len(closes)
         missing += nan
+        day = path.stem[5:]
+        # The partition records whether the day was settled when it was written. `ingest_day`
+        # recomputes that from the calendar and never reads it back, so a day written while it was
+        # still running stays partial for good — and this column is the only place it says so.
+        if not bool(frame["is_final"].iloc[0]):
+            partial.append((day, int(closes.last_valid_index() or -1)))
+            continue
         if nan == 0:
             continue
-        day = path.stem[5:]
         if nan == len(closes):
             empty_days.append(day)
         else:
             last = closes.last_valid_index()
-            if last is not None and last < len(closes) - 1 and closes.iloc[last + 1 :].isna().all():
-                truncated.append((day, int(last)))
-            else:
-                holed.append((day, nan))
+            tail = len(closes) - 1 - int(last) if last is not None else len(closes)
+            holed.append((day, nan, tail))
 
     first, last_day = (date.fromisoformat(f.stem[5:]) for f in (files[0], files[-1]))
     gaps = (last_day - first).days + 1 - len(files)
@@ -68,17 +75,19 @@ def audit_asset(asset: str, store: Path, start: date, cutoff: date) -> tuple[lis
         # A venue request for a day past its retention returns nothing and `ingest_day` persists
         # 1440 NaN rows marked final, which every later ingest then skips.
         damage.append(f"{len(empty_days)} all-NaN day(s), first {empty_days[0]} — re-ingest from the archive")
-    if truncated:
-        # `ingest_day` recomputes finality from the calendar rather than the partition, so a day
-        # written while it was still today stays partial for good.
+    if partial:
         damage.append(
-            f"{len(truncated)} truncated day(s), first {truncated[0][0]} after minute {truncated[0][1]}"
-            " — --force-refresh those dates"
+            f"{len(partial)} unsettled day(s) (is_final=False), first {partial[0][0]} after minute"
+            f" {partial[0][1]} — --force-refresh those dates"
         )
     if holed:
         worst = max(holed, key=lambda x: x[1])
+        longest = max(holed, key=lambda x: x[2])
         share = f"{100 * missing / total:.2f}%" if total else "n/a"
-        note = f"{len(holed)} day(s) with untraded minutes, worst {worst[0]} ({worst[1]}/{MINUTES_PER_DAY}), {share} overall"
+        note = (
+            f"{len(holed)} day(s) with untraded minutes, worst {worst[0]} ({worst[1]}/{MINUTES_PER_DAY}),"
+            f" longest run to end-of-day {longest[2]}min on {longest[0]}, {share} overall"
+        )
         # The majors are quoted continuously and deeply; a gap there is far more likely a short
         # fetch than an empty minute, so it is worth a second look even though it is not proof.
         (damage if asset in BINANCE_SYMBOLS else review).append(note)
