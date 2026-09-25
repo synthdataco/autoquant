@@ -15,12 +15,18 @@ safety net. This script fails if any asset the verdict will score lacks paths ov
 `--days` is the `--days` passed to build_offline_bundle, since that is what decides how far back
 the paths were fetched. The printed span is what an agent can actually backtest against: outside it
 a holed slice has nothing to fall back on.
+
+Each partition is opened rather than counted: an empty or truncated one covers no prompts, and a
+prompt with no cached array is scored on the points that remain — indistinguishable in the output
+from a prompt that never had gaps.
 """
 
 from __future__ import annotations
 
 import argparse
 import sys
+
+import pandas as pd
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -42,22 +48,38 @@ def main() -> None:
     for comp in COMPETITIONS:
         shape = f"{comp.time_length}_{comp.time_increment}"
         print(f"{comp.label}  ({shape})")
-        print(f"  {'asset':8} {'first':>11} {'last':>11} {'days':>6}")
+        print(f"  {'asset':8} {'first':>11} {'last':>11} {'days':>6} {'prompts':>8}")
         for asset in comp.asset_list:
             day_dir = args.realized / asset / shape
-            days = (
-                sorted(date.fromisoformat(f.stem[5:]) for f in day_dir.glob("date=*.parquet"))
-                if day_dir.is_dir()
-                else []
-            )
-            if not days:
-                print(f"  {asset:8} {'—':>11} {'—':>11} {0:>6}   ABSENT: no cached paths at all")
+            files = sorted(day_dir.glob("date=*.parquet")) if day_dir.is_dir() else []
+            if not files:
+                print(f"  {asset:8} {'—':>11} {'—':>11} {0:>6} {0:>8}   ABSENT: no cached paths at all")
                 failed += 1
                 continue
-            inside = [d for d in days if start <= d <= args.cutoff]
-            note = "" if len(inside) >= want else f"   SHORT over the bundle window: {len(inside)}/{want}"
-            failed += bool(note)
-            print(f"  {asset:8} {days[0].isoformat():>11} {days[-1].isoformat():>11} {len(days):>6}{note}")
+            # Counting filenames would pass an empty or truncated partition, which leaves the
+            # prompts it should cover with no array to fall back on — the same hole as no file.
+            days, prompts, unreadable = [], 0, []
+            for f in files:
+                day = date.fromisoformat(f.stem[5:])
+                try:
+                    rows = len(pd.read_parquet(f, columns=["start_time"]))
+                except Exception:
+                    rows = 0
+                if rows:
+                    days.append(day)
+                    prompts += rows
+                else:
+                    unreadable.append(day)
+            notes = []
+            if unreadable:
+                notes.append(f"{len(unreadable)} empty or unreadable, first {unreadable[0]}")
+            if len([d for d in days if start <= d <= args.cutoff]) < want:
+                usable = len([d for d in days if start <= d <= args.cutoff])
+                notes.append(f"only {usable}/{want} usable days over the bundle window")
+            failed += bool(notes)
+            lo, hi = (days[0].isoformat(), days[-1].isoformat()) if days else ("—", "—")
+            note = ("   " + "; ".join(notes)) if notes else ""
+            print(f"  {asset:8} {lo:>11} {hi:>11} {len(days):>6} {prompts:>8}{note}")
         print()
     if failed:
         print(f"{failed} asset/competition pair(s) without paths over the window.")

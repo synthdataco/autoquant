@@ -220,14 +220,17 @@ def render_ranks(data: list[dict]) -> str:
 
 def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     data = rows(results_dir, tag)
+    if not all_legs:
+        data = best_per_model(data)
+    # After the selection, not before: the objection is that an incomplete Score is not comparable
+    # to a complete one, which only bites for a row that is actually rendered. A leg superseded by
+    # a better one from the same model is compared to nothing.
     blocked = [line for row in data for line in blocking_failures(row)]
     if blocked:
         raise SystemExit(
             "refusing to render: a champion was scored on fewer assets than the competition has, "
             "so its Score is not comparable to a complete one.\n  " + "\n  ".join(blocked)
         )
-    if not all_legs:
-        data = best_per_model(data)
     return "\n".join(
         [
             render_scores(data, results_dir),

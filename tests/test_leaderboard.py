@@ -188,3 +188,16 @@ def test_another_asset_failing_for_the_same_reason_still_blocks(tmp_path):
     _with_failure(tmp_path, "NoScoresAvailable('no scored prompts')", asset="XAU")
     with pytest.raises(SystemExit, match="XAU"):
         render(tmp_path, tag=None)
+
+
+def test_a_hidden_leg_with_a_failed_asset_does_not_block(tmp_path):
+    """One row per model is rendered; a leg the selection dropped is compared to nothing."""
+    _leg(tmp_path, "camp-b", "gemini", score=8.1, mean_rank=40)  # the displayed best
+    d = _with_failure(tmp_path, "ArrowInvalid('cannot convert')")  # camp/leg, score 30.1
+    v = json.loads((d / "verdict.json").read_text())
+    v["score"] = 1.0  # …and now the worst, so best_per_model drops it
+    (d / "verdict.json").write_text(json.dumps(v))
+
+    assert "**8.1**" in render(tmp_path, tag=None)
+    with pytest.raises(SystemExit, match="XAU"):
+        render(tmp_path, tag=None, all_legs=True)

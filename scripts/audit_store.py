@@ -63,6 +63,7 @@ def audit_asset(asset: str, store: Path, start: date, cutoff: date) -> Audit:
     empty_days: list[str] = []
     unsettled: list[tuple[str, int]] = []
     holed: list[tuple[str, int, int]] = []
+    short: list[tuple[str, int]] = []
     total = missing = 0
     for path in files:
         frame = pd.read_parquet(path, columns=["close", "is_final"])
@@ -71,6 +72,11 @@ def audit_asset(asset: str, store: Path, start: date, cutoff: date) -> Audit:
         total += len(closes)
         missing += nan
         day = path.stem[5:]
+        # A partition is a full minute grid, NaN where nothing traded. A short one is not a thin
+        # day: its missing minutes are absent rather than null, so every count below would read it
+        # as healthy — the shape this audit exists to reject.
+        if len(closes) != MINUTES_PER_DAY:
+            short.append((day, len(closes)))
         # The partition records whether the day was settled when it was written. `ingest_day`
         # recomputes that from the calendar and never reads it back, so a day written while it was
         # still running stays partial for good — and this column is the only place it says so.
@@ -94,6 +100,14 @@ def audit_asset(asset: str, store: Path, start: date, cutoff: date) -> Audit:
 
     if out.complete_from is None:
         out.damage.append(f"no partition for the cutoff {cutoff}")
+    gaps = (max(have) - out.first).days + 1 - len(files)
+    if gaps:
+        out.damage.append(f"{gaps} day(s) with no file between {out.first} and {max(have)}")
+    if short:
+        out.damage.append(
+            f"{len(short)} partition(s) short of {MINUTES_PER_DAY} rows, first {short[0][0]}"
+            f" ({short[0][1]} rows) — --force-refresh those dates"
+        )
     if empty_days:
         out.damage.append(f"{len(empty_days)} all-NaN day(s), first {empty_days[0]} — re-ingest from the archive")
     if unsettled:
