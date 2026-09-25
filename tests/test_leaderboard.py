@@ -6,6 +6,8 @@ do not hand-edit.
 
 import json
 
+import pytest
+
 from synth_bench.leaderboard import best_per_model, competition_cell, model_label, render, rows
 
 

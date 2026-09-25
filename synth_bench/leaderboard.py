@@ -24,6 +24,12 @@ END = "<!-- LEADERBOARD:END -->"
 
 COMPETITIONS = ("crypto-1h", "crypto-24h", "com-equ-24h")
 
+# Assets the subnet retired, and the day it stopped prompting them. A failure on one of these in
+# a window that starts after that day is a smaller competition; the same failure in an earlier
+# window, or on any other asset, means the champion was scored on fewer assets than the validator
+# uses and its Score is not the Score.
+RETIRED_ASSETS = {"SPYX": "2026-07-23"}
+
 # Marks a row scored before the harness corrections. It is appended in both tables and explained
 # once, after them.
 FALLBACK_MARK = " \\*"

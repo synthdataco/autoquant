@@ -18,17 +18,18 @@ are not comparable to it; see the footnote.
 ## Leaderboard
 
 <!-- LEADERBOARD:BEGIN -->
-| Model | Campaign | Score | Mean final rank | Spend |
-| --- | --- | --- | --- | --- |
-| claude-opus-5 | campaign-2 | **39.6** | 35 | 3.8 h / $25.67 |
-| gpt-6-astra | campaign-3 | **24.7** | 98 | 3.2 h / $93.60 |
-| gpt-5 | campaign-2 | **10.2** \* | 211 | — |
-| gemini-3.1-pro-preview | campaign-2 | **8.1** \* | 210 | — |
-| claude-fable-5-1 | campaign-3 | **7.4** | 180 | 2.9 h / $58.55 |
-| glm-5.2 | campaign-1 | **6.6** \* | 207.7 | 2.4 h / $5.78 |
-| gpt-5.6-sol | campaign-3 | **2.7** \* | 212.3 | 4.3 h / $23.55 |
-| kimi-k3 | campaign-1 | **2.1** \* | 197.7 | 2.4 h / $4.96 |
-| gemini-3.8-flash | campaign-3 | **0.2** \* | 249.3 | 0.3 h / $1.51 |
+
+| Model                  | Campaign   | Score       | Mean final rank | Spend          |
+| ---------------------- | ---------- | ----------- | --------------- | -------------- |
+| claude-opus-5          | campaign-2 | **39.6**    | 35              | 3.8 h / $25.67 |
+| gpt-6-astra            | campaign-3 | **24.7**    | 98              | 3.2 h / $93.60 |
+| gpt-5                  | campaign-2 | **10.2** \* | 211             | —              |
+| gemini-3.1-pro-preview | campaign-2 | **8.1** \*  | 210             | —              |
+| claude-fable-5-1       | campaign-3 | **7.4**     | 180             | 2.9 h / $58.55 |
+| glm-5.2                | campaign-1 | **6.6** \*  | 207.7           | 2.4 h / $5.78  |
+| gpt-5.6-sol            | campaign-3 | **2.7** \*  | 212.3           | 4.3 h / $23.55 |
+| kimi-k3                | campaign-1 | **2.1** \*  | 197.7           | 2.4 h / $4.96  |
+| gemini-3.8-flash       | campaign-3 | **0.2** \*  | 249.3           | 0.3 h / $1.51  |
 
 Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷
 the best other miner's) — see [docs/scoring.md](docs/scoring.md). One row per model: its best
@@ -39,17 +40,17 @@ Spend is wall time and credits from the leg's own budget file, against an envelo
 
 ### Where each champion placed
 
-| Model | Campaign | Start | End | crypto-1h | crypto-24h | com-equ-24h |
-| --- | --- | --- | --- | --- | --- | --- |
-| claude-opus-5 | campaign-2 | 2026-07-28 | 2026-08-07 | μ61.8 (final 1/257) | μ70.3 (final 4/257) | μ85.1 (final 100/191) |
-| gpt-6-astra | campaign-3 | 2026-08-30 | 2026-09-09 | μ38.8 (final 24/257) | μ37.6 (final 46/257) | μ192 (final 224/257) |
-| gpt-5 | campaign-2 \* | 2026-07-28 | 2026-08-07 | μ163.3 (final 194/257) | μ253.8 (final 252/257) | μ217.6 (final 187/191) |
-| gemini-3.1-pro-preview | campaign-2 \* | 2026-07-28 | 2026-08-07 | μ173.9 (final 206/257) | μ242.2 (final 238/257) | μ217 (final 186/191) |
-| claude-fable-5-1 | campaign-3 | 2026-08-30 | 2026-09-09 | μ175.5 (final 194/257) | μ172.6 (final 168/257) | μ188.5 (final 178/257) |
-| glm-5.2 | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ185.3 (final 195/257) | μ246.4 (final 243/257) | μ211.8 (final 185/191) |
-| gpt-5.6-sol | campaign-3 \* | 2026-08-30 | 2026-09-09 | μ222.8 (final 136/257) | μ249.4 (final 247/257) | μ252 (final 254/257) |
-| kimi-k3 | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ203.4 (final 185/257) | μ235.3 (final 231/257) | μ193.8 (final 177/191) |
-| gemini-3.8-flash | campaign-3 \* | 2026-08-30 | 2026-09-09 | μ249.9 (final 247/257) | μ246.1 (final 247/257) | μ252.9 (final 254/257) |
+| Model                  | Campaign      | Start      | End        | crypto-1h              | crypto-24h             | com-equ-24h            |
+| ---------------------- | ------------- | ---------- | ---------- | ---------------------- | ---------------------- | ---------------------- |
+| claude-opus-5          | campaign-2    | 2026-07-28 | 2026-08-07 | μ61.8 (final 1/257)    | μ70.3 (final 4/257)    | μ85.1 (final 100/191)  |
+| gpt-6-astra            | campaign-3    | 2026-08-30 | 2026-09-09 | μ38.8 (final 24/257)   | μ37.6 (final 46/257)   | μ192 (final 224/257)   |
+| gpt-5                  | campaign-2 \* | 2026-07-28 | 2026-08-07 | μ163.3 (final 194/257) | μ253.8 (final 252/257) | μ217.6 (final 187/191) |
+| gemini-3.1-pro-preview | campaign-2 \* | 2026-07-28 | 2026-08-07 | μ173.9 (final 206/257) | μ242.2 (final 238/257) | μ217 (final 186/191)   |
+| claude-fable-5-1       | campaign-3    | 2026-08-30 | 2026-09-09 | μ175.5 (final 194/257) | μ172.6 (final 168/257) | μ188.5 (final 178/257) |
+| glm-5.2                | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ185.3 (final 195/257) | μ246.4 (final 243/257) | μ211.8 (final 185/191) |
+| gpt-5.6-sol            | campaign-3 \* | 2026-08-30 | 2026-09-09 | μ222.8 (final 136/257) | μ249.4 (final 247/257) | μ252 (final 254/257)   |
+| kimi-k3                | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ203.4 (final 185/257) | μ235.3 (final 231/257) | μ193.8 (final 177/191) |
+| gemini-3.8-flash       | campaign-3 \* | 2026-08-30 | 2026-09-09 | μ249.9 (final 247/257) | μ246.1 (final 247/257) | μ252.9 (final 254/257) |
 
 Start and End bound the verdict window: the forward, out-of-sample period the champion was
 scored over, which begins the day after its campaign's data cutoff. campaign-1 and -2 share a
@@ -65,6 +66,7 @@ uniform realized truth, without which missing minutes in the operator's price st
 the CRPS sum and flattered the champion. They pull in opposite directions and neither is
 uniform across champions, so a marked row is not comparable to an unmarked one, and the
 ordering between them is unreliable rather than merely optimistic or conservative.
+
 <!-- LEADERBOARD:END -->
 
 Generated with `synth-bench-leaderboard --write README.md`; every number is read from an archived
