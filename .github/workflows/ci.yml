@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        # No LFS: campaign_results holds hundreds of MB of bundles and weights that nothing here
+        # reads. The pointers are enough.
+        with:
+          lfs: false
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      # --frozen fails on a lock that no longer matches pyproject.toml, which is how a dependency
+      # goes missing from a fresh sync without anyone noticing.
+      - run: uv sync --frozen
+
+      - run: uv run black --check .
+
+      - run: uv run pytest
