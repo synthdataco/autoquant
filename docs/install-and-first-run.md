@@ -107,6 +107,32 @@ bulk-fetched window: a sweep that requests data up to `now` receives the current
 candle, whose close is only the last trade so far, so disagreement there reflects the live-swept
 side rather than the aggregation.
 
+### Audit the data before you spend anything
+
+Two checks, and they read inside the partitions rather than counting filenames — `build_snapshot`
+links the files that exist and `manifest.json` records only their names, so a store of half-written
+days passes every structural check there is:
+
+```bash
+uv run python scripts/audit_store.py --cutoff <data_cutoff>
+uv run python scripts/audit_realized.py --cutoff <data_cutoff> --days 32
+```
+
+`audit_store.py` separates DAMAGE — a defect with a known repair — from review lines, which are
+minutes in which nothing traded. Every asset trades 24/7, so those are a liquidity fact rather than
+a session gap, and how many matter at a 24-hour horizon is your call, not the script's.
+
+`audit_realized.py` fails when an asset has no cached validator paths: the backtester then scores it
+from the local slice alone, and because a CRPS is a sum with NaN points dropped, a holed store
+yields a smaller sum and flatters whatever is being scored.
+
+Re-run `audit_store.py` against the snapshot after `setup` — that is what the agents actually mount:
+
+```bash
+uv run python scripts/audit_store.py --cutoff <data_cutoff> \
+    --store campaign_runs/<name>/snapshot/prices
+```
+
 ### Realized paths (before `setup`)
 
 We cache the realized paths so the agent can backtest offline instead of fetching one request per
