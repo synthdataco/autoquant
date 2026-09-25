@@ -63,7 +63,7 @@ ingest skips it.
 Everything older comes from the archive:
 
 ```bash
-uv sync --extra reservoir
+uv sync
 AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py \
     --start 2025-08-01 --end <data_cutoff>          # --dry-run first
 ```

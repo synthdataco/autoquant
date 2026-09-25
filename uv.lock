@@ -2447,12 +2447,8 @@ name = "synth-bench"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
-    { name = "synth-lib", extra = ["benchmark"] },
-]
-
-[package.optional-dependencies]
-reservoir = [
     { name = "boto3" },
+    { name = "synth-lib", extra = ["benchmark"] },
 ]
 
 [package.dev-dependencies]
@@ -2462,10 +2458,9 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "boto3", marker = "extra == 'reservoir'", specifier = ">=1.35" },
+    { name = "boto3", specifier = ">=1.35" },
     { name = "synth-lib", extras = ["benchmark"], git = "https://github.com/synthdataco/synth-lib?rev=181e958ebd220744577e2ea5996ef2a5d45022d3" },
 ]
-provides-extras = ["reservoir"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=9.0" }]

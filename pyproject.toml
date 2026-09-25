@@ -12,11 +12,10 @@ description = "An autonomous-agent benchmark: coding agents doing quantitative r
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 # The engine lives in synth-lib; this repo holds the campaigns, the results and the leaderboard.
-dependencies = ["synth-lib[benchmark]"]
-
-[project.optional-dependencies]
-# scripts/ingest_reservoir.py only — the campaign engine itself needs no AWS client.
-reservoir = ["boto3>=1.35"]
+dependencies = [
+    "boto3>=1.35",
+    "synth-lib[benchmark]",
+]
 
 [project.scripts]
 synth-bench-leaderboard = "synth_bench.leaderboard:main"
