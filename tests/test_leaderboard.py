@@ -201,3 +201,15 @@ def test_a_hidden_leg_with_a_failed_asset_does_not_block(tmp_path):
     assert "**8.1**" in render(tmp_path, tag=None)
     with pytest.raises(SystemExit, match="XAU"):
         render(tmp_path, tag=None, all_legs=True)
+
+
+def test_a_verdict_written_as_a_directory_is_read(tmp_path):
+    """The runner now writes verdict-<tag>/ — the JSON with its charts and frames. The archived
+    campaigns kept their flat verdict-<tag>.json, and both have to render."""
+    d = _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)
+    tagged = d / "verdict-w-0917-0924"
+    tagged.mkdir()
+    (tagged / "verdict.json").write_text(json.dumps({"score": 42.0, "per_competition": {}}))
+
+    assert rows(tmp_path, tag="w-0917-0924")[0]["score"] == 42.0
+    assert rows(tmp_path, tag=None)[0]["score"] == 30.1  # the flat one is still the canonical

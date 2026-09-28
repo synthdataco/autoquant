@@ -55,19 +55,28 @@ def model_of(leg_dir: Path, campaign_dir: Path) -> str:
     return leg_dir.name
 
 
+def verdict_path(leg_dir: Path, tag: str | None) -> Path | None:
+    """The verdict file for a tag, or None. A verdict is a directory holding its JSON, charts and
+    frames; archived ones were written as a single flat file beside the leg."""
+    stem = f"verdict-{tag}" if tag else "verdict"
+    for candidate in (leg_dir / stem / "verdict.json", leg_dir / f"{stem}.json"):
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def rows(results_dir: Path, tag: str | None) -> list[dict]:
     """One row per leg. With a tag, a leg that has no tagged verdict falls back to its canonical
     one and is flagged, so a partially rescored archive still renders — visibly mixed, not
     silently."""
-    name = f"verdict-{tag}.json" if tag else "verdict.json"
     out: list[dict] = []
     for campaign_dir in sorted(p for p in results_dir.iterdir() if p.is_dir()):
         for leg_dir in sorted(p for p in campaign_dir.iterdir() if p.is_dir() and p.name != "baselines"):
             champion = (leg_dir / "CHAMPION").exists()
-            verdict = leg_dir / name
-            fallback = bool(tag) and not verdict.exists() and (leg_dir / "verdict.json").exists()
+            verdict = verdict_path(leg_dir, tag)
+            fallback = bool(tag) and verdict is None and verdict_path(leg_dir, None) is not None
             if fallback:
-                verdict = leg_dir / "verdict.json"
+                verdict = verdict_path(leg_dir, None)
             row = {
                 "campaign": campaign_dir.name,
                 "leg": leg_dir.name,
@@ -75,7 +84,7 @@ def rows(results_dir: Path, tag: str | None) -> list[dict]:
                 "landed": champion,
                 "fallback": fallback,
             }
-            if verdict.exists():
+            if verdict is not None:
                 data = json.loads(verdict.read_text())
                 window = data.get("window") or {}
                 row["score"] = data.get("score")

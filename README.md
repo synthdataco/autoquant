@@ -123,7 +123,8 @@ miner: [docs/deploy-a-champion.md](docs/deploy-a-champion.md).
 Each leg directory **is** the champion: the agent's whole workspace at the commit it nominated —
 `modeling.py` and the calibration artifacts it loads, `report.md` (the agent's own write-up, the most
 interesting artifact here), `journal.md` (one entry per iteration, failures included), its research
-scripts — plus `CHAMPION` (the nomination record), `verdict.json` and any `verdict-<tag>.json`
+scripts — plus `CHAMPION` (the nomination record), the verdict (`verdict.json` in the archived legs,
+`verdict/verdict.json` with its charts and score frames in newer ones) and any `verdict-<tag>`
 diagnostic windows, and the serving shell `miner.py` / `entrypoint.sh` that runs it as a live miner.
 
 campaign-2 also carries three older **in-sample** windows per leg. They are the overfitting check, not
