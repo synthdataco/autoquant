@@ -14,6 +14,16 @@ This regenerates a sample of prompts both ways against the same realized path:
 and reports the CRPS ratio. If lagged/full matches the champion-vs-live CRPS gap measured from a
 verdict's prompt_scores frame, the issuance lead is the explanation.
 
+Both arms draw the same random numbers for a given prompt (the champion seeds from the prompt's
+own identity, and PYTHONHASHSEED is pinned by the verdict runner), so the comparison is PAIRED and
+the per-prompt ratio is the statistic. A mean of those ratios is not: they are heavy-tailed, and a
+mean over a few hundred prompts moved by an order of magnitude between samples. The median and the
+sign test are reported with intervals; the mean is kept only for continuity with older runs.
+
+`--stale-uniform` reproduces a live deployment instead of a fixed cutoff: the serving store
+refreshes on an interval, so at prompt time its newest bar is uniformly distributed in age across
+that interval rather than being exactly one lead old.
+
     uv run python scripts/measure_issuance_lead.py \
         --leg campaign_results/campaign-3/fable-5-1 \
         --bundle offline_data/verdict_20260926_19d --asset BTC --prompts 40
@@ -89,6 +99,15 @@ def main() -> None:
         help="how far back to cut the context, in seconds before start_time (see DEFAULT_LEAD_SECONDS)",
     )
     ap.add_argument("--num-simulations", type=int, default=1000)
+    ap.add_argument(
+        "--stale-uniform",
+        type=int,
+        default=0,
+        metavar="SECONDS",
+        help="draw each prompt's extra staleness uniformly from [0, SECONDS] on top of --lead-seconds — "
+        "what a serving store refreshed on that interval actually looks like, rather than a fixed cut",
+    )
+    ap.add_argument("--bootstrap", type=int, default=2000, help="resamples for the median's interval")
     args = ap.parse_args()
 
     comp = competition_for(args.asset, args.time_length)
@@ -110,6 +129,8 @@ def main() -> None:
     step = args.time_length // comp.time_increment + 1
     lead = pd.Timedelta(seconds=args.lead_seconds)
 
+    rng = np.random.default_rng(0)
+    rng = np.random.default_rng(0)
     rows = []
     for t in picked:
         real = (
@@ -119,8 +140,13 @@ def main() -> None:
         )
         if not np.isfinite(real).all():
             continue
-        out = {}
-        for label, cutoff in (("full", t), ("lagged", t - lead)):
+        extra = (
+            pd.Timedelta(seconds=int(rng.integers(0, args.stale_uniform + 1)))
+            if args.stale_uniform
+            else pd.Timedelta(0)
+        )
+        out = {"staleness_s": (lead + extra).total_seconds()}
+        for label, cutoff in (("full", t), ("lagged", t - lead - extra)):
             ctx = prices.loc[t - pd.Timedelta(minutes=CONTEXT_MINUTES) : cutoff]
             sim = simulate(
                 asset=args.asset,
@@ -139,20 +165,37 @@ def main() -> None:
     df = pd.DataFrame(rows)
     if df.empty:
         sys.exit("no prompt had a complete realized path in the local store")
+    df["ratio"] = df.lagged / df.full
+    worse = int((df.lagged > df.full).sum())
+    n = len(df)
+    share = worse / n
+    se = (share * (1 - share) / n) ** 0.5
+    boot = np.median(rng.choice(df.ratio.to_numpy(), size=(args.bootstrap, n), replace=True), axis=1)
+    lo, hi = np.percentile(boot, [2.5, 97.5])
+
+    stale = f"{args.lead_seconds}s" + (f" + U[0,{args.stale_uniform}s]" if args.stale_uniform else "")
     print(
-        f"{args.asset} tl={args.time_length}: {len(df)} prompts, lead {args.lead_seconds}s, "
-        f"{args.num_simulations} paths, seed {__import__('os').environ.get(SEED_ENV, 'unset')}\n"
+        f"{args.asset} tl={args.time_length}: {n} prompts, context cut at t-({stale}), "
+        f"{args.num_simulations} paths\n"
     )
-    print(f"  mean CRPS  full (context to t)        {df.full.mean():10.3f}")
-    print(f"  mean CRPS  lagged (context to t-{args.lead_seconds}s)  {df.lagged.mean():10.3f}")
+    print("  PAIRED (both arms use the same draws for a prompt, so the per-prompt ratio is the statistic)")
     print(
-        f"  lagged / full = {df.lagged.mean()/df.full.mean():.4f}  "
-        f"({(df.lagged.mean()/df.full.mean()-1)*100:+.2f}%  <- the cost of not seeing t)"
+        f"    median lagged/full  {np.median(df.ratio):.5f}   95% CI [{lo:.5f}, {hi:.5f}]"
+        f"   ({(np.median(df.ratio) - 1) * 100:+.3f}%)"
     )
-    print(f"  lagged worse on {(df.lagged > df.full).mean():.1%} of prompts")
+    print(
+        f"    lagged worse on     {share:.1%} of prompts   95% CI "
+        f"[{share - 1.96 * se:.1%}, {share + 1.96 * se:.1%}]   (50% = no effect)"
+    )
+    print(
+        f"\n  mean lagged/full    {df.lagged.mean() / df.full.mean():.5f}  "
+        f"({(df.lagged.mean() / df.full.mean() - 1) * 100:+.3f}%)  <- heavy-tailed, unstable across samples"
+    )
     err = (df.full_anchor - df.truth_at_start).abs()
     print(f"\n  anchor error, full context:   {err.mean():.4f}  (0 = it is handed the first scored point)")
     print(f"  anchor error, lagged context: {(df.lagged_anchor - df.truth_at_start).abs().mean():.4f}")
+    if args.stale_uniform:
+        print(f"  staleness actually drawn: mean {df.staleness_s.mean():.0f}s  max {df.staleness_s.max():.0f}s")
 
 
 if __name__ == "__main__":
