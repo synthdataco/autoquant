@@ -1,7 +1,8 @@
 name: campaign-4-smoke
 objective: >-
-  Smoke campaign: make ONE single trivial micro-improvement to the model in your agent folder
-  (e.g. a parameter), journal it, then land immediately (report.md + CHAMPION).
+  Setup check: make ONE single trivial micro-adjustment to the model in your agent folder
+  (e.g. a parameter), journal it, then land immediately (report.md + CHAMPION). This run exists
+  to verify the toolchain, not to improve anything.
 # The whole panel, on purpose. Two models and all three CLI versions are new, and the failure
 # they cause is a livelock rather than an error: codex resolves a model's context window by alias
 # name, and an unknown alias falls back to a window small enough that a long thread reports no
