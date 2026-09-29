@@ -31,9 +31,36 @@ import pandas as pd
 from synth.validator.crps_calculation import calculate_crps_for_miner, calculate_total_score_for_miner
 
 from synth_lib.backtester.config import VOL_CRPS_1H_DATE, competition_for, slug_for
-from synth_lib.benchmark.generate_predictions import CONTEXT_MINUTES, load_minute_prices, load_simulate
+from synth_lib.benchmark.generate_predictions import CONTEXT_MINUTES, load_simulate
 
 SEED_ENV = "SYNTH_BENCHMARK_SEED"
+# The store labels a minute bar by its OPEN time (Binance k[OPEN_TIME]), so the row labelled t
+# closes at t+60s. Generation's `loc[:t]` therefore ends on the close at t+60s, which is exactly
+# real_prices[0]. A miner prompted at request_time = t-60s and answering a few seconds later has
+# only the bar labelled t-120s, whose close is the price at t-60s. Two bars apart.
+DEFAULT_LEAD_SECONDS = 120
+
+
+def load_closes(data_root: Path, asset: str, start: pd.Timestamp, end: pd.Timestamp) -> pd.DataFrame:
+    """Minute frame over [start, end] from daily partitions, whatever columns they carry.
+
+    Deliberately not generate_predictions.load_minute_prices: that one requires the OHLCV columns,
+    and a store written before the OHLCV migration is close-only. A champion that reads more than
+    `close` will raise on its own.
+    """
+    root = data_root / "prices" / asset / "1m"
+    frames = []
+    day = start.date()
+    while day <= end.date():
+        path = root / f"date={day.isoformat()}.parquet"
+        if path.exists():
+            frames.append(pd.read_parquet(path))
+        day += pd.Timedelta(days=1).to_pytimedelta()
+    if not frames:
+        raise SystemExit(f"no partitions under {root}")
+    frame = pd.concat(frames, ignore_index=True)
+    frame["timestamp"] = pd.to_datetime(frame["timestamp"], utc=True)
+    return frame.set_index("timestamp").sort_index().loc[start:end]
 
 
 def score(paths: np.ndarray, real: np.ndarray, comp, scored_time) -> float:
@@ -55,7 +82,12 @@ def main() -> None:
     ap.add_argument("--asset", default="BTC")
     ap.add_argument("--time-length", type=int, default=3600)
     ap.add_argument("--prompts", type=int, default=40, help="sampled evenly across the bundle's range")
-    ap.add_argument("--lead-seconds", type=int, default=60, help="request_time is this far before start_time")
+    ap.add_argument(
+        "--lead-seconds",
+        type=int,
+        default=DEFAULT_LEAD_SECONDS,
+        help="how far back to cut the context, in seconds before start_time (see DEFAULT_LEAD_SECONDS)",
+    )
     ap.add_argument("--num-simulations", type=int, default=1000)
     args = ap.parse_args()
 
@@ -69,7 +101,7 @@ def main() -> None:
     picked = starts.iloc[np.linspace(0, len(starts) - 1, min(args.prompts, len(starts))).astype(int)]
 
     simulate = load_simulate(args.leg / "modeling.py")
-    prices = load_minute_prices(
+    prices = load_closes(
         args.data_root,
         args.asset,
         picked.min() - pd.Timedelta(minutes=CONTEXT_MINUTES),
