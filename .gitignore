@@ -30,3 +30,6 @@ campaign_results/**/tmp/
 campaign_results/**/prompt_scores_*.parquet
 campaign_results/**/field_rewards_*.parquet
 campaign_results/**/live_rewards_*.parquet
+
+# Generated prediction paths, reused across verdict runs — ~5 GB per champion per 10-day window.
+predictions_cache/
