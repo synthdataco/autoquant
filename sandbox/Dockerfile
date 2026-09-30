@@ -15,7 +15,8 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/usr/local/bin U
 # PINNED, because the CLI is the experiment's subject: an unpinned rebuild changes it silently.
 # A patch release is enough — resume-flag parsing has changed between adjacent versions, which
 # breaks a leg the driver cannot then land. Bump deliberately, one at a time, and smoke after.
-RUN npm install -g @anthropic-ai/claude-code@2.1.281 @openai/codex@0.156.1 @google/gemini-cli@0.61.0
+# claude-code >= 2.1.284: below it, turning ultracode on forces effort to xhigh.
+RUN npm install -g @anthropic-ai/claude-code@2.1.285 @openai/codex@0.156.1 @google/gemini-cli@0.61.0
 # Kimi Code is not on npm. KIMI_INSTALL_DIR=/usr/local: the default ($HOME/.kimi-code) would be
 # hidden at runtime — sandbox_cmd mounts the per-run HOME over /root.
 RUN curl -fsSL https://code.kimi.com/kimi-code/install.sh | KIMI_INSTALL_DIR=/usr/local KIMI_NO_MODIFY_PATH=1 bash -s -- --version 0.32.0

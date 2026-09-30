@@ -28,7 +28,7 @@ dev = ["pytest>=9.0", "black==26.5.1"]
 # placeholder and create_workspace substitutes whatever commit THIS pin resolved to, so host and
 # sandbox run the same library by construction. Setup fails rather than scaffolding a workspace
 # when the install has no commit to name — an editable or path install.
-synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "23fdec57994ec033a4f9f1624af944ad7ba7de3f" }
+synth-lib = { git = "https://github.com/synthdataco/synth-lib", rev = "d25ecaf10e93d331d0ef686bd075804ae2e9af78" }
 
 [tool.black]
 line-length = 120
