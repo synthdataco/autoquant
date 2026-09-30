@@ -89,9 +89,13 @@ def reconstruct(leg_dir: Path, dest: Path, synth_lib_rev: str) -> tuple[Path, st
     run(
         [
             "git",
-            "-c", "user.name=autoquant",
-            "-c", "user.email=noreply@synthdata.co",
-            "commit", "-q", "-m",
+            "-c",
+            "user.name=autoquant",
+            "-c",
+            "user.email=noreply@synthdata.co",
+            "commit",
+            "-q",
+            "-m",
             f"reconstructed from the published {leg_dir.parent.name}/{leg_dir.name} tree",
         ],
         work,

@@ -24,6 +24,12 @@ END = "<!-- LEADERBOARD:END -->"
 
 COMPETITIONS = ("crypto-1h", "crypto-24h", "com-equ-24h")
 
+# Assets the subnet retired, and the day it stopped prompting them. A failure on one of these in
+# a window that starts after that day is a smaller competition; the same failure in an earlier
+# window, or on any other asset, means the champion was scored on fewer assets than the validator
+# uses and its Score is not the Score.
+RETIRED_ASSETS = {"SPYX": "2026-07-23"}
+
 # Marks a row scored before the harness corrections. It is appended in both tables and explained
 # once, after them.
 FALLBACK_MARK = " \\*"
@@ -49,19 +55,28 @@ def model_of(leg_dir: Path, campaign_dir: Path) -> str:
     return leg_dir.name
 
 
+def verdict_path(leg_dir: Path, tag: str | None) -> Path | None:
+    """The verdict file for a tag, or None. A verdict is a directory holding its JSON, charts and
+    frames; archived ones were written as a single flat file beside the leg."""
+    stem = f"verdict-{tag}" if tag else "verdict"
+    for candidate in (leg_dir / stem / "verdict.json", leg_dir / f"{stem}.json"):
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def rows(results_dir: Path, tag: str | None) -> list[dict]:
     """One row per leg. With a tag, a leg that has no tagged verdict falls back to its canonical
     one and is flagged, so a partially rescored archive still renders — visibly mixed, not
     silently."""
-    name = f"verdict-{tag}.json" if tag else "verdict.json"
     out: list[dict] = []
     for campaign_dir in sorted(p for p in results_dir.iterdir() if p.is_dir()):
         for leg_dir in sorted(p for p in campaign_dir.iterdir() if p.is_dir() and p.name != "baselines"):
             champion = (leg_dir / "CHAMPION").exists()
-            verdict = leg_dir / name
-            fallback = bool(tag) and not verdict.exists() and (leg_dir / "verdict.json").exists()
+            verdict = verdict_path(leg_dir, tag)
+            fallback = bool(tag) and verdict is None and verdict_path(leg_dir, None) is not None
             if fallback:
-                verdict = leg_dir / "verdict.json"
+                verdict = verdict_path(leg_dir, None)
             row = {
                 "campaign": campaign_dir.name,
                 "leg": leg_dir.name,
@@ -69,7 +84,7 @@ def rows(results_dir: Path, tag: str | None) -> list[dict]:
                 "landed": champion,
                 "fallback": fallback,
             }
-            if verdict.exists():
+            if verdict is not None:
                 data = json.loads(verdict.read_text())
                 window = data.get("window") or {}
                 row["score"] = data.get("score")
@@ -103,6 +118,20 @@ def best_per_model(data: list[dict]) -> list[dict]:
         seen.add(row["model"])
         kept.append(row)
     return kept
+
+
+def blocking_failures(row: dict) -> list[str]:
+    """Failed assets that are not a retirement the window is entirely after."""
+    out = []
+    window_start = row.get("window_start") or ""
+    for slug, entry in (row.get("per_competition") or {}).items():
+        for asset in entry.get("assets_failed") or []:
+            retired = RETIRED_ASSETS.get(asset)
+            if retired is not None and window_start >= retired:
+                continue
+            error = ((entry.get("per_asset") or {}).get(asset) or {}).get("error", "")
+            out.append(f"{row['campaign']}/{row['leg']} {slug}/{asset}: {error or 'no error recorded'}")
+    return out
 
 
 def competition_cell(per_competition: dict, slug: str) -> str:
@@ -183,8 +212,7 @@ def render_ranks(data: list[dict]) -> str:
         campaign = r["campaign"] + (FALLBACK_MARK if r["fallback"] else "")
         cells = " ".join(f"| {competition_cell(r['per_competition'], slug)}" for slug in COMPETITIONS)
         lines.append(
-            f"| {r['model']} | {campaign} | {r['window_start'] or '—'} | {r['window_end'] or '—'} "
-            f"{cells} |"
+            f"| {r['model']} | {campaign} | {r['window_start'] or '—'} | {r['window_end'] or '—'} " f"{cells} |"
         )
     lines += [
         "",
@@ -203,6 +231,15 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
     data = rows(results_dir, tag)
     if not all_legs:
         data = best_per_model(data)
+    # After the selection, not before: the objection is that an incomplete Score is not comparable
+    # to a complete one, which only bites for a row that is actually rendered. A leg superseded by
+    # a better one from the same model is compared to nothing.
+    blocked = [line for row in data for line in blocking_failures(row)]
+    if blocked:
+        raise SystemExit(
+            "refusing to render: a champion was scored on fewer assets than the competition has, "
+            "so its Score is not comparable to a complete one.\n  " + "\n  ".join(blocked)
+        )
     return "\n".join(
         [
             render_scores(data, results_dir),

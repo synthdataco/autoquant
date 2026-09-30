@@ -161,9 +161,7 @@ def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str
     # float64 is not correctly rounded (7413.9 lands on 7413.900000000001), which would leave an
     # archive-derived minute one ULP from the same price fetched as JSON from the venue.
     for name in ("close", "volume"):
-        table = table.set_column(
-            table.schema.get_field_index(name), name, table[name].cast(pa.string())
-        )
+        table = table.set_column(table.schema.get_field_index(name), name, table[name].cast(pa.string()))
     frame = table.to_pandas()
     frame = frame.loc[frame["coin"].isin(list(coins))]
     if frame.empty:
@@ -188,8 +186,7 @@ def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str
         per_minute.index.name = "timestamp"
         out[str(coin)] = per_minute
     print(
-        f"  {dex} {day.isoformat()}: {source.bytes_fetched / 1e6:.2f} of {size / 1e6:.2f} MB, "
-        f"coins={sorted(out)}",
+        f"  {dex} {day.isoformat()}: {source.bytes_fetched / 1e6:.2f} of {size / 1e6:.2f} MB, " f"coins={sorted(out)}",
         flush=True,
     )
     return out

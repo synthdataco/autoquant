@@ -120,6 +120,17 @@ model_list:
       output_cost_per_token: 0.00005              # $50.00 / 1M
       cache_read_input_token_cost: 0.00000025     # $0.25 / 1M
       cache_creation_input_token_cost: 0.0000125  # $12.50 / 1M
+  # Claude Opus 5.5, released 2026-09-22 — newer than the proxy image, so the same explicit
+  # pricing applies. Anthropic list: cache reads are 5% of input here, not the usual 10%.
+  - model_name: claude-opus-5-5-model
+    litellm_params:
+      model: anthropic/claude-opus-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+    model_info:
+      input_cost_per_token: 0.000004              # $4.00 / 1M
+      output_cost_per_token: 0.00002              # $20.00 / 1M
+      cache_read_input_token_cost: 0.0000002      # $0.20 / 1M
+      cache_creation_input_token_cost: 0.000005   # $5.00 / 1M
   # GPT-5.6 Sol and GPT-6 Astra via the Vercel AI Gateway, pinned to OpenAI's own hosting.
   # The alias is the REAL model id, not a `gateway-` name: codex resolves a model's context window
   # by alias, and an unknown one falls back to a default small enough that a long thread reports no
@@ -157,6 +168,21 @@ model_list:
       input_cost_per_token: 0.00001              # $10.00 / 1M
       output_cost_per_token: 0.00005             # $50.00 / 1M
       cache_read_input_token_cost: 0.000001      # $1.00 / 1M (OpenAI list; gateway page omits it)
+  # GPT-6 Sol replaces GPT-5.6 Sol at half its price. The gateway publishes no cached-input rate
+  # for it, so cache reads meter at the full input price — an over-estimate, which is the safe
+  # direction for a budget cap.
+  - model_name: gpt-6-sol
+    litellm_params:
+      model: openai/openai/gpt-6-sol
+      api_base: https://ai-gateway.vercel.sh/v1
+      api_key: os.environ/AI_GATEWAY_API_KEY
+      extra_body:
+        providerOptions:
+          gateway:
+            only: ["openai"]
+    model_info:
+      input_cost_per_token: 0.000002             # $2.00 / 1M
+      output_cost_per_token: 0.00001             # $10.00 / 1M
 
   # Gemini 3.8 Flash. The /gemini passthrough forwards the CLI's URL verbatim, so this entry earns
   # its place through cost attribution rather than routing — and the model postdates the proxy

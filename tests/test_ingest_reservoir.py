@@ -143,9 +143,7 @@ def test_one_read_serves_every_coin_on_the_dex():
             ]
         )
     )
-    out = ingest_reservoir.fetch_day_minute_ohlcv(
-        client, "xyz", date(2026, 3, 18), ["xyz:SP500", "xyz:CL", "xyz:GOLD"]
-    )
+    out = ingest_reservoir.fetch_day_minute_ohlcv(client, "xyz", date(2026, 3, 18), ["xyz:SP500", "xyz:CL", "xyz:GOLD"])
     assert sorted(out) == ["xyz:CL", "xyz:GOLD", "xyz:SP500"]
     assert client.head_calls == 1
 
@@ -168,8 +166,14 @@ def test_non_404_propagates():
 def test_write_day_matches_the_store_partition_contract(tmp_path: Path):
     store = MinutePriceStore("SP500", root=tmp_path)
     minutes = pd.DataFrame(
-        {"open": [7413.9, 7415.0], "high": [7420.0, 7416.0], "low": [7410.0, 7414.0],
-         "close": [7414.5, 7415.5], "volume": [4.0, 2.0], "trade_count": [4.0, 2.0]},
+        {
+            "open": [7413.9, 7415.0],
+            "high": [7420.0, 7416.0],
+            "low": [7410.0, 7414.0],
+            "close": [7414.5, 7415.5],
+            "volume": [4.0, 2.0],
+            "trade_count": [4.0, 2.0],
+        },
         index=pd.DatetimeIndex(
             [pd.Timestamp("2026-03-18 00:00", tz="UTC"), pd.Timestamp("2026-03-18 00:01", tz="UTC")],
             name="timestamp",
@@ -179,8 +183,16 @@ def test_write_day_matches_the_store_partition_contract(tmp_path: Path):
 
     frame = pd.read_parquet(store.day_path(date(2026, 3, 18)))
     assert list(frame.columns) == [
-        "timestamp", "open", "high", "low", "close", "volume", "trade_count",
-        "source", "ingested_at", "is_final",
+        "timestamp",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "trade_count",
+        "source",
+        "ingested_at",
+        "is_final",
     ]
     assert len(frame) == 1440  # full minute grid, NaN where no trade
     assert frame["close"].dtype == "float64"

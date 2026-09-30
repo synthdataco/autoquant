@@ -6,6 +6,8 @@ do not hand-edit.
 
 import json
 
+import pytest
+
 from synth_bench.leaderboard import best_per_model, competition_cell, model_label, render, rows
 
 
@@ -147,3 +149,67 @@ def test_a_fallback_row_is_marked_in_both_tables(tmp_path):
     scores, ranks = render(tmp_path, tag="lead-in-2").split("### Where each champion placed")
     assert "**30.1** \\*" in scores
     assert "| camp \\* |" in ranks
+
+
+def _with_failure(results, error, asset="XAU"):
+    d = _leg(results, "camp", "leg", score=30.1, mean_rank=78)
+    v = json.loads((d / "verdict.json").read_text())
+    v["per_competition"]["crypto-24h"]["assets_failed"] = [asset]
+    v["per_competition"]["crypto-24h"]["per_asset"] = {asset: {"error": error}}
+    (d / "verdict.json").write_text(json.dumps(v))
+    return d
+
+
+def test_a_failed_asset_blocks_the_leaderboard(tmp_path):
+    """A champion scored on fewer assets than the competition has does not have that Score."""
+    _with_failure(tmp_path, "ArrowInvalid('cannot convert')")
+    with pytest.raises(SystemExit, match="fewer assets"):
+        render(tmp_path, tag=None)
+
+
+def test_a_retired_asset_is_not_a_failure_after_it_retired(tmp_path):
+    """SPYX stopped being prompted on 2026-07-23; the fixture window starts after that."""
+    _with_failure(tmp_path, "NoScoresAvailable('no scored prompts')", asset="SPYX")
+    assert "**30.1**" in render(tmp_path, tag=None)
+
+
+def test_a_retired_asset_still_blocks_a_window_that_precedes_its_retirement(tmp_path):
+    """Before 2026-07-23 the field WAS scored on SPYX, so a failure there is a real gap."""
+    d = _with_failure(tmp_path, "NoScoresAvailable('no scored prompts')", asset="SPYX")
+    v = json.loads((d / "verdict.json").read_text())
+    v["window"]["start"] = "2026-07-01"
+    (d / "verdict.json").write_text(json.dumps(v))
+    with pytest.raises(SystemExit, match="SPYX"):
+        render(tmp_path, tag=None)
+
+
+def test_another_asset_failing_for_the_same_reason_still_blocks(tmp_path):
+    """The old check keyed on the error string, so a genuine no-scores gap on a live asset passed."""
+    _with_failure(tmp_path, "NoScoresAvailable('no scored prompts')", asset="XAU")
+    with pytest.raises(SystemExit, match="XAU"):
+        render(tmp_path, tag=None)
+
+
+def test_a_hidden_leg_with_a_failed_asset_does_not_block(tmp_path):
+    """One row per model is rendered; a leg the selection dropped is compared to nothing."""
+    _leg(tmp_path, "camp-b", "gemini", score=8.1, mean_rank=40)  # the displayed best
+    d = _with_failure(tmp_path, "ArrowInvalid('cannot convert')")  # camp/leg, score 30.1
+    v = json.loads((d / "verdict.json").read_text())
+    v["score"] = 1.0  # …and now the worst, so best_per_model drops it
+    (d / "verdict.json").write_text(json.dumps(v))
+
+    assert "**8.1**" in render(tmp_path, tag=None)
+    with pytest.raises(SystemExit, match="XAU"):
+        render(tmp_path, tag=None, all_legs=True)
+
+
+def test_a_verdict_written_as_a_directory_is_read(tmp_path):
+    """The runner now writes verdict-<tag>/ — the JSON with its charts and frames. The archived
+    campaigns kept their flat verdict-<tag>.json, and both have to render."""
+    d = _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)
+    tagged = d / "verdict-w-0917-0924"
+    tagged.mkdir()
+    (tagged / "verdict.json").write_text(json.dumps({"score": 42.0, "per_competition": {}}))
+
+    assert rows(tmp_path, tag="w-0917-0924")[0]["score"] == 42.0
+    assert rows(tmp_path, tag=None)[0]["score"] == 30.1  # the flat one is still the canonical

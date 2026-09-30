@@ -1,0 +1,135 @@
+{
+  "score": null,
+  "mean_competition_rank": null,
+  "score_definition": "100 x mean over competitions of min(1, candidate_total_reward / top_other_miner_total_reward) (validator reward_weight summed over the window; bounded 0-100: 0 = earned nothing, 100 = matched or beat the field's best in every competition; per-competition beats_field flags when the cap binds)",
+  "mean_reward_vs_top": null,
+  "mean_competition_percentile": null,
+  "per_competition": {
+    "crypto-24h": {
+      "rank": null,
+      "field_size": null,
+      "percentile": null,
+      "rank_over_rounds": null,
+      "rank_chart": null,
+      "rewards": null,
+      "assets_failed": [
+        "BTC",
+        "ETH",
+        "SOL",
+        "XRP",
+        "HYPE"
+      ],
+      "per_asset": {
+        "BTC": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "ETH": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "SOL": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "XRP": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "HYPE": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        }
+      }
+    },
+    "com-equ-24h": {
+      "rank": null,
+      "field_size": null,
+      "percentile": null,
+      "rank_over_rounds": null,
+      "rank_chart": null,
+      "rewards": null,
+      "assets_failed": [
+        "XAU",
+        "NVDAX",
+        "GOOGLX",
+        "TSLAX",
+        "AAPLX",
+        "WTIOIL",
+        "SPCX",
+        "SP500"
+      ],
+      "per_asset": {
+        "XAU": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "NVDAX": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "GOOGLX": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "TSLAX": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "AAPLX": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "WTIOIL": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "SPCX": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "SP500": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        }
+      }
+    },
+    "crypto-1h": {
+      "rank": null,
+      "field_size": null,
+      "percentile": null,
+      "rank_over_rounds": null,
+      "rank_chart": null,
+      "rewards": null,
+      "assets_failed": [
+        "BTC",
+        "ETH",
+        "SOL",
+        "XRP",
+        "HYPE"
+      ],
+      "per_asset": {
+        "BTC": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "ETH": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "SOL": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "XRP": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        },
+        "HYPE": {
+          "error": "FileNotFoundError('No valid prediction files found in /tmp/verdict-campaign-3-0d9lqy59/fable-5-1/predictions. Expected filenames like 2026-03-28_00:00:00Z_BTC_86400.json')"
+        }
+      }
+    }
+  },
+  "window": {
+    "start": "2026-09-17",
+    "end": "2026-09-23",
+    "note": "pseudo-out-of-sample: after the data cutoff, but agents had live field-API access during their runs"
+  },
+  "champion_sha": "9157d051638cbbb283c9f8ee98897d0313633bcc",
+  "sandbox_image": {
+    "name": "synth-bench-sandbox",
+    "id": "sha256:eedcc26d69f1b57426caf659cd81c3d988a58b1b7e18ae023b2b322721f1cbd6",
+    "digest": "synth-bench-sandbox@sha256:eedcc26d69f1b57426caf659cd81c3d988a58b1b7e18ae023b2b322721f1cbd6"
+  },
+  "cadence_minutes": {
+    "86400": 60,
+    "3600": 10
+  },
+  "num_simulations": 1000,
+  "seed": 0,
+  "simulate_registration": "2026-09-17T00:00:00+00:00"
+}
