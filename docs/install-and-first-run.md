@@ -237,6 +237,17 @@ alias), `budget_usd_per_model`, `deadline_hours_per_model`, `data_start`/`data_c
 `sandbox_memory_gb`, `poll_seconds`. Per-turn CLIs wait up to one poll interval between turns, so
 keep `poll_seconds` small (30–60) when a leg's CLI exits after each turn.
 
+Optional per-model keys, part of what a leg measures:
+
+- `effort`: the CLI's own reasoning-effort level — claude-code: `low`, `medium`, `high`, `xhigh`,
+  `max`; codex: `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`, `ultra` (`ultra` also
+  turns on proactive sub-agent delegation). Which levels a model accepts is up to the model.
+  Omitted, each CLI applies its default for the model, which differs between models of the same
+  vendor.
+- `ultracode: true` (claude-code only): Claude plans a dynamic workflow for every substantive task.
+- `goal: true` (claude-code only): an evaluator on the leg's model checks, at every stop, that the
+  constitution allows it — the landing order carried out, or an evidenced early nomination.
+
 ## 5. Verdict
 
 After the scoring window has passed (and settled — the backtester refuses a window younger than
