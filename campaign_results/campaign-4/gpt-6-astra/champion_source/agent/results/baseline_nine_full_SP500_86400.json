@@ -1,0 +1,10 @@
+{
+  "miner_name": "baseline_nine",
+  "miner_id": 999,
+  "num_prompts": 216,
+  "mean_crps": 662.7454192979899,
+  "final_smoothed_score": 63.90115383228373,
+  "realized_points_expected": 62424,
+  "realized_points_scored": 62424,
+  "realized_coverage": 1.0
+}

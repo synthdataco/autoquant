@@ -1,0 +1,24 @@
+sha: 1154d30b84f93d66ad9332e11115536f2148cd1c
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Model: NY-time weekly variance profile (whole-week normalised for equities) x FOMC-release
+  multipliers x QLIKE log-HAR level; Student-t(5) steps x per-path lognormal vol (sv 0.4);
+  scale C24 0.75 / E24 0.9 / C1H 1.0. Offline, ~0.01-0.06 s per prompt at 1000 paths.
+
+  Backtested mean CRPS, 1000 paths, champion vs starter (baseline_starter.py):
+  CRYPTO_24H  (agent/predict.py --days 7 --eval-end 2026-09-13):
+    BTC 2121.0 vs 2275.0 | ETH 2983.7 vs 3143.4 | SOL 3750.9 vs 3875.0 | XRP 3871.0 vs 4070.6
+    HYPE (predict.py impossible: weekly NaN minutes; harness, synth-lib CRPS, OOS 08-29..09-13):
+    4829.2 vs 4968.6
+  CRYPTO_1H   (agent/predict.py --days 3 --eval-end 2026-09-12 --time-length 3600 --time-increment 60):
+    BTC 529.2 vs 544.7 | ETH 737.6 vs 759.6 | SOL 882.9 vs 900.6 | XRP 935.2 vs 958.7
+    HYPE (harness, OOS 08-29..09-13): 1007.9 vs 1059.9
+  COM_EQU_24H (predict.py impossible: synth-lib load_range rejects the NaN minutes every equity
+    has; scored with agent/harness.py = synth-lib calculate_crps_for_miner on field prompt
+    times 2026-09-06..09-13):
+    XAU 1341.6 vs 1559.9 | NVDAX 1572.9 vs 1787.1 | GOOGLX 1463.5 vs 1641.2 | TSLAX 1905.5 vs 2406.7
+    AAPLX 1537.9 vs 1888.4 | WTIOIL 3128.6 vs 3373.9 | SPCX 2671.7 vs 3268.6 | SP500 620.1 vs 668.9
+  The windows above are in-sample for the refitted artifacts. Out-of-sample (artifacts fitted
+  before 08-29, window 08-29..09-13): -2.8..-19.5% vs starter on every 24h asset, -4.9..-9.1%
+  on 1h, and -0.67..+0.72% vs the per-prompt field median (see report.md).

@@ -1,0 +1,14 @@
+{
+  "runs_done": [
+    "opus-5",
+    "opus-5-5",
+    "gpt-6-astra",
+    "gpt-6-sol"
+  ],
+  "sandbox_image": {
+    "name": "synth-bench-sandbox",
+    "id": "sha256:eedcc26d69f1b57426caf659cd81c3d988a58b1b7e18ae023b2b322721f1cbd6",
+    "digest": "synth-bench-sandbox@sha256:eedcc26d69f1b57426caf659cd81c3d988a58b1b7e18ae023b2b322721f1cbd6"
+  },
+  "forward_window_start": "2026-09-30T23:11:25.132495+00:00"
+}

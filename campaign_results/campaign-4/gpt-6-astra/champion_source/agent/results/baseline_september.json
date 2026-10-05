@@ -1,0 +1,14 @@
+{
+  "research": true,
+  "model": "agent/baseline.py",
+  "assets": "BTC,ETH,SOL,XRP,HYPE,XAU,NVDAX,GOOGLX,TSLAX,AAPLX,WTIOIL,SPCX,SP500",
+  "start": "2026-09-04",
+  "end": "2026-09-14",
+  "hours": 3,
+  "paths": 1000,
+  "horizons": "86400,3600",
+  "tag": "baseline_september",
+  "environment": {},
+  "model_sha256": "44dac87cf640468f685f84f5eca65d99544bf01e70785fd4218f251c7a2fa5aa",
+  "scoring": "synth_lib.backtester.scoring._score_single_prompt; current-rule replay, plus historical 1h"
+}
