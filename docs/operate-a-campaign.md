@@ -209,9 +209,14 @@ json.dump(s, open('$D/state.json', 'w'), indent=2)
 for leg in "$D"/*/; do
   L=$(basename "$leg"); SHA=$(awk '/^(sha|commit):/ {print $2; exit}' "$leg/CHAMPION" 2>/dev/null) || continue
   [ -n "$SHA" ] && git clone -q "$leg/workspace.bundle" /tmp/ch-$L && git -C /tmp/ch-$L checkout -q "$SHA" \
-    && rm -rf /tmp/ch-$L/.git && mkdir -p "$leg/champion" && cp -r /tmp/ch-$L/* "$leg/champion/" && rm -rf /tmp/ch-$L
+    && rm -rf /tmp/ch-$L/.git && mkdir -p "$leg/champion_source" && cp -r /tmp/ch-$L/* "$leg/champion_source/" \
+    && rm -rf /tmp/ch-$L
 done
 ```
+
+The tree is `champion_source/`, never `champion/`: next to the `CHAMPION` file, macOS and Windows see
+the two as one name, so a download or checkout there loses one of them. `unpack_champion` reads the
+same folder.
 
 Container-written files are root-owned on the host; a later `rm -rf` of the campaign directory needs
 `sudo`. Publishing checklist before committing anything: no provider keys, no virtual keys, no
