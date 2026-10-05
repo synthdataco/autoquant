@@ -242,7 +242,7 @@ Optional per-model keys, part of what a leg measures:
 - `effort`: the CLI's own reasoning-effort level — claude-code: `low`, `medium`, `high`, `xhigh`,
   `max`; codex: `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`, `ultra` (`ultra` also
   turns on proactive sub-agent delegation). Which levels a model accepts is up to the model.
-  Omitted, each CLI applies its default for the model, which differs between models of the same
+  When omitted, each CLI applies its default for the model, which differs between models from the same
   vendor.
 - `ultracode: true` (claude-code only): Claude plans a dynamic workflow for every substantive task.
 - `goal: true` (claude-code only): an evaluator on the leg's model checks, at every stop, that the
