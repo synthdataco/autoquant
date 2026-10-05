@@ -113,6 +113,7 @@ def test_one_row_per_model_keeps_its_best_score(tmp_path):
     scores, ranks = render(tmp_path, tag=None).split("### Where each champion placed")
     assert scores.count("| some-model-5 |") == 1 and ranks.count("| some-model-5 |") == 1
     assert "8.1" in scores and "6.7" not in scores
+    assert "One row per model" in scores
 
 
 def test_all_legs_shows_every_champion(tmp_path):
@@ -120,6 +121,7 @@ def test_all_legs_shows_every_champion(tmp_path):
     _leg(tmp_path, "camp-b", "gemini", score=8.1)
     table = render(tmp_path, tag=None, all_legs=True)
     assert "8.1" in table and "6.7" in table
+    assert "One row per champion" in table and "One row per model" not in table
 
 
 def test_a_pending_leg_never_displaces_a_scored_one(tmp_path):
