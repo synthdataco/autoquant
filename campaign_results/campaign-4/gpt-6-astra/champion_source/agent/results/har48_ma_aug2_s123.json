@@ -1,0 +1,21 @@
+{
+  "research": true,
+  "model": "agent/modeling.py",
+  "assets": "BTC,ETH,SOL,XRP,HYPE,XAU,NVDAX,GOOGLX,TSLAX,AAPLX,WTIOIL,SPCX,SP500",
+  "start": "2026-08-17",
+  "end": "2026-08-24",
+  "hours": 6,
+  "paths": 1000,
+  "horizons": "86400,3600",
+  "tag": "har48_ma_aug2_s123",
+  "environment": {
+    "HAR_FILE": "har_abs48.json",
+    "MODEL_DEPENDENCE": "fitted",
+    "MODEL_MIX": ".4",
+    "MODEL_MODE": "har",
+    "SEASON_FILE": "seasonality_abs48.json",
+    "SYNTH_BENCHMARK_SEED": "123"
+  },
+  "model_sha256": "8c579755edc90f79997aac517c2c8be5e843e385744564ecd24a8eae7379992c",
+  "scoring": "synth_lib.backtester.scoring._score_single_prompt; current-rule replay, plus historical 1h"
+}

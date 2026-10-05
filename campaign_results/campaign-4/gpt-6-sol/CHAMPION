@@ -1,0 +1,11 @@
+sha: c1754d8a9e21467bc373ca3b03ee79e95c74ae84
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Official synth-lib backtester, September 3-12, 2026, exact historical prompt starts,
+  1000 paths per prompt, full realized-price coverage. CRPS is the unweighted
+  asset mean within each configuration (lower is better).
+  COM_EQU_24H: starter 2176.07; champion 1939.94.
+  CRYPTO_24H: starter 3903.16; champion 3785.15.
+  CRYPTO_1H: starter 831.11; champion 799.00.
+  Supports both 24-hour and 1-hour formats. All serving artifacts are committed.

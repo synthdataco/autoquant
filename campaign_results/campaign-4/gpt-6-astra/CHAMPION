@@ -1,0 +1,34 @@
+sha: 695f5a596b0207e8f9dec388e8a12815af430aaf
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Seasonal HAR absolute-return volatility with a mean-one lognormal path-scale
+  mixture (log standard deviation 0.4), antithetic Gaussian innovations, and
+  issuance-aware dated artifacts. Supports CRYPTO_24H, COM_EQU_24H, CRYPTO_1H;
+  honors num_simulations, including the validator's 1000 paths. Offline serving.
+
+  Official synth_lib.backtester.orchestration.backtest replay, 1000 paths,
+  scored-time window 2026-09-04 through 2026-09-13, exact validator prompts,
+  100% realized coverage. Configuration means equally weight assets:
+    CRYPTO_24H: starter CRPS 3851.862646; champion CRPS 3728.017778.
+    COM_EQU_24H: starter CRPS 2124.404499; champion CRPS 1854.090141.
+    CRYPTO_1H: starter CRPS 808.128197; champion CRPS 768.518439.
+  Prompt counts per model: crypto24 1080, COM 1726, crypto1 6480.
+  Every asset-format improves. The historical 1h rules exclude the volatility
+  term that the pinned library activates on 2026-09-22.
+
+  Additional official current-rule replay through agent/predict.py --research,
+  1000 paths, 2026-09-04 through 2026-09-13 starts on a 3h grid:
+    CRYPTO_24H: starter 3561.5627; champion 3399.9605.
+    COM_EQU_24H: starter 1920.4177; champion 1646.3891.
+    CRYPTO_1H including volatility: starter 853.3771; champion 805.9141.
+  This grid comparison uses identical 98.8718% mean realized coverage.
+
+  Historical September predictions select the August31 checkpoint. The final
+  September14 refresh follows the same validated recipe and has passed all
+  contract/latency checks, but has no claimed post-cutoff CRPS measurement.
+  Its availability respects minute close time and prompt issuance lead.
+  All market observations are snapshot-only; no post-cutoff scores or prices
+  were used. Details, failures, seed checks and evidence are in journal.md,
+  report.md and results/. Early nomination follows a documented validation
+  plateau across twenty iterations, including CPU and GPU model alternatives.

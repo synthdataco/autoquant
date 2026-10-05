@@ -1,0 +1,20 @@
+{
+  "research": true,
+  "model": "agent/modeling.py",
+  "assets": "BTC,ETH,SOL,XRP,HYPE,XAU,NVDAX,GOOGLX,TSLAX,AAPLX,WTIOIL,SPCX,SP500",
+  "start": "2026-07-21",
+  "end": "2026-07-28",
+  "hours": 6,
+  "paths": 1000,
+  "horizons": "86400,3600",
+  "tag": "cal_s1p2_m0p2",
+  "environment": {
+    "HAR_FILE": "jul20_har_abs48.json",
+    "MODEL_MIX": "0.2",
+    "MODEL_MODE": "har",
+    "MODEL_SCALE": "1.2",
+    "SEASON_FILE": "jul20_seasonality_abs48.json"
+  },
+  "model_sha256": "655e4aaa9ec105b7470bbc07dd78b0a464bc3aba581a6a05004e85c776b3391a",
+  "scoring": "synth_lib.backtester.scoring._score_single_prompt; current-rule replay, plus historical 1h"
+}

@@ -1,0 +1,19 @@
+{
+  "research": true,
+  "model": "agent/modeling.py",
+  "assets": "BTC,ETH,SOL,XRP,HYPE,XAU,NVDAX,GOOGLX,TSLAX,AAPLX,WTIOIL,SPCX,SP500",
+  "start": "2026-08-17",
+  "end": "2026-08-24",
+  "hours": 6,
+  "paths": 1000,
+  "horizons": "86400,3600",
+  "tag": "ohlcv_blend_aug2",
+  "environment": {
+    "HAR_FILE": "har_abs48.json",
+    "MODEL_MIX": ".4",
+    "MODEL_MODE": "ohlcv_blend",
+    "SEASON_FILE": "seasonality_abs48.json"
+  },
+  "model_sha256": "81d31c6cdff50ff2f5ea1b36a9797cfe1936a6d803b3846c7f3e1d6cb3c4fcd0",
+  "scoring": "synth_lib.backtester.scoring._score_single_prompt; current-rule replay, plus historical 1h"
+}

@@ -175,7 +175,7 @@ def budget(leg_dir: Path) -> str:
     return f"{hours.group(1)} h / ${spend.group(1)}"
 
 
-def render_scores(data: list[dict], results_dir: Path) -> str:
+def render_scores(data: list[dict], results_dir: Path, all_legs: bool) -> str:
     """What each champion earned."""
     lines = [
         "| Model | Campaign | Score | Mean final rank | Spend |",
@@ -190,14 +190,20 @@ def render_scores(data: list[dict], results_dir: Path) -> str:
             f"| {r['model']} | {r['campaign']} | {score} | {mean_rank} "
             f"| {budget(results_dir / r['campaign'] / r['leg'])} |"
         )
+    selection = (
+        "One row per champion: a model that entered more than one campaign has a row for each."
+        if all_legs
+        else "One row per model: its best Score, and the campaign that produced it."
+    )
     lines += [
         "",
         "Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷",
-        "the best other miner's) — see [docs/scoring.md](docs/scoring.md). One row per model: its best",
-        "Score, and the campaign that produced it. Mean final rank averages the three competitions'",
-        "final-round ranks — not the μ figures below, which average over rounds within one competition.",
-        "Spend is wall time and credits from the leg's own budget file, against an envelope of $100 and",
-        "18 h (24 h in campaign-1); a leg that was restarted reports only its final attempt.",
+        "the best other miner's) — see [docs/scoring.md](docs/scoring.md).",
+        selection,
+        "Mean final rank averages the three competitions' final-round ranks — not the μ figures below,",
+        "which average over rounds within one competition. Spend is wall time and credits from the",
+        "leg's own budget file, against an envelope of $100 and 18 h (24 h in campaign-1); a leg that",
+        "was restarted reports only its final attempt.",
     ]
     return "\n".join(lines)
 
@@ -218,8 +224,10 @@ def render_ranks(data: list[dict]) -> str:
         "",
         "Start and End bound the verdict window: the forward, out-of-sample period the champion was",
         "scored over, which begins the day after its campaign's data cutoff. campaign-1 and -2 share a",
-        "window and campaign-3 ran on a later one, so two ranks are comparable only where the dates",
-        "match. Each cell is the MEAN rank over that window's scoring rounds, with the final round in",
+        "window, and campaign-3 and campaign-4 each ran on a later one, so two ranks are comparable only",
+        "where the dates match. campaign-4's champions answered the start times the validator actually",
+        "scored; the earlier campaigns answered an even grid of start times, which costs crypto-1h ranks",
+        "most. Each cell is the MEAN rank over that window's scoring rounds, with the final round in",
         "parentheses out of the field it faced. The Score sums reward weight over every round, so the",
         "mean is what it corresponds to; the mean carries no denominator because the field size shown",
         "is the final round's, and the field was larger earlier in the window.",
@@ -242,7 +250,7 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
         )
     return "\n".join(
         [
-            render_scores(data, results_dir),
+            render_scores(data, results_dir, all_legs),
             "",
             "### Where each champion placed",
             "",

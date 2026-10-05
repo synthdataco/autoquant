@@ -1,0 +1,11 @@
+{
+  "research": true,
+  "model": "agent/modeling.py",
+  "assets": "BTC,ETH,SOL,XRP,HYPE,XAU,NVDAX,GOOGLX,TSLAX,AAPLX,WTIOIL,SPCX,SP500",
+  "start": "2026-08-01",
+  "end": "2026-08-08",
+  "hours": 6,
+  "paths": 1000,
+  "horizons": "86400,3600",
+  "tag": "absolute_aug1"
+}

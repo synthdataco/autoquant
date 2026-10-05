@@ -1,0 +1,42 @@
+sha: 2b8e34acc957584c59f6dba4b65f3b589bc41271
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  A stochastic-volatility path simulator: a three-half-life EWMA of realized minute variance,
+  reverting toward a blend of the asset's 7-day level and a committed long-run level, modulated
+  by a two-sided power of a time-of-week profile, driven by Student-t(4) innovations. No drift,
+  no cross-asset structure. Entry point agent/modeling.py:simulate; artifacts
+  agent/artifacts/tow_full.npz and vlong_full.npz (215 kB, committed). Runs offline.
+
+  Backtested with agent/predict.py (official synth_lib.backtester), 1000 paths -- the count the
+  validator serves -- on 7 days of prompts ending 2026-09-13 (2026-09-12 for the 1-hour leg,
+  which otherwise runs past the edge of the snapshot). "Starting point" is the log-normal
+  martingale this repo ships with, scored on identical prompt sets.
+
+    configuration    prompts/asset   champion    starting point   change
+    CRYPTO_24H          ~163           3527.7        3680.1       -4.14 %
+    COM_EQU_24H         ~166           1817.9        2076.5      -12.45 %
+    CRYPTO_1H           ~979            798.2         831.9       -4.05 %
+
+  Per-asset, champion vs starting point:
+    BTC     2128.3 / 2274.3   -6.42 %      XAU     1362.5 / 1556.7  -12.47 %
+    ETH     2980.8 / 3144.3   -5.20 %      NVDAX   1613.0 / 1790.4   -9.91 %
+    SOL     3735.1 / 3873.4   -3.57 %      GOOGLX  1486.3 / 1642.3   -9.50 %
+    XRP     3859.5 / 4070.9   -5.19 %      TSLAX   1975.3 / 2416.1  -18.24 %
+    HYPE    4934.6 / 5037.5   -2.04 %      AAPLX   1569.0 / 1886.3  -16.82 %
+    BTC 1h   472.7 /  508.8   -7.08 %      WTIOIL  3172.7 / 3376.6   -6.04 %
+    ETH 1h   666.9 /  703.7   -5.24 %      SPCX    2731.8 / 3269.6  -16.45 %
+    SOL 1h   878.1 /  904.9   -2.96 %      SP500    632.9 /  673.7   -6.05 %
+    XRP 1h   892.9 /  937.7   -4.78 %
+    HYPE 1h 1080.5 / 1104.5   -2.17 %
+  Ahead on all 18 asset/configuration combinations.
+
+  Caveat stated in report.md section 7: the committed artifacts are fitted over the whole
+  snapshot, so these numbers are mildly optimistic relative to a strictly causal run. Every
+  effect reported in sections 4-5 was measured with artifacts fitted before its validation
+  window, on three disjoint windows (dev 07-05..07-23, val3 07-24..08-25, test 08-26..09-13),
+  and shipped only when it held there.
+
+  Interface verified by agent/verify_interface.py with sockets disabled: signature, path count
+  and length, anchoring at the last context close, finite positive prices, determinism under
+  SYNTH_BENCHMARK_SEED, and an 80 %-NaN context. 18 of 18 legs pass.

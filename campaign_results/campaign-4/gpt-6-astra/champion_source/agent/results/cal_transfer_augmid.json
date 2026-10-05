@@ -1,0 +1,20 @@
+{
+  "research": true,
+  "model": "agent/modeling.py",
+  "assets": "BTC,ETH,SOL,XRP,HYPE",
+  "start": "2026-08-08",
+  "end": "2026-08-17",
+  "hours": 3,
+  "paths": 1000,
+  "horizons": "3600",
+  "tag": "cal_transfer_augmid",
+  "environment": {
+    "HAR_FILE": "har_abs48.json",
+    "MODEL_MIX": ".2",
+    "MODEL_MODE": "har",
+    "MODEL_SCALE": ".9",
+    "SEASON_FILE": "seasonality_abs48.json"
+  },
+  "model_sha256": "655e4aaa9ec105b7470bbc07dd78b0a464bc3aba581a6a05004e85c776b3391a",
+  "scoring": "synth_lib.backtester.scoring._score_single_prompt; current-rule replay, plus historical 1h"
+}
