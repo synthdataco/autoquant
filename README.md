@@ -11,9 +11,9 @@ win. The scorer is the subnet's own validator code. The metric is money.
 
 **Still unsolved.** No frontier model, given one shot inside that envelope, has taken the top spot.
 The best correctly-scored champion earns 48% of what the field's best miner earns and leads one of
-three competitions outright, 1st of 257 in com-equ-24h — but it is 70th and 81st of 257 in the other
-two, which are two thirds of the Score. Seven of the fourteen rows below predate two harness
-corrections and are not comparable to it; see the footnote.
+three competitions outright, 1st of 256 in com-equ-24h — but it is 70th of 256 and 81st of 257 in
+the other two, which are two thirds of the Score. Five of the fourteen rows below predate two
+harness corrections and are not comparable to it; see the footnote.
 
 ## Leaderboard
 
@@ -24,17 +24,17 @@ corrections and are not comparable to it; see the footnote.
 | claude-opus-5-5        | campaign-4 | **48.1**    | 50.7            | 2.0 h / $8.10   |
 | claude-opus-5          | campaign-2 | **39.6**    | 35              | 3.8 h / $25.67  |
 | gpt-6-astra            | campaign-4 | **32.4**    | 68.3            | 0.8 h / $18.32  |
-| gpt-6-astra            | campaign-3 | **24.7**    | 98              | 3.2 h / $93.60  |
+| gpt-6-astra            | campaign-3 | **30.4**    | 104.3           | 3.2 h / $93.60  |
 | gpt-5                  | campaign-2 | **10.2** \* | 211             | —               |
 | gemini-3.1-pro-preview | campaign-2 | **8.1** \*  | 210             | —               |
-| claude-opus-5          | campaign-4 | **7.6**     | 215             | 12.2 h / $86.68 |
-| claude-fable-5-1       | campaign-3 | **7.4**     | 180             | 2.9 h / $58.55  |
+| claude-fable-5-1       | campaign-3 | **8.1**     | 169.3           | 2.9 h / $58.55  |
+| claude-opus-5          | campaign-4 | **7.6**     | 211.7           | 12.2 h / $86.68 |
 | gemini-3.1-pro-preview | campaign-1 | **6.7** \*  | 206.3           | —               |
 | glm-5.2                | campaign-1 | **6.6** \*  | 207.7           | 2.4 h / $5.78   |
-| gpt-6-sol              | campaign-4 | **4.1**     | 193.7           | 15.4 h / $4.72  |
-| gpt-5.6-sol            | campaign-3 | **2.7** \*  | 212.3           | 4.3 h / $23.55  |
+| gpt-6-sol              | campaign-4 | **4.1**     | 192.3           | 15.4 h / $4.72  |
 | kimi-k3                | campaign-1 | **2.1** \*  | 197.7           | 2.4 h / $4.96   |
-| gemini-3.8-flash       | campaign-3 | **0.2** \*  | 249.3           | 0.3 h / $1.51   |
+| gpt-5.6-sol            | campaign-3 | **0.4**     | 250.7           | 4.3 h / $23.55  |
+| gemini-3.8-flash       | campaign-3 | **0.1**     | 256             | 0.3 h / $1.51   |
 
 Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷
 the best other miner's) — see [docs/scoring.md](docs/scoring.md).
@@ -48,27 +48,28 @@ was restarted reports only its final attempt.
 
 | Model                  | Campaign      | Start      | End        | crypto-1h              | crypto-24h             | com-equ-24h            |
 | ---------------------- | ------------- | ---------- | ---------- | ---------------------- | ---------------------- | ---------------------- |
-| claude-opus-5-5        | campaign-4    | 2026-09-15 | 2026-09-25 | μ93.9 (final 81/257)   | μ113.3 (final 70/257)  | μ1.2 (final 1/257)     |
+| claude-opus-5-5        | campaign-4    | 2026-09-15 | 2026-09-25 | μ93.7 (final 81/257)   | μ111.7 (final 70/256)  | μ1.1 (final 1/256)     |
 | claude-opus-5          | campaign-2    | 2026-07-28 | 2026-08-07 | μ61.8 (final 1/257)    | μ70.3 (final 4/257)    | μ85.1 (final 100/191)  |
-| gpt-6-astra            | campaign-4    | 2026-09-15 | 2026-09-25 | μ49.7 (final 36/257)   | μ47.5 (final 22/257)   | μ138.6 (final 147/257) |
-| gpt-6-astra            | campaign-3    | 2026-08-30 | 2026-09-09 | μ38.8 (final 24/257)   | μ37.6 (final 46/257)   | μ192 (final 224/257)   |
+| gpt-6-astra            | campaign-4    | 2026-09-15 | 2026-09-25 | μ49.6 (final 36/257)   | μ46.9 (final 22/256)   | μ138.8 (final 147/256) |
+| gpt-6-astra            | campaign-3    | 2026-08-30 | 2026-09-09 | μ104 (final 68/257)    | μ24.5 (final 46/257)   | μ173.8 (final 199/257) |
 | gpt-5                  | campaign-2 \* | 2026-07-28 | 2026-08-07 | μ163.3 (final 194/257) | μ253.8 (final 252/257) | μ217.6 (final 187/191) |
 | gemini-3.1-pro-preview | campaign-2 \* | 2026-07-28 | 2026-08-07 | μ173.9 (final 206/257) | μ242.2 (final 238/257) | μ217 (final 186/191)   |
-| claude-opus-5          | campaign-4    | 2026-09-15 | 2026-09-25 | μ205.3 (final 235/257) | μ138.5 (final 183/257) | μ216.1 (final 227/257) |
-| claude-fable-5-1       | campaign-3    | 2026-08-30 | 2026-09-09 | μ175.5 (final 194/257) | μ172.6 (final 168/257) | μ188.5 (final 178/257) |
+| claude-fable-5-1       | campaign-3    | 2026-08-30 | 2026-09-09 | μ178.2 (final 192/257) | μ150.8 (final 165/257) | μ165.4 (final 151/257) |
+| claude-opus-5          | campaign-4    | 2026-09-15 | 2026-09-25 | μ204.7 (final 234/257) | μ136.1 (final 178/256) | μ213 (final 223/256)   |
 | gemini-3.1-pro-preview | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ182.5 (final 196/257) | μ239 (final 238/257)   | μ204.9 (final 185/191) |
 | glm-5.2                | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ185.3 (final 195/257) | μ246.4 (final 243/257) | μ211.8 (final 185/191) |
-| gpt-6-sol              | campaign-4    | 2026-09-15 | 2026-09-25 | μ236.9 (final 233/257) | μ102.4 (final 112/257) | μ222.8 (final 236/257) |
-| gpt-5.6-sol            | campaign-3 \* | 2026-08-30 | 2026-09-09 | μ222.8 (final 136/257) | μ249.4 (final 247/257) | μ252 (final 254/257)   |
+| gpt-6-sol              | campaign-4    | 2026-09-15 | 2026-09-25 | μ234.8 (final 232/257) | μ100.5 (final 111/256) | μ220.9 (final 234/256) |
 | kimi-k3                | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ203.4 (final 185/257) | μ235.3 (final 231/257) | μ193.8 (final 177/191) |
-| gemini-3.8-flash       | campaign-3 \* | 2026-08-30 | 2026-09-09 | μ249.9 (final 247/257) | μ246.1 (final 247/257) | μ252.9 (final 254/257) |
+| gpt-5.6-sol            | campaign-3    | 2026-08-30 | 2026-09-09 | μ239.8 (final 241/257) | μ250.8 (final 256/257) | μ251.8 (final 255/257) |
+| gemini-3.8-flash       | campaign-3    | 2026-08-30 | 2026-09-09 | μ251 (final 257/257)   | μ253.3 (final 256/257) | μ252.4 (final 255/257) |
 
 Start and End bound the verdict window: the forward, out-of-sample period the champion was
 scored over, which begins the day after its campaign's data cutoff. campaign-1 and -2 share a
 window, and campaign-3 and campaign-4 each ran on a later one, so two ranks are comparable only
-where the dates match. campaign-4's champions answered the start times the validator actually
-scored; the earlier campaigns answered an even grid of start times, which costs crypto-1h ranks
-most. Each cell is the MEAN rank over that window's scoring rounds, with the final round in
+where the dates match. campaign-3 and campaign-4 were scored at the start times the validator
+actually scored, on the corrected replay of its moving average; campaign-1 and -2 answered an
+even grid of start times, which costs crypto-1h ranks most, and predate that replay. Each cell
+is the MEAN rank over that window's scoring rounds, with the final round in
 parentheses out of the field it faced. The Score sums reward weight over every round, so the
 mean is what it corresponds to; the mean carries no denominator because the field size shown
 is the final round's, and the field was larger earlier in the window.
