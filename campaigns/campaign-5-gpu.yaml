@@ -1,0 +1,67 @@
+name: campaign-5-gpu
+# The question this campaign asks: what do the two strongest campaign-4 models do when they MUST
+# train on the GPU? In campaign-4 both nominated early (opus-5-5 after 2.0 h / $8.10, gpt-6-astra
+# after 0.8 h / $18.32) with champions served by numpy and pandas alone, and the constitution lets
+# an agent decide, with evidence, that the GPU does not help. Here the objective takes that option
+# away, requires an ablation that shows the GPU-trained part carries weight, and keeps serving
+# CPU-only so a champion can still run as a live miner. `min_gpu_minutes: 60` goes in once the
+# pinned synth-lib reads it; until then nothing in the harness checks GPU use at nomination, and
+# the transcript audit and agent/gpu.md are the enforcement.
+objective: >-
+  A GPU campaign. Build the price-simulation model with the lowest CRPS you can reach, built around
+  a model you TRAIN on this machine's GPU: a neural network, or another model fitted on the GPU,
+  whose output drives the paths simulate() returns. A champion whose paths come from closed-form
+  calibration alone is out of scope in this campaign, whatever its CRPS: this overrides the
+  option, under "Pretrained models & Hugging Face", of deciding that such models do not improve on
+  closed-form calibration. Pretrained time-series models are allowed when you fine-tune them here.
+  The GPU is for training and fitting: simulate() must run offline from committed weights, on CPU,
+  within ~5 s per prompt at 1000 paths, so the champion can be served by a CPU miner. Your model
+  must handle all three scoring configurations (CRYPTO_24H, COM_EQU_24H, CRYPTO_1H) and is measured
+  over the 10 days following your data cutoff. Judge every experiment on CRPS against the strongest
+  closed-form baseline you can build; the GPU-trained part may combine with it (a learned
+  volatility, a learned innovation shape, a learned correction), but it must carry measurable
+  weight: before nominating, report in your journal the champion's CRPS with that part removed.
+  Record every GPU run in agent/gpu.md: command, wall time, peak GPU memory and utilization from
+  nvidia-smi, validation CRPS. Find something publishable; honest failures count too, so if the
+  GPU model loses to the baseline, say by how much.
+# effort: campaign-4 left it unpinned, so opus-5-5 ran at claude-code's default (medium) and
+# gpt-6-astra at codex's (low). goal holds the claude session to the landing order or to evidence
+# that iterating further would not help (cli_adapters.GOAL_CONDITION); codex has no equivalent.
+# Neither leg runs ultracode or codex's `ultra`: both fan work out to parallel agents, and the
+# constitution allows ONE GPU job at a time on this box.
+models:
+  - {
+      id: opus-5-5,
+      cli: claude-code,
+      model: claude-opus-5-5-model,
+      effort: max,
+      goal: true,
+    }
+  - {
+      id: gpt-6-astra,
+      cli: codex,
+      model: gpt-6-astra,
+      wire_api: responses,
+      effort: xhigh,
+    }
+# Unchanged since campaign-2 on purpose: the envelope is part of what is measured, and only legs
+# that ran the same one compare on the leaderboard.
+budget_usd_per_model: 100.0
+deadline_hours_per_model: 18
+# Snapshot window: full history per venue, one instrument per asset — Binance + HYPE from their
+# 2025-08-01 first trades, the Hyperliquid equity/commodity perps from each market's listing.
+data_start: 2025-08-01
+# RE-DERIVE AT LAUNCH: launch day minus 11 days, so the 10-day verdict window ends the day before
+# launch and is settled by verdict time. Set for a 2026-10-09 launch.
+data_cutoff: 2026-09-28
+forward_window_days: 10
+baselines:
+  - { name: synth_default }
+hardware: >-
+  GCP g2-standard-16: 16 vCPU / 64GB RAM / 1x NVIDIA L4 (24GB VRAM). Your sandbox gets 14 CPU,
+  48GB RAM and the GPU. torch is already in your pyproject — no need to add it.
+proxy_url: http://localhost:4000
+gpu: true
+sandbox_memory_gb: 48
+sandbox_cpus: 14
+poll_seconds: 30
