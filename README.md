@@ -12,8 +12,8 @@ win. The scorer is the subnet's own validator code. The metric is money.
 **Still unsolved.** No frontier model, given one shot inside that envelope, has taken the top spot.
 The best correctly-scored champion earns 48% of what the field's best miner earns and leads one of
 three competitions outright, 1st of 256 in com-equ-24h — but it is 70th of 256 and 81st of 257 in
-the other two, which are two thirds of the Score. Three of the fourteen rows below predate two
-harness corrections and are not comparable to it; see the footnote.
+the other two, which are two thirds of the Score. Three of the fourteen rows below were not scored
+by the current harness and are not comparable to it; see the footnote.
 
 ## Leaderboard
 
@@ -64,20 +64,20 @@ was restarted reports only its final attempt.
 | gemini-3.8-flash       | campaign-3    | 2026-08-30 | 2026-09-09 | μ251 (final 257/257)   | μ253.3 (final 256/257) | μ252.4 (final 255/257) |
 
 Start and End bound the verdict window: the forward, out-of-sample period the champion was
-scored over, which begins the day after its campaign's data cutoff. campaign-1 and -2 share a
-window, and campaign-3 and campaign-4 each ran on a later one, so two ranks are comparable only
-where the dates match. campaign-2, -3 and -4 were scored at the start times the validator
-actually scored, on the corrected replay of its moving average; campaign-1's rows answered an
-even grid of start times, which costs crypto-1h ranks most, and predate that replay. Each cell
-is the MEAN rank over that window's scoring rounds, with the final round in
-parentheses out of the field it faced. The Score sums reward weight over every round, so the
-mean is what it corresponds to; the mean carries no denominator because the field size shown
-is the final round's, and the field was larger earlier in the window.
+scored over, which begins the day after its campaign's data cutoff. Two ranks are comparable
+only where the dates match. Unmarked rows were scored at the start times the validator actually
+scored, on the corrected replay of its moving average. Each cell is the MEAN rank over that
+window's scoring rounds, with the final round in parentheses out of the field it faced. The
+Score sums reward weight over every round, so the mean is what it corresponds to; the mean
+carries no denominator because the field size shown is the final round's, and the field was
+larger earlier in the window.
 
-\* scored before two harness corrections: the generation lead-in, which had been charging
-the candidate a horizon of worst-score rounds it was never given the chance to answer, and
-uniform realized truth, without which missing minutes in the operator's price store shrank
-the CRPS sum and flattered the champion. They pull in opposite directions and neither is
+\* not scored by the current harness: its verdict records no synth-lib revision, or answered
+an even grid of start times instead of the validator's. It may also predate the generation
+lead-in, which had been charging the candidate a horizon of worst-score rounds it was never
+given the chance to answer, uniform realized truth, without which missing minutes in the
+operator's price store shrank the CRPS sum and flattered the champion, or the corrected replay
+of the validator's moving average. They pull in different directions and none is
 uniform across champions, so a marked row is not comparable to an unmarked one, and the
 ordering between them is unreliable rather than merely optimistic or conservative.
 

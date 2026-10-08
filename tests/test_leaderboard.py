@@ -5,13 +5,20 @@ do not hand-edit.
 """
 
 import json
+import re
+import sys
 
 import pytest
 
-from synth_bench.leaderboard import best_per_model, competition_cell, model_label, render, rows
+from synth_bench.leaderboard import BEGIN, END, best_per_model, competition_cell, main, model_label, render, rows
 
 
-def _leg(results, campaign, leg, *, score=None, mean_rank=None, champion=True, budget=True):
+def _squash(text: str) -> str:
+    """Table cells without their padding, so a test reads `| cell |` whatever the column width."""
+    return re.sub(r" {2,}\|", " |", text)
+
+
+def _leg(results, campaign, leg, *, score=None, mean_rank=None, champion=True, budget=True, current=True):
     d = results / campaign / leg
     d.mkdir(parents=True)
     (results / campaign / "campaign.yaml").write_text(
@@ -33,6 +40,7 @@ def _leg(results, campaign, leg, *, score=None, mean_rank=None, champion=True, b
                         "com-equ-24h": {"rank": None, "field_size": None, "rank_over_rounds": None},
                     },
                     "window": {"start": "2026-07-28", "end": "2026-08-07"},
+                    **({"engine_rev": "298a95d", "live_prompts": True} if current else {}),
                 }
             )
         )
@@ -73,7 +81,7 @@ def test_render_marks_pending_and_no_champion(tmp_path):
     _leg(tmp_path, "camp", "pending")
     _leg(tmp_path, "camp", "failed", champion=False)
 
-    table = render(tmp_path, tag=None)
+    table = _squash(render(tmp_path, tag=None))
     assert "| **30.1** |" in table and "μ11.5 (final 7/250)" in table
     assert "pending" in table and "no champion" in table
     assert table.count("|") > 20  # a table, not a stub
@@ -110,7 +118,7 @@ def test_one_row_per_model_keeps_its_best_score(tmp_path):
     kept = best_per_model(rows(tmp_path, tag=None))
     assert [(r["campaign"], r["score"]) for r in kept] == [("camp-b", 8.1)]
 
-    scores, ranks = render(tmp_path, tag=None).split("### Where each champion placed")
+    scores, ranks = _squash(render(tmp_path, tag=None)).split("### Where each champion placed")
     assert scores.count("| some-model-5 |") == 1 and ranks.count("| some-model-5 |") == 1
     assert "8.1" in scores and "6.7" not in scores
     assert "One row per model" in scores
@@ -138,7 +146,7 @@ def test_ranks_move_to_their_own_table_with_the_window(tmp_path):
     """A rank means nothing without the window it was measured over, and the campaigns differ."""
     _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)
 
-    scores, ranks = render(tmp_path, tag=None).split("### Where each champion placed")
+    scores, ranks = _squash(render(tmp_path, tag=None)).split("### Where each champion placed")
     assert "Spend" in scores and "crypto-1h" not in scores
     assert "| 2026-07-28 | 2026-08-07 |" in ranks
     assert "μ11.5 (final 7/250)" in ranks and "μ190 (final 200/250)" in ranks
@@ -148,9 +156,51 @@ def test_a_fallback_row_is_marked_in_both_tables(tmp_path):
     """The corrections moved ranks as well as Scores, so the mark has to follow the rows."""
     _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)  # verdict.json only
 
-    scores, ranks = render(tmp_path, tag="lead-in-2").split("### Where each champion placed")
+    scores, ranks = _squash(render(tmp_path, tag="lead-in-2")).split("### Where each champion placed")
     assert "**30.1** \\*" in scores
     assert "| camp \\* |" in ranks
+
+
+@pytest.mark.parametrize(
+    "verdict", [{"engine_rev": None, "live_prompts": True}, {"engine_rev": "abc", "live_prompts": False}]
+)
+def test_a_verdict_not_scored_by_the_current_harness_is_marked(tmp_path, verdict):
+    """The mark comes from what the verdict records, not from which campaign it belongs to."""
+    d = _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)
+    v = json.loads((d / "verdict.json").read_text())
+    (d / "verdict.json").write_text(json.dumps({**v, **verdict}))
+
+    scores, ranks = _squash(render(tmp_path, tag=None)).split("### Where each champion placed")
+    assert "**30.1** \\*" in scores and "| camp \\* |" in ranks
+
+
+def test_a_current_verdict_is_not_marked(tmp_path):
+    _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)
+    assert "\\*" not in render(tmp_path, tag=None).split("\n\n\\*")[0]
+
+
+def test_both_tables_are_padded_to_their_widest_cell(tmp_path):
+    _leg(tmp_path, "camp", "short", score=3.0, mean_rank=7)
+    _leg(tmp_path, "another-campaign", "a-much-longer-leg-name", score=30.1, mean_rank=78)
+    for part in render(tmp_path, tag=None).split("### Where each champion placed"):
+        lines = [line for line in part.splitlines() if line.startswith("|")]
+        assert len({len(line) for line in lines}) == 1, lines
+        assert lines[1].startswith("| ---") and set(lines[1]) <= {"|", " ", "-"}
+
+
+def test_write_leaves_a_blank_line_inside_each_marker(tmp_path, monkeypatch):
+    _leg(tmp_path / "results", "camp", "leg", score=30.1, mean_rank=78)
+    readme = tmp_path / "README.md"
+    readme.write_text(f"# Title\n\n{BEGIN}\nold\n{END}\n\nAfter.\n")
+    monkeypatch.setattr(
+        sys, "argv", ["leaderboard", "--results-dir", str(tmp_path / "results"), "--write", str(readme)]
+    )
+    main()
+
+    text = readme.read_text()
+    block = text.split(BEGIN)[1].split(END)[0]
+    assert block.startswith("\n\n| Model") and block.endswith(".\n\n")
+    assert text.endswith(f"{END}\n\nAfter.\n")
 
 
 def _with_failure(results, error, asset="XAU"):
