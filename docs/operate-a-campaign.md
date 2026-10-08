@@ -184,8 +184,12 @@ for r in json.load(sys.stdin)[-4:]: print(r.get('spend'), r.get('prompt_tokens')
 ## Archive a finished campaign
 
 Campaign working directories are disposable; what survives is a curated copy in the results
-repository. Two rules: **`state.json` must be redacted** (it holds the virtual keys), and champion
-code is published as an unpacked source tree rather than a git bundle.
+repository. Three rules: **`state.json` must be redacted** (it holds the virtual keys), champion
+code is published as an unpacked source tree, and **a leg's `workspace.bundle` is never deleted**.
+The verdict clones it; without it, rescoring a champion means rebuilding its workspace from the
+published tree. A bundle holds every commit the agent made, including text the published tree may
+have redacted, so check all of it for secrets and private paths before committing it; until then,
+keep a copy outside the repository.
 
 ```bash
 D=<results-repo>/campaign_results/$C
@@ -205,7 +209,7 @@ s.pop('virtual_keys', None)                              # NEVER publish the key
 json.dump(s, open('$D/state.json', 'w'), indent=2)
 "
 
-# champion source in the clear, one tree per leg (drop the bundles before publishing)
+# champion source in the clear, one tree per leg (keep each workspace.bundle: the verdict clones it)
 for leg in "$D"/*/; do
   L=$(basename "$leg"); SHA=$(awk '/^(sha|commit):/ {print $2; exit}' "$leg/CHAMPION" 2>/dev/null) || continue
   [ -n "$SHA" ] && git clone -q "$leg/workspace.bundle" /tmp/ch-$L && git -C /tmp/ch-$L checkout -q "$SHA" \
