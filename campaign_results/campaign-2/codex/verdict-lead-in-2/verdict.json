@@ -1,0 +1,434 @@
+{
+  "score": 8.3,
+  "mean_competition_rank": 202.7,
+  "score_definition": "100 x mean over competitions of min(1, candidate_total_reward / top_other_miner_total_reward) (validator reward_weight summed over the window; bounded 0-100: 0 = earned nothing, 100 = matched or beat the field's best in every competition; per-competition beats_field flags when the cap binds)",
+  "mean_reward_vs_top": 0.08263326134083268,
+  "mean_competition_percentile": 0.09938843737622034,
+  "per_competition": {
+    "crypto-24h": {
+      "rank": 254,
+      "field_size": 256,
+      "percentile": 0.01171875,
+      "rank_over_rounds": {
+        "best_rank": 239,
+        "mean_rank": 253.1,
+        "field_size": 256
+      },
+      "rank_chart": "rank_evolution_TOTAL_crypto-24h.png",
+      "frames": {
+        "prompt_scores": "prompt_scores_crypto-24h.parquet",
+        "field_rewards": "field_rewards_crypto-24h.parquet",
+        "live_rewards": "live_rewards_crypto-24h.parquet"
+      },
+      "rewards": {
+        "reward_share": 1.2552805942116794e-09,
+        "reward_vs_top": 7.171676697121257e-08,
+        "reward_rank": 288,
+        "beats_field": false
+      },
+      "assets_failed": [],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 2312.2740010648404,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 239,
+          "mean_rank": 252.9,
+          "field_size": 256
+        },
+        "ETH": {
+          "mean_crps": 3099.9562174168755,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 239,
+          "mean_rank": 253.0,
+          "field_size": 256
+        },
+        "SOL": {
+          "mean_crps": 3025.557246579482,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 239,
+          "mean_rank": 252.9,
+          "field_size": 256
+        },
+        "XRP": {
+          "mean_crps": 2729.50220548629,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 220,
+          "mean_rank": 238.7,
+          "field_size": 256
+        },
+        "HYPE": {
+          "mean_crps": 4976.8629316111965,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 239,
+          "mean_rank": 252.9,
+          "field_size": 256
+        }
+      }
+    },
+    "com-equ-24h": {
+      "rank": 165,
+      "field_size": 167,
+      "percentile": 0.017964071856287456,
+      "rank_over_rounds": {
+        "best_rank": 165,
+        "mean_rank": 211.0,
+        "field_size": 167
+      },
+      "rank_chart": "rank_evolution_TOTAL_com-equ-24h.png",
+      "frames": {
+        "prompt_scores": "prompt_scores_com-equ-24h.parquet",
+        "field_rewards": "field_rewards_com-equ-24h.parquet",
+        "live_rewards": "live_rewards_com-equ-24h.parquet"
+      },
+      "rewards": {
+        "reward_share": 2.504680996790521e-16,
+        "reward_vs_top": 5.5630445901150015e-15,
+        "reward_rank": 265,
+        "beats_field": false
+      },
+      "assets_failed": [],
+      "per_asset": {
+        "XAU": {
+          "mean_crps": 1702.17674079595,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 123,
+          "mean_rank": 218.6,
+          "field_size": 167
+        },
+        "NVDAX": {
+          "mean_crps": 3655.8003781865486,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 231,
+          "mean_rank": 252.2,
+          "field_size": 256
+        },
+        "GOOGLX": {
+          "mean_crps": 3320.879710265568,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 239,
+          "mean_rank": 251.9,
+          "field_size": 256
+        },
+        "TSLAX": {
+          "mean_crps": 3501.775395970996,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 239,
+          "mean_rank": 252.9,
+          "field_size": 256
+        },
+        "AAPLX": {
+          "mean_crps": 2934.048151854787,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 239,
+          "mean_rank": 253.1,
+          "field_size": 256
+        },
+        "WTIOIL": {
+          "mean_crps": 5429.767187092845,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 175,
+          "mean_rank": 194.4,
+          "field_size": 178
+        },
+        "SPCX": {
+          "mean_crps": 6789.931685807231,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 211,
+          "mean_rank": 248.9,
+          "field_size": 256
+        },
+        "SP500": {
+          "mean_crps": 1160.070921889734,
+          "num_prompts": 240,
+          "realized_coverage": 1.0,
+          "best_rank": 239,
+          "mean_rank": 252.5,
+          "field_size": 256
+        }
+      }
+    },
+    "crypto-1h": {
+      "rank": 189,
+      "field_size": 257,
+      "percentile": 0.2684824902723736,
+      "rank_over_rounds": {
+        "best_rank": 147,
+        "mean_rank": 165.7,
+        "field_size": 257
+      },
+      "rank_chart": "rank_evolution_TOTAL_crypto-1h.png",
+      "frames": {
+        "prompt_scores": "prompt_scores_crypto-1h.parquet",
+        "field_rewards": "field_rewards_crypto-1h.parquet",
+        "live_rewards": "live_rewards_crypto-1h.parquet"
+      },
+      "rewards": {
+        "reward_share": 0.0021849110468670635,
+        "reward_vs_top": 0.24789971230572552,
+        "reward_rank": 167,
+        "beats_field": false
+      },
+      "assets_failed": [],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 464.1491498518042,
+          "num_prompts": 1440,
+          "realized_coverage": 1.0,
+          "best_rank": 150,
+          "mean_rank": 170.0,
+          "field_size": 257
+        },
+        "ETH": {
+          "mean_crps": 634.6621564964822,
+          "num_prompts": 1440,
+          "realized_coverage": 1.0,
+          "best_rank": 171,
+          "mean_rank": 187.7,
+          "field_size": 257
+        },
+        "SOL": {
+          "mean_crps": 625.635846573994,
+          "num_prompts": 1440,
+          "realized_coverage": 1.0,
+          "best_rank": 114,
+          "mean_rank": 150.6,
+          "field_size": 257
+        },
+        "XRP": {
+          "mean_crps": 569.0790582851412,
+          "num_prompts": 1440,
+          "realized_coverage": 1.0,
+          "best_rank": 158,
+          "mean_rank": 179.5,
+          "field_size": 257
+        },
+        "HYPE": {
+          "mean_crps": 1023.601490158824,
+          "num_prompts": 1440,
+          "realized_coverage": 1.0,
+          "best_rank": 106,
+          "mean_rank": 152.0,
+          "field_size": 257
+        }
+      }
+    }
+  },
+  "window": {
+    "start": "2026-07-28",
+    "end": "2026-08-07",
+    "note": "pseudo-out-of-sample: after the data cutoff, but agents had live field-API access during their runs"
+  },
+  "champion_sha": "489ac3d291a6b8e27e6bc83b47e4067763b3c6b1",
+  "sandbox_image": {
+    "name": "synth-bench-sandbox",
+    "id": "sha256:eedcc26d69f1b57426caf659cd81c3d988a58b1b7e18ae023b2b322721f1cbd6",
+    "digest": "synth-bench-sandbox@sha256:eedcc26d69f1b57426caf659cd81c3d988a58b1b7e18ae023b2b322721f1cbd6"
+  },
+  "cadence_minutes": {
+    "86400": 60,
+    "3600": 10
+  },
+  "num_simulations": 1000,
+  "seed": 0,
+  "simulate_registration": null,
+  "live_prompts": true,
+  "registrations": {
+    "since": "2026-07-27T00:00:00+00:00",
+    "until": "2026-08-07T00:00:00+00:00",
+    "rows": [
+      {
+        "miner_uid": 115,
+        "hotkey": "5H5sXrPqbDN7rkZgTVLy5Y8XjSNXLyEy4ZHkhy2QJBhbeRKE",
+        "created_at": "2026-07-27T09:38:21.549113+00:00"
+      },
+      {
+        "miner_uid": 18,
+        "hotkey": "5EJLVoDq6EDmcEXQPM8tQQZxCVN79Bcm3D1PTqCrQonksUzs",
+        "created_at": "2026-07-27T09:40:44.632277+00:00"
+      },
+      {
+        "miner_uid": 213,
+        "hotkey": "5CVAD9McNSAWZGmgHwT5FyvGAntvbAy9GFxKDebwvFxW56az",
+        "created_at": "2026-07-27T14:45:17.810320+00:00"
+      },
+      {
+        "miner_uid": 89,
+        "hotkey": "5Cyuv5eYevYa9XHgcTULMFVXwMDHvgbaSekM6GoFfig34aqm",
+        "created_at": "2026-07-28T02:29:38.087858+00:00"
+      },
+      {
+        "miner_uid": 198,
+        "hotkey": "5GRMjH2rqSGr7u63riDLRwATZnGkQjwAStym9hwYPnZVSVLM",
+        "created_at": "2026-07-28T02:29:38.087858+00:00"
+      },
+      {
+        "miner_uid": 160,
+        "hotkey": "5CHz8DTAwPpRPCGBzaq32g944ZK9Z5hdVMGMtGzuJDZ5W4Fd",
+        "created_at": "2026-07-28T07:47:50.244051+00:00"
+      },
+      {
+        "miner_uid": 228,
+        "hotkey": "5Ff7Wcsi5BGgjXfC3TyXCJXwmcN2wb6QYkoJ8n92pgibMX22",
+        "created_at": "2026-07-28T07:48:39.987515+00:00"
+      },
+      {
+        "miner_uid": 26,
+        "hotkey": "5EvoQwjuSziiKrcdiJQLdBrZWngP2uHFVMPFxyT85YXWW4Af",
+        "created_at": "2026-07-29T15:07:25.215494+00:00"
+      },
+      {
+        "miner_uid": 195,
+        "hotkey": "5D5SqAYKNZpkoi78wJuYJzJrtMmsj653tBqb2nV6y3v4FEz2",
+        "created_at": "2026-07-29T23:53:21.341683+00:00"
+      },
+      {
+        "miner_uid": 74,
+        "hotkey": "5Gh5Cqvr83s3ktsXSBUXcHEm7BVNJE9cXyiEwnMUB1BjFiur",
+        "created_at": "2026-07-30T13:47:15.433676+00:00"
+      },
+      {
+        "miner_uid": 111,
+        "hotkey": "5GWciNYm5iUCcL5EmUh9Qd5igCtK4ABryRiTGg6hJ5zGMkP3",
+        "created_at": "2026-07-30T14:09:45.162453+00:00"
+      },
+      {
+        "miner_uid": 47,
+        "hotkey": "5GyECP1jnaBWuFbbd6hUPA977grN3AkgnigHTB15UDgsY5nv",
+        "created_at": "2026-07-31T13:38:17.795497+00:00"
+      },
+      {
+        "miner_uid": 94,
+        "hotkey": "5DFBZSgbqHof6SzJuG5ePCyWXibG54NQPtPsYcyZwwVcEP8n",
+        "created_at": "2026-08-01T19:33:42.537776+00:00"
+      },
+      {
+        "miner_uid": 133,
+        "hotkey": "5GNPL71rQLty9UhMFDweTRRn4JqkhGSCvFWzBneFmGrPaLwU",
+        "created_at": "2026-08-01T19:59:49.436617+00:00"
+      },
+      {
+        "miner_uid": 70,
+        "hotkey": "5ExvMUYZmi6vzh7ok3qzgVbViBTBKA1dqJ2MSEQ9HTkMjdG3",
+        "created_at": "2026-08-01T21:14:18.932231+00:00"
+      },
+      {
+        "miner_uid": 138,
+        "hotkey": "5DA9wxQgNMp3BsDGdv7kHUBFez9bDdYzpZCKzwTY4gXZxThS",
+        "created_at": "2026-08-01T22:57:21.611740+00:00"
+      },
+      {
+        "miner_uid": 252,
+        "hotkey": "5Dqm2pbYRPrxQPPWrNHyo5yh9sUHiSNLqNoTiALTD57qxPqT",
+        "created_at": "2026-08-02T18:23:58.123086+00:00"
+      },
+      {
+        "miner_uid": 56,
+        "hotkey": "5DA98N8yEnCDvXoM1XQ11dE6Lw6QNZXfycBax2CwuGmTAvUc",
+        "created_at": "2026-08-03T06:23:17.763648+00:00"
+      },
+      {
+        "miner_uid": 234,
+        "hotkey": "5FHUBRFZgn2HsKV4zFFjAfmN5hNJKBJDmMrUuFEF3wnBHaH6",
+        "created_at": "2026-08-04T05:46:38.406994+00:00"
+      },
+      {
+        "miner_uid": 208,
+        "hotkey": "5DvtdoSztwozCfkPq6o9BSSJQH9BnWcziUVUePKpVwK4MN4u",
+        "created_at": "2026-08-04T06:01:47.080034+00:00"
+      },
+      {
+        "miner_uid": 144,
+        "hotkey": "5Fbme6BsnF2HXwcNfMFfPYiBtPbhF8hAymnxVdzgZnsBJykw",
+        "created_at": "2026-08-04T06:34:15.154492+00:00"
+      },
+      {
+        "miner_uid": 182,
+        "hotkey": "5HN9bL717kGn7SR12Y8497TGTbc5NcyVzakE3mE9bwokRssu",
+        "created_at": "2026-08-04T07:04:16.577485+00:00"
+      },
+      {
+        "miner_uid": 168,
+        "hotkey": "5C4xBQ1QeZmTTBd8Hmb17WQqpymz5Trmm41kY4DqQ2EdRSbt",
+        "created_at": "2026-08-04T08:09:16.591270+00:00"
+      },
+      {
+        "miner_uid": 37,
+        "hotkey": "5HYRpL6aSMeqvBKZiQpUbGj6B3ZNgoGfFSwHtN7hkirh9WWN",
+        "created_at": "2026-08-04T08:14:50.313758+00:00"
+      },
+      {
+        "miner_uid": 121,
+        "hotkey": "5EP14qV5JcnSsGdWJBhG6ZJb3opujEgNeZv9C4YBK7gu7hRs",
+        "created_at": "2026-08-04T09:19:21.961124+00:00"
+      },
+      {
+        "miner_uid": 3,
+        "hotkey": "5CcNL5s84wHZCsxmQSUhyWURpFHh8eEdoZtLa6yduDMVQ9Uu",
+        "created_at": "2026-08-04T09:29:17.188808+00:00"
+      },
+      {
+        "miner_uid": 140,
+        "hotkey": "5Gc9P6WX7tdMsdySSNEYUrJehEvcZZpK8rURbaqkzKHwdPAF",
+        "created_at": "2026-08-04T10:43:43.659531+00:00"
+      },
+      {
+        "miner_uid": 185,
+        "hotkey": "5C592rd5cFNEkkSbEBTaedJvBkHEqdrpv75evTtUvs9FTFKN",
+        "created_at": "2026-08-04T11:59:18.506980+00:00"
+      },
+      {
+        "miner_uid": 161,
+        "hotkey": "5HjAX7kWtvrX3MTB589HKtg9vNNp93Lo3x9c1khzu4VPDP4A",
+        "created_at": "2026-08-04T12:34:19.743987+00:00"
+      },
+      {
+        "miner_uid": 131,
+        "hotkey": "5G3hNRyq1TLLAWnWTVwTqjuWhYwcrsxVtgFvU5t1LjopV2ad",
+        "created_at": "2026-08-04T13:04:19.706958+00:00"
+      },
+      {
+        "miner_uid": 186,
+        "hotkey": "5Eqq4URBtHBSGxiAC5yvTwr6VVwxbuv2rSujhuRbBkU6QDM7",
+        "created_at": "2026-08-04T13:12:40.128034+00:00"
+      },
+      {
+        "miner_uid": 19,
+        "hotkey": "5CtRPKravXYoHU7xuTCapWBoGpZL6Eevun2NP1nfDNH56JaK",
+        "created_at": "2026-08-04T14:28:47.824007+00:00"
+      },
+      {
+        "miner_uid": 215,
+        "hotkey": "5G99Q3CSYbkfCf6s5z895zGakCwKpEzTjZLSsHoH6P2dJ6Qq",
+        "created_at": "2026-08-04T15:40:49.884434+00:00"
+      },
+      {
+        "miner_uid": 108,
+        "hotkey": "5DMGLJCggd1qJ7SnmVfEukgYJVkqhoVz4RrBbeNrMfbjFqQA",
+        "created_at": "2026-08-04T16:55:44.611959+00:00"
+      },
+      {
+        "miner_uid": 127,
+        "hotkey": "5FH5EcspUQqAuCk2Nv5zSqX3SAWTw23Pa45FmpuQN7w54E83",
+        "created_at": "2026-08-05T16:58:45.272924+00:00"
+      },
+      {
+        "miner_uid": 213,
+        "hotkey": "5DhNJNdEwT7dLnfY5Y57iEpGBrSwhgjQBnB95Cy1eQge2AFG",
+        "created_at": "2026-08-06T02:49:14.217621+00:00"
+      }
+    ]
+  },
+  "engine_rev": "298a95d431ed2ff1e1d713885a782e95e92cb2e3"
+}
