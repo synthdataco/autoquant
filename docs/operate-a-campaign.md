@@ -194,7 +194,7 @@ keep a copy outside the repository.
 ```bash
 D=<results-repo>/campaign_results/$C
 mkdir -p "$D"
-cp -r campaign_runs/$C/artifacts/* "$D/"                 # reports, journals, CHAMPION, transcripts, bundles
+cp -r campaign_runs/$C/artifacts/* "$D/"                 # reports, journals, CHAMPION, transcripts, bundles, sessions
 for leg in "$D"/*/; do
   R="campaign_runs/$C/runs/$(basename "$leg")/agent"
   cp "$R/CAMPAIGN.md" "$leg" 2>/dev/null || true         # the constitution the agent actually read
@@ -221,6 +221,11 @@ done
 The tree is `champion_source/`, never `champion/`: next to the `CHAMPION` file, macOS and Windows see
 the two as one name, so a download or checkout there loses one of them. `unpack_champion` reads the
 same folder.
+
+A claude-code leg's `sessions/` holds, per session, its workflows' scripts and results
+(`workflows/`) and its sub-agents' transcripts (`subagents/`): the work of its workflow agents,
+which `transcript-*.log` does not show. Audit them with the transcripts, and sweep them before
+publishing like the rest of the leg.
 
 Container-written files are root-owned on the host; a later `rm -rf` of the campaign directory needs
 `sudo`. Publishing checklist before committing anything: no provider keys, no virtual keys, no
