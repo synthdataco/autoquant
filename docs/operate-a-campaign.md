@@ -184,13 +184,17 @@ for r in json.load(sys.stdin)[-4:]: print(r.get('spend'), r.get('prompt_tokens')
 ## Archive a finished campaign
 
 Campaign working directories are disposable; what survives is a curated copy in the results
-repository. Two rules: **`state.json` must be redacted** (it holds the virtual keys), and champion
-code is published as an unpacked source tree rather than a git bundle.
+repository. Three rules: **`state.json` must be redacted** (it holds the virtual keys), champion
+code is published as an unpacked source tree, and **a leg's `workspace.bundle` is never deleted**.
+The verdict clones it; without it, rescoring a champion means rebuilding its workspace from the
+published tree. A bundle holds every commit the agent made, including text the published tree may
+have redacted, so check all of it for secrets and private paths before committing it; until then,
+keep a copy outside the repository.
 
 ```bash
 D=<results-repo>/campaign_results/$C
 mkdir -p "$D"
-cp -r campaign_runs/$C/artifacts/* "$D/"                 # reports, journals, CHAMPION, transcripts, bundles
+cp -r campaign_runs/$C/artifacts/* "$D/"                 # reports, journals, CHAMPION, transcripts, bundles, sessions
 for leg in "$D"/*/; do
   R="campaign_runs/$C/runs/$(basename "$leg")/agent"
   cp "$R/CAMPAIGN.md" "$leg" 2>/dev/null || true         # the constitution the agent actually read
@@ -205,7 +209,7 @@ s.pop('virtual_keys', None)                              # NEVER publish the key
 json.dump(s, open('$D/state.json', 'w'), indent=2)
 "
 
-# champion source in the clear, one tree per leg (drop the bundles before publishing)
+# champion source in the clear, one tree per leg (keep each workspace.bundle: the verdict clones it)
 for leg in "$D"/*/; do
   L=$(basename "$leg"); SHA=$(awk '/^(sha|commit):/ {print $2; exit}' "$leg/CHAMPION" 2>/dev/null) || continue
   [ -n "$SHA" ] && git clone -q "$leg/workspace.bundle" /tmp/ch-$L && git -C /tmp/ch-$L checkout -q "$SHA" \
@@ -218,6 +222,11 @@ The tree is `champion_source/`, never `champion/`: next to the `CHAMPION` file, 
 the two as one name, so a download or checkout there loses one of them. `unpack_champion` reads the
 same folder.
 
+A claude-code leg's `sessions/` holds, per session, its workflows' scripts and results
+(`workflows/`) and its sub-agents' transcripts (`subagents/`): the work of its workflow agents,
+which `transcript-*.log` does not show. Audit them with the transcripts, and sweep them before
+publishing like the rest of the leg.
+
 Container-written files are root-owned on the host; a later `rm -rf` of the campaign directory needs
 `sudo`. Publishing checklist before committing anything: no provider keys, no virtual keys, no
 absolute paths from your box, and `state.json` redacted.
@@ -226,7 +235,7 @@ absolute paths from your box, and `state.json` redacted.
 
 ```bash
 uv run python -m synth_lib.benchmark.verdict.run_verdict --campaign $C \
-    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD>
+    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD> --live-prompts --tag lead-in-2
 ```
 
 Two data sources, two roles — do not conflate them:

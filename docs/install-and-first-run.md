@@ -234,8 +234,9 @@ output goes to `campaign_runs/<name>/artifacts/<leg>/transcript-N.log`.
 Campaign yaml essentials: `models` (each `{id, cli, model}` where `model` **must** match a served
 alias), `budget_usd_per_model`, `deadline_hours_per_model`, `data_start`/`data_cutoff`,
 `forward_window_days`, `hardware` (free text, shown to the agent), `gpu`, `sandbox_cpus`,
-`sandbox_memory_gb`, `poll_seconds`. Per-turn CLIs wait up to one poll interval between turns, so
-keep `poll_seconds` small (30–60) when a leg's CLI exits after each turn.
+`sandbox_memory_gb`, `poll_seconds`, `min_gpu_minutes` (GPU-busy minutes the harness must meter
+before a nomination stands; 0, the default, for none). Per-turn CLIs wait up to one poll interval
+between turns, so keep `poll_seconds` small (30–60) when a leg's CLI exits after each turn.
 
 Optional per-model keys, part of what a leg measures:
 
@@ -245,8 +246,17 @@ Optional per-model keys, part of what a leg measures:
   When omitted, each CLI applies its default for the model, which differs between models from the same
   vendor.
 - `ultracode: true` (claude-code only): Claude plans a dynamic workflow for every substantive task.
+- `workflow_size` (with `ultracode`): `unrestricted`, `small`, `medium` or `large`, the number of
+  agents Claude aims for in a workflow (fewer than 5, 10 or 50). Advice to the model, not a cap.
+  When omitted, the CLI's default applies (`medium`).
+- `max_workflow_agents` (with `ultracode`): how many workflow agents run at once, 1 to 256. When
+  omitted, the CLI's default applies: up to 16, fewer on fewer CPUs.
 - `goal: true` (claude-code only): an evaluator on the leg's model checks, at every stop, that the
   constitution allows it — the landing order carried out, or an evidenced early nomination.
+
+Every claude-code leg runs its sub-agents and workflow agents on its own model, and at its
+`effort` when it sets one. It allows no other model: a request a safety classifier flags fails as a
+refusal instead of being re-run on the classifier's fallback model.
 
 ## 5. Verdict
 
@@ -255,7 +265,7 @@ After the scoring window has passed (and settled — the backtester refuses a wi
 
 ```bash
 uv run python -m synth_lib.benchmark.verdict.run_verdict --campaign <name> \
-    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD>
+    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD> --live-prompts --tag lead-in-2
 ```
 
 Per leg it clones the champion at `CHAMPION.sha`, builds its venv in one bridge-network sandbox pass,

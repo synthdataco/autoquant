@@ -40,8 +40,8 @@ nohup uv run python -m synth_lib.benchmark.run_campaign run --campaign campaigns
 
 # 6. after the window settles: score, then regenerate the leaderboard
 uv run python -m synth_lib.benchmark.verdict.run_verdict --campaign <name> \
-    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD>
-synth-bench-leaderboard --write README.md
+    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD> --live-prompts --tag lead-in-2
+synth-bench-leaderboard --all-legs --write README.md
 ```
 
 ## Campaign design choices that matter
