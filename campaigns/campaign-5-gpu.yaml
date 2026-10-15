@@ -4,9 +4,9 @@ name: campaign-5-gpu
 # after 0.8 h / $18.32) with champions served by numpy and pandas alone, and the constitution lets
 # an agent decide, with evidence, that the GPU does not help. Here the objective takes that option
 # away, requires an ablation that shows the GPU-trained part carries weight, and keeps serving
-# CPU-only so a champion can still run as a live miner. `min_gpu_minutes: 60` goes in once the
-# pinned synth-lib reads it; until then nothing in the harness checks GPU use at nomination, and
-# the transcript audit and agent/gpu.md are the enforcement.
+# CPU-only so a champion can still run as a live miner. The harness hands back a nomination made
+# before it metered `min_gpu_minutes` of GPU-busy time; the transcript audit and agent/gpu.md
+# check what the GPU was used for.
 objective: >-
   A GPU campaign. Build the price-simulation model with the lowest CRPS you can reach, built around
   a model you TRAIN on this machine's GPU: a neural network, or another model fitted on the GPU,
@@ -62,6 +62,7 @@ hardware: >-
   48GB RAM and the GPU. torch is already in your pyproject — no need to add it.
 proxy_url: http://localhost:4000
 gpu: true
+min_gpu_minutes: 60
 sandbox_memory_gb: 48
 sandbox_cpus: 14
 poll_seconds: 30
