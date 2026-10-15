@@ -235,7 +235,7 @@ absolute paths from your box, and `state.json` redacted.
 
 ```bash
 uv run python -m synth_lib.benchmark.verdict.run_verdict --campaign $C \
-    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD>
+    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD> --live-prompts --tag lead-in-2
 ```
 
 Two data sources, two roles — do not conflate them:

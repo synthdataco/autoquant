@@ -10,7 +10,17 @@ import sys
 
 import pytest
 
-from synth_bench.leaderboard import BEGIN, END, best_per_model, competition_cell, main, model_label, render, rows
+from synth_bench.leaderboard import (
+    BEGIN,
+    CANONICAL_TAG,
+    END,
+    best_per_model,
+    competition_cell,
+    main,
+    model_label,
+    render,
+    rows,
+)
 
 
 def _squash(text: str) -> str:
@@ -107,6 +117,16 @@ def test_tagged_window_reads_its_own_file(tmp_path):
     (d / "verdict-is-0620.json").write_text(json.dumps({"score": 1.5, "per_competition": {}}))
     assert rows(tmp_path, tag="is-0620")[0]["score"] == 1.5
     assert rows(tmp_path, tag=None)[0]["score"] == 30.1
+
+
+def test_the_command_reads_the_canonical_tag_by_default(tmp_path, monkeypatch, capsys):
+    d = _leg(tmp_path, "camp", "leg", score=1.5, mean_rank=200)
+    (d / f"verdict-{CANONICAL_TAG}").mkdir()
+    canonical = json.loads((d / "verdict.json").read_text()) | {"score": 30.1}
+    (d / f"verdict-{CANONICAL_TAG}" / "verdict.json").write_text(json.dumps(canonical))
+    monkeypatch.setattr(sys, "argv", ["leaderboard", "--results-dir", str(tmp_path)])
+    main()
+    assert "**30.1**" in capsys.readouterr().out
 
 
 def test_one_row_per_model_keeps_its_best_score(tmp_path):

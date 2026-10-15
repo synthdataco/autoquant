@@ -265,7 +265,7 @@ After the scoring window has passed (and settled — the backtester refuses a wi
 
 ```bash
 uv run python -m synth_lib.benchmark.verdict.run_verdict --campaign <name> \
-    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD>
+    --window-start <YYYY-MM-DD> --window-end <YYYY-MM-DD> --live-prompts --tag lead-in-2
 ```
 
 Per leg it clones the champion at `CHAMPION.sha`, builds its venv in one bridge-network sandbox pass,

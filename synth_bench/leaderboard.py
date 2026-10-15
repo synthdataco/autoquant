@@ -7,8 +7,8 @@ drifts from the verdicts within one campaign; this cannot.
 Two tables come out of one pass over the same rows: what each champion earned, and where it placed.
 They share Model + Campaign as their key.
 
-    synth-bench-leaderboard                    # markdown to stdout
-    synth-bench-leaderboard --tag is-0620      # a diagnostic window instead of the canonical one
+    synth-bench-leaderboard                    # markdown to stdout, from the canonical verdicts
+    synth-bench-leaderboard --tag <name>       # another window instead of the canonical one
     synth-bench-leaderboard --write README.md  # replace the block between the marker comments
 """
 
@@ -21,6 +21,10 @@ from pathlib import Path
 
 BEGIN = "<!-- LEADERBOARD:BEGIN -->"
 END = "<!-- LEADERBOARD:END -->"
+
+# The tag the canonical verdicts are written under; a leg without one falls back to its untagged
+# verdict, marked.
+CANONICAL_TAG = "lead-in-2"
 
 COMPETITIONS = ("crypto-1h", "crypto-24h", "com-equ-24h")
 
@@ -286,7 +290,9 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--results-dir", type=Path, default=Path("campaign_results"))
-    ap.add_argument("--tag", default=None, help="read verdict-<tag>.json instead of verdict.json")
+    ap.add_argument(
+        "--tag", default=CANONICAL_TAG, help="read each leg's verdict-<tag> (default: %(default)s; '' for verdict)"
+    )
     ap.add_argument("--write", type=Path, default=None, help="replace the LEADERBOARD block in this file")
     ap.add_argument("--all-legs", action="store_true", help="every champion, not just each model's best")
     args = ap.parse_args()

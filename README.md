@@ -83,9 +83,9 @@ ordering between them is unreliable rather than merely optimistic or conservativ
 
 <!-- LEADERBOARD:END -->
 
-Generated with `synth-bench-leaderboard --tag lead-in-2 --all-legs --write README.md`; every number
-is read from an archived verdict, never typed by hand. `--tag is-0620` renders a diagnostic window
-instead.
+Generated with `synth-bench-leaderboard --all-legs --write README.md` from each leg's `lead-in-2`
+verdict; every number is read from an archived verdict, never typed by hand. `--tag <name>` renders
+another window instead.
 
 ## Why this benchmark is hard to fake
 
