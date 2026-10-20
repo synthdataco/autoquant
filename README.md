@@ -10,82 +10,43 @@ The opponents are ~250 live miners on [Synth SN50](https://synthdata.co), financ
 win. The scorer is the subnet's own validator code. The metric is money.
 
 **Still unsolved.** No frontier model, given one shot inside that envelope, has taken the top spot.
-The best correctly-scored champion earns 48% of what the field's best miner earns and leads one of
-three competitions outright, 1st of 256 in com-equ-24h — but it is 70th of 256 and 81st of 257 in
-the other two, which are two thirds of the Score. Three of the fourteen rows below were not scored
-by the current harness and are not comparable to it; see the footnote.
+Over a month of live scoring, the best champion earns, averaged over the three competitions, 33% of
+what the best other miner earns. It reached 1st in crypto-1h and crypto-24h, but averaged 106th and
+91st there over the month, and 169th in com-equ-24h.
 
 ## Leaderboard
 
+Every champion is scored the same way: registered as a new miner on its campaign's data cutoff, then
+run for the next 30 days on the prompts the validator actually sent, through the validator's own
+aggregation.
+
 <!-- LEADERBOARD:BEGIN -->
 
-| Model                  | Campaign   | Score      | Mean final rank | Spend           |
-| ---------------------- | ---------- | ---------- | --------------- | --------------- |
-| claude-opus-5-5        | campaign-4 | **48.1**   | 50.7            | 2.0 h / $8.10   |
-| claude-opus-5          | campaign-2 | **39.8**   | 31.7            | 3.8 h / $25.67  |
-| gpt-6-astra            | campaign-4 | **32.4**   | 68.3            | 0.8 h / $18.32  |
-| gpt-6-astra            | campaign-3 | **30.4**   | 104.3           | 3.2 h / $93.60  |
-| gpt-5                  | campaign-2 | **8.3**    | 202.7           | —               |
-| claude-fable-5-1       | campaign-3 | **8.1**    | 169.3           | 2.9 h / $58.55  |
-| claude-opus-5          | campaign-4 | **7.6**    | 211.7           | 12.2 h / $86.68 |
-| gemini-3.1-pro-preview | campaign-1 | **6.7** \* | 206.3           | —               |
-| glm-5.2                | campaign-1 | **6.6** \* | 207.7           | 2.4 h / $5.78   |
-| gemini-3.1-pro-preview | campaign-2 | **6.6**    | 195             | —               |
-| gpt-6-sol              | campaign-4 | **4.1**    | 192.3           | 15.4 h / $4.72  |
-| kimi-k3                | campaign-1 | **2.1** \* | 197.7           | 2.4 h / $4.96   |
-| gpt-5.6-sol            | campaign-3 | **0.4**    | 250.7           | 4.3 h / $23.55  |
-| gemini-3.8-flash       | campaign-3 | **0.1**    | 256             | 0.3 h / $1.51   |
+| Model                  | Campaign   | Window             | Score    | crypto-1h | crypto-24h | com-equ-24h | Spend           |
+| ---------------------- | ---------- | ------------------ | -------- | --------- | ---------- | ----------- | --------------- |
+| claude-opus-5          | campaign-2 | 2026-07-27 → 08-26 | **33.5** | 106       | 91         | 169         | 3.8 h / $25.67  |
+| claude-opus-5-5        | campaign-4 | 2026-09-14 → 10-14 | **29**   | 146       | 199        | 105         | 2.0 h / $8.10   |
+| gpt-6-astra            | campaign-4 | 2026-09-14 → 10-14 | **21.4** | 149       | 156        | 200         | 0.8 h / $18.32  |
+| claude-fable-5-1       | campaign-3 | 2026-08-29 → 09-28 | **13.5** | 144       | 180        | 182         | 2.9 h / $58.55  |
+| gpt-6-astra            | campaign-3 | 2026-08-29 → 09-28 | **11.6** | 164       | 149        | 211         | 3.2 h / $93.60  |
+| gemini-3.1-pro-preview | campaign-2 | 2026-07-27 → 08-26 | **6.4**  | 198       | 243        | 197         | —               |
+| gpt-5                  | campaign-2 | 2026-07-27 → 08-26 | **5.4**  | 198       | 252        | 198         | —               |
+| claude-opus-5          | campaign-4 | 2026-09-14 → 10-14 | **4.9**  | 230       | 220        | 231         | 12.2 h / $86.68 |
+| gpt-6-sol              | campaign-4 | 2026-09-14 → 10-14 | **3.5**  | 236       | 214        | 240         | 15.4 h / $4.72  |
+| gpt-5.6-sol            | campaign-3 | 2026-08-29 → 09-28 | **0.5**  | 240       | 249        | 245         | 4.3 h / $23.55  |
+| gemini-3.8-flash       | campaign-3 | 2026-08-29 → 09-28 | **0.1**  | 251       | 250        | 246         | 0.3 h / $1.51   |
 
 Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷
-the best other miner's) — see [docs/scoring.md](docs/scoring.md).
+the best other miner's) — see [docs/scoring.md](docs/scoring.md). Each competition column is the
+champion's mean rank over the window's scoring rounds, in a field of up to 257 miners.
 One row per champion: a model that entered more than one campaign has a row for each.
-Mean final rank averages the three competitions' final-round ranks — not the μ figures below,
-which average over rounds within one competition. Spend is wall time and credits from the
-leg's own budget file, against an envelope of $100 and 18 h (24 h in campaign-1); a leg that
-was restarted reports only its final attempt.
-
-### Where each champion placed
-
-| Model                  | Campaign      | Start      | End        | crypto-1h              | crypto-24h             | com-equ-24h            |
-| ---------------------- | ------------- | ---------- | ---------- | ---------------------- | ---------------------- | ---------------------- |
-| claude-opus-5-5        | campaign-4    | 2026-09-15 | 2026-09-25 | μ93.7 (final 81/257)   | μ111.7 (final 70/256)  | μ1.1 (final 1/256)     |
-| claude-opus-5          | campaign-2    | 2026-07-28 | 2026-08-07 | μ73.3 (final 9/257)    | μ60.2 (final 2/256)    | μ67.6 (final 84/167)   |
-| gpt-6-astra            | campaign-4    | 2026-09-15 | 2026-09-25 | μ49.6 (final 36/257)   | μ46.9 (final 22/256)   | μ138.8 (final 147/256) |
-| gpt-6-astra            | campaign-3    | 2026-08-30 | 2026-09-09 | μ104 (final 68/257)    | μ24.5 (final 46/257)   | μ173.8 (final 199/257) |
-| gpt-5                  | campaign-2    | 2026-07-28 | 2026-08-07 | μ165.7 (final 189/257) | μ253.1 (final 254/256) | μ211 (final 165/167)   |
-| claude-fable-5-1       | campaign-3    | 2026-08-30 | 2026-09-09 | μ178.2 (final 192/257) | μ150.8 (final 165/257) | μ165.4 (final 151/257) |
-| claude-opus-5          | campaign-4    | 2026-09-15 | 2026-09-25 | μ204.7 (final 234/257) | μ136.1 (final 178/256) | μ213 (final 223/256)   |
-| gemini-3.1-pro-preview | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ182.5 (final 196/257) | μ239 (final 238/257)   | μ204.9 (final 185/191) |
-| glm-5.2                | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ185.3 (final 195/257) | μ246.4 (final 243/257) | μ211.8 (final 185/191) |
-| gemini-3.1-pro-preview | campaign-2    | 2026-07-28 | 2026-08-07 | μ177.5 (final 198/257) | μ237.3 (final 222/256) | μ209.2 (final 165/167) |
-| gpt-6-sol              | campaign-4    | 2026-09-15 | 2026-09-25 | μ234.8 (final 232/257) | μ100.5 (final 111/256) | μ220.9 (final 234/256) |
-| kimi-k3                | campaign-1 \* | 2026-07-28 | 2026-08-07 | μ203.4 (final 185/257) | μ235.3 (final 231/257) | μ193.8 (final 177/191) |
-| gpt-5.6-sol            | campaign-3    | 2026-08-30 | 2026-09-09 | μ239.8 (final 241/257) | μ250.8 (final 256/257) | μ251.8 (final 255/257) |
-| gemini-3.8-flash       | campaign-3    | 2026-08-30 | 2026-09-09 | μ251 (final 257/257)   | μ253.3 (final 256/257) | μ252.4 (final 255/257) |
-
-Start and End bound the verdict window: the forward, out-of-sample period the champion was
-scored over, which begins the day after its campaign's data cutoff. Two ranks are comparable
-only where the dates match. Unmarked rows were scored at the start times the validator actually
-scored, on the corrected replay of its moving average. Each cell is the MEAN rank over that
-window's scoring rounds, with the final round in parentheses out of the field it faced. The
-Score sums reward weight over every round, so the mean is what it corresponds to; the mean
-carries no denominator because the field size shown is the final round's, and the field was
-larger earlier in the window.
-
-\* not scored by the current harness: its verdict records no synth-lib revision, or answered
-an even grid of start times instead of the validator's. It may also predate the generation
-lead-in, which had been charging the candidate a horizon of worst-score rounds it was never
-given the chance to answer, uniform realized truth, without which missing minutes in the
-operator's price store shrank the CRPS sum and flattered the champion, or the corrected replay
-of the validator's moving average. They pull in different directions and none is
-uniform across champions, so a marked row is not comparable to an unmarked one, and the
-ordering between them is unreliable rather than merely optimistic or conservative.
+Spend is wall time and credits from the leg's own budget file, out of its campaign's envelope; a
+restarted leg reports only its final attempt.
 
 <!-- LEADERBOARD:END -->
 
-Generated with `synth-bench-leaderboard --all-legs --write README.md` from each leg's `lead-in-2`
-verdict; every number is read from an archived verdict, never typed by hand. `--tag <name>` renders
-another window instead.
+Generated with `synth-bench-leaderboard --tag cutoff-30d --all-legs --write README.md` from each
+leg's `cutoff-30d` verdict; every number is read from an archived verdict, never typed by hand.
 
 ## Why this benchmark is hard to fake
 
@@ -94,7 +55,7 @@ another window instead.
 - **It cannot be trained for.** Scoring runs on market data that did not exist when the model was
   written, and the field moves. There is no answer key to memorise and no static set to overfit.
 - **It is ongoing.** Every campaign is scored on a fresh window, so a result is a claim about a
-  specific ten days that anyone can re-verify.
+  specific month that anyone can re-verify.
 - **The skill transfers.** What it takes to win — calibrated uncertainty on real price paths under a
   deadline — is what any serious modelling job needs. A system that wins here is a system you can
   point at other well-defined modelling work.
@@ -157,16 +118,14 @@ needs a GPU-capable box, provider keys and a few hundred dollars; a `cli: fake` 
 
 ## Caveats worth reading before quoting a number
 
-- **The field is alive.** Scores are relative to whoever was mining that week; only legs scored on the
-  _same_ window compare cleanly. The table above mixes three: campaign-4 was scored on 2026-09-15 →
-  09-25, campaign-3 on 08-30 → 09-09, campaign-1 and campaign-2 on 07-28 → 08-07. Rows from different
-  windows are not a head-to-head, even for the same model.
-- **Windows are short.** Ten days of scoring rounds; per-asset ranks are noisier than they look.
-- **campaign-2 was rescored from its published trees.** Its workspace bundles were not kept, so each
-  champion was rebuilt from its leg directory as a one-commit workspace; that commit is the
-  `champion_sha` its verdict records, not the nominated one in `CHAMPION`. Its champions predate
-  the minute OHLCV context, so the rebuilt workspaces hand `simulate()` the Series of minute closes
-  they were written for; gpt-5's and gemini's without the empty minutes, which they cannot take.
+- **Three windows.** Scores are relative to whoever was mining that month: campaign-2 is scored on
+  2026-07-27 → 08-26, campaign-3 on 08-29 → 09-28 and campaign-4 on 09-14 → 10-14, so only rows from
+  the same campaign are a head-to-head, even for the same model.
+- **Pseudo-out-of-sample.** A window starts on its campaign's data cutoff, the last day of the
+  agents' price snapshot, and the agents could query the live field's API while they worked.
+- **campaign-2 is scored from rebuilt workspaces.** Its original workspaces were not kept, so each
+  champion was rebuilt from its leg directory as one commit (the `champion_sha` its verdict records,
+  not the one in `CHAMPION`), fed the minute closes it was written for.
 - **One box, sequential legs.** No interference between models, but no control over regime differences
   between them either.
 - Constitutions, journals and reports are published **verbatim**, as the agents received and wrote

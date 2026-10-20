@@ -65,10 +65,10 @@ def test_model_label_strips_alias_decoration():
     assert model_label("gateway-gpt-6-astra") == "gpt-6-astra"
 
 
-def test_competition_cell_leads_with_the_mean_rank():
+def test_competition_cell_is_the_mean_rank():
     """The Score sums reward weight over every round, so the mean is its companion, not one round."""
     per = {"crypto-1h": {"rank": 7, "field_size": 250, "rank_over_rounds": {"mean_rank": 11.5}}}
-    assert competition_cell(per, "crypto-1h") == "μ11.5 (final 7/250)"
+    assert competition_cell(per, "crypto-1h") == "12"
     assert competition_cell(per, "missing") == "—"
     assert competition_cell({"x": {"rank": None}}, "x") == "n/a"
     # A verdict predating rank_over_rounds still renders, with the only rank it has.
@@ -92,10 +92,10 @@ def test_render_marks_pending_and_no_champion(tmp_path):
     _leg(tmp_path, "camp", "failed", champion=False)
 
     table = _squash(render(tmp_path, tag=None))
-    assert "| **30.1** |" in table and "μ11.5 (final 7/250)" in table
+    assert "| **30.1** | 12 | 190 | n/a | 3.5 h / $12.34 |" in table
     assert "pending" in table and "no champion" in table
     assert table.count("|") > 20  # a table, not a stub
-    assert "Spend" in table and "3.5 h / $12.34" in table
+    assert "in a field of up to 250 miners" in table
 
 
 def test_spend_is_absent_rather_than_wrong(tmp_path):
@@ -138,10 +138,10 @@ def test_one_row_per_model_keeps_its_best_score(tmp_path):
     kept = best_per_model(rows(tmp_path, tag=None))
     assert [(r["campaign"], r["score"]) for r in kept] == [("camp-b", 8.1)]
 
-    scores, ranks = _squash(render(tmp_path, tag=None)).split("### Where each champion placed")
-    assert scores.count("| some-model-5 |") == 1 and ranks.count("| some-model-5 |") == 1
-    assert "8.1" in scores and "6.7" not in scores
-    assert "One row per model" in scores
+    table = _squash(render(tmp_path, tag=None))
+    assert table.count("| some-model-5 |") == 1
+    assert "8.1" in table and "6.7" not in table
+    assert "One row per model" in table
 
 
 def test_all_legs_shows_every_champion(tmp_path):
@@ -162,23 +162,22 @@ def test_a_pending_leg_never_displaces_a_scored_one(tmp_path):
     assert "pending" not in render(tmp_path, tag=None)
 
 
-def test_ranks_move_to_their_own_table_with_the_window(tmp_path):
+def test_each_row_carries_the_window_it_was_scored_over(tmp_path):
     """A rank means nothing without the window it was measured over, and the campaigns differ."""
     _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)
-
-    scores, ranks = _squash(render(tmp_path, tag=None)).split("### Where each champion placed")
-    assert "Spend" in scores and "crypto-1h" not in scores
-    assert "| 2026-07-28 | 2026-08-07 |" in ranks
-    assert "μ11.5 (final 7/250)" in ranks and "μ190 (final 200/250)" in ranks
+    assert "| camp | 2026-07-28 → 08-07 | **30.1** | 12 | 190 |" in _squash(render(tmp_path, tag=None))
 
 
-def test_a_fallback_row_is_marked_in_both_tables(tmp_path):
-    """The corrections moved ranks as well as Scores, so the mark has to follow the rows."""
-    _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)  # verdict.json only
+def test_a_tag_lists_only_the_legs_scored_under_it(tmp_path):
+    """A leaderboard compares one way of scoring: a leg without the tagged verdict is left out, not
+    filled in from another window."""
+    _leg(tmp_path, "camp", "untagged", score=30.1, mean_rank=78)  # verdict.json only
+    tagged = _leg(tmp_path, "camp", "tagged", score=4.2, mean_rank=180)
+    (tagged / "verdict-cutoff-30d").mkdir()
+    (tagged / "verdict-cutoff-30d" / "verdict.json").write_text((tagged / "verdict.json").read_text())
 
-    scores, ranks = _squash(render(tmp_path, tag="lead-in-2")).split("### Where each champion placed")
-    assert "**30.1** \\*" in scores
-    assert "| camp \\* |" in ranks
+    assert [r["leg"] for r in rows(tmp_path, tag="cutoff-30d")] == ["tagged"]
+    assert "30.1" not in render(tmp_path, tag="cutoff-30d")
 
 
 @pytest.mark.parametrize(
@@ -190,22 +189,22 @@ def test_a_verdict_not_scored_by_the_current_harness_is_marked(tmp_path, verdict
     v = json.loads((d / "verdict.json").read_text())
     (d / "verdict.json").write_text(json.dumps({**v, **verdict}))
 
-    scores, ranks = _squash(render(tmp_path, tag=None)).split("### Where each champion placed")
-    assert "**30.1** \\*" in scores and "| camp \\* |" in ranks
+    table = _squash(render(tmp_path, tag=None))
+    assert "**30.1** \\*" in table and "\\* not scored by the current harness" in table
 
 
 def test_a_current_verdict_is_not_marked(tmp_path):
+    """Nothing marked, nothing to explain: the footnote only comes with a marked row."""
     _leg(tmp_path, "camp", "leg", score=30.1, mean_rank=78)
-    assert "\\*" not in render(tmp_path, tag=None).split("\n\n\\*")[0]
+    assert "\\*" not in render(tmp_path, tag=None)
 
 
-def test_both_tables_are_padded_to_their_widest_cell(tmp_path):
+def test_the_table_is_padded_to_its_widest_cell(tmp_path):
     _leg(tmp_path, "camp", "short", score=3.0, mean_rank=7)
     _leg(tmp_path, "another-campaign", "a-much-longer-leg-name", score=30.1, mean_rank=78)
-    for part in render(tmp_path, tag=None).split("### Where each champion placed"):
-        lines = [line for line in part.splitlines() if line.startswith("|")]
-        assert len({len(line) for line in lines}) == 1, lines
-        assert lines[1].startswith("| ---") and set(lines[1]) <= {"|", " ", "-"}
+    lines = [line for line in render(tmp_path, tag=None).splitlines() if line.startswith("|")]
+    assert len({len(line) for line in lines}) == 1, lines
+    assert lines[1].startswith("| ---") and set(lines[1]) <= {"|", " ", "-"}
 
 
 def test_write_leaves_a_blank_line_inside_each_marker(tmp_path, monkeypatch):
