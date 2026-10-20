@@ -4,8 +4,7 @@ The published table is generated, never hand-maintained: every number comes from
 `campaign_results/<campaign>/<leg>/verdict*.json` written by the scoring runner. A hand-written table
 drifts from the verdicts within one campaign; this cannot.
 
-Two tables come out of one pass over the same rows: what each champion earned, and where it placed.
-They share Model + Campaign as their key.
+One table: what each champion earned, where it placed, and the window it was scored over.
 
     synth-bench-leaderboard                    # markdown to stdout, from the canonical verdicts
     synth-bench-leaderboard --tag <name>       # another window instead of the canonical one
@@ -22,8 +21,7 @@ from pathlib import Path
 BEGIN = "<!-- LEADERBOARD:BEGIN -->"
 END = "<!-- LEADERBOARD:END -->"
 
-# The tag the canonical verdicts are written under; a leg without one falls back to its untagged
-# verdict, marked.
+# The tag the canonical verdicts are written under.
 CANONICAL_TAG = "lead-in-2"
 
 COMPETITIONS = ("crypto-1h", "crypto-24h", "com-equ-24h")
@@ -34,9 +32,9 @@ COMPETITIONS = ("crypto-1h", "crypto-24h", "com-equ-24h")
 # uses and its Score is not the Score.
 RETIRED_ASSETS = {"SPYX": "2026-07-23"}
 
-# Marks a row its verdict does not show scored by the current harness (see `current`). It is
-# appended in both tables and explained once, after them.
-FALLBACK_MARK = " \\*"
+# Marks a row its verdict does not show scored by the current harness (see `current`), explained
+# once after the table.
+MARK = " \\*"
 
 
 def model_label(alias: str) -> str:
@@ -87,35 +85,31 @@ def verdict_path(leg_dir: Path, tag: str | None) -> Path | None:
 
 
 def rows(results_dir: Path, tag: str | None) -> list[dict]:
-    """One row per leg. With a tag, a leg that has no tagged verdict falls back to its canonical
-    one. A row is marked when it fell back or its verdict is not `current`, so a partially rescored
-    archive still renders — visibly mixed, not silently."""
+    """One row per leg. With a tag, only the legs scored under it: a leaderboard compares one way of
+    scoring, so a leg without that verdict is left out rather than filled in from another window. A
+    row is marked when its verdict is not `current`."""
     out: list[dict] = []
     for campaign_dir in sorted(p for p in results_dir.iterdir() if p.is_dir()):
         for leg_dir in sorted(p for p in campaign_dir.iterdir() if p.is_dir() and p.name != "baselines"):
-            champion = (leg_dir / "CHAMPION").exists()
             verdict = verdict_path(leg_dir, tag)
-            fallback = bool(tag) and verdict is None and verdict_path(leg_dir, None) is not None
-            if fallback:
-                verdict = verdict_path(leg_dir, None)
+            if tag and verdict is None:
+                continue
             row = {
                 "campaign": campaign_dir.name,
                 "leg": leg_dir.name,
                 "model": model_of(leg_dir, campaign_dir),
-                "landed": champion,
-                "fallback": fallback,
+                "landed": (leg_dir / "CHAMPION").exists(),
             }
             if verdict is not None:
                 data = json.loads(verdict.read_text())
                 window = data.get("window") or {}
                 row["score"] = data.get("score")
-                row["mean_rank"] = data.get("mean_competition_rank")
                 row["per_competition"] = data.get("per_competition") or {}
                 row["window_start"] = window.get("start", "")
                 row["window_end"] = window.get("end", "")
-                row["marked"] = fallback or not current(data)
+                row["marked"] = not current(data)
             else:
-                row["score"] = row["mean_rank"] = None
+                row["score"] = None
                 row["per_competition"] = {}
                 row["window_start"] = row["window_end"] = ""
                 row["marked"] = False
@@ -158,24 +152,19 @@ def blocking_failures(row: dict) -> list[str]:
 
 
 def competition_cell(per_competition: dict, slug: str) -> str:
-    """Mean rank over the window's scoring rounds, with the final round in parentheses.
-
-    The mean leads because the Score does: reward weight is summed over every round, so a single
-    round's rank is the wrong companion to it — and on a 10-day window that is one draw out of a
-    few hundred."""
+    """Mean rank over the window's scoring rounds. The Score sums reward weight over every round, so
+    a single round's rank is the wrong companion to it. A verdict that predates the per-round ranks
+    shows its final rank, out of the final field."""
     entry = per_competition.get(slug)
     if not entry:
         return "—"
-    rank, size = entry.get("rank"), entry.get("field_size")
     mean = (entry.get("rank_over_rounds") or {}).get("mean_rank")
-    if rank is None and mean is None:
+    if mean is not None:
+        return f"{mean:.0f}"
+    rank, size = entry.get("rank"), entry.get("field_size")
+    if rank is None:
         return "n/a"
-    if mean is None:
-        return f"{rank}/{size}" if size else str(rank)
-    # The mean carries no denominator: field_size is the FINAL round's, and a mean taken while the
-    # field was larger can exceed it — campaign-1 and -2 show means above their 191.
-    final = f"{rank}/{size}" if size else f"{rank}"
-    return f"μ{mean:g} (final {final})" if rank is not None else f"μ{mean:g}"
+    return f"{rank}/{size}" if size else str(rank)
 
 
 def budget(leg_dir: Path) -> str:
@@ -198,58 +187,39 @@ def budget(leg_dir: Path) -> str:
     return f"{hours.group(1)} h / ${spend.group(1)}"
 
 
-def render_scores(data: list[dict], results_dir: Path, all_legs: bool) -> str:
-    """What each champion earned."""
-    cells = [["Model", "Campaign", "Score", "Mean final rank", "Spend"]]
+def render_table(data: list[dict], results_dir: Path, all_legs: bool) -> str:
+    """What each champion earned, where it placed, and over which window."""
+    cells = [["Model", "Campaign", "Window", "Score", *COMPETITIONS, "Spend"]]
     for r in data:
         score = f"**{r['score']:g}**" if r["score"] is not None else ("pending" if r["landed"] else "no champion")
         if r["marked"]:
-            score += FALLBACK_MARK
-        mean_rank = f"{r['mean_rank']:g}" if r["mean_rank"] is not None else "—"
-        cells.append([r["model"], r["campaign"], score, mean_rank, budget(results_dir / r["campaign"] / r["leg"])])
-    lines = table(cells)
+            score += MARK
+        cells.append(
+            [
+                r["model"],
+                r["campaign"],
+                f"{r['window_start']} → {r['window_end'][5:]}" if r["window_start"] else "—",
+                score,
+                *(competition_cell(r["per_competition"], slug) for slug in COMPETITIONS),
+                budget(results_dir / r["campaign"] / r["leg"]),
+            ]
+        )
+    largest = max((e.get("field_size") or 0 for r in data for e in r["per_competition"].values() if e), default=0)
+    field = f", in a field of up to {largest} miners" if largest else ""
     selection = (
         "One row per champion: a model that entered more than one campaign has a row for each."
         if all_legs
         else "One row per model: its best Score, and the campaign that produced it."
     )
-    lines += [
-        "",
-        "Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷",
-        "the best other miner's) — see [docs/scoring.md](docs/scoring.md).",
-        selection,
-        "Mean final rank averages the three competitions' final-round ranks — not the μ figures below,",
-        "which average over rounds within one competition. Spend is wall time and credits from the",
-        "leg's own budget file, against an envelope of $100 and 18 h (24 h in campaign-1); a leg that",
-        "was restarted reports only its final attempt.",
-    ]
-    return "\n".join(lines)
-
-
-def render_ranks(data: list[dict]) -> str:
-    """Where each champion placed, and over which window."""
-    cells = [["Model", "Campaign", "Start", "End", *COMPETITIONS]]
-    for r in data:
-        cells.append(
-            [
-                r["model"],
-                r["campaign"] + (FALLBACK_MARK if r["marked"] else ""),
-                r["window_start"] or "—",
-                r["window_end"] or "—",
-                *(competition_cell(r["per_competition"], slug) for slug in COMPETITIONS),
-            ]
-        )
     lines = table(cells)
     lines += [
         "",
-        "Start and End bound the verdict window: the forward, out-of-sample period the champion was",
-        "scored over, which begins the day after its campaign's data cutoff. Two ranks are comparable",
-        "only where the dates match. Unmarked rows were scored at the start times the validator actually",
-        "scored, on the corrected replay of its moving average. Each cell is the MEAN rank over that",
-        "window's scoring rounds, with the final round in parentheses out of the field it faced. The",
-        "Score sums reward weight over every round, so the mean is what it corresponds to; the mean",
-        "carries no denominator because the field size shown is the final round's, and the field was",
-        "larger earlier in the window.",
+        "Score = 100 × mean over the three competitions of min(1, the champion's simulated emissions ÷",
+        "the best other miner's) — see [docs/scoring.md](docs/scoring.md). Each competition column is the",
+        f"champion's mean rank over the window's scoring rounds{field}.",
+        selection,
+        "Spend is wall time and credits from the leg's own budget file, out of its campaign's envelope; a",
+        "restarted leg reports only its final attempt.",
     ]
     return "\n".join(lines)
 
@@ -267,13 +237,9 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
             "refusing to render: a champion was scored on fewer assets than the competition has, "
             "so its Score is not comparable to a complete one.\n  " + "\n  ".join(blocked)
         )
-    return "\n".join(
-        [
-            render_scores(data, results_dir, all_legs),
-            "",
-            "### Where each champion placed",
-            "",
-            render_ranks(data),
+    lines = [render_table(data, results_dir, all_legs)]
+    if any(r["marked"] for r in data):
+        lines += [
             "",
             "\\* not scored by the current harness: its verdict records no synth-lib revision, or answered",
             "an even grid of start times instead of the validator's. It may also predate the generation",
@@ -284,7 +250,7 @@ def render(results_dir: Path, tag: str | None, all_legs: bool = False) -> str:
             "uniform across champions, so a marked row is not comparable to an unmarked one, and the",
             "ordering between them is unreliable rather than merely optimistic or conservative.",
         ]
-    )
+    return "\n".join(lines)
 
 
 def main() -> None:
