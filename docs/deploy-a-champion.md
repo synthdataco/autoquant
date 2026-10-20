@@ -71,6 +71,12 @@ The miner warms up from the venues, starts a background refresh thread, and serv
 asset that has a live venue. Retired-feed assets are refused loudly rather than served from a dead
 source — a crash you can see beats a silently wrong fan.
 
+A second thread refreshes the event calendar at startup and daily into `market_data/calendar/`, and
+points the champion at it through `SYNTH_BENCHMARK_CALENDAR`, as in its campaign. Set
+`FRED_API_KEY` in the miner's environment. Without it the US macro releases are missing from the
+live calendar, a champion that reads them serves without them, and the miner logs a warning at
+each refresh.
+
 There are **no defensive guards** on the request path: a data hole or an exploding path fails the
 request instead of quietly degrading, so your monitoring sees it.
 

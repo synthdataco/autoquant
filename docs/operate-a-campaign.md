@@ -202,6 +202,9 @@ for leg in "$D"/*/; do
 done
 cp campaign_runs/$C/campaign.yaml "$D/campaign.yaml"
 cp campaign_runs/$C/snapshot/manifest.json "$D/snapshot-manifest.json"
+# the event calendar the agents saw, frozen at the cutoff: the verdict hands it to each champion
+[ -f campaign_runs/$C/snapshot/calendar/events.parquet ] && mkdir -p "$D/calendar" \
+  && cp campaign_runs/$C/snapshot/calendar/events.parquet "$D/calendar/events.parquet"
 uv run python -c "
 import json
 s = json.load(open('campaign_runs/$C/state.json'))
