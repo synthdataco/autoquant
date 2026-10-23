@@ -1,0 +1,4 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "random_seed11", "--model", "research_model", "--workers", "2", "--assets", "BTC", "SOL", "SP500", "AAPLX", "--seed", "11", "--config", "{\"seasonal\": true}"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "sobol_seed11", "--model", "research_model", "--workers", "2", "--assets", "BTC", "SOL", "SP500", "AAPLX", "--seed", "11", "--config", "{\"seasonal\": true, \"sampler\": \"sobol\"}"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "random_seed37", "--model", "research_model", "--workers", "2", "--assets", "BTC", "SOL", "SP500", "AAPLX", "--seed", "37", "--config", "{\"seasonal\": true}"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "sobol_seed37", "--model", "research_model", "--workers", "2", "--assets", "BTC", "SOL", "SP500", "AAPLX", "--seed", "37", "--config", "{\"seasonal\": true, \"sampler\": \"sobol\"}"], "exit": 0}

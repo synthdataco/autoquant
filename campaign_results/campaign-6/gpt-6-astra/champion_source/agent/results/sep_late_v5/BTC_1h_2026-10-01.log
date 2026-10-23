@@ -1,0 +1,16 @@
+generation seconds/prompt: 0.0248
+predictions generated: 1152
+  [crypto-1h/BTC] fetching scored prompts (2026-09-23 → 2026-10-01)...
+  [crypto-1h/BTC] 294912 score rows (1152 prompts) in 0.2s
+  [crypto-1h/BTC] fetching rewards history (prompt_name=crypto-1h)...
+  [crypto-1h/BTC] 907042 rewards rows (3544 update rounds) in 0.6s
+  [crypto-1h/BTC] scoring 1152 prompts against local predictions...
+  [crypto-1h/BTC] scored 1152 prompts in 23.3s
+  [crypto-1h/BTC] computing smoothed scores over 1133 reward rounds...
+  [crypto-1h/BTC] smoothed scores done in 85.8s (total backtest: 111.4s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 1152, 'mean_crps': 534.9371099949985, 'final_smoothed_score': 23.20498366927286, 'realized_points_expected': 70272, 'realized_points_scored': 70272, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event           1140 prompts  gap +5.52%
+  GDP                   6 prompts  gap +3.28%
+  PCE                   6 prompts  gap +3.28%
+  RETAIL_SALES          6 prompts  gap +5.50%

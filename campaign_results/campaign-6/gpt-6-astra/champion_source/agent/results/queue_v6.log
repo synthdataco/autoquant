@@ -1,0 +1,3 @@
+{"cmd": ["uv", "run", "agent/fit_seasonality.py", "--bin-minutes", "10", "--parent", "agent/seasonality_sep14.json", "--start", "2026-06-14", "--end", "2026-09-14", "--output", "agent/seasonality_sep14_fine.json"], "exit": 0}
+{"cmd": ["uv", "run", "agent/fit_seasonality.py", "--bin-minutes", "10", "--parent", "agent/seasonality_oct05.json", "--start", "2026-07-05", "--end", "2026-10-05", "--output", "agent/seasonality_oct05_fine.json"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "candidate_v6_float32", "--model", "candidate_v6", "--prediction-dtype", "float32", "--days", "10", "--ends", "2026-09-19", "2026-10-11", "--assets", "XAU", "NVDAX", "GOOGLX", "TSLAX", "AAPLX", "WTIOIL", "SPCX", "SP500", "--formats", "24h", "--workers", "2"], "exit": 0}

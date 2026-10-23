@@ -1,0 +1,10 @@
+BTC 11327
+ETH 11327
+SOL 11327
+XRP 11327
+HYPE 11291
+memory proxy MSE 0.10888 vs 0.11935 rough CRPS gain bound 0.262 %
+range proxy MSE 0.112687 vs 0.11935 rough CRPS gain bound 0.167 %
+volume proxy MSE 0.108974 vs 0.11935 rough CRPS gain bound 0.259 %
+leverage proxy MSE 0.11982 vs 0.11935 rough CRPS gain bound 0.0 %
+all proxy MSE 0.101609 vs 0.11935 rough CRPS gain bound 0.444 %

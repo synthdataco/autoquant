@@ -1,0 +1,12 @@
+{
+  "asset": "XRP",
+  "original_origins": 728,
+  "complete_reference_origins": 728,
+  "excluded_missing_reference": 0,
+  "seed": 20261011,
+  "paths": 1000,
+  "prediction_dtype": "float32",
+  "source_sha256": "91f9097aa6863af524d897f0502886e491f0ed695a8014ca88540063b7616c4f",
+  "training_profile_available": "2026-04-01",
+  "label_end_exclusive": "2026-07-01"
+}

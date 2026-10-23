@@ -1,0 +1,25 @@
+Resolved 186 packages in 738ms
+Downloading hf-xet (4.0MiB)
+Downloading tokenizers (3.2MiB)
+Downloading transformers (12.2MiB)
+ Downloaded tokenizers
+ Downloaded hf-xet
+ Downloaded transformers
+Prepared 13 packages in 526ms
+warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+         If the cache and target directories are on different filesystems, hardlinking may not be supported.
+         If this is intentional, set `export UV_LINK_MODE=copy` or use `--link-mode=copy` to suppress this warning.
+Installed 13 packages in 575ms
+ + accelerate==1.15.0
+ + chronos-forecasting==2.3.2
+ + einops==0.8.2
+ + hf-xet==1.7.0
+ + httpcore2==2.16.0
+ + httpx2==2.16.0
+ + huggingface-hub==2.2.0
+ + psutil==7.2.2
+ + safetensors==0.8.0
+ + tokenizers==0.23.3
+ + tqdm==4.70.1
+ + transformers==5.20.2
+ + truststore==0.10.5

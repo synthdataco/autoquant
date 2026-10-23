@@ -1,0 +1,16 @@
+XAU masked scheduled-event return fraction 0.006162169636838194
+XAU weekend/weekday vol 0.563 intraday max/min vol 3.73 density 0.918
+NVDAX masked scheduled-event return fraction 0.005995112588045289
+NVDAX weekend/weekday vol 0.5 intraday max/min vol 6.04 density 0.937
+GOOGLX masked scheduled-event return fraction 0.0069733637149367485
+GOOGLX weekend/weekday vol 0.545 intraday max/min vol 5.9 density 0.852
+TSLAX masked scheduled-event return fraction 0.0066956207021353605
+TSLAX weekend/weekday vol 0.492 intraday max/min vol 7.33 density 0.873
+AAPLX masked scheduled-event return fraction 0.007918784039377435
+AAPLX weekend/weekday vol 0.561 intraday max/min vol 5.89 density 0.78
+WTIOIL masked scheduled-event return fraction 0.006366137696629646
+WTIOIL weekend/weekday vol 0.733 intraday max/min vol 2.69 density 0.989
+SPCX masked scheduled-event return fraction 0.005552483821479468
+SPCX weekend/weekday vol 0.44 intraday max/min vol 6.4 density 0.983
+SP500 masked scheduled-event return fraction 0.005481495148915233
+SP500 weekend/weekday vol 0.695 intraday max/min vol 4.42 density 0.99

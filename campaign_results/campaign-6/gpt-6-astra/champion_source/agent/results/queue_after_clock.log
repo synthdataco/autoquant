@@ -1,0 +1,4 @@
+{"cmd": ["uv", "run", "agent/fit_residual.py"], "exit": 0}
+{"cmd": ["uv", "run", "agent/analyze_events.py", "--fine"], "exit": 0}
+{"cmd": ["uv", "run", "agent/fit_events.py", "--fine"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "sobol", "--model", "research_model", "--workers", "2", "--config", "{\"seasonal\":true,\"sampler\":\"sobol\"}"], "exit": 0}

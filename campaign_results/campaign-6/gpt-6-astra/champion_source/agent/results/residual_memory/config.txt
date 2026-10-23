@@ -1,0 +1,1 @@
+{'seed': 20261011, 'config': '{"seasonal": true, "residual": "memory"}', 'tag': 'residual_memory', 'model': 'research_model', 'ends': ['2026-09-16', '2026-10-10'], 'days': 2, 'workers': 2, 'assets': ['BTC', 'ETH', 'SOL', 'XRP', 'HYPE'], 'formats': ['1h'], 'paths': 1000}

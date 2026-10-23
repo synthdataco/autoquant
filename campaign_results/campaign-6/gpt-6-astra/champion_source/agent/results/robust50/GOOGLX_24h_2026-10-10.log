@@ -1,0 +1,13 @@
+generation seconds/prompt: 0.0569
+predictions generated: 48
+  [com-equ-24h/GOOGLX] fetching scored prompts (2026-10-08 → 2026-10-10)...
+  [com-equ-24h/GOOGLX] 12288 score rows (48 prompts) in 0.1s
+  [com-equ-24h/GOOGLX] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/GOOGLX] 237251 rewards rows (931 update rounds) in 0.7s
+  [com-equ-24h/GOOGLX] scoring 48 prompts against local predictions...
+  [com-equ-24h/GOOGLX] scored 48 prompts in 1.4s
+  [com-equ-24h/GOOGLX] computing smoothed scores over 47 reward rounds...
+  [com-equ-24h/GOOGLX] smoothed scores done in 1.9s (total backtest: 4.3s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 48, 'mean_crps': 2052.2411708953036, 'final_smoothed_score': 66.64531793398791, 'realized_points_expected': 13872, 'realized_points_scored': 13872, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             48 prompts  gap +3.43%

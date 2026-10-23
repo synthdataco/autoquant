@@ -1,0 +1,1 @@
+{'config': '{"seasonal":true,"table":"seasonality_weekly.json"}', 'tag': 'weekly', 'model': 'research_model', 'ends': ['2026-09-16', '2026-10-10'], 'days': 2, 'workers': 2, 'assets': ['BTC', 'ETH', 'SOL', 'XRP', 'HYPE', 'XAU', 'NVDAX', 'GOOGLX', 'TSLAX', 'AAPLX', 'WTIOIL', 'SPCX', 'SP500'], 'formats': ['24h', '1h'], 'paths': 1000}

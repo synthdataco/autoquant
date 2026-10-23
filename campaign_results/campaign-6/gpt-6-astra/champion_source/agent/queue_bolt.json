@@ -1,0 +1,35 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "bolt_v9_full",
+      "--model",
+      "candidate_v9_research",
+      "--config",
+      "{\"bolt\":true}",
+      "--research",
+      "--cached-prompts",
+      "--prediction-dtype",
+      "float32",
+      "--days",
+      "10",
+      "--ends",
+      "2026-09-19",
+      "2026-10-11",
+      "--assets",
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP",
+      "HYPE",
+      "--formats",
+      "1h",
+      "--workers",
+      "4"
+    ],
+    "log": "agent/results/bolt_v9_full_suite.log"
+  }
+]

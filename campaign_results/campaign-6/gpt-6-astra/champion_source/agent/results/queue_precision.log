@@ -1,0 +1,2 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "baseline_float32", "--model", "baseline", "--prediction-dtype", "float32", "--days", "10", "--ends", "2026-09-19", "2026-10-11", "--workers", "2"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "candidate_v1_float32", "--model", "candidate_v1", "--prediction-dtype", "float32", "--days", "10", "--ends", "2026-09-19", "2026-10-11", "--workers", "2"], "exit": 0}

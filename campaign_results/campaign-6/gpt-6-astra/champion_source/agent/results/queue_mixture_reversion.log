@@ -1,0 +1,1 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "mixture_reversion", "--model", "research_model", "--config", "{\"seasonal\": true, \"mix\": 0.35, \"mix_scope\": \"non_crypto24h\", \"mix_revert\": true}", "--skip-crypto24h", "--workers", "2"], "exit": 0}

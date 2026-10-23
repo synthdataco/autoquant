@@ -1,0 +1,3 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "sep_late_baseline", "--model", "baseline", "--config", "{}", "--prediction-dtype", "float32", "--days", "8", "--ends", "2026-10-01", "--workers", "4"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "sep_late_v5", "--model", "candidate_v5", "--config", "{}", "--prediction-dtype", "float32", "--days", "8", "--ends", "2026-10-01", "--workers", "4"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "sep_late_scale95", "--model", "candidate_v5_research", "--config", "{\"scale\": 0.95}", "--prediction-dtype", "float32", "--days", "8", "--ends", "2026-10-01", "--workers", "4"], "exit": 0}

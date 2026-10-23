@@ -1,0 +1,6 @@
+{
+  "num_prompts": 248,
+  "mean_crps": 479.3910875623001,
+  "realized_coverage": 1.0,
+  "mode": "subset_of_existing_official_baseline_scores"
+}

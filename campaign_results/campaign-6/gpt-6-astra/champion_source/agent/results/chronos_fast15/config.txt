@@ -1,0 +1,1 @@
+{'cached_prompts': False, 'research': True, 'seed': 20261011, 'config': '{"seasonal":true,"fast_half":15,"chronos":true}', 'tag': 'chronos_fast15', 'model': 'research_model', 'ends': ['2026-09-16', '2026-10-10'], 'days': 2, 'workers': 1, 'assets': ['BTC', 'ETH', 'SOL', 'XRP', 'HYPE'], 'formats': ['1h'], 'paths': 1000}

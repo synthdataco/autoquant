@@ -196,5 +196,46 @@ model_list:
       input_cost_per_token: 0.00000075   # $0.75 / 1M
       output_cost_per_token: 0.00000375  # $3.75 / 1M
 
+  # Gemini 4 Argon, routed and priced like 3.8 Flash. Introductory rates, in force to 2026-11-30;
+  # they double on 2026-12-01 (ai.google.dev/gemini-api/docs/latest-model).
+  - model_name: gemini-4-argon
+    litellm_params:
+      model: gemini/gemini-4-argon
+      api_key: os.environ/GEMINI_API_KEY
+    model_info:
+      input_cost_per_token: 0.000002          # $2.00 / 1M
+      output_cost_per_token: 0.00001          # $10.00 / 1M
+      cache_read_input_token_cost: 0.0000001  # $0.10 / 1M
+
+  # Gemini 4 Argon for claude-code legs, through the Vercel AI Gateway's Anthropic Messages API
+  # (gateway id `google/gemini-4-argon`): the gateway, not LiteLLM, converts to Gemini, so the thought
+  # signature Gemini requires back on every tool call survives a client that keeps only Anthropic's
+  # fields. Prices as for gemini-4-argon.
+  - model_name: gateway-gemini-4-argon
+    litellm_params:
+      model: anthropic/google/gemini-4-argon
+      api_base: https://ai-gateway.vercel.sh
+      api_key: os.environ/AI_GATEWAY_API_KEY
+    model_info:
+      input_cost_per_token: 0.000002          # $2.00 / 1M
+      output_cost_per_token: 0.00001          # $10.00 / 1M
+      cache_read_input_token_cost: 0.0000001  # $0.10 / 1M
+
+  # Meta Muse Wonder via the Vercel AI Gateway (gateway id `meta/muse-wonder-1.0`), pinned to Meta's
+  # own hosting. Meta list prices, 2026-10 (dev.meta.ai/models/muse-wonder); the gateway adds no markup.
+  - model_name: muse-wonder-1.0
+    litellm_params:
+      model: openai/meta/muse-wonder-1.0
+      api_base: https://ai-gateway.vercel.sh/v1
+      api_key: os.environ/AI_GATEWAY_API_KEY
+      extra_body:
+        providerOptions:
+          gateway:
+            only: ["meta"]
+    model_info:
+      input_cost_per_token: 0.000004          # $4.00 / 1M
+      output_cost_per_token: 0.00002          # $20.00 / 1M
+      cache_read_input_token_cost: 0.0000002  # $0.20 / 1M
+
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

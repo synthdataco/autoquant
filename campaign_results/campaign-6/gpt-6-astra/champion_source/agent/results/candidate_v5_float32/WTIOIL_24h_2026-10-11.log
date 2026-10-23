@@ -1,0 +1,18 @@
+generation seconds/prompt: 0.0785
+predictions generated: 240
+  [com-equ-24h/WTIOIL] fetching scored prompts (2026-10-01 → 2026-10-11)...
+  [com-equ-24h/WTIOIL] 61440 score rows (240 prompts) in 0.1s
+  [com-equ-24h/WTIOIL] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/WTIOIL] 860586 rewards rows (3378 update rounds) in 0.9s
+  [com-equ-24h/WTIOIL] scoring 240 prompts against local predictions...
+  [com-equ-24h/WTIOIL] filled 41/41 price-gap prompts from validator realized paths
+  [com-equ-24h/WTIOIL] scored 240 prompts in 5.7s
+  [com-equ-24h/WTIOIL] computing smoothed scores over 240 reward rounds...
+  [com-equ-24h/WTIOIL] smoothed scores done in 12.7s (total backtest: 20.0s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 240, 'mean_crps': 3138.0698822384516, 'final_smoothed_score': 100.70659775762137, 'realized_points_expected': 69360, 'realized_points_scored': 69360, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event            179 prompts  gap +9.79%
+  EIA_PETROLEUM        38 prompts  gap +1.08%
+  GDP                  12 prompts  gap +1.56%
+  NFP                  23 prompts  gap +2.23%
+  PCE                  12 prompts  gap +1.56%

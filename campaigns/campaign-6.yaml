@@ -1,0 +1,47 @@
+name: campaign-6
+objective: >-
+  A calibration problem: build the price-simulation model with the lowest CRPS you can reach.
+  CRPS measures how well your predicted distribution matches what actually happened, and lower is
+  better. Your model must handle all three scoring configurations (CRYPTO_24H, COM_EQU_24H,
+  CRYPTO_1H) and is measured over the 10 days following your data cutoff. Judge every experiment
+  on CRPS; the constitution explains why the field-relative position is a poor target. Choose
+  your own research questions. Find something publishable — honest failures count too.
+# claude-fable-5-1 is not on this panel: its safety classifier declines the campaign prompt under
+# the `cyber` category, and the API then serves the turn from a fallback model. Routing is sticky
+# for about an hour, so the leg would keep running — spending its budget and landing a champion —
+# while measuring a model the panel never chose. Reworking the constitution (removing the
+# oversight-removal phrasing, adding the documented base64/binary rule) did not clear it.
+# campaign-3's fable-5-1 leg was verified genuine and still stands on the leaderboard.
+models:
+  - {id: opus-5-5, cli: claude-code, model: claude-opus-5-5-model}
+  - {id: gpt-6-astra, cli: codex, model: gpt-6-astra, wire_api: responses}
+  # The /gemini passthrough puts `model` in the URL path, so this must be the real Google id.
+  - {id: gemini-4-argon, cli: gemini-cli, model: gemini-4-argon}
+  # Planned, dropped during the run before it started: the same model on claude-code, through the
+  # Vercel AI Gateway's Anthropic API.
+  # - {id: gemini-4-argon-claude-code, cli: claude-code, model: gateway-gemini-4-argon}
+  - {id: muse-wonder, cli: claude-code, model: muse-wonder-1.0}
+# Unchanged since campaign-2 on purpose: the envelope is part of what is measured, and only legs
+# that ran the same one compare on the leaderboard.
+budget_usd_per_model: 100.0
+deadline_hours_per_model: 18
+# Snapshot window: full history per venue, one instrument per asset — Binance + HYPE from their
+# 2025-08-01 first trades, the Hyperliquid equity/commodity perps from each market's listing.
+data_start: 2025-08-01
+# RE-DERIVE AT LAUNCH: launch day minus 8. The verdict backtests the 10 days following the
+# cutoff, pre-registered in the constitution. Set for a 2026-10-19 launch; the verdict window is
+# then 2026-10-12 → 2026-10-22 and is settled from 2026-10-24.
+# Trade-off, accepted: the window already exists during the runs — the constitution's hard rule 1
+# therefore forbids querying ANY API for times after the cutoff (transcript-audited).
+data_cutoff: 2026-10-11
+forward_window_days: 10
+baselines:
+  - {name: synth_default}
+hardware: >-
+  GCP n1-standard-16: 16 vCPU / 60GB RAM / 1x NVIDIA T4 (16GB VRAM; Turing, no bf16). Your sandbox
+  gets 14 CPU, 48GB RAM and the GPU. torch is already in your pyproject — no need to add it
+proxy_url: http://localhost:4000
+gpu: true
+sandbox_memory_gb: 48
+sandbox_cpus: 14
+poll_seconds: 30

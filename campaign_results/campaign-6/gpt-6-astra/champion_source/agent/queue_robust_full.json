@@ -1,0 +1,34 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "robust_v3_full",
+      "--model",
+      "candidate_v3_research",
+      "--config",
+      "{\"robust\": 0.5}",
+      "--days",
+      "10",
+      "--ends",
+      "2026-09-19",
+      "2026-10-11",
+      "--assets",
+      "XAU",
+      "NVDAX",
+      "GOOGLX",
+      "TSLAX",
+      "AAPLX",
+      "WTIOIL",
+      "SPCX",
+      "SP500",
+      "--formats",
+      "24h",
+      "--workers",
+      "3"
+    ],
+    "log": "agent/results/robust_v3_full_suite.log"
+  }
+]

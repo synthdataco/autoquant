@@ -1,0 +1,51 @@
+{
+  "paths": 1000,
+  "prediction_dtype": "float32",
+  "latest_crypto_1h_formula": true,
+  "asset_window_cells": 36,
+  "cells_improved": 36,
+  "results": [
+    {
+      "end": "2026-09-19",
+      "configuration": "CRYPTO_24H",
+      "baseline": 4296.6726011839755,
+      "champion": 4201.615493712123,
+      "reduction_pct": 2.2123423470910786
+    },
+    {
+      "end": "2026-09-19",
+      "configuration": "COM_EQU_24H",
+      "baseline": 2316.02609579521,
+      "champion": 2080.2779124431827,
+      "reduction_pct": 10.178995123588319
+    },
+    {
+      "end": "2026-09-19",
+      "configuration": "CRYPTO_1H",
+      "baseline": 960.4265554608376,
+      "champion": 923.5471286320732,
+      "reduction_pct": 3.839900783570971
+    },
+    {
+      "end": "2026-10-11",
+      "configuration": "CRYPTO_24H",
+      "baseline": 3531.2042374016646,
+      "champion": 3406.1521811969333,
+      "reduction_pct": 3.541343060257185
+    },
+    {
+      "end": "2026-10-11",
+      "configuration": "COM_EQU_24H",
+      "baseline": 2065.411175118257,
+      "champion": 1783.6086387179394,
+      "reduction_pct": 13.643895210559354
+    },
+    {
+      "end": "2026-10-11",
+      "configuration": "CRYPTO_1H",
+      "baseline": 741.2317204428558,
+      "champion": 690.6868471205979,
+      "reduction_pct": 6.819038085965801
+    }
+  ]
+}

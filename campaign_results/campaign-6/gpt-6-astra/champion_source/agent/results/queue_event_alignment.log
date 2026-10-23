@@ -1,0 +1,1 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "stress_aligned", "--model", "research_model", "--days", "3", "--ends", "2026-09-13", "2026-09-19", "2026-10-05", "--workers", "4", "--config", "{\"seasonal\":true,\"events\":true,\"event_bar_alignment\":true}"], "exit": 0}

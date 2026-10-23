@@ -1,0 +1,18 @@
+generation seconds/prompt: 0.0452
+predictions generated: 240
+  [com-equ-24h/GOOGLX] fetching scored prompts (2026-09-09 → 2026-09-19)...
+  [com-equ-24h/GOOGLX] 61440 score rows (240 prompts) in 0.1s
+  [com-equ-24h/GOOGLX] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/GOOGLX] 1335548 rewards rows (5245 update rounds) in 0.8s
+  [com-equ-24h/GOOGLX] scoring 240 prompts against local predictions...
+  [com-equ-24h/GOOGLX] filled 240/240 price-gap prompts from validator realized paths
+  [com-equ-24h/GOOGLX] scored 240 prompts in 5.7s
+  [com-equ-24h/GOOGLX] computing smoothed scores over 240 reward rounds...
+  [com-equ-24h/GOOGLX] smoothed scores done in 7.8s (total backtest: 14.8s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 240, 'mean_crps': 1925.4891684209217, 'final_smoothed_score': 45.92397720612195, 'realized_points_expected': 69360, 'realized_points_scored': 69360, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event            163 prompts  gap +3.02%
+  CPI                  24 prompts  gap +2.61%
+  FOMC                 24 prompts  gap +0.85%
+  PPI                  24 prompts  gap +1.74%
+  RETAIL_SALES         24 prompts  gap +2.01%

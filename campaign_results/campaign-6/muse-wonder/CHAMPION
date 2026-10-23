@@ -1,0 +1,16 @@
+sha: 8050e9f7ecfe8b7e5bb43300af18a358948c8eb8
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  v7: seasonal stochastic-vol Student-t fan, zero drift. simulate() in agent/modeling.py;
+  seasonal profiles in agent/artifacts.json (fitted offline on the snapshot, NY-anchored
+  for the 8 COM_EQU assets); event vol multipliers read live from $SYNTH_BENCHMARK_CALENDAR.
+  Official backtester (agent/predict.py, 1000 paths, validator prompts, 3-day windows):
+    CRYPTO_24H  mean CRPS 3829 (end 2026-09-30) / 3648 (end 2026-10-11)  [width-0.95 cells,
+                agent/matrix_v6.log; champion's 24h width 0.90 measured equal or better]
+    COM_EQU_24H mean CRPS 1519 (Sep) / 1837 (Oct)                          [same note]
+    CRYPTO_1H   mean CRPS  894 (Sep) /  726 (Oct)  (--latest-formula; width identical)
+  Starter model (log-normal martingale) on the Sep window: BTC 24h 2329.4 vs champion
+  2155.1 (-7.5%), XAU 24h 1383.0 vs 1159.5 (-16.2%), BTC 1h 539.1 vs 509.0 (-5.6%).
+  Per-cell results: agent/matrix_v4..v6.log + width spot-check logs. profiles [low, high]
+  = both 24h and 1h served. Latency ~0.2 s per 1000-path prompt.

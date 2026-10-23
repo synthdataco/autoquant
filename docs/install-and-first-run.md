@@ -155,6 +155,35 @@ for SLUG in crypto-24h com-equ-24h crypto-1h; do
 done
 ```
 
+### Event calendar (before `setup`)
+
+Scheduled events — US macro releases, FOMC statements, NYSE closures, the EIA petroleum report,
+earnings of the companies behind the tokenised stocks — land in `market_data/calendar/`: a ledger of
+every date a fetch has seen, and when each was public. `setup` freezes what was known by the cutoff
+into the snapshot, upcoming dates included, so build it before `setup`:
+
+```bash
+FRED_API_KEY=<key> uv run python -m synth_lib.preparation.event_calendar.build --start <data_start>
+```
+
+The macro releases come from FRED and need its free API key; without it they are skipped, the rest
+still updates. Each source is merged on its own, and one that would drop more than one upcoming date
+is refused, as a truncated fetch rather than a schedule change (`--allow-losses` accepts it, as when
+a shutdown moves several releases at once).
+
+How often to run it is a trade-off. A snapshot freezes what the ledger knew at the cutoff, so a
+build after the cutoff changes nothing for that campaign, with one exception: a source's first
+fetch, which can only date its rows by how far ahead each schedule is published. Every later build
+dates a new row at the build itself.
+
+- **Daily, from cron, wherever the store lives:** each date is recorded within a day of its
+  publication.
+- **Once before each campaign's `setup`:** a date first listed since the previous build is missing
+  from the snapshot. That is mostly earnings, which are listed a week or two ahead.
+
+Either way, keep the ledger between builds. A fresh store starts again from the first-fetch
+estimate.
+
 ### Field scores (after `setup`, before `run`)
 
 The same script also writes scores/rewards/pool parquets, which land **outside** `market_data/` and

@@ -1,0 +1,27 @@
+[
+  {
+    "asset": "BTC",
+    "max_relative_finite_context_difference": 5.4978729856602904e-05,
+    "seconds": 0.015686583006754518
+  },
+  {
+    "asset": "ETH",
+    "max_relative_finite_context_difference": 9.752414509300866e-05,
+    "seconds": 0.003662214003270492
+  },
+  {
+    "asset": "SOL",
+    "max_relative_finite_context_difference": 4.1721142953532464e-05,
+    "seconds": 0.0036671599955298007
+  },
+  {
+    "asset": "XRP",
+    "max_relative_finite_context_difference": 5.955253631628743e-05,
+    "seconds": 0.003743509005289525
+  },
+  {
+    "asset": "HYPE",
+    "max_relative_finite_context_difference": 0.0001800030749066206,
+    "seconds": 0.0037385280011221766
+  }
+]

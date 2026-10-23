@@ -1,0 +1,1 @@
+{'cached_prompts': False, 'research': False, 'seed': 20261011, 'config': '{}', 'tag': 'candidate_v2_full', 'model': 'candidate_v2', 'ends': ['2026-09-19', '2026-10-11'], 'days': 10, 'workers': 2, 'assets': ['BTC', 'ETH', 'SOL', 'XRP', 'HYPE'], 'formats': ['1h'], 'paths': 1000}

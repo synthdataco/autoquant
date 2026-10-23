@@ -1,0 +1,32 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/fit_seasonality.py",
+      "--bin-minutes",
+      "10",
+      "--parent",
+      "agent/seasonality.json",
+      "--output",
+      "agent/seasonality_fine.json"
+    ],
+    "log": "agent/results/seasonality_fine.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "fine_seasonal",
+      "--model",
+      "research_model",
+      "--config",
+      "{\"seasonal\": true, \"table\": \"seasonality_fine.json\"}",
+      "--workers",
+      "2"
+    ],
+    "log": "agent/results/fine_seasonal_suite.log"
+  }
+]

@@ -1,0 +1,22 @@
+ group        event  lo  n_dates  mult  leave_one_out_min  leave_one_out_max
+crypto          CPI   0        5 4.801              2.819              5.423
+crypto          CPI   5        5 1.196              0.969              1.333
+crypto          CPI  30        5 1.040              0.938              1.162
+crypto         FOMC   0        4 4.771              4.745              4.796
+crypto         FOMC   5        4 1.603              1.501              1.712
+crypto         FOMC  30        4 2.561              1.488              4.408
+crypto          GDP   0        4 1.369              0.962              1.947
+crypto          GDP   5        4 1.469              1.342              1.609
+crypto          GDP  30        4 1.291              1.139              1.464
+crypto          NFP   0        5 1.768              1.729              1.961
+crypto          NFP   5        5 1.226              1.053              1.402
+crypto          NFP  30        5 1.109              1.046              1.168
+crypto          PCE   0        5 1.297              1.117              1.589
+crypto          PCE   5        5 1.342              1.306              1.469
+crypto          PCE  30        5 1.139              1.100              1.291
+crypto          PPI   0        5 1.483              1.170              1.690
+crypto          PPI   5        5 1.000              0.899              1.048
+crypto          PPI  30        5 1.141              1.027              1.206
+crypto RETAIL_SALES   0        5 1.000              0.817              1.074
+crypto RETAIL_SALES   5        5 1.000              0.652              1.142
+crypto RETAIL_SALES  30        5 1.000              0.701              1.024

@@ -1,0 +1,56 @@
+[
+  {
+    "asset": "BTC",
+    "kind": "tree",
+    "base_exact": true,
+    "repeatable": true,
+    "paths": 1000,
+    "seconds": 0.024922789991251193,
+    "raw_correction": 0.015340434452284425
+  },
+  {
+    "asset": "BTC",
+    "kind": "ridge",
+    "base_exact": true,
+    "repeatable": true,
+    "paths": 1000,
+    "seconds": 0.023378152007353492,
+    "raw_correction": -0.057637010716239695
+  },
+  {
+    "asset": "ETH",
+    "kind": "tree",
+    "base_exact": true,
+    "repeatable": true,
+    "paths": 1000,
+    "seconds": 0.02305894799064845,
+    "raw_correction": 0.027544574107401514
+  },
+  {
+    "asset": "ETH",
+    "kind": "ridge",
+    "base_exact": true,
+    "repeatable": true,
+    "paths": 1000,
+    "seconds": 0.022875145994476043,
+    "raw_correction": -0.042752559370820516
+  },
+  {
+    "asset": "HYPE",
+    "kind": "tree",
+    "base_exact": true,
+    "repeatable": true,
+    "paths": 1000,
+    "seconds": 0.021652326002367772,
+    "raw_correction": 0.018689277024611282
+  },
+  {
+    "asset": "HYPE",
+    "kind": "ridge",
+    "base_exact": true,
+    "repeatable": true,
+    "paths": 1000,
+    "seconds": 0.021563831993262284,
+    "raw_correction": -0.03281789289586657
+  }
+]

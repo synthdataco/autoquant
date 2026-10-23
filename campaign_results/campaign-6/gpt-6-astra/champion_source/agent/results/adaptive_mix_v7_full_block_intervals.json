@@ -1,0 +1,24 @@
+[
+  {
+    "config": "CRYPTO_1H",
+    "window": "2026-09-19",
+    "days": 10,
+    "daily_mean_pct": -0.1942991336433506,
+    "days_improved": 7,
+    "block2_interval95": [
+      -0.3386096952311537,
+      -0.06545269106432694
+    ]
+  },
+  {
+    "config": "CRYPTO_1H",
+    "window": "2026-10-11",
+    "days": 10,
+    "daily_mean_pct": -0.28848168483657943,
+    "days_improved": 9,
+    "block2_interval95": [
+      -0.5368336602887973,
+      -0.08492792785674541
+    ]
+  }
+]

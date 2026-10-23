@@ -1,0 +1,23 @@
+sha: 6967ead
+agent_dir: agent
+profiles:
+  - low
+  - high
+notes: |
+  Champion model (Iteration 10: Separated Backward-L2 / Forward-CRPS 336-slot weekly seasonality,
+  60m within-hour sawtooth & 5m weekday sub-slot modulation, scheduled calendar event multipliers,
+  6-scale hybrid L2/L1/5m-MAD/1m-TrueRange-OHLC EWMA filter with off-hours activity damping,
+  pre-path column-standardized stratified log-normal scale mixture, and 3-level hierarchical
+  orthogonal secant projection).
+  Evaluated at 1000 simulations via agent/predict.py (synth_lib.backtester.orchestration.backtest)
+  across two disjoint 10-day windows (Window A: 2026-09-15 to 2026-09-25; Window B: 2026-10-01 to 2026-10-11):
+  - CRYPTO_24H:
+    - Window A: starter CRPS 4906.568 -> champion CRPS 4805.635 (-100.933, coef-weighted 4597.614 -> 4504.083)
+    - Window B: starter CRPS 3528.842 -> champion CRPS 3359.914 (-168.928, coef-weighted 3326.500 -> 3161.400)
+  - COM_EQU_24H:
+    - Window A: starter CRPS 2161.553 -> champion CRPS 1892.577 (-268.976, coef-weighted 1780.843 -> 1563.528)
+    - Window B: starter CRPS 2062.542 -> champion CRPS 1762.511 (-300.031, coef-weighted 1686.077 -> 1437.689)
+  - CRYPTO_1H:
+    - Window A: starter CRPS 1060.074 -> champion CRPS 1024.292 (-35.782, coef-weighted 992.517 -> 959.482)
+    - Window B: starter CRPS 740.814 -> champion CRPS 686.073 (-54.741, coef-weighted 699.090 -> 645.561)
+  All 36/36 (asset, window) cells improved over both the starter baseline (Iter 0) and Iteration 8.

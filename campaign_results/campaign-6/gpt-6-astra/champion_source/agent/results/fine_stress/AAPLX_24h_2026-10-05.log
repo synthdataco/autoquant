@@ -1,0 +1,15 @@
+generation seconds/prompt: 0.0758
+predictions generated: 72
+  [com-equ-24h/AAPLX] fetching scored prompts (2026-10-02 → 2026-10-05)...
+  [com-equ-24h/AAPLX] 18432 score rows (72 prompts) in 0.1s
+  [com-equ-24h/AAPLX] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/AAPLX] 419741 rewards rows (1645 update rounds) in 0.7s
+  [com-equ-24h/AAPLX] scoring 72 prompts against local predictions...
+  [com-equ-24h/AAPLX] filled 72/72 price-gap prompts from validator realized paths
+  [com-equ-24h/AAPLX] scored 72 prompts in 2.0s
+  [com-equ-24h/AAPLX] computing smoothed scores over 72 reward rounds...
+  [com-equ-24h/AAPLX] smoothed scores done in 1.9s (total backtest: 4.9s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 72, 'mean_crps': 1093.4678665223332, 'final_smoothed_score': 164.07437487316577, 'realized_points_expected': 20808, 'realized_points_scored': 20808, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             49 prompts  gap +62.09%
+  NFP                  23 prompts  gap +9.02%

@@ -1,0 +1,7 @@
+BTC rows 1224
+ETH rows 2448
+SOL rows 3672
+XRP rows 4896
+HYPE rows 6118
+{"phase": "refit", "train_rows": 6118, "test_rows": 1240, "zero_mse": 0.0934661481057274, "ridge_mse": 0.08690321620319738, "tree_mse": 0.07872137410858211, "proxy_gate_pass": true, "json_export_max_error": 4.996003610813204e-16}
+Report scope corrected after completion: the refit August subset is in-sample, not a proxy validation gate. Canonical nonlinear_refit_report.json labels this training_subset_not_validation and proxy_gate_pass=null. The earlier diagnostic report is the actual chronological holdout.

@@ -1,0 +1,2 @@
+Loading weights:   0%|          | 0/101 [00:00<?, ?it/s]Loading weights: 100%|██████████| 101/101 [00:00<00:00, 5061.59it/s]
+{"device": "cpu", "framework_startup_seconds": 6.35283073199389, "uncached_simulate_seconds": [4.461115547004738, 0.03977835200203117, 0.03732566400140058], "cold_response_seconds": 10.813946278998628, "peak_rss_gib": 1.15228271484375, "paths": 1000, "repeatable": true}

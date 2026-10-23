@@ -1,0 +1,6 @@
+BTC rows 728
+ETH rows 1456
+SOL rows 2184
+XRP rows 2912
+HYPE rows 3640
+{"phase": "historical", "train_rows": 3640, "test_rows": 1200, "zero_mse": 0.06372486717077637, "ridge_mse": 0.05772050418850836, "tree_mse": 0.05620203735655925, "evaluation_scope": "training_subset_not_validation", "proxy_gate_pass": null, "json_export_max_error": 1.942890293094024e-16}

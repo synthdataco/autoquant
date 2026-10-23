@@ -1,0 +1,16 @@
+generation seconds/prompt: 0.0618
+predictions generated: 72
+  [com-equ-24h/SPCX] fetching scored prompts (2026-09-16 → 2026-09-19)...
+  [com-equ-24h/SPCX] 18432 score rows (72 prompts) in 0.1s
+  [com-equ-24h/SPCX] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/SPCX] 472663 rewards rows (1867 update rounds) in 0.5s
+  [com-equ-24h/SPCX] scoring 72 prompts against local predictions...
+  [com-equ-24h/SPCX] filled 71/71 price-gap prompts from validator realized paths
+  [com-equ-24h/SPCX] scored 72 prompts in 1.4s
+  [com-equ-24h/SPCX] computing smoothed scores over 72 reward rounds...
+  [com-equ-24h/SPCX] smoothed scores done in 2.1s (total backtest: 4.4s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 72, 'mean_crps': 3354.6501353460026, 'final_smoothed_score': 168.44465519663802, 'realized_points_expected': 20808, 'realized_points_scored': 20808, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             42 prompts  gap +4.46%
+  FOMC                 24 prompts  gap +6.43%
+  RETAIL_SALES         25 prompts  gap +6.39%

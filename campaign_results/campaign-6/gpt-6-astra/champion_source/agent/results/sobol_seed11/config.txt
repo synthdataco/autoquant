@@ -1,0 +1,1 @@
+{'research': False, 'seed': 11, 'config': '{"seasonal": true, "sampler": "sobol"}', 'tag': 'sobol_seed11', 'model': 'research_model', 'ends': ['2026-09-16', '2026-10-10'], 'days': 2, 'workers': 2, 'assets': ['BTC', 'SOL', 'SP500', 'AAPLX'], 'formats': ['24h', '1h'], 'paths': 1000}

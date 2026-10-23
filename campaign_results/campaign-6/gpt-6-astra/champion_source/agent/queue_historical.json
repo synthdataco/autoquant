@@ -1,0 +1,141 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/predict.py",
+      "--asset",
+      "BTC",
+      "--model",
+      "research_model",
+      "--days",
+      "2",
+      "--eval-end",
+      "2026-09-16",
+      "--latest-formula",
+      "--cached-prompts",
+      "--output",
+      "agent/results/parity/BTC_24h_2026-09-16"
+    ],
+    "log": "agent/results/parity_BTC_24h.log",
+    "env": {
+      "MODEL_CONFIG": "{\"seasonal\":true}"
+    }
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/predict.py",
+      "--asset",
+      "BTC",
+      "--model",
+      "research_model",
+      "--days",
+      "2",
+      "--eval-end",
+      "2026-09-16",
+      "--latest-formula",
+      "--cached-prompts",
+      "--output",
+      "agent/results/parity/BTC_1h_2026-09-16",
+      "--time-length",
+      "3600",
+      "--time-increment",
+      "60"
+    ],
+    "log": "agent/results/parity_BTC_1h.log",
+    "env": {
+      "MODEL_CONFIG": "{\"seasonal\":true}"
+    }
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/predict.py",
+      "--asset",
+      "AAPLX",
+      "--model",
+      "research_model",
+      "--days",
+      "2",
+      "--eval-end",
+      "2026-09-16",
+      "--latest-formula",
+      "--cached-prompts",
+      "--output",
+      "agent/results/parity/AAPLX_24h_2026-09-16"
+    ],
+    "log": "agent/results/parity_AAPLX_24h.log",
+    "env": {
+      "MODEL_CONFIG": "{\"seasonal\":true}"
+    }
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/verify_cached_parity.py"
+    ],
+    "log": "agent/results/parity_verification.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/fit_seasonality.py",
+      "--start",
+      "2026-05-01",
+      "--end",
+      "2026-07-01",
+      "--output",
+      "agent/seasonality_jul01.json"
+    ],
+    "log": "agent/results/seasonality_jul01.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "historical_baseline",
+      "--model",
+      "baseline",
+      "--cached-prompts",
+      "--days",
+      "3",
+      "--ends",
+      "2026-08-01",
+      "2026-08-15",
+      "--workers",
+      "1",
+      "--config",
+      "{}"
+    ],
+    "log": "agent/results/historical_baseline_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "historical_seasonal",
+      "--model",
+      "research_model",
+      "--cached-prompts",
+      "--days",
+      "3",
+      "--ends",
+      "2026-08-01",
+      "2026-08-15",
+      "--workers",
+      "1",
+      "--config",
+      "{\"seasonal\": true, \"table\": \"seasonality_jul01.json\"}"
+    ],
+    "log": "agent/results/historical_seasonal_suite.log"
+  }
+]

@@ -62,8 +62,8 @@ KIMI_MODEL_NAME=<alias> KIMI_MODEL_API_KEY=$VKEY KIMI_MODEL_PROVIDER_TYPE=openai
   KIMI_MODEL_BASE_URL=http://localhost:4000/v1 kimi -p "Reply only: OK"
 
 sleep 5   # passthrough routes post cost asynchronously
-curl -s "http://localhost:4000/key/info?key=$VKEY" -H "Authorization: Bearer $LITELLM_MASTER_KEY" \
-  | python3 -m json.tool | grep spend
+curl -s -X POST http://localhost:4000/v2/key/info -H "Authorization: Bearer $LITELLM_MASTER_KEY" \
+  -H "Content-Type: application/json" -d "{\"keys\": [\"$VKEY\"]}" | python3 -m json.tool | grep spend
 ```
 
 Then test **resume** the same way the driver will use it (`--resume <session>`, `exec resume --last`,

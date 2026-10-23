@@ -1,0 +1,24 @@
+[
+  {
+    "config": "COM_EQU_24H",
+    "window": "2026-09-19",
+    "days": 10,
+    "daily_mean_pct": -0.5491375262676508,
+    "days_improved": 9,
+    "block2_interval95": [
+      -1.1445984721180238,
+      -0.14135088615488553
+    ]
+  },
+  {
+    "config": "COM_EQU_24H",
+    "window": "2026-10-11",
+    "days": 10,
+    "daily_mean_pct": -1.1878169005246266,
+    "days_improved": 10,
+    "block2_interval95": [
+      -2.58665485782314,
+      -0.27389287868391604
+    ]
+  }
+]

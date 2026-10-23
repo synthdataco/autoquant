@@ -1,0 +1,18 @@
+Loading weights:   0%|          | 0/89 [00:00<?, ?it/s]Loading weights: 100%|██████████| 89/89 [00:00<00:00, 3456.42it/s]
+Traceback (most recent call last):
+  File "/workspace/agent/verify_forecast_cache.py", line 19, in <module>
+    b=chronos_vol.forecast_variance(frame,'BTC',future,seed)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/agent/chronos_vol.py", line 73, in forecast_variance
+    forecast=predict_hourly(asset,str(origin),seed,values,model_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/agent/chronos_vol.py", line 27, in predict_hourly
+    provenance=(Path(__file__).parent/'models'/model_name/'provenance.json').read_bytes()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1021, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/agent/models/chronos-t5-tiny/provenance.json'

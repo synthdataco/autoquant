@@ -1,0 +1,1 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "chronos_v3_full", "--model", "candidate_v3_research", "--research", "--config", "{\"chronos\": true}", "--days", "10", "--ends", "2026-09-19", "2026-10-11", "--formats", "1h", "--assets", "BTC", "ETH", "SOL", "XRP", "HYPE", "--workers", "1"], "exit": 0}

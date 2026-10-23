@@ -1,0 +1,2 @@
+Loading weights:   0%|          | 0/89 [00:00<?, ?it/s]Loading weights: 100%|██████████| 89/89 [00:00<00:00, 2718.73it/s]
+{'model': 'chronos-t5-tiny', 'framework_startup_seconds': 6.974321934001637, 'model_load_seconds': 0.4649434739985736, 'simulate_seconds': [0.8581780980020994, 0.24088862599455751, 0.23179055699438322], 'cold_response_seconds': 8.29744350600231, 'max_allocated_gib': 0.08860445022583008, 'paths': 1000, 'repeatable': True}

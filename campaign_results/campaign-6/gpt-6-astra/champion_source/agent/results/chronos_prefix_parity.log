@@ -1,0 +1,3 @@
+Loading weights:   0%|          | 0/89 [00:00<?, ?it/s]Loading weights: 100%|██████████| 89/89 [00:00<00:00, 3258.78it/s]
+{"asset": "BTC", "start_time": "2026-09-16 00:02:00+00:00", "sample_prefix_equal": true, "mean_prefix_equal": true, "max_mean_difference": 0.0, "required_forecast_values": 2, "seconds": {"25": 0.7602772969985381, "3": 0.031791411005542614}}
+{"asset": "HYPE", "start_time": "2026-10-08 13:17:00+00:00", "sample_prefix_equal": true, "mean_prefix_equal": true, "max_mean_difference": 0.0, "required_forecast_values": 2, "seconds": {"25": 0.19349798800249118, "3": 0.03131237499474082}}

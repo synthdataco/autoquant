@@ -1,0 +1,78 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "--group",
+      "research",
+      "agent/fit_crps_gradient.py",
+      "--target",
+      "proxy",
+      "--phase",
+      "diagnostic"
+    ],
+    "log": "agent/results/matched_proxy_diagnostic_fit.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "--group",
+      "research",
+      "agent/fit_crps_gradient.py",
+      "--target",
+      "proxy",
+      "--phase",
+      "refit"
+    ],
+    "log": "agent/results/matched_proxy_refit_fit.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_crps_gradient_holdout.py",
+      "--artifact",
+      "matched_proxy_diagnostic.json",
+      "--tag-prefix",
+      "matched_proxy",
+      "--workers",
+      "2",
+      "--kinds",
+      "tree"
+    ],
+    "log": "agent/results/matched_proxy_holdout_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "matched_proxy_v9_full",
+      "--model",
+      "candidate_v9_research",
+      "--config",
+      "{\"nonlinear\": \"tree\", \"nonlinear_model\": \"matched_proxy_refit.json\"}",
+      "--cached-prompts",
+      "--prediction-dtype",
+      "float32",
+      "--days",
+      "10",
+      "--ends",
+      "2026-09-19",
+      "2026-10-11",
+      "--assets",
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP",
+      "HYPE",
+      "--formats",
+      "1h",
+      "--workers",
+      "2"
+    ],
+    "log": "agent/results/matched_proxy_v9_full_suite.log"
+  }
+]

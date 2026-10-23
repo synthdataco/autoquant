@@ -1,0 +1,12 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "--group",
+      "research",
+      "agent/verify_chronos_prefix.py"
+    ],
+    "log": "agent/results/chronos_prefix_parity.log"
+  }
+]

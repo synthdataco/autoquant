@@ -1,0 +1,10 @@
+{
+  "phase": "diagnostic",
+  "train_rows": 4878,
+  "test_rows": 1240,
+  "zero_mse": 0.09929970538271514,
+  "ridge_mse": 0.09375927228925501,
+  "tree_mse": 0.08664610031804591,
+  "proxy_gate_pass": true,
+  "json_export_max_error": 2.498001805406602e-16
+}

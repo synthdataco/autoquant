@@ -1,0 +1,66 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "baseline_seed11",
+      "--model",
+      "baseline",
+      "--workers",
+      "2",
+      "--seed",
+      "11"
+    ],
+    "log": "agent/results/baseline_seed11_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "candidate_v3_seed11",
+      "--model",
+      "candidate_v3",
+      "--workers",
+      "2",
+      "--seed",
+      "11"
+    ],
+    "log": "agent/results/candidate_v3_seed11_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "baseline_seed37",
+      "--model",
+      "baseline",
+      "--workers",
+      "2",
+      "--seed",
+      "37"
+    ],
+    "log": "agent/results/baseline_seed37_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "candidate_v3_seed37",
+      "--model",
+      "candidate_v3",
+      "--workers",
+      "2",
+      "--seed",
+      "37"
+    ],
+    "log": "agent/results/candidate_v3_seed37_suite.log"
+  }
+]

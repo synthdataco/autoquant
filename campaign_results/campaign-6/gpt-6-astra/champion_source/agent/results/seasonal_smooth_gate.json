@@ -1,0 +1,194 @@
+[
+  {
+    "table": "seasonality_fine.json",
+    "asset": "XAU",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.23484164671793128
+  },
+  {
+    "table": "seasonality_fine.json",
+    "asset": "NVDAX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.3359705907624994
+  },
+  {
+    "table": "seasonality_fine.json",
+    "asset": "GOOGLX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.29256696297668666
+  },
+  {
+    "table": "seasonality_fine.json",
+    "asset": "TSLAX",
+    "mean_error": 1.1102230246251565e-16,
+    "roughness_ratio": 0.30801660287428234
+  },
+  {
+    "table": "seasonality_fine.json",
+    "asset": "AAPLX",
+    "mean_error": -1.1102230246251565e-16,
+    "roughness_ratio": 0.2907523661336125
+  },
+  {
+    "table": "seasonality_fine.json",
+    "asset": "WTIOIL",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.2522596489596931
+  },
+  {
+    "table": "seasonality_fine.json",
+    "asset": "SPCX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.32568647100561554
+  },
+  {
+    "table": "seasonality_fine.json",
+    "asset": "SP500",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.31424097800363626
+  },
+  {
+    "table": "seasonality_sep14_fine.json",
+    "asset": "XAU",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.23662354622070741
+  },
+  {
+    "table": "seasonality_sep14_fine.json",
+    "asset": "NVDAX",
+    "mean_error": -1.1102230246251565e-16,
+    "roughness_ratio": 0.32895506252247786
+  },
+  {
+    "table": "seasonality_sep14_fine.json",
+    "asset": "GOOGLX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.28907754541268676
+  },
+  {
+    "table": "seasonality_sep14_fine.json",
+    "asset": "TSLAX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.31903995764106524
+  },
+  {
+    "table": "seasonality_sep14_fine.json",
+    "asset": "AAPLX",
+    "mean_error": 1.1102230246251565e-16,
+    "roughness_ratio": 0.3018858145254434
+  },
+  {
+    "table": "seasonality_sep14_fine.json",
+    "asset": "WTIOIL",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.23408032465043802
+  },
+  {
+    "table": "seasonality_sep14_fine.json",
+    "asset": "SPCX",
+    "mean_error": -1.1102230246251565e-16,
+    "roughness_ratio": 0.3160589906309866
+  },
+  {
+    "table": "seasonality_sep14_fine.json",
+    "asset": "SP500",
+    "mean_error": 2.220446049250313e-16,
+    "roughness_ratio": 0.2958496193762744
+  },
+  {
+    "table": "seasonality_oct01_fine.json",
+    "asset": "XAU",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.25277863939351414
+  },
+  {
+    "table": "seasonality_oct01_fine.json",
+    "asset": "NVDAX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.3142756631094848
+  },
+  {
+    "table": "seasonality_oct01_fine.json",
+    "asset": "GOOGLX",
+    "mean_error": 1.1102230246251565e-16,
+    "roughness_ratio": 0.29610224341567204
+  },
+  {
+    "table": "seasonality_oct01_fine.json",
+    "asset": "TSLAX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.29853244066165174
+  },
+  {
+    "table": "seasonality_oct01_fine.json",
+    "asset": "AAPLX",
+    "mean_error": -1.1102230246251565e-16,
+    "roughness_ratio": 0.28898049062138015
+  },
+  {
+    "table": "seasonality_oct01_fine.json",
+    "asset": "WTIOIL",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.22939716175628333
+  },
+  {
+    "table": "seasonality_oct01_fine.json",
+    "asset": "SPCX",
+    "mean_error": 1.1102230246251565e-16,
+    "roughness_ratio": 0.30550192663218173
+  },
+  {
+    "table": "seasonality_oct01_fine.json",
+    "asset": "SP500",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.2668943284231594
+  },
+  {
+    "table": "seasonality_oct05_fine.json",
+    "asset": "XAU",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.2547219675558083
+  },
+  {
+    "table": "seasonality_oct05_fine.json",
+    "asset": "NVDAX",
+    "mean_error": 1.1102230246251565e-16,
+    "roughness_ratio": 0.3208920391823618
+  },
+  {
+    "table": "seasonality_oct05_fine.json",
+    "asset": "GOOGLX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.2922848193548627
+  },
+  {
+    "table": "seasonality_oct05_fine.json",
+    "asset": "TSLAX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.29716722349928687
+  },
+  {
+    "table": "seasonality_oct05_fine.json",
+    "asset": "AAPLX",
+    "mean_error": -1.1102230246251565e-16,
+    "roughness_ratio": 0.28589262391423187
+  },
+  {
+    "table": "seasonality_oct05_fine.json",
+    "asset": "WTIOIL",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.22556129923122223
+  },
+  {
+    "table": "seasonality_oct05_fine.json",
+    "asset": "SPCX",
+    "mean_error": 0.0,
+    "roughness_ratio": 0.3153371370868447
+  },
+  {
+    "table": "seasonality_oct05_fine.json",
+    "asset": "SP500",
+    "mean_error": 1.1102230246251565e-16,
+    "roughness_ratio": 0.2755969527995774
+  }
+]

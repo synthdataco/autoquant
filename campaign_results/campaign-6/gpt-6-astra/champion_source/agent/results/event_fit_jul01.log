@@ -1,0 +1,46 @@
+ group         event  lo  n_dates  mult  leave_one_out_min  leave_one_out_max
+crypto           CPI   0        6 2.180              1.535              3.096
+crypto           CPI   5        6 1.000              0.678              0.918
+crypto           CPI  30        6 1.000              0.866              0.887
+crypto          FOMC   0        4 3.012              2.124              4.272
+crypto          FOMC   5        4 2.373              1.404              4.009
+crypto          FOMC  30        4 1.347              1.265              1.434
+crypto           GDP   0        7 1.469              1.139              1.607
+crypto           GDP   5        7 1.000              0.681              0.874
+crypto           GDP  30        7 1.416              1.261              1.424
+crypto           NFP   0        6 1.391              1.183              1.634
+crypto           NFP   5        6 1.000              0.856              1.099
+crypto           NFP  30        6 1.000              0.832              0.959
+crypto           PCE   0        7 1.469              1.139              1.607
+crypto           PCE   5        7 1.000              0.681              0.874
+crypto           PCE  30        7 1.416              1.261              1.424
+crypto           PPI   0        7 1.329              1.121              1.515
+crypto           PPI   5        7 1.000              0.723              0.951
+crypto           PPI  30        7 1.000              0.913              1.015
+crypto  RETAIL_SALES   0        7 1.000              0.732              0.896
+crypto  RETAIL_SALES   5        7 1.000              0.669              0.910
+crypto  RETAIL_SALES  30        7 1.000              0.738              0.809
+ other           CPI   0        6 3.374              3.363              3.385
+ other           CPI   5        6 1.215              1.125              1.312
+ other           CPI  30        6 1.000              0.886              0.961
+ other EIA_PETROLEUM   0       22 1.000              0.823              1.133
+ other EIA_PETROLEUM   5       22 1.000              0.582              0.591
+ other EIA_PETROLEUM  30       22 1.000              0.689              0.696
+ other          FOMC   0        4 1.847              1.670              2.043
+ other          FOMC   5        4 1.146              1.087              1.209
+ other          FOMC  30        4 1.177              1.112              1.246
+ other           GDP   0        7 1.253              1.191              1.393
+ other           GDP   5        7 1.000              0.819              0.879
+ other           GDP  30        7 1.080              0.914              1.210
+ other           NFP   0        6 1.741              1.631              1.858
+ other           NFP   5        6 1.047              0.961              1.140
+ other           NFP  30        6 1.000              0.775              0.796
+ other           PCE   0        7 1.253              1.191              1.393
+ other           PCE   5        7 1.000              0.819              0.879
+ other           PCE  30        7 1.080              0.914              1.210
+ other           PPI   0        7 1.783              1.634              1.846
+ other           PPI   5        7 1.087              0.992              1.212
+ other           PPI  30        7 1.000              0.881              0.959
+ other  RETAIL_SALES   0        7 1.000              0.721              0.815
+ other  RETAIL_SALES   5        7 1.000              0.666              0.944
+ other  RETAIL_SALES  30        7 1.000              0.772              0.806

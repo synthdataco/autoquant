@@ -1,0 +1,1 @@
+{'score_details': True, 'skip_crypto24h': False, 'prediction_dtype': 'float64', 'cached_prompts': True, 'research': False, 'seed': 20261011, 'config': '{"seasonal": true, "mix": 0.35, "mix_revert": true}', 'tag': 'score_reversion', 'model': 'research_model', 'ends': ['2026-09-16', '2026-10-10'], 'days': 2, 'workers': 2, 'assets': ['BTC', 'SOL'], 'formats': ['1h'], 'paths': 1000}
