@@ -17,8 +17,9 @@ models:
   - {id: gpt-6-astra, cli: codex, model: gpt-6-astra, wire_api: responses}
   # The /gemini passthrough puts `model` in the URL path, so this must be the real Google id.
   - {id: gemini-4-argon, cli: gemini-cli, model: gemini-4-argon}
-  # The same model on claude-code, through the Vercel AI Gateway's Anthropic API.
-  - {id: gemini-4-argon-claude-code, cli: claude-code, model: gateway-gemini-4-argon}
+  # Planned, dropped during the run before it started: the same model on claude-code, through the
+  # Vercel AI Gateway's Anthropic API.
+  # - {id: gemini-4-argon-claude-code, cli: claude-code, model: gateway-gemini-4-argon}
   - {id: muse-wonder, cli: claude-code, model: muse-wonder-1.0}
 # Unchanged since campaign-2 on purpose: the envelope is part of what is measured, and only legs
 # that ran the same one compare on the leaderboard.
