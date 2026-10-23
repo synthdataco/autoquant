@@ -135,13 +135,14 @@ cost of that call.
 
 ```bash
 # per leg: spend vs cap, and WHICH model it was attributed to (catches a wrong-model fallback)
+# Keys travel in the body or as their sha256, never in a URL: the proxy's access log records URLs.
 uv run python -c "
-import json, os, requests
+import hashlib, json, os, requests
 s = json.load(open('campaign_runs/$C/state.json'))
-mk = os.environ['LITELLM_MASTER_KEY']
+h = {'Authorization': f'Bearer {os.environ[\"LITELLM_MASTER_KEY\"]}'}
 for m, k in s['virtual_keys'].items():
-    i = requests.get('http://localhost:4000/key/info', headers={'Authorization': f'Bearer {mk}'}, params={'key': k}).json()['info']
-    rows = requests.get('http://localhost:4000/spend/logs', headers={'Authorization': f'Bearer {mk}'}, params={'api_key': k}).json()
+    i = requests.post('http://localhost:4000/v2/key/info', headers=h, json={'keys': [k]}).json()['info'][0]
+    rows = requests.get('http://localhost:4000/spend/logs', headers=h, params={'api_key': hashlib.sha256(k.encode()).hexdigest()}).json()
     per = {}
     for r in rows: per[r.get('model')] = per.get(r.get('model'), 0) + float(r.get('spend') or 0)
     print(f\"{m:8} spend={float(i.get('spend') or 0):.4f}/{i.get('max_budget')}  models={ {x: round(v,4) for x,v in per.items()} }\")
@@ -258,3 +259,34 @@ reads realized prices past `window_end`, so wait for the calendar. Use `--no-gpu
 holds the GPU. Extra diagnostic windows go under `--tag <name>` so they never overwrite the canonical
 `verdict.json`. The `synth_default` baseline runs host-side and anchors on a price it fetches itself,
 so treat its verdict on past windows with suspicion.
+
+### Prices through the window end
+
+`--window-end D` scores the prompts scored before D 00:00 UTC, and the generator reads price
+partitions through D itself. Every asset therefore needs `date=D.parquet` (a partial one is enough)
+and every day from seven days before `--window-start`:
+
+```bash
+for A in BTC ETH SOL XRP; do
+  uv run python -m synth_lib.preparation.market_data --asset $A --start <first missing day> --end <D>
+done
+# Hyperliquid-routed days older than the venue's ~3.5-day retention come from the archive
+AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start <first missing day> --end <D - 1>
+for A in HYPE XAU NVDAX TSLAX AAPLX GOOGLX SP500 SPCX WTIOIL; do
+  uv run python -m synth_lib.preparation.market_data --asset $A --start <D> --end <D>
+done
+uv run python scripts/audit_store.py --cutoff <D - 1> --require-from <window start - 7 days>
+```
+
+Never ask the venue for a Hyperliquid day past its retention: the empty answer is persisted as an
+all-NaN partition marked final, and every later ingest skips it.
+
+The verdict fetches the rest itself: the field's scores, and one realized path per scored prompt not
+yet cached in `market_data/realized/` (about a thousand per day of window).
+
+### Champions that import their own modules
+
+The verdict and the nomination check load `modeling.py` with its folder first on the import path, as
+serving does. Before that, both loaded it without, so a champion that imports a module beside it by
+name failed there while it served correctly. campaign-6's gpt-6-astra failed its first 1h interface
+check this way, and changed the import to load the file by path before it landed.
