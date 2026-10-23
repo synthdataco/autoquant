@@ -1,0 +1,11 @@
+sha: 9f8599d2349d7157f6a11607eab13ecb389001c4
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  v7 seasonal stochastic-vol Student-t fan (zero drift). Official backtester
+  (agent/predict.py, 1000 paths, 3-day windows ending 2026-09-30 and 2026-10-11):
+  CRYPTO_24H mean CRPS 2410 (Sep window, 5 assets) / COM_EQU_24H included in the
+  13-asset 24h mean 2410-2543 across windows; CRYPTO_1H mean CRPS 895 (Sep) / 727 (Oct).
+  Per-cell numbers: agent/matrix_v6.log. Starter (log-normal martingale) on the same
+  Sep window: BTC 24h 2329 vs v4 2153 (-7.6%), XAU 24h 1383 vs 1155 (-16.5%),
+  BTC 1h 539 vs 509 (-5.6%). Profiles [low, high] = 24h and 1h both served.

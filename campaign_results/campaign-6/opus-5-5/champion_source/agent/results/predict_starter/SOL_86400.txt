@@ -1,0 +1,16 @@
+predictions generated: 360
+  [crypto-24h/SOL] fetching scored prompts (2026-09-26 → 2026-10-11)...
+  [crypto-24h/SOL] 92160 score rows (360 prompts) in 0.1s
+  [crypto-24h/SOL] fetching rewards history (prompt_name=crypto-24h)...
+  [crypto-24h/SOL] 1375637 rewards rows (5406 update rounds) in 0.7s
+  [crypto-24h/SOL] scoring 360 prompts against local predictions...
+  [crypto-24h/SOL] scored 360 prompts in 55.6s
+  [crypto-24h/SOL] computing smoothed scores over 360 reward rounds...
+  [crypto-24h/SOL] smoothed scores done in 11.9s (total backtest: 68.7s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 360, 'mean_crps': 4064.051527969001, 'final_smoothed_score': 223.38751792913516, 'realized_points_expected': 104040, 'realized_points_scored': 104040, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event            288 prompts  gap +8.28%
+  GDP                  23 prompts  gap +2.80%
+  NFP                  24 prompts  gap +4.13%
+  PCE                  23 prompts  gap +2.80%
+  RETAIL_SALES         25 prompts  gap +1.78%

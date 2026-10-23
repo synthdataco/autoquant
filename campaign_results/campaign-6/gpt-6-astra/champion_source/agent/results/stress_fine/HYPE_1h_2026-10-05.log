@@ -1,0 +1,15 @@
+generation seconds/prompt: 0.0164
+predictions generated: 432
+  [crypto-1h/HYPE] fetching scored prompts (2026-10-02 → 2026-10-05)...
+  [crypto-1h/HYPE] 110592 score rows (432 prompts) in 0.2s
+  [crypto-1h/HYPE] fetching rewards history (prompt_name=crypto-1h)...
+  [crypto-1h/HYPE] 423839 rewards rows (1656 update rounds) in 0.5s
+  [crypto-1h/HYPE] scoring 432 prompts against local predictions...
+  [crypto-1h/HYPE] filled 6/6 price-gap prompts from validator realized paths
+  [crypto-1h/HYPE] scored 432 prompts in 7.8s
+  [crypto-1h/HYPE] computing smoothed scores over 423 reward rounds...
+  [crypto-1h/HYPE] smoothed scores done in 15.7s (total backtest: 24.7s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 432, 'mean_crps': 857.3016383489177, 'final_smoothed_score': 54.50690584972483, 'realized_points_expected': 26352, 'realized_points_scored': 26352, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event            426 prompts  gap +8.28%
+  NFP                   6 prompts  gap +3.03%

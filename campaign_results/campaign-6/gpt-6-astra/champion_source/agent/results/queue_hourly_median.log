@@ -1,0 +1,1 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "hourly_median", "--model", "research_model", "--config", "{\"seasonal\": true, \"fast_half\": 15, \"hourly_persistence\": \"median\"}", "--assets", "BTC", "ETH", "SOL", "XRP", "HYPE", "--formats", "1h", "--workers", "2"], "exit": 0}

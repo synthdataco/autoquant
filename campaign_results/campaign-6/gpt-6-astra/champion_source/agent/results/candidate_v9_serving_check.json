@@ -1,0 +1,22 @@
+{
+  "reference": "candidate_v9",
+  "exact_parity_calls": 36,
+  "arbitrary_count": 17,
+  "contract_count": 1000,
+  "repeatability": true,
+  "seed_changes_paths": true,
+  "latencies": {
+    "BTC_3600": {
+      "seconds": 0.017916420998517424,
+      "context_nan_closes": 0
+    },
+    "AAPLX_86400": {
+      "seconds": 0.056515596006647684,
+      "context_nan_closes": 3715
+    },
+    "XAU_86400": {
+      "seconds": 0.060668015998089686,
+      "context_nan_closes": 898
+    }
+  }
+}

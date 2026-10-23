@@ -1,0 +1,2 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "residual_all", "--model", "research_model", "--workers", "2", "--formats", "1h", "--assets", "BTC", "ETH", "SOL", "XRP", "HYPE", "--config", "{\"seasonal\": true, \"residual\": \"all\"}"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "residual_memory", "--model", "research_model", "--workers", "2", "--formats", "1h", "--assets", "BTC", "ETH", "SOL", "XRP", "HYPE", "--config", "{\"seasonal\": true, \"residual\": \"memory\"}"], "exit": 0}

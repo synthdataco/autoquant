@@ -1,0 +1,10 @@
+BTC 11327 feature parity max error 4.649614027130156e-13
+ETH 11327 feature parity max error 4.640732242933154e-13
+SOL 11327 feature parity max error 4.671818487622659e-13
+XRP 11327 feature parity max error 4.563016631209393e-13
+HYPE 11292 feature parity max error 1.1324274851176597e-14
+memory proxy MSE 0.11087 vs 0.119771 rough CRPS gain bound 0.223 %
+range proxy MSE 0.114133 vs 0.119771 rough CRPS gain bound 0.141 %
+volume proxy MSE 0.11036 vs 0.119771 rough CRPS gain bound 0.235 %
+leverage proxy MSE 0.120198 vs 0.119771 rough CRPS gain bound 0.0 %
+all proxy MSE 0.104188 vs 0.119771 rough CRPS gain bound 0.39 %

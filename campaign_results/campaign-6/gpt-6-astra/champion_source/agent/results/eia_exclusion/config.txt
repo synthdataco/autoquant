@@ -1,0 +1,1 @@
+{'cached_prompts': False, 'research': False, 'seed': 20261011, 'config': '{"seasonal":true,"events":true,"event_bar_alignment":true,"event_power":1.5,"event_exclude":["EIA_PETROLEUM"]}', 'tag': 'eia_exclusion', 'model': 'research_model', 'ends': ['2026-09-13', '2026-09-19', '2026-10-05'], 'days': 3, 'workers': 1, 'assets': ['WTIOIL'], 'formats': ['24h'], 'paths': 1000}

@@ -1,0 +1,699 @@
+{
+  "score": 21.9,
+  "mean_competition_rank": 113.7,
+  "score_definition": "100 x mean over competitions of min(1, candidate_total_reward / top_other_miner_total_reward) (validator reward_weight summed over the window; bounded 0-100: 0 = earned nothing, 100 = matched or beat the field's best in every competition; per-competition beats_field flags when the cap binds)",
+  "mean_reward_vs_top": 0.21901285579968352,
+  "mean_competition_percentile": 0.5597161821927213,
+  "per_competition": {
+    "crypto-24h": {
+      "rank": 81,
+      "field_size": 255,
+      "percentile": 0.6862745098039216,
+      "rank_over_rounds": {
+        "best_rank": 56,
+        "mean_rank": 63.4,
+        "field_size": 255
+      },
+      "rank_chart": "rank_evolution_TOTAL_crypto-24h.png",
+      "frames": {
+        "prompt_scores": "prompt_scores_crypto-24h.parquet",
+        "field_rewards": "field_rewards_crypto-24h.parquet",
+        "live_rewards": "live_rewards_crypto-24h.parquet"
+      },
+      "rewards": {
+        "reward_share": 0.005899244934619797,
+        "reward_vs_top": 0.14362645601108678,
+        "reward_rank": 57,
+        "beats_field": false
+      },
+      "assets_failed": [],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 2294.9055815463735,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 35,
+          "mean_rank": 36.1,
+          "field_size": 255
+        },
+        "ETH": {
+          "mean_crps": 3453.8498949930918,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 40,
+          "mean_rank": 53.7,
+          "field_size": 255
+        },
+        "SOL": {
+          "mean_crps": 4262.829198500491,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 84,
+          "mean_rank": 85.5,
+          "field_size": 255
+        },
+        "XRP": {
+          "mean_crps": 3879.5601631075574,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 26,
+          "mean_rank": 50.6,
+          "field_size": 255
+        },
+        "HYPE": {
+          "mean_crps": 4541.809366179116,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 59,
+          "mean_rank": 80.5,
+          "field_size": 255
+        }
+      }
+    },
+    "com-equ-24h": {
+      "rank": 107,
+      "field_size": 255,
+      "percentile": 0.584313725490196,
+      "rank_over_rounds": {
+        "best_rank": 105,
+        "mean_rank": 107.0,
+        "field_size": 255
+      },
+      "rank_chart": "rank_evolution_TOTAL_com-equ-24h.png",
+      "frames": {
+        "prompt_scores": "prompt_scores_com-equ-24h.parquet",
+        "field_rewards": "field_rewards_com-equ-24h.parquet",
+        "live_rewards": "live_rewards_com-equ-24h.parquet"
+      },
+      "rewards": {
+        "reward_share": 0.0037538731166448405,
+        "reward_vs_top": 0.19563308855730516,
+        "reward_rank": 106,
+        "beats_field": false
+      },
+      "assets_failed": [],
+      "per_asset": {
+        "XAU": {
+          "mean_crps": 1092.1304811825894,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 51,
+          "mean_rank": 53.2,
+          "field_size": 255
+        },
+        "NVDAX": {
+          "mean_crps": 2198.283737364809,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 112,
+          "mean_rank": 112.6,
+          "field_size": 255
+        },
+        "GOOGLX": {
+          "mean_crps": 1719.8285869781173,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 52,
+          "mean_rank": 53.2,
+          "field_size": 255
+        },
+        "TSLAX": {
+          "mean_crps": 2690.301499564709,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 150,
+          "mean_rank": 151.1,
+          "field_size": 255
+        },
+        "AAPLX": {
+          "mean_crps": 1374.0636528825125,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 50,
+          "mean_rank": 50.6,
+          "field_size": 255
+        },
+        "WTIOIL": {
+          "mean_crps": 2599.717217590005,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 43,
+          "mean_rank": 61.1,
+          "field_size": 255
+        },
+        "SPCX": {
+          "mean_crps": 3808.0879333664407,
+          "num_prompts": 261,
+          "realized_coverage": 1.0,
+          "best_rank": 126,
+          "mean_rank": 128.7,
+          "field_size": 255
+        },
+        "SP500": {
+          "mean_crps": 748.4405368990668,
+          "num_prompts": 262,
+          "realized_coverage": 1.0,
+          "best_rank": 21,
+          "mean_rank": 40.8,
+          "field_size": 255
+        }
+      }
+    },
+    "crypto-1h": {
+      "rank": 153,
+      "field_size": 257,
+      "percentile": 0.4085603112840467,
+      "rank_over_rounds": {
+        "best_rank": 71,
+        "mean_rank": 135.5,
+        "field_size": 257
+      },
+      "rank_chart": "rank_evolution_TOTAL_crypto-1h.png",
+      "frames": {
+        "prompt_scores": "prompt_scores_crypto-1h.parquet",
+        "field_rewards": "field_rewards_crypto-1h.parquet",
+        "live_rewards": "live_rewards_crypto-1h.parquet"
+      },
+      "rewards": {
+        "reward_share": 0.003615535205314253,
+        "reward_vs_top": 0.31777902283065856,
+        "reward_rank": 142,
+        "beats_field": false
+      },
+      "assets_failed": [],
+      "per_asset": {
+        "BTC": {
+          "mean_crps": 519.4823240880049,
+          "num_prompts": 1571,
+          "realized_coverage": 1.0,
+          "best_rank": 8,
+          "mean_rank": 86.4,
+          "field_size": 257
+        },
+        "ETH": {
+          "mean_crps": 768.9875802177432,
+          "num_prompts": 1571,
+          "realized_coverage": 1.0,
+          "best_rank": 63,
+          "mean_rank": 151.0,
+          "field_size": 257
+        },
+        "SOL": {
+          "mean_crps": 961.9350272250725,
+          "num_prompts": 1572,
+          "realized_coverage": 1.0,
+          "best_rank": 81,
+          "mean_rank": 138.3,
+          "field_size": 257
+        },
+        "XRP": {
+          "mean_crps": 875.994937131397,
+          "num_prompts": 1572,
+          "realized_coverage": 1.0,
+          "best_rank": 96,
+          "mean_rank": 141.9,
+          "field_size": 257
+        },
+        "HYPE": {
+          "mean_crps": 1023.7861381042295,
+          "num_prompts": 1571,
+          "realized_coverage": 1.0,
+          "best_rank": 91,
+          "mean_rank": 135.8,
+          "field_size": 257
+        }
+      }
+    }
+  },
+  "window": {
+    "start": "2026-10-11",
+    "end": "2026-10-22",
+    "note": "pseudo-out-of-sample: after the data cutoff, but agents had live field-API access during their runs"
+  },
+  "champion_sha": "e764fe5e3999717d0f86d7a153c40e32ee7ae050",
+  "sandbox_image": {
+    "name": "synth-bench-sandbox",
+    "id": "sha256:eedcc26d69f1b57426caf659cd81c3d988a58b1b7e18ae023b2b322721f1cbd6",
+    "digest": "synth-bench-sandbox@sha256:eedcc26d69f1b57426caf659cd81c3d988a58b1b7e18ae023b2b322721f1cbd6"
+  },
+  "cadence_minutes": {
+    "86400": 60,
+    "3600": 10
+  },
+  "num_simulations": 1000,
+  "seed": 0,
+  "simulate_registration": null,
+  "live_prompts": true,
+  "registrations": {
+    "since": "2026-10-10T00:00:00+00:00",
+    "until": "2026-10-22T00:00:00+00:00",
+    "rows": [
+      {
+        "miner_uid": 98,
+        "hotkey": "5Fk5p9s75fSoQ9viTeD1dxs9QNbHmSuHrwcGPed8eAz2Lq4x",
+        "created_at": "2026-10-10T11:36:00.944829+00:00"
+      },
+      {
+        "miner_uid": 128,
+        "hotkey": "5CoZSxeyFQR78Gxf7thHk6sEir7zbpJfpXdnHxuVuty7GGYP",
+        "created_at": "2026-10-11T03:02:00.868458+00:00"
+      },
+      {
+        "miner_uid": 40,
+        "hotkey": "5HmR5QzLdj3fYYRntCrCyLBrhDwPc8CffSgHNPNsMivuuzca",
+        "created_at": "2026-10-11T03:27:01.651938+00:00"
+      },
+      {
+        "miner_uid": 22,
+        "hotkey": "5H1WjjpNfTPdAy88dtY4zAtNpApdefo4XyxQFV392Yvhe2Gr",
+        "created_at": "2026-10-11T13:21:01.458034+00:00"
+      },
+      {
+        "miner_uid": 166,
+        "hotkey": "5GRh54eUgRNXePTSLwk8EMLCg6ZUNRpJ6hPfhdfMhKqtwPgB",
+        "created_at": "2026-10-11T13:47:01.739732+00:00"
+      },
+      {
+        "miner_uid": 108,
+        "hotkey": "5EhoxbgK92TrEj7C7xzrHwZgyGN8R4766icNGiyW6mGncwGW",
+        "created_at": "2026-10-11T13:51:01.053523+00:00"
+      },
+      {
+        "miner_uid": 143,
+        "hotkey": "5FxegCNpcenXYLc2vWyTHKY8SYXbyQnvjsBsD6uPVA1jJjFn",
+        "created_at": "2026-10-11T14:36:01.803456+00:00"
+      },
+      {
+        "miner_uid": 172,
+        "hotkey": "5Dt2RDNo4aKTb7foMDu8BCUgCgFCseyGh3EFZLQUrz6X5cLx",
+        "created_at": "2026-10-11T15:02:00.925716+00:00"
+      },
+      {
+        "miner_uid": 147,
+        "hotkey": "5DvgzZqdV6eKQBboYmtdGqCGkZXRqXy2CT2hb4M3X4acSA6P",
+        "created_at": "2026-10-11T19:11:00.984906+00:00"
+      },
+      {
+        "miner_uid": 80,
+        "hotkey": "5CdTF1oSEoD5UuoCjAXKdsnrybxfLFPVyjc184vNaESjJpQw",
+        "created_at": "2026-10-12T05:32:00.922843+00:00"
+      },
+      {
+        "miner_uid": 124,
+        "hotkey": "5GBZTCGjhRbZKwTY3LrsgQ2hzN98nYQSmhsRfqjnSLdiDSjM",
+        "created_at": "2026-10-12T06:06:01.006545+00:00"
+      },
+      {
+        "miner_uid": 100,
+        "hotkey": "5C84fKerrfjpXSsFrcByWbG6mCva6WzsUspTHhtUkoanJFUB",
+        "created_at": "2026-10-12T06:32:00.858349+00:00"
+      },
+      {
+        "miner_uid": 25,
+        "hotkey": "5D8FXvXryPStepmTuA6d2NFMRdv4F43FrnRUQFmYB9LGbrtW",
+        "created_at": "2026-10-12T06:56:00.866673+00:00"
+      },
+      {
+        "miner_uid": 244,
+        "hotkey": "5CPAL4BEpEVmpGGDK3hrcjddhQ5qpJk8vQJvdChjnXg6WpKk",
+        "created_at": "2026-10-12T09:27:00.912417+00:00"
+      },
+      {
+        "miner_uid": 176,
+        "hotkey": "5HDy4eXCjyywoLfWJRozuKPNC6E4X6RsF6aiZmt8iuXRfjan",
+        "created_at": "2026-10-13T10:26:00.883614+00:00"
+      },
+      {
+        "miner_uid": 9,
+        "hotkey": "5D8HYswaK3Ae86Cy79ToZHyrPHnxkpjZLTVm3WUmu5Jh2ZRa",
+        "created_at": "2026-10-13T10:50:01.582543+00:00"
+      },
+      {
+        "miner_uid": 196,
+        "hotkey": "5G7JxFwaSvnhsXcbP5Y2fGpqo3nni8ZpBnsF7mDdd65r8jH3",
+        "created_at": "2026-10-13T17:21:00.861685+00:00"
+      },
+      {
+        "miner_uid": 92,
+        "hotkey": "5Cqt4Vw6DbGqUCHapE7vDrjdP6q1eYqdc7T6krwgCYyYK6vp",
+        "created_at": "2026-10-13T20:45:01.019364+00:00"
+      },
+      {
+        "miner_uid": 68,
+        "hotkey": "5FNWXoYczEdtSf4xJs9WmRJYtPLL5UhAc6ByER2B49Pe3Er8",
+        "created_at": "2026-10-14T12:45:01.031126+00:00"
+      },
+      {
+        "miner_uid": 180,
+        "hotkey": "5CkzxijgaVCeKqib5ER75UeVDd9mVG1pTw7LMgSvu3MyQfVk",
+        "created_at": "2026-10-14T13:08:00.990440+00:00"
+      },
+      {
+        "miner_uid": 20,
+        "hotkey": "5CUsD1ex4ftuXLSws9YGDe8CNLA8gevtUnq9NQW8uHisrK86",
+        "created_at": "2026-10-14T14:43:00.924263+00:00"
+      },
+      {
+        "miner_uid": 137,
+        "hotkey": "5GutT3Ai8iMrx5N2GpitfbAzAjc7MQ1ZpvsczsrkzWwUak9U",
+        "created_at": "2026-10-14T15:01:01.462240+00:00"
+      },
+      {
+        "miner_uid": 174,
+        "hotkey": "5Et3dYWaKBXhWURqjkwEgDVobqdG6oRBDDkpWaepPWCZAyNg",
+        "created_at": "2026-10-14T15:30:01.368019+00:00"
+      },
+      {
+        "miner_uid": 93,
+        "hotkey": "5GWM8XoKVEUzQAHmL4SpdZvhtAvWAaNqkwRX4GQFTdzoXRQ4",
+        "created_at": "2026-10-14T16:19:01.185909+00:00"
+      },
+      {
+        "miner_uid": 252,
+        "hotkey": "5GRPDK1E8ocHdrjjBqsjz2uQnK76jg58Bu38Xmpw3BzUSwR6",
+        "created_at": "2026-10-15T16:19:01.188529+00:00"
+      },
+      {
+        "miner_uid": 173,
+        "hotkey": "5Gdc9zBrb5iTmYy4tGkmtkyvXrkcasScaJGyaxcdti6vPcww",
+        "created_at": "2026-10-15T16:43:00.952130+00:00"
+      },
+      {
+        "miner_uid": 105,
+        "hotkey": "5HpHogcPnZPys5stfYGXwtxDp4xEwpSgsTF1LFwi3rqQmrXa",
+        "created_at": "2026-10-15T17:11:01.297604+00:00"
+      },
+      {
+        "miner_uid": 99,
+        "hotkey": "5Cqbgpe6KphALBXUW186VvGt4RDbUPY7iYV2aEEcmdYSfikf",
+        "created_at": "2026-10-15T17:34:01.028747+00:00"
+      },
+      {
+        "miner_uid": 181,
+        "hotkey": "5GsVxUNzTNwvypQRfrFQ4eM2Kth44WwGBu9HZxJJYtZqG5zc",
+        "created_at": "2026-10-15T17:57:29.557837+00:00"
+      },
+      {
+        "miner_uid": 223,
+        "hotkey": "5DebyF87g2g4SZThAWBy7XLU75jzuY5mtHB1VMgtz4PBSJWr",
+        "created_at": "2026-10-15T18:30:01.665683+00:00"
+      },
+      {
+        "miner_uid": 238,
+        "hotkey": "5EqXqboKvQWYnjj2wANugs6h3zboasF79H24CYtJRwyzsNTt",
+        "created_at": "2026-10-15T18:47:01.830309+00:00"
+      },
+      {
+        "miner_uid": 236,
+        "hotkey": "5HbPnPKgnbqcjisYfhBTKx42L9eFULHraYGz3TCtn79GKitq",
+        "created_at": "2026-10-15T19:15:01.290266+00:00"
+      },
+      {
+        "miner_uid": 79,
+        "hotkey": "5EFGa4DRn6Y3AwvSTkUTzdeHHq4r2TDixXqavKpj1zAqpvje",
+        "created_at": "2026-10-15T19:45:01.052896+00:00"
+      },
+      {
+        "miner_uid": 102,
+        "hotkey": "5CLcdipHju5qCPpo5VizLWDHYcFm4Jf2ZdxEzovuGqYawYS4",
+        "created_at": "2026-10-15T20:08:00.932251+00:00"
+      },
+      {
+        "miner_uid": 33,
+        "hotkey": "5DCJMQoXVfU53puN8S8Ch31vtUjV1uyY3eoWjJ8TwUiGdHed",
+        "created_at": "2026-10-15T20:33:01.929857+00:00"
+      },
+      {
+        "miner_uid": 165,
+        "hotkey": "5E2Li1Bs2aa5tm3Nqyv2Qz5hJYmGnSkAC3RCtYWKrDN3rxrb",
+        "created_at": "2026-10-15T20:57:00.901307+00:00"
+      },
+      {
+        "miner_uid": 221,
+        "hotkey": "5Eo4x9LJp7TAH5bTQ17D7V4nNAPtwfBXtLuDcm8qaVH1cJ7g",
+        "created_at": "2026-10-15T21:27:01.815201+00:00"
+      },
+      {
+        "miner_uid": 142,
+        "hotkey": "5Cyp8jdhzzcNFYRw5aPZsqC8zNhWvFUhGqLxBGucSeGPSerS",
+        "created_at": "2026-10-15T21:50:01.150043+00:00"
+      },
+      {
+        "miner_uid": 48,
+        "hotkey": "5GbVX7rh4qk1UWDMzfgyFwsu9DX5EbXupbdMR8f42rrL4p7q",
+        "created_at": "2026-10-15T22:15:00.792123+00:00"
+      },
+      {
+        "miner_uid": 71,
+        "hotkey": "5DHkmarxr8jk2f5RDkRLH9fKJTwspWTcVTkKmnqH3V2VG2EW",
+        "created_at": "2026-10-15T22:47:01.719611+00:00"
+      },
+      {
+        "miner_uid": 35,
+        "hotkey": "5Ei695VnSkrLB71RkimHCoSLpagmKtsgtWXv8hg3esa63zFu",
+        "created_at": "2026-10-15T23:30:01.075238+00:00"
+      },
+      {
+        "miner_uid": 52,
+        "hotkey": "5GWBEZDzxxvyLkuPKRHAzSYZRAt2NYvuYUmV4mUMv2BacqY3",
+        "created_at": "2026-10-15T23:57:00.942441+00:00"
+      },
+      {
+        "miner_uid": 43,
+        "hotkey": "5EjuxNyd3ELEAFF3Rvj2wbjNrUxvewgZo3xnkMLvzQuDqj9g",
+        "created_at": "2026-10-16T03:45:00.965124+00:00"
+      },
+      {
+        "miner_uid": 245,
+        "hotkey": "5HKmPvt8fG22za5pxW7hFoL3pUfJREmtKk7qpcsAoWNTGXvw",
+        "created_at": "2026-10-16T10:04:01.437582+00:00"
+      },
+      {
+        "miner_uid": 197,
+        "hotkey": "5FxjogiJDpQNfEa5bqkM5TyiHQQFWURfR3afgcCz6BqJ6kh6",
+        "created_at": "2026-10-16T21:49:01.268871+00:00"
+      },
+      {
+        "miner_uid": 77,
+        "hotkey": "5GsW4oYUVc1jR4tw9pTVHW2aQFjegh9QnCjWnhW6MMkP1Xb7",
+        "created_at": "2026-10-16T22:21:00.847338+00:00"
+      },
+      {
+        "miner_uid": 23,
+        "hotkey": "5DfEZTVQ2pXBjGaT5gRxJ5xrbWyimFzHaexYt492t59edzPK",
+        "created_at": "2026-10-17T08:23:01.390978+00:00"
+      },
+      {
+        "miner_uid": 224,
+        "hotkey": "5FZKECYc1p8FyPqbiBFkEEPVCHq24WV2Xh2u3W8j8iFGMMgt",
+        "created_at": "2026-10-17T11:45:01.243126+00:00"
+      },
+      {
+        "miner_uid": 120,
+        "hotkey": "5GhRc9uoBp8SsiiyWJamcorSVb3s5HjkfHJwQAzWGF1PV5Qa",
+        "created_at": "2026-10-17T13:33:01.147755+00:00"
+      },
+      {
+        "miner_uid": 183,
+        "hotkey": "5EjRxqCVuCyWdVKzwdcyvm9oSfzDx3yB67GN35TjRbuMV9BG",
+        "created_at": "2026-10-17T14:55:01.865001+00:00"
+      },
+      {
+        "miner_uid": 192,
+        "hotkey": "5FeNxU4k7pmY9rVMPq5pJFwKgmsiS2veoUPuG6e8175ifbTT",
+        "created_at": "2026-10-17T15:19:01.180973+00:00"
+      },
+      {
+        "miner_uid": 69,
+        "hotkey": "5DXpE4nX3PVyUP5bTKH8sQVKacdHvA5idhdAcLa7Dn7keMJT",
+        "created_at": "2026-10-17T15:49:00.881855+00:00"
+      },
+      {
+        "miner_uid": 177,
+        "hotkey": "5DV28CMwQYmL1Uk387ueLDcRCfYR8zaN9dhyo3axdEH1o6mq",
+        "created_at": "2026-10-17T16:39:01.592768+00:00"
+      },
+      {
+        "miner_uid": 64,
+        "hotkey": "5CUn4XexRyB86jUr5kg3rEqY2aYcjfJy5PGqr9RwSTpvLVss",
+        "created_at": "2026-10-17T17:04:00.870222+00:00"
+      },
+      {
+        "miner_uid": 175,
+        "hotkey": "5EZVRTS7qfuW9o2214jhmRP3XGANjFUiizQPFMgCPcjweQ1Y",
+        "created_at": "2026-10-17T17:28:00.908936+00:00"
+      },
+      {
+        "miner_uid": 169,
+        "hotkey": "5HjaAGvsJsv72Uw677wgZ1rJUGfAxQGcvLDdj2cYaMP7SGwt",
+        "created_at": "2026-10-17T18:40:01.125356+00:00"
+      },
+      {
+        "miner_uid": 34,
+        "hotkey": "5Cm6sues88rZ19KKauBnUKJR4sXJZzSYpvseFuivoACfPkxy",
+        "created_at": "2026-10-17T21:55:00.838931+00:00"
+      },
+      {
+        "miner_uid": 27,
+        "hotkey": "5DvoP7rtfLgFcNm1JivMvbhxAnJdrnw2sJqm11BoQSx65o68",
+        "created_at": "2026-10-17T23:13:44.045335+00:00"
+      },
+      {
+        "miner_uid": 103,
+        "hotkey": "5DNo6VFGohAwZF4itdvkLhSoLoFLcQt2DZec6xKeDok7Xcd2",
+        "created_at": "2026-10-18T10:55:00.971815+00:00"
+      },
+      {
+        "miner_uid": 29,
+        "hotkey": "5CJ8ybp4pgB6eEYcZP2XdcHK5o4Dob9J1AjGNMNFyqo9Dap8",
+        "created_at": "2026-10-18T11:31:01.297664+00:00"
+      },
+      {
+        "miner_uid": 75,
+        "hotkey": "5HBXSPpLABQVy773W5RbU3JqFddzRdR4Hn2nMfETCUphbj9T",
+        "created_at": "2026-10-18T12:07:02.228560+00:00"
+      },
+      {
+        "miner_uid": 49,
+        "hotkey": "5HJwVbgKWoHzEVB1VZoCdZ3tHLCEcv8RVm1AxBHd7RM1J11m",
+        "created_at": "2026-10-18T12:44:01.159636+00:00"
+      },
+      {
+        "miner_uid": 231,
+        "hotkey": "5HWUCcGrRt2S8zrcKF44SBSRZVMySY5f6Lfw8LNhBhVjpqX6",
+        "created_at": "2026-10-18T13:25:00.914280+00:00"
+      },
+      {
+        "miner_uid": 61,
+        "hotkey": "5G4XDC3gBB7ZGcRtLvZduyaN7F6xL7sse2rRirFWwVSyrKLc",
+        "created_at": "2026-10-18T14:00:00.861865+00:00"
+      },
+      {
+        "miner_uid": 219,
+        "hotkey": "5GpTm5VozjTxJPQK1v38LesGA6WTgAFfDSjoDQSsp3qWnszq",
+        "created_at": "2026-10-18T14:34:01.413152+00:00"
+      },
+      {
+        "miner_uid": 36,
+        "hotkey": "5D2aCJniU82TmA6Z5MU3Fyz8bptVhbNEjwfXrGDoLF4ekDap",
+        "created_at": "2026-10-18T15:19:01.603027+00:00"
+      },
+      {
+        "miner_uid": 207,
+        "hotkey": "5DfYYBCtzT1K7cVgYz8adbUsvsiHR7D7N3H1Z78fhsbTfS8U",
+        "created_at": "2026-10-18T16:09:01.036545+00:00"
+      },
+      {
+        "miner_uid": 113,
+        "hotkey": "5CSgsd3iX6jkEf1Voe3a9Hc26PpgRkpzArMESJKD65ic5X1o",
+        "created_at": "2026-10-18T18:43:00.948695+00:00"
+      },
+      {
+        "miner_uid": 190,
+        "hotkey": "5Dsqb4XTSvgtPGVtHL5fQrNiyiZidZUEXznfxtChNgeCD919",
+        "created_at": "2026-10-18T19:33:01.166093+00:00"
+      },
+      {
+        "miner_uid": 222,
+        "hotkey": "5GbiRYqf4cwnTfzJrYDQpJsYhFFRkqLY2LxstsvgTZ6HfUUF",
+        "created_at": "2026-10-18T21:12:00.963615+00:00"
+      },
+      {
+        "miner_uid": 148,
+        "hotkey": "5HoxyhWp6h2P8YEx99M3bu31JTYeiZTYEyLfn719RMLm4Gne",
+        "created_at": "2026-10-19T06:30:01.023766+00:00"
+      },
+      {
+        "miner_uid": 199,
+        "hotkey": "5DwBbrhL3iDEnkYj34jgvCftVdiVrsMw2Xx8M6nWjktSuQTa",
+        "created_at": "2026-10-19T10:40:00.857282+00:00"
+      },
+      {
+        "miner_uid": 129,
+        "hotkey": "5DCsHokzYiqPJwCT3wEATSzYSFxpVcRgUSrrFbeTH7tkr3CS",
+        "created_at": "2026-10-19T12:55:00.835146+00:00"
+      },
+      {
+        "miner_uid": 50,
+        "hotkey": "5F78SzGQA6HKbPuaWzbo39JQNz9V9p9b5x3Pa5SDzwiXd3iT",
+        "created_at": "2026-10-19T13:30:01.228450+00:00"
+      },
+      {
+        "miner_uid": 98,
+        "hotkey": "5DCf96oVy5aHwBW4tBfhDuAicxvWemdYjVcWP4ph1Lh9Yjko",
+        "created_at": "2026-10-19T14:04:01.113860+00:00"
+      },
+      {
+        "miner_uid": 189,
+        "hotkey": "5GQnTQZmBDYM3eamuEBEU6rUzYzfBgTRrXbdCQV8x3Sa5wLt",
+        "created_at": "2026-10-19T14:47:02.183233+00:00"
+      },
+      {
+        "miner_uid": 123,
+        "hotkey": "5HT6MBtPPPYiEnPVMx4gtmQp8bDiZahQs5yNgWNkGkYBbQab",
+        "created_at": "2026-10-19T15:15:01.021273+00:00"
+      },
+      {
+        "miner_uid": 216,
+        "hotkey": "5GpAas1KR6F2z5WZBGgJBbMRvpWc4cyPc1zny3AwYWE2pKby",
+        "created_at": "2026-10-19T15:45:00.930297+00:00"
+      },
+      {
+        "miner_uid": 155,
+        "hotkey": "5Fv4kX675TkSmeefoSuNiPKJxGGhsH7v3XFX2SZevWXGR5B8",
+        "created_at": "2026-10-19T16:19:00.921956+00:00"
+      },
+      {
+        "miner_uid": 63,
+        "hotkey": "5CSW4aB25oZXF6aUZ1mErS44peinz9fGAZmVuDLdpgGNhYgf",
+        "created_at": "2026-10-19T16:40:00.914999+00:00"
+      },
+      {
+        "miner_uid": 203,
+        "hotkey": "5GdgbBVAWKyRvFfDijN8PPn21pDzbU1VCF4ELzAvVDcHRgj4",
+        "created_at": "2026-10-19T17:09:00.911852+00:00"
+      },
+      {
+        "miner_uid": 31,
+        "hotkey": "5H6PoHXp89uVVxbp4WG1Ua8NmbgeSLzwNAfK1BLK6yWsMn8W",
+        "created_at": "2026-10-19T18:40:00.903516+00:00"
+      },
+      {
+        "miner_uid": 151,
+        "hotkey": "5ETv7fzhS5qD8DTfoyzhYwtjb1sJo6E1VBdss5HVSKGStcfM",
+        "created_at": "2026-10-20T04:43:00.765330+00:00"
+      },
+      {
+        "miner_uid": 128,
+        "hotkey": "5D9eh8N21VeJoi6vCiHnMqFqV4G6e9dkySt6xXXzY9D3mRRK",
+        "created_at": "2026-10-20T16:32:01.776138+00:00"
+      },
+      {
+        "miner_uid": 40,
+        "hotkey": "5EL136D6qXMvtVUWJwJZTL3ztLeyZDLwrSkLnGfhMjtnGfcn",
+        "created_at": "2026-10-20T19:39:00.783608+00:00"
+      },
+      {
+        "miner_uid": 91,
+        "hotkey": "5HHF1poAVXReAE6bF79uVkRYrYshaqhTHLzKw5KLKDEv2w2w",
+        "created_at": "2026-10-21T10:17:00.895839+00:00"
+      },
+      {
+        "miner_uid": 117,
+        "hotkey": "5Hfvuwwxsn3ZCSDNGkzCC5bx4jNEjEWBx5NpMxxCU8oZsjwS",
+        "created_at": "2026-10-21T11:19:01.019054+00:00"
+      },
+      {
+        "miner_uid": 244,
+        "hotkey": "5DJEnzeWmyiWiVpxDACxEPs67VxpTqUNEcaVdBybEDb5ECnA",
+        "created_at": "2026-10-21T22:52:01.362492+00:00"
+      }
+    ]
+  },
+  "engine_rev": "6117938d00077e29747e17db96f77db541bff456",
+  "context_prices": "ohlcv",
+  "calendar": {
+    "sha256": "c1bc191b39a9409ef9ff8357891449231c605b88c7a3753a261eda5923fe5b32",
+    "events": 200
+  }
+}

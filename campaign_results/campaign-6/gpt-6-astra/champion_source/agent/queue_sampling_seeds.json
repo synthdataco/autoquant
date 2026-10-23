@@ -1,0 +1,94 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "random_seed11",
+      "--model",
+      "research_model",
+      "--workers",
+      "2",
+      "--assets",
+      "BTC",
+      "SOL",
+      "SP500",
+      "AAPLX",
+      "--seed",
+      "11",
+      "--config",
+      "{\"seasonal\": true}"
+    ],
+    "log": "agent/results/random_seed11_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "sobol_seed11",
+      "--model",
+      "research_model",
+      "--workers",
+      "2",
+      "--assets",
+      "BTC",
+      "SOL",
+      "SP500",
+      "AAPLX",
+      "--seed",
+      "11",
+      "--config",
+      "{\"seasonal\": true, \"sampler\": \"sobol\"}"
+    ],
+    "log": "agent/results/sobol_seed11_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "random_seed37",
+      "--model",
+      "research_model",
+      "--workers",
+      "2",
+      "--assets",
+      "BTC",
+      "SOL",
+      "SP500",
+      "AAPLX",
+      "--seed",
+      "37",
+      "--config",
+      "{\"seasonal\": true}"
+    ],
+    "log": "agent/results/random_seed37_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "sobol_seed37",
+      "--model",
+      "research_model",
+      "--workers",
+      "2",
+      "--assets",
+      "BTC",
+      "SOL",
+      "SP500",
+      "AAPLX",
+      "--seed",
+      "37",
+      "--config",
+      "{\"seasonal\": true, \"sampler\": \"sobol\"}"
+    ],
+    "log": "agent/results/sobol_seed37_suite.log"
+  }
+]

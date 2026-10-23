@@ -1,0 +1,10 @@
+BTC diagnostic {'alpha': 0.06856057920917338, 'persistence': 0.9779801383783048, 'beta': 0.9094195591691314, 'fit_nll': 0.8381309244785126, 'converged': True, 'august_nll': 0.6872327200650803, 'august_fast15_nll': 0.7017163293859103}
+BTC final {'alpha': 0.06834597680842179, 'persistence': 0.9834525316187155, 'beta': 0.9151065548102937, 'fit_nll': 0.8007035373471086, 'converged': True}
+ETH diagnostic {'alpha': 0.07710408771945851, 'persistence': 0.9722458830239632, 'beta': 0.8951417953045047, 'fit_nll': 0.8320694996954481, 'converged': True, 'august_nll': 0.6266274570640193, 'august_fast15_nll': 0.6495482051453942}
+ETH final {'alpha': 0.07410627444080105, 'persistence': 0.981322973740961, 'beta': 0.9072166993001599, 'fit_nll': 0.7756119710287616, 'converged': True}
+SOL diagnostic {'alpha': 0.05107562493776764, 'persistence': 0.9833059957593295, 'beta': 0.9322303708215619, 'fit_nll': 0.8633634651280009, 'converged': True, 'august_nll': 0.7842093002667162, 'august_fast15_nll': 0.7983787284399293}
+SOL final {'alpha': 0.05299631916347137, 'persistence': 0.9851753838994805, 'beta': 0.9321790647360091, 'fit_nll': 0.8493761266186125, 'converged': True}
+XRP diagnostic {'alpha': 0.054770850378024045, 'persistence': 0.9819511531301435, 'beta': 0.9271803027521194, 'fit_nll': 0.8545471016760267, 'converged': True, 'august_nll': 0.7221804761727961, 'august_fast15_nll': 0.7256056767070039}
+XRP final {'alpha': 0.047502675955232915, 'persistence': 0.9913744650617163, 'beta': 0.9438717891064834, 'fit_nll': 0.8164559479510756, 'converged': True}
+HYPE diagnostic {'alpha': 0.04759128034946925, 'persistence': 0.9779697260804059, 'beta': 0.9303784457309366, 'fit_nll': 0.8749433927433926, 'converged': True, 'august_nll': 0.8018306638593278, 'august_fast15_nll': 0.8077338292509048}
+HYPE final {'alpha': 0.05576916767430148, 'persistence': 0.9760811406011269, 'beta': 0.9203119729268254, 'fit_nll': 0.8577445597311815, 'converged': True}

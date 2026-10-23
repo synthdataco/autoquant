@@ -1,0 +1,26 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "pca_v9_full",
+      "--model",
+      "candidate_v9_research",
+      "--config",
+      "{\"sampler\":\"sobol_pca\"}",
+      "--cached-prompts",
+      "--prediction-dtype",
+      "float32",
+      "--days",
+      "10",
+      "--ends",
+      "2026-09-19",
+      "2026-10-11",
+      "--workers",
+      "4"
+    ],
+    "log": "agent/results/pca_v9_full_suite.log"
+  }
+]

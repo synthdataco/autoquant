@@ -1,0 +1,24 @@
+Loading weights:   0%|          | 0/89 [00:00<?, ?it/s]Loading weights: 100%|██████████| 89/89 [00:00<00:00, 2172.24it/s]
+chronos-t5-tiny BTC complete
+chronos-t5-tiny ETH complete
+chronos-t5-tiny SOL complete
+chronos-t5-tiny XRP complete
+chronos-t5-tiny HYPE complete
+Loading weights:   0%|          | 0/131 [00:00<?, ?it/s]Loading weights: 100%|██████████| 131/131 [00:00<00:00, 1929.60it/s]
+chronos-t5-small BTC complete
+chronos-t5-small ETH complete
+chronos-t5-small SOL complete
+chronos-t5-small XRP complete
+chronos-t5-small HYPE complete
+                        ratio_mean  lower_clip_share  upper_clip_share  learned_over_median
+model            asset                                                                     
+chronos-t5-small BTC       0.83824           0.00000               0.0              1.36665
+                 ETH       0.76787           0.00000               0.0              1.49117
+                 HYPE      0.82599           0.00000               0.0              1.07516
+                 SOL       0.76711           0.00278               0.0              1.28805
+                 XRP       0.76522           0.00000               0.0              1.64825
+chronos-t5-tiny  BTC       0.82298           0.00000               0.0              1.34497
+                 ETH       0.75102           0.00000               0.0              1.42241
+                 HYPE      0.81168           0.00000               0.0              1.05023
+                 SOL       0.81781           0.00000               0.0              1.39689
+                 XRP       0.76790           0.00000               0.0              1.67003

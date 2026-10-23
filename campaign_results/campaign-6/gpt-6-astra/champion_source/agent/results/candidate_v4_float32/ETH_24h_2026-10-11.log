@@ -1,0 +1,16 @@
+generation seconds/prompt: 0.0747
+predictions generated: 240
+  [crypto-24h/ETH] fetching scored prompts (2026-10-01 → 2026-10-11)...
+  [crypto-24h/ETH] 61440 score rows (240 prompts) in 0.1s
+  [crypto-24h/ETH] fetching rewards history (prompt_name=crypto-24h)...
+  [crypto-24h/ETH] 862377 rewards rows (3385 update rounds) in 0.9s
+  [crypto-24h/ETH] scoring 240 prompts against local predictions...
+  [crypto-24h/ETH] scored 240 prompts in 6.6s
+  [crypto-24h/ETH] computing smoothed scores over 240 reward rounds...
+  [crypto-24h/ETH] smoothed scores done in 11.7s (total backtest: 19.9s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 240, 'mean_crps': 2747.9259843110926, 'final_smoothed_score': 109.86608743757388, 'realized_points_expected': 69360, 'realized_points_scored': 69360, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event            203 prompts  gap +7.60%
+  GDP                  13 prompts  gap +2.27%
+  NFP                  24 prompts  gap +2.40%
+  PCE                  13 prompts  gap +2.27%

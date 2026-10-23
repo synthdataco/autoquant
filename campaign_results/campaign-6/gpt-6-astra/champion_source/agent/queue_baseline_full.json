@@ -1,0 +1,21 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "baseline_full",
+      "--model",
+      "baseline",
+      "--days",
+      "10",
+      "--ends",
+      "2026-09-19",
+      "2026-10-11",
+      "--workers",
+      "4"
+    ],
+    "log": "agent/results/baseline_full_suite.log"
+  }
+]

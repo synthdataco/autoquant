@@ -1,0 +1,13 @@
+generation seconds/prompt: 0.0150
+predictions generated: 288
+  [crypto-1h/XRP] fetching scored prompts (2026-10-08 → 2026-10-10)...
+  [crypto-1h/XRP] 73728 score rows (288 prompts) in 0.3s
+  [crypto-1h/XRP] fetching rewards history (prompt_name=crypto-1h)...
+  [crypto-1h/XRP] 240583 rewards rows (940 update rounds) in 0.6s
+  [crypto-1h/XRP] scoring 288 prompts against local predictions...
+  [crypto-1h/XRP] scored 288 prompts in 8.3s
+  [crypto-1h/XRP] computing smoothed scores over 242 reward rounds...
+  [crypto-1h/XRP] smoothed scores done in 13.2s (total backtest: 23.0s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 288, 'mean_crps': 1056.2694561715025, 'final_smoothed_score': 78.7391888191817, 'realized_points_expected': 17568, 'realized_points_scored': 17568, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event            288 prompts  gap +8.96%

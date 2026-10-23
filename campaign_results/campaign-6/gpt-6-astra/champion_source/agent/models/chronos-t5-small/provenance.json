@@ -1,0 +1,7 @@
+{
+  "repo": "amazon/chronos-t5-small",
+  "revision": "a971ba21945c4f1796b17a91fe69214b5f4ad472",
+  "created": "2024-02-21",
+  "last_modified": "2025-11-21",
+  "purpose": "offline hourly variance forecast experiment"
+}

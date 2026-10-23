@@ -1,0 +1,54 @@
+v1	24h	BTC	2026-09-30	2185.9364904920712
+v1	1h	BTC	2026-09-30	509.60373086753583
+v1	24h	ETH	2026-09-30	2865.0316033503136
+v1	1h	ETH	2026-09-30	684.1666773072177
+v1	24h	SOL	2026-09-30	4501.71395191205
+v1	1h	SOL	2026-09-30	1025.3103753700316
+v1	24h	XRP	2026-09-30	5181.703436235881
+v1	1h	XRP	2026-09-30	1214.4188064829127
+v1	24h	HYPE	2026-09-30	4572.55513726037
+v1	1h	HYPE	2026-09-30	1041.9685152544641
+v1	24h	XAU	2026-09-30	1147.641858594119
+v1	24h	NVDAX	2026-09-30	1752.2957523354132
+v1	24h	GOOGLX	2026-09-30	1034.1424833574722
+v1	24h	TSLAX	2026-09-30	1614.2946564133204
+v1	24h	AAPLX	2026-09-30	945.3985845718764
+v1	24h	WTIOIL	2026-09-30	3278.897108640318
+v1	24h	SPCX	2026-09-30	1820.608494282156
+v1	24h	SP500	2026-09-30	629.9786978746891
+v1	24h	BTC	2026-08-31	FAIL:the offline bundle has no scored BTC prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	1h	BTC	2026-08-31	FAIL:the offline bundle has no scored BTC prompt for --time-length 3600 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	ETH	2026-08-31	FAIL:the offline bundle has no scored ETH prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	1h	ETH	2026-08-31	FAIL:the offline bundle has no scored ETH prompt for --time-length 3600 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	SOL	2026-08-31	FAIL:the offline bundle has no scored SOL prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	1h	SOL	2026-08-31	FAIL:the offline bundle has no scored SOL prompt for --time-length 3600 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	XRP	2026-08-31	FAIL:the offline bundle has no scored XRP prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	1h	XRP	2026-08-31	FAIL:the offline bundle has no scored XRP prompt for --time-length 3600 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	HYPE	2026-08-31	FAIL:the offline bundle has no scored HYPE prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	1h	HYPE	2026-08-31	FAIL:the offline bundle has no scored HYPE prompt for --time-length 3600 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	XAU	2026-08-31	FAIL:the offline bundle has no scored XAU prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	NVDAX	2026-08-31	FAIL:the offline bundle has no scored NVDAX prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	GOOGLX	2026-08-31	FAIL:the offline bundle has no scored GOOGLX prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	TSLAX	2026-08-31	FAIL:the offline bundle has no scored TSLAX prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	AAPLX	2026-08-31	FAIL:the offline bundle has no scored AAPLX prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	WTIOIL	2026-08-31	FAIL:the offline bundle has no scored WTIOIL prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	SPCX	2026-08-31	FAIL:the offline bundle has no scored SPCX prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+
+v1	24h	SP500	2026-08-31	FAIL:the offline bundle has no scored SP500 prompt for --time-length 86400 in 2026-08-28 → 2026-08-31 (DATA.md gives its span); --cadence-minutes answers a grid instead, for CRPS only.
+

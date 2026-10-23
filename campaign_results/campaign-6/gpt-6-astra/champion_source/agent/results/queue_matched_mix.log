@@ -1,0 +1,2 @@
+{"cmd": ["uv", "run", "agent/fit_matched_mix.py"], "exit": 0}
+{"cmd": ["uv", "run", "agent/queue_research.py", "--jobs", "agent/queue_matched_mix_score.json"], "exit": 0}

@@ -1,0 +1,6 @@
+{
+  "train_start": "2026-05-08",
+  "train_end_exclusive": "2026-07-01",
+  "contexts": 1080,
+  "constant_mix": 0.3806534162268228
+}

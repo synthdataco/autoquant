@@ -1,0 +1,3 @@
+generation seconds/prompt: 0.0701
+predictions generated: 1151
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 1151, 'mean_crps': 1257.770825127927, 'final_smoothed_score': None, 'realized_points_expected': 70211, 'realized_points_scored': 70211, 'realized_coverage': 1.0, 'mode': 'official_backtester_cached_prompts'}

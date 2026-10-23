@@ -1,0 +1,3 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+README.md 5575 bytes
+torch_model.ckpt 814370168 bytes

@@ -1,0 +1,2 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "bridge_v3_seed11", "--model", "candidate_v3_research", "--config", "{\"sampler\": \"sobol_bridge\"}", "--seed", "11", "--cached-prompts", "--prediction-dtype", "float32", "--workers", "4"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "bridge_v3_seed37", "--model", "candidate_v3_research", "--config", "{\"sampler\": \"sobol_bridge\"}", "--seed", "37", "--cached-prompts", "--prediction-dtype", "float32", "--workers", "4"], "exit": 0}

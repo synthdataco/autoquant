@@ -1,0 +1,19 @@
+{
+  "calendar_time": "2025-08-01 12:30:00+00:00",
+  "kernel_minutes": [
+    0,
+    5
+  ],
+  "excluded_return_label_offsets": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "passed": true
+}

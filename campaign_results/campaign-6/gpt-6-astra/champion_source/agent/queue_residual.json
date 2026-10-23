@@ -1,0 +1,50 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "residual_all",
+      "--model",
+      "research_model",
+      "--workers",
+      "2",
+      "--formats",
+      "1h",
+      "--assets",
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP",
+      "HYPE",
+      "--config",
+      "{\"seasonal\": true, \"residual\": \"all\"}"
+    ],
+    "log": "agent/results/residual_all_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "residual_memory",
+      "--model",
+      "research_model",
+      "--workers",
+      "2",
+      "--formats",
+      "1h",
+      "--assets",
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP",
+      "HYPE",
+      "--config",
+      "{\"seasonal\": true, \"residual\": \"memory\"}"
+    ],
+    "log": "agent/results/residual_memory_suite.log"
+  }
+]

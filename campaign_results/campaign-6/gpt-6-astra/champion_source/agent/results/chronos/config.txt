@@ -1,0 +1,1 @@
+{'research': True, 'seed': 20261011, 'config': '{"seasonal":true,"chronos":true}', 'tag': 'chronos', 'model': 'research_model', 'ends': ['2026-09-16', '2026-10-10'], 'days': 2, 'workers': 1, 'assets': ['BTC', 'ETH', 'SOL', 'XRP', 'HYPE', 'XAU', 'SP500'], 'formats': ['24h', '1h'], 'paths': 1000}

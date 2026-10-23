@@ -1,0 +1,20 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/fit_matched_mix.py"
+    ],
+    "log": "agent/results/matched_mix_fit.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/queue_research.py",
+      "--jobs",
+      "agent/queue_matched_mix_score.json"
+    ],
+    "log": "agent/results/queue_matched_mix_score.log"
+  }
+]

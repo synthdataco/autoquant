@@ -1,0 +1,1 @@
+{"cmd": ["uv", "run", "--group", "research", "agent/diagnose_chronos_forecasts.py"], "exit": 0}

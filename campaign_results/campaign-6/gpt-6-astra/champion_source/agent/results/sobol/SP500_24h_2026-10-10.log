@@ -1,0 +1,14 @@
+generation seconds/prompt: 0.0824
+predictions generated: 48
+  [com-equ-24h/SP500] fetching scored prompts (2026-10-08 → 2026-10-10)...
+  [com-equ-24h/SP500] 12288 score rows (48 prompts) in 0.1s
+  [com-equ-24h/SP500] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/SP500] 239036 rewards rows (938 update rounds) in 0.7s
+  [com-equ-24h/SP500] scoring 48 prompts against local predictions...
+  [com-equ-24h/SP500] filled 14/14 price-gap prompts from validator realized paths
+  [com-equ-24h/SP500] scored 48 prompts in 1.1s
+  [com-equ-24h/SP500] computing smoothed scores over 47 reward rounds...
+  [com-equ-24h/SP500] smoothed scores done in 1.2s (total backtest: 3.3s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 48, 'mean_crps': 759.8273827945039, 'final_smoothed_score': 13.651225888809527, 'realized_points_expected': 13872, 'realized_points_scored': 13872, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             48 prompts  gap +1.89%

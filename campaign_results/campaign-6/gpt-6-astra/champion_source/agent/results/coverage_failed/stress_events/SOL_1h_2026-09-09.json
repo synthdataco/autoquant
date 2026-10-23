@@ -1,0 +1,10 @@
+{
+  "miner_name": "campaign",
+  "miner_id": 999,
+  "num_prompts": 6,
+  "mean_crps": 495.7556828558906,
+  "final_smoothed_score": 55.52554429369046,
+  "realized_points_expected": 366,
+  "realized_points_scored": 366,
+  "realized_coverage": 1.0
+}

@@ -1,0 +1,6 @@
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "paired_base_20261011", "--model", "candidate_ablation", "--config", "{}", "--assets", "BTC", "SOL", "AAPLX", "SP500", "--workers", "2", "--seed", "20261011"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "paired_20261011", "--model", "candidate_ablation", "--config", "{\"paired\": true}", "--assets", "BTC", "SOL", "AAPLX", "SP500", "--workers", "2", "--seed", "20261011"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "paired_base_11", "--model", "candidate_ablation", "--config", "{}", "--assets", "BTC", "SOL", "AAPLX", "SP500", "--workers", "2", "--seed", "11"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "paired_11", "--model", "candidate_ablation", "--config", "{\"paired\": true}", "--assets", "BTC", "SOL", "AAPLX", "SP500", "--workers", "2", "--seed", "11"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "paired_base_37", "--model", "candidate_ablation", "--config", "{}", "--assets", "BTC", "SOL", "AAPLX", "SP500", "--workers", "2", "--seed", "37"], "exit": 0}
+{"cmd": ["uv", "run", "agent/run_suite.py", "--tag", "paired_37", "--model", "candidate_ablation", "--config", "{\"paired\": true}", "--assets", "BTC", "SOL", "AAPLX", "SP500", "--workers", "2", "--seed", "37"], "exit": 0}

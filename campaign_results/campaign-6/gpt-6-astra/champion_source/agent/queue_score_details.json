@@ -1,0 +1,107 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/predict.py",
+      "--asset",
+      "BTC",
+      "--model",
+      "research_model",
+      "--days",
+      "2",
+      "--eval-end",
+      "2026-09-16",
+      "--latest-formula",
+      "--cached-prompts",
+      "--score-details",
+      "--time-length",
+      "3600",
+      "--time-increment",
+      "60",
+      "--output",
+      "agent/results/score_seasonal/BTC_1h_2026-09-16"
+    ],
+    "env": {
+      "MODEL_CONFIG": "{\"seasonal\": true}"
+    },
+    "log": "agent/results/score_details_pilot.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/verify_score_details.py"
+    ],
+    "log": "agent/results/score_details_parity.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "score_seasonal",
+      "--model",
+      "research_model",
+      "--config",
+      "{\"seasonal\": true}",
+      "--cached-prompts",
+      "--score-details",
+      "--assets",
+      "BTC",
+      "SOL",
+      "--formats",
+      "1h",
+      "--workers",
+      "2"
+    ],
+    "log": "agent/results/score_seasonal_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "score_mixture",
+      "--model",
+      "research_model",
+      "--config",
+      "{\"seasonal\": true, \"mix\": 0.35}",
+      "--cached-prompts",
+      "--score-details",
+      "--assets",
+      "BTC",
+      "SOL",
+      "--formats",
+      "1h",
+      "--workers",
+      "2"
+    ],
+    "log": "agent/results/score_mixture_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "score_reversion",
+      "--model",
+      "research_model",
+      "--config",
+      "{\"seasonal\": true, \"mix\": 0.35, \"mix_revert\": true}",
+      "--cached-prompts",
+      "--score-details",
+      "--assets",
+      "BTC",
+      "SOL",
+      "--formats",
+      "1h",
+      "--workers",
+      "2"
+    ],
+    "log": "agent/results/score_reversion_suite.log"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "steps": 1,
+    "clock": "constant",
+    "increment_covariance_max_error": 0.0,
+    "seconds1000": 0.00012726800923701376
+  },
+  {
+    "steps": 1,
+    "clock": "heterogeneous",
+    "increment_covariance_max_error": 0.0,
+    "seconds1000": 0.00012200001219753176
+  },
+  {
+    "steps": 7,
+    "clock": "constant",
+    "increment_covariance_max_error": 7.216449660063518e-15,
+    "seconds1000": 0.00043418200220912695
+  },
+  {
+    "steps": 7,
+    "clock": "heterogeneous",
+    "increment_covariance_max_error": 1.4753948278554125e-14,
+    "seconds1000": 0.00016323199088219553
+  },
+  {
+    "steps": 60,
+    "clock": "constant",
+    "increment_covariance_max_error": 3.1168297237650136e-13,
+    "seconds1000": 0.0028948879917152226
+  },
+  {
+    "steps": 60,
+    "clock": "heterogeneous",
+    "increment_covariance_max_error": 3.108535651108468e-11,
+    "seconds1000": 0.002005672999075614
+  },
+  {
+    "steps": 288,
+    "clock": "constant",
+    "increment_covariance_max_error": 9.237784148741213e-12,
+    "seconds1000": 0.0252415180002572
+  },
+  {
+    "steps": 288,
+    "clock": "heterogeneous",
+    "increment_covariance_max_error": 1.4836822961975691e-09,
+    "seconds1000": 0.023527729004854336
+  }
+]

@@ -1,0 +1,3 @@
+Loading weights:   0%|          | 0/131 [00:00<?, ?it/s]Loading weights: 100%|██████████| 131/131 [00:00<00:00, 2423.49it/s]
+{'load_seconds': 5.0893988460011315, 'predict_seconds': [0.8579995259933639, 0.2800839350093156, 0.27153093498782255], 'first_response_seconds': 5.947398371994495, 'max_allocated_gib': 0.32033586502075195, 'repeatable': True}
+Preregistered practical latency gate failed

@@ -1,0 +1,126 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/fit_seasonality.py",
+      "--assets",
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP",
+      "HYPE",
+      "--start",
+      "2026-02-01",
+      "--end",
+      "2026-04-01",
+      "--output",
+      "agent/seasonality_apr01.json"
+    ],
+    "log": "agent/results/seasonality_apr01.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/fit_clock.py",
+      "--start",
+      "2026-02-01",
+      "--end",
+      "2026-04-01",
+      "--table",
+      "seasonality_apr01.json",
+      "--output",
+      "agent/clock_apr01.json"
+    ],
+    "log": "agent/results/clock_apr01.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/analyze_events.py",
+      "--assets",
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP",
+      "HYPE",
+      "--start",
+      "2025-10-01",
+      "--end",
+      "2026-04-01",
+      "--table",
+      "seasonality_apr01.json",
+      "--suffix",
+      "_apr01"
+    ],
+    "log": "agent/results/event_diagnostics_apr01.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/fit_events.py",
+      "--end",
+      "2026-04-01",
+      "--suffix",
+      "_apr01"
+    ],
+    "log": "agent/results/event_fit_apr01.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_crps_slopes.py",
+      "--phase",
+      "historical"
+    ],
+    "log": "agent/results/crps_slopes_historical_suite.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "--group",
+      "research",
+      "agent/fit_crps_gradient.py",
+      "--phase",
+      "historical"
+    ],
+    "log": "agent/results/crps_gradient_historical_fit.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "historical_crps_gradient_tree",
+      "--model",
+      "candidate_v9_research",
+      "--config",
+      "{\"nonlinear\": \"tree\", \"nonlinear_model\": \"crps_gradient_historical.json\", \"table\": \"seasonality_jul01.json\", \"clock_table\": \"clock_jul01.json\", \"event_table\": \"event_multipliers_jul01.json\"}",
+      "--cached-prompts",
+      "--prediction-dtype",
+      "float32",
+      "--days",
+      "2",
+      "--ends",
+      "2026-07-22",
+      "2026-08-22",
+      "--assets",
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP",
+      "HYPE",
+      "--formats",
+      "1h",
+      "--workers",
+      "4"
+    ],
+    "log": "agent/results/historical_crps_gradient_tree_suite.log"
+  }
+]

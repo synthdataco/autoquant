@@ -1,0 +1,12 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "--group",
+      "research",
+      "agent/diagnose_chronos_forecasts.py"
+    ],
+    "log": "agent/results/chronos_forecast_diagnostics.log"
+  }
+]

@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/workspace/agent/predict.py", line 386, in <module>
+    main()
+  File "/workspace/agent/predict.py", line 342, in main
+    n = generate(
+        ^^^^^^^^^
+  File "/workspace/agent/predict.py", line 242, in generate
+    out = simulate(asset=asset, start_time=t.isoformat(), time_increment=time_increment,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/agent/candidate_v9_research.py", line 20, in simulate
+    return simulate_config(asset,start_time,time_increment,time_length,num_simulations,context_prices,np.random.default_rng(seed),config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/agent/research_model.py", line 189, in simulate_config
+    learned=forecast_variance(context_prices,asset,future,c['_seed'],c.get('hourly_persistence',False),c.get('chronos_model','chronos-t5-tiny'),shape_name=shape_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/agent/chronos_vol.py", line 73, in forecast_variance
+    forecast=predict_hourly(asset,str(origin),seed,values,model_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/agent/chronos_vol.py", line 27, in predict_hourly
+    provenance=(Path(__file__).parent/'models'/model_name/'provenance.json').read_bytes()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1021, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/agent/models/chronos-t5-tiny/provenance.json'

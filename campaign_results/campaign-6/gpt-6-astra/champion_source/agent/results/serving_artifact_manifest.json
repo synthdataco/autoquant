@@ -1,0 +1,56 @@
+{
+  "pretrained_weights_required": false,
+  "calendar_source": "SYNTH_BENCHMARK_CALENDAR at runtime",
+  "artifacts": [
+    {
+      "path": "agent/modeling.py",
+      "bytes": 13067,
+      "sha256": "7875b3c34324ff5ffbc81d97a4ec669f6c8a7808e54e38be04f054c3c7bffb65"
+    },
+    {
+      "path": "agent/qmc_bridge.py",
+      "bytes": 1035,
+      "sha256": "4231e2b26039afcc84535770beb9f860210ada8a32d9c5b309666a2ffd829fe0"
+    },
+    {
+      "path": "agent/seasonality.json",
+      "bytes": 35821,
+      "sha256": "9eea4ff1f9b1a641ad77162867a619d0da285e6ef246848f00ab678b71a34279"
+    },
+    {
+      "path": "agent/clock.json",
+      "bytes": 7896,
+      "sha256": "dcf83a513c3ad8495f8d6feb46bac1281f17e0b803caa7b40762c518878cbeaf"
+    },
+    {
+      "path": "agent/event_multipliers.json",
+      "bytes": 1642,
+      "sha256": "249d4dc80a12fbbfa3c6343b5deed074a413d8c8a86ae00c3ed4c7af086c52ca"
+    },
+    {
+      "path": "agent/seasonality_fine.json",
+      "bytes": 106133,
+      "sha256": "8d300fa247d12c3520ecdd7d25da5388eea1d0b2fe45cbbf7b89a93953d57d3e"
+    },
+    {
+      "path": "agent/seasonality_oct01_fine.json",
+      "bytes": 106251,
+      "sha256": "8d4c49c16099bef02e7b99fe6e439010b9b217f82afc9171fc8c55911bdaf093"
+    },
+    {
+      "path": "agent/seasonality_sep14_fine.json",
+      "bytes": 106116,
+      "sha256": "cc4136fda92935cc464291bd6ba24f1e6e625cccd40006321849632f6b4ae579"
+    },
+    {
+      "path": "agent/seasonality_oct05_fine.json",
+      "bytes": 106332,
+      "sha256": "84c09e74da87cfeba86adec058f2da42d7d619bf9ea03ff759894a99d0884b63"
+    },
+    {
+      "path": "agent/robust_factors.json",
+      "bytes": 1114,
+      "sha256": "33b386480a4e10dea5d13edd971fcf3aad591aa298e8befbbad57a17316a12e3"
+    }
+  ]
+}

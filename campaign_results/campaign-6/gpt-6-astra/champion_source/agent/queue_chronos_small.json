@@ -1,0 +1,37 @@
+[
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "--group",
+      "research",
+      "agent/benchmark_chronos_small.py"
+    ],
+    "log": "agent/results/chronos_small_latency.log"
+  },
+  {
+    "cmd": [
+      "uv",
+      "run",
+      "agent/run_suite.py",
+      "--tag",
+      "chronos_small_fast15",
+      "--model",
+      "research_model",
+      "--research",
+      "--config",
+      "{\"seasonal\": true, \"fast_half\": 15, \"chronos\": true, \"chronos_model\": \"chronos-t5-small\"}",
+      "--assets",
+      "BTC",
+      "ETH",
+      "SOL",
+      "XRP",
+      "HYPE",
+      "--formats",
+      "1h",
+      "--workers",
+      "1"
+    ],
+    "log": "agent/results/chronos_small_fast15_suite.log"
+  }
+]

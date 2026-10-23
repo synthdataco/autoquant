@@ -1,0 +1,8 @@
+{
+  "package": "timesfm",
+  "version": "1.3.0",
+  "wheel_url": "https://files.pythonhosted.org/packages/d9/04/afb1888ab8db240576811b240cc7b7687c348516a72bfd618c5bd98ea9d2/timesfm-1.3.0-py3-none-any.whl",
+  "wheel_sha256": "a99e22b13654bdbfaecb14a48e4a8dc6c990b191a0322a5cacd09eb0df3bfebe",
+  "source_file": "timesfm/pytorch_patched_decoder.py",
+  "modified": false
+}

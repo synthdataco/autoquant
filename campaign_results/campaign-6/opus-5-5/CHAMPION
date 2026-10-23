@@ -1,0 +1,19 @@
+sha: e764fe5e3999717d0f86d7a153c40e32ee7ae050
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Seasonal EWMA-volatility simulator (agent/modeling.py + agent/artifacts/season.json): NY-time weekly profile
+  x minute-of-hour shape x calendar event multipliers x two-EWMA level; Student-t increments, zero atom,
+  per-path vol multiplier, adaptive weekend ratio for non-crypto. CPU only, ~0.05 s/prompt at 1000 paths.
+
+  Backtested CRPS (mean per prompt), official agent/predict.py, 1000 paths, --latest-formula,
+  all validator-scored prompts; 24h: 2026-09-26..10-11 (15 days), 1h: 2026-09-22..10-11 (19 days):
+    CRYPTO_24H   champion 3494.1   starter 3698.2   (-5.5%)
+    COM_EQU_24H  champion 1689.2   starter 2025.5   (-16.6%)
+    CRYPTO_1H    champion  801.8   starter  853.5   (-6.1%)
+  (served season.json is fitted on data to 2026-10-11, i.e. in-sample for the profile on these windows.)
+
+  Out-of-sample (profile fitted before each window start, event table on releases < 2026-07-01;
+  same backtester via agent/evalrun.py, same windows):
+    CRYPTO_24H 3533.1 (starter 3697.8, -4.5%); COM_EQU_24H 1704.5 (2025.6, -15.8%); CRYPTO_1H 807.4 (853.6, -5.4%).
+  Starter = the log-normal 7-day-std model of the baseline commit (starter/modeling.py).

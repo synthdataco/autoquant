@@ -1,0 +1,1 @@
+{"device": "cpu", "framework_startup_seconds": 6.097135802992852, "uncached_simulate_seconds": [1.985339073013165, 0.18134220100182574, 0.18304262099263724], "cold_response_seconds": 8.082474876006017, "peak_rss_gib": 2.412975311279297, "paths": 1000, "repeatable": true}

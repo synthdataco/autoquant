@@ -1,0 +1,13 @@
+BTC {'rho1': 0.0019, 'rho5': -0.0272, 'vol5_over1': 0.9873, 'vol30_over5': 0.9864, 'vol60_over1': 0.9703}
+ETH {'rho1': 0.0023, 'rho5': -0.0239, 'vol5_over1': 0.9878, 'vol30_over5': 1.0004, 'vol60_over1': 1.0001}
+SOL {'rho1': 0.0021, 'rho5': -0.023, 'vol5_over1': 0.9874, 'vol30_over5': 0.9869, 'vol60_over1': 0.9584}
+XRP {'rho1': 0.0221, 'rho5': -0.0352, 'vol5_over1': 1.0133, 'vol30_over5': 0.9714, 'vol60_over1': 0.9664}
+HYPE {'rho1': 0.0087, 'rho5': 0.0116, 'vol5_over1': 1.0084, 'vol30_over5': 0.9908, 'vol60_over1': 0.9784}
+XAU {'rho1': 0.009, 'rho5': 0.014, 'vol5_over1': 1.0147, 'vol30_over5': 1.0165, 'vol60_over1': 1.0252}
+NVDAX {'rho1': 0.0171, 'rho5': 0.0029, 'vol5_over1': 1.0116, 'vol30_over5': 1.0202, 'vol60_over1': 1.0269}
+GOOGLX {'rho1': 0.0064, 'rho5': 0.004, 'vol5_over1': 0.993, 'vol30_over5': 0.9962, 'vol60_over1': 0.9995}
+TSLAX {'rho1': -0.0179, 'rho5': 0.0028, 'vol5_over1': 0.9907, 'vol30_over5': 1.0103, 'vol60_over1': 1.0234}
+AAPLX {'rho1': -0.006, 'rho5': 0.0071, 'vol5_over1': 0.9792, 'vol30_over5': 1.0006, 'vol60_over1': 0.9826}
+WTIOIL {'rho1': -0.0164, 'rho5': -0.0187, 'vol5_over1': 0.9862, 'vol30_over5': 0.98, 'vol60_over1': 0.9632}
+SPCX {'rho1': 0.0091, 'rho5': -0.0164, 'vol5_over1': 0.9734, 'vol30_over5': 0.9684, 'vol60_over1': 0.9369}
+SP500 {'rho1': 0.0086, 'rho5': -0.0102, 'vol5_over1': 1.009, 'vol30_over5': 0.9884, 'vol60_over1': 0.9827}

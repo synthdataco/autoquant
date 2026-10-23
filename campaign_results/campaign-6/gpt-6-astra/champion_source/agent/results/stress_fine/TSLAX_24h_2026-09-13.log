@@ -1,0 +1,16 @@
+generation seconds/prompt: 0.0751
+predictions generated: 72
+  [com-equ-24h/TSLAX] fetching scored prompts (2026-09-10 → 2026-09-13)...
+  [com-equ-24h/TSLAX] 18432 score rows (72 prompts) in 0.1s
+  [com-equ-24h/TSLAX] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/TSLAX] 612549 rewards rows (2398 update rounds) in 0.6s
+  [com-equ-24h/TSLAX] scoring 72 prompts against local predictions...
+  [com-equ-24h/TSLAX] filled 72/72 price-gap prompts from validator realized paths
+  [com-equ-24h/TSLAX] scored 72 prompts in 1.4s
+  [com-equ-24h/TSLAX] computing smoothed scores over 72 reward rounds...
+  [com-equ-24h/TSLAX] smoothed scores done in 1.7s (total backtest: 3.9s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 72, 'mean_crps': 2282.289739020328, 'final_smoothed_score': 106.50299925108547, 'realized_points_expected': 20808, 'realized_points_scored': 20808, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             24 prompts  gap +16.78%
+  CPI                  23 prompts  gap +4.56%
+  PPI                  25 prompts  gap +2.59%

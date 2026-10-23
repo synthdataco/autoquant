@@ -1,0 +1,4 @@
+Loading weights:   0%|          | 0/89 [00:00<?, ?it/s]Loading weights: 100%|██████████| 89/89 [00:00<00:00, 2254.14it/s]
+generation seconds/prompt: 0.0975
+predictions generated: 288
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 288, 'mean_crps': 747.0423024757497, 'final_smoothed_score': None, 'realized_points_expected': 17568, 'realized_points_scored': 17568, 'realized_coverage': 1.0, 'mode': 'official_backtester_cached_prompts'}

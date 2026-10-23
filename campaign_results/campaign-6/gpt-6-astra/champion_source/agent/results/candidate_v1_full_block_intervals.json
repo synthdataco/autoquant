@@ -1,0 +1,68 @@
+[
+  {
+    "config": "COM_EQU_24H",
+    "window": "2026-09-19",
+    "days": 10,
+    "daily_mean_pct": -10.203369738208131,
+    "days_improved": 10,
+    "block2_interval95": [
+      -16.12786813596738,
+      -6.416239691931713
+    ]
+  },
+  {
+    "config": "COM_EQU_24H",
+    "window": "2026-10-11",
+    "days": 10,
+    "daily_mean_pct": -14.493691171776215,
+    "days_improved": 10,
+    "block2_interval95": [
+      -24.52204060534916,
+      -7.786543107076042
+    ]
+  },
+  {
+    "config": "CRYPTO_1H",
+    "window": "2026-09-19",
+    "days": 10,
+    "daily_mean_pct": -4.953059640734181,
+    "days_improved": 10,
+    "block2_interval95": [
+      -9.801267868012047,
+      -1.775822473196816
+    ]
+  },
+  {
+    "config": "CRYPTO_1H",
+    "window": "2026-10-11",
+    "days": 10,
+    "daily_mean_pct": -8.9592268386966,
+    "days_improved": 10,
+    "block2_interval95": [
+      -15.613208336359559,
+      -3.5659421364000683
+    ]
+  },
+  {
+    "config": "CRYPTO_24H",
+    "window": "2026-09-19",
+    "days": 10,
+    "daily_mean_pct": -2.3679961422286153,
+    "days_improved": 10,
+    "block2_interval95": [
+      -4.122810286470305,
+      -1.1168601855030909
+    ]
+  },
+  {
+    "config": "CRYPTO_24H",
+    "window": "2026-10-11",
+    "days": 10,
+    "daily_mean_pct": -3.674168460112084,
+    "days_improved": 10,
+    "block2_interval95": [
+      -6.578695547716113,
+      -1.5888410907178645
+    ]
+  }
+]

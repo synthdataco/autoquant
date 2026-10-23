@@ -1,0 +1,1 @@
+{'skip_crypto24h': False, 'prediction_dtype': 'float64', 'cached_prompts': False, 'research': False, 'seed': 11, 'config': '{"paired": true}', 'tag': 'paired_11', 'model': 'candidate_ablation', 'ends': ['2026-09-16', '2026-10-10'], 'days': 2, 'workers': 2, 'assets': ['BTC', 'SOL', 'AAPLX', 'SP500'], 'formats': ['24h', '1h'], 'paths': 1000}

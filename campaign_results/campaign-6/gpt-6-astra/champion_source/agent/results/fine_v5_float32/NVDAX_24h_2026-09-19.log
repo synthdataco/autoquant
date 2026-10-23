@@ -1,0 +1,18 @@
+generation seconds/prompt: 0.0673
+predictions generated: 240
+  [com-equ-24h/NVDAX] fetching scored prompts (2026-09-09 → 2026-09-19)...
+  [com-equ-24h/NVDAX] 61440 score rows (240 prompts) in 0.1s
+  [com-equ-24h/NVDAX] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/NVDAX] 1340100 rewards rows (5263 update rounds) in 1.1s
+  [com-equ-24h/NVDAX] scoring 240 prompts against local predictions...
+  [com-equ-24h/NVDAX] filled 90/90 price-gap prompts from validator realized paths
+  [com-equ-24h/NVDAX] scored 240 prompts in 6.9s
+  [com-equ-24h/NVDAX] computing smoothed scores over 240 reward rounds...
+  [com-equ-24h/NVDAX] smoothed scores done in 11.6s (total backtest: 20.2s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 240, 'mean_crps': 1796.0658632997192, 'final_smoothed_score': 39.35383580915207, 'realized_points_expected': 69360, 'realized_points_scored': 69360, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event            162 prompts  gap +3.79%
+  CPI                  25 prompts  gap +2.24%
+  FOMC                 24 prompts  gap +0.33%
+  PPI                  24 prompts  gap +1.82%
+  RETAIL_SALES         24 prompts  gap +0.58%

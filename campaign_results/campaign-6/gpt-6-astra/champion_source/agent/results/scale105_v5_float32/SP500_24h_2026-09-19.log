@@ -1,0 +1,18 @@
+generation seconds/prompt: 0.0451
+predictions generated: 240
+  [com-equ-24h/SP500] fetching scored prompts (2026-09-09 → 2026-09-19)...
+  [com-equ-24h/SP500] 61440 score rows (240 prompts) in 0.1s
+  [com-equ-24h/SP500] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/SP500] 1339594 rewards rows (5261 update rounds) in 0.7s
+  [com-equ-24h/SP500] scoring 240 prompts against local predictions...
+  [com-equ-24h/SP500] filled 73/73 price-gap prompts from validator realized paths
+  [com-equ-24h/SP500] scored 240 prompts in 4.3s
+  [com-equ-24h/SP500] computing smoothed scores over 240 reward rounds...
+  [com-equ-24h/SP500] smoothed scores done in 6.7s (total backtest: 12.2s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 240, 'mean_crps': 757.207883211728, 'final_smoothed_score': 21.02133813306335, 'realized_points_expected': 69360, 'realized_points_scored': 69360, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event            164 prompts  gap +7.45%
+  CPI                  24 prompts  gap +4.83%
+  FOMC                 24 prompts  gap +0.17%
+  PPI                  23 prompts  gap +1.23%
+  RETAIL_SALES         23 prompts  gap +0.59%

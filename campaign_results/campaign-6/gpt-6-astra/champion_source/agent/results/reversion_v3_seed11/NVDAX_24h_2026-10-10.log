@@ -1,0 +1,14 @@
+generation seconds/prompt: 0.0756
+predictions generated: 48
+  [com-equ-24h/NVDAX] fetching scored prompts (2026-10-08 → 2026-10-10)...
+  [com-equ-24h/NVDAX] 12288 score rows (48 prompts) in 0.1s
+  [com-equ-24h/NVDAX] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/NVDAX] 239036 rewards rows (938 update rounds) in 0.7s
+  [com-equ-24h/NVDAX] scoring 48 prompts against local predictions...
+  [com-equ-24h/NVDAX] filled 48/48 price-gap prompts from validator realized paths
+  [com-equ-24h/NVDAX] scored 48 prompts in 1.4s
+  [com-equ-24h/NVDAX] computing smoothed scores over 48 reward rounds...
+  [com-equ-24h/NVDAX] smoothed scores done in 2.0s (total backtest: 4.4s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 48, 'mean_crps': 2118.5776062122627, 'final_smoothed_score': 29.891751933746534, 'realized_points_expected': 13872, 'realized_points_scored': 13872, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             48 prompts  gap +1.34%

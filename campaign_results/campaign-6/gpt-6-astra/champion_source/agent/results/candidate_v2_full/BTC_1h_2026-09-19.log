@@ -1,0 +1,19 @@
+generation seconds/prompt: 0.0244
+predictions generated: 1440
+  [crypto-1h/BTC] fetching scored prompts (2026-09-09 → 2026-09-19)...
+  [crypto-1h/BTC] 368640 score rows (1440 prompts) in 0.4s
+/workspace/agent/predict.py:331: UserWarning: crypto-1h: latest_formula scores the prompts scored before 2026-09-22 13:16 UTC with the volatility term, and the field was scored without it. CRPS compares across the change; field-relative numbers before it do not.
+  result = backtest(
+  [crypto-1h/BTC] fetching rewards history (prompt_name=crypto-1h)...
+  [crypto-1h/BTC] 1347262 rewards rows (5264 update rounds) in 1.3s
+  [crypto-1h/BTC] scoring 1440 prompts against local predictions...
+  [crypto-1h/BTC] scored 1440 prompts in 39.6s
+  [crypto-1h/BTC] computing smoothed scores over 1399 reward rounds...
+  [crypto-1h/BTC] smoothed scores done in 98.5s (total backtest: 142.4s)
+summary: {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 1440, 'mean_crps': 560.4566660686116, 'final_smoothed_score': 31.53676965384305, 'realized_points_expected': 87840, 'realized_points_scored': 87840, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event           1415 prompts  gap +7.12%
+  CPI                   6 prompts  gap +6.98%
+  FOMC                  6 prompts  gap +5.50%
+  PPI                   7 prompts  gap +0.19%
+  RETAIL_SALES          6 prompts  gap +2.38%

@@ -1,0 +1,21 @@
+sha: 8175a14a5badf18d0630e9a5f9d4848af9350abd
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Selected frozen v9; official synth-lib backtester via agent/predict.py,
+  1000 paths, float32, latest volatility-inclusive crypto-1h formula.
+  Raw equal-asset configuration CRPS means (starter -> champion):
+  2026-09-09 through 2026-09-18:
+    CRYPTO_24H: 4296.6726 -> 4201.6155
+    COM_EQU_24H: 2316.0261 -> 2080.2779
+    CRYPTO_1H: 960.4266 -> 923.5471
+  2026-10-01 through 2026-10-10:
+    CRYPTO_24H: 3531.2042 -> 3406.1522
+    COM_EQU_24H: 2065.4112 -> 1783.6086
+    CRYPTO_1H: 741.2317 -> 690.6868
+  All 36 asset/window cells improve with matched prompt counts.
+  Validated seasonal/calendar EWMA policy with configuration-specific mixture
+  and sampling; no pretrained or learned additions. Required artifacts committed.
+  Exact reference parity, arbitrary path count, 1000-path contracts, sparse
+  contexts, repeatability and benchmark-seed sensitivity passed local checks.
+  Historical limitations and rejected/incomplete candidates are in report.md.
