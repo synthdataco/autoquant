@@ -2548,7 +2548,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "boto3", specifier = ">=1.35" },
-    { name = "synth-lib", extras = ["benchmark"], git = "https://github.com/synthdataco/synth-lib?rev=6117938d00077e29747e17db96f77db541bff456" },
+    { name = "synth-lib", extras = ["benchmark"], git = "https://github.com/synthdataco/synth-lib?rev=05780e59dfadbf78169550f985a84d2eede1cb09" },
 ]
 
 [package.metadata.requires-dev]
@@ -2560,7 +2560,7 @@ dev = [
 [[package]]
 name = "synth-lib"
 version = "0.1.0"
-source = { git = "https://github.com/synthdataco/synth-lib?rev=6117938d00077e29747e17db96f77db541bff456#6117938d00077e29747e17db96f77db541bff456" }
+source = { git = "https://github.com/synthdataco/synth-lib?rev=05780e59dfadbf78169550f985a84d2eede1cb09#05780e59dfadbf78169550f985a84d2eede1cb09" }
 dependencies = [
     { name = "matplotlib" },
     { name = "pandas" },
