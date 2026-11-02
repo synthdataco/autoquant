@@ -84,10 +84,20 @@ def score(paths: np.ndarray, real: np.ndarray, comp, scored_time) -> float:
     return float(total)
 
 
+def bundle_scores(bundle: Path, asset: str, slug: str) -> pd.DataFrame:
+    """The bundle's scores for one asset: its day partitions, or its single file."""
+    files = sorted((bundle / "miner_scores" / slug / asset).glob("date=*.parquet"))
+    files = files or [bundle / f"miner_scores_{asset}_{slug}.parquet"]
+    if not files[0].exists():
+        sys.exit(f"no {asset} {slug} scores in {bundle}")
+    frames = [frame for frame in (pd.read_parquet(f) for f in files) if not frame.empty]
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame({"scored_time": []})
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--leg", type=Path, required=True, help="published leg holding modeling.py")
-    ap.add_argument("--bundle", type=Path, required=True, help="offline bundle with miner_scores_*.parquet")
+    ap.add_argument("--bundle", type=Path, required=True, help="offline bundle holding the asset's field scores")
     ap.add_argument("--data-root", type=Path, default=Path("market_data"))
     ap.add_argument("--asset", default="BTC")
     ap.add_argument("--time-length", type=int, default=3600)
@@ -111,10 +121,7 @@ def main() -> None:
     args = ap.parse_args()
 
     comp = competition_for(args.asset, args.time_length)
-    scores_file = args.bundle / f"miner_scores_{args.asset}_{slug_for(comp)}.parquet"
-    if not scores_file.exists():
-        sys.exit(f"no {scores_file}")
-    scored = pd.read_parquet(scores_file, columns=["scored_time"]).drop_duplicates()
+    scored = bundle_scores(args.bundle, args.asset, slug_for(comp))[["scored_time"]].drop_duplicates()
     scored_times = pd.to_datetime(scored["scored_time"], utc=True).sort_values()
     starts = scored_times - pd.Timedelta(seconds=args.time_length)
     picked = starts.iloc[np.linspace(0, len(starts) - 1, min(args.prompts, len(starts))).astype(int)]

@@ -42,6 +42,16 @@ def store_slice(root: Path, asset: str, start: pd.Timestamp, time_length: int, i
     return prices.set_index("timestamp").sort_index()["close"].reindex(index).to_numpy(dtype=float)
 
 
+def bundle_scores(bundle: Path, asset: str, slug: str) -> pd.DataFrame:
+    """The bundle's scores for one asset: its day partitions, or its single file."""
+    files = sorted((bundle / "miner_scores" / slug / asset).glob("date=*.parquet"))
+    files = files or [bundle / f"miner_scores_{asset}_{slug}.parquet"]
+    if not files[0].exists():
+        raise SystemExit(f"no {asset} {slug} scores in {bundle}")
+    frames = [frame for frame in (pd.read_parquet(f) for f in files) if not frame.empty]
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame({"scored_time": []})
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--asset", required=True)
@@ -52,14 +62,8 @@ def main() -> None:
     args = ap.parse_args()
 
     comp = competition_for(args.asset, args.time_length)
-    scores = args.bundle / f"miner_scores_{args.asset}_{slug_for(comp)}.parquet"
-    if not scores.exists():
-        raise SystemExit(f"no {scores}")
-    scored = (
-        pd.to_datetime(pd.read_parquet(scores, columns=["scored_time"])["scored_time"], utc=True)
-        .drop_duplicates()
-        .sort_values()
-    )
+    scores = bundle_scores(args.bundle, args.asset, slug_for(comp))
+    scored = pd.to_datetime(scores["scored_time"], utc=True).drop_duplicates().sort_values()
     starts = scored - pd.Timedelta(seconds=args.time_length)
     starts = starts[starts >= starts.max() - pd.Timedelta(days=args.days)]
 
