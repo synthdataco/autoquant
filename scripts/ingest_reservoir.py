@@ -19,7 +19,7 @@ high, low and close at the previous close, no volume, no trades — and so does 
 the close across days; only the minutes before a market's first price stay NaN. A day file in which
 no coin of the dex trades for more than `MAX_DEX_PAUSE_MINUTES` is refused as incomplete.
 
-    uv sync --extra reservoir
+    uv sync
     AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start 2025-08-01 --end 2026-08-29
 
 Access: the bucket is requester-pays, so reads are billed to your own AWS account and every call
