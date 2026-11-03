@@ -273,8 +273,9 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
     # One store per asset: only its path helpers are used here, never its venue client.
     stores = {a: MinutePriceStore(a) for a in assets}
     written = {a: 0 for a in assets}
-    # The close each asset's next day starts from; absent, it is read from the stored previous day.
-    last_close: dict[str, float | None] = {}
+    # The close each asset's last written day ended on, with that day. A day that does not follow it
+    # starts from the stored previous day instead.
+    last_close: dict[str, tuple[date, float | None]] = {}
 
     for day in days_between(start, end):
         # One read per (dex, day) serves every coin on it — 2 reads a day, not 9.
@@ -283,7 +284,6 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
             if day < FIRST_TRADE[asset]:
                 continue  # the market did not exist yet
             if not force_refresh and stores[asset].day_path(day).exists():
-                last_close.pop(asset, None)
                 continue
             wanted.setdefault(dex_for_coin(coin), []).append(coin)
         if not wanted:
@@ -298,9 +298,11 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
                 if minutes.empty:
                     continue
                 asset = asset_of[coin]
-                if asset not in last_close:
-                    last_close[asset] = stored_last_close(stores[asset], day - timedelta(days=1))
-                last_close[asset] = write_day(stores[asset], day, minutes, last_close[asset])
+                previous = day - timedelta(days=1)
+                carried_day, close = last_close.get(asset, (None, None))
+                if carried_day != previous:
+                    close = stored_last_close(stores[asset], previous)
+                last_close[asset] = (day, write_day(stores[asset], day, minutes, close))
                 written[asset] += int(minutes["close"].notna().sum())
 
     if dry_run:

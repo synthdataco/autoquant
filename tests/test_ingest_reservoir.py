@@ -282,6 +282,27 @@ def test_the_first_day_of_a_run_starts_from_the_stored_previous_day(tmp_path: Pa
     assert (pd.read_parquet(store.day_path(date(2026, 3, 19)))["close"].iloc[:5] == 7414.5).all()
 
 
+def test_a_missing_day_is_not_bridged_by_the_close_before_it(tmp_path: Path, monkeypatch):
+    bodies = {
+        date(2026, 3, 18): day_file([("xyz:SP500", "2026-03-18 23:58:10", "7414.5")]),
+        date(2026, 3, 20): day_file([("xyz:SP500", "2026-03-20 00:05:10", "7420.0")]),
+    }
+    store = _run_ingest(tmp_path, monkeypatch, bodies, date(2026, 3, 18), date(2026, 3, 20))
+    assert not store.day_path(date(2026, 3, 19)).exists()
+    assert pd.read_parquet(store.day_path(date(2026, 3, 20)))["close"].iloc[:5].isna().all()
+
+
+def test_a_missing_day_starts_the_next_from_its_stored_partition(tmp_path: Path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    ingest_reservoir.write_day(MinutePriceStore("SP500"), date(2026, 3, 19), _minutes({"2026-03-19 23:58": 7416.0}))
+    bodies = {
+        date(2026, 3, 18): day_file([("xyz:SP500", "2026-03-18 23:58:10", "7414.5")]),
+        date(2026, 3, 20): day_file([("xyz:SP500", "2026-03-20 00:05:10", "7420.0")]),
+    }
+    store = _run_ingest(tmp_path, monkeypatch, bodies, date(2026, 3, 18), date(2026, 3, 20))
+    assert (pd.read_parquet(store.day_path(date(2026, 3, 20)))["close"].iloc[:5] == 7416.0).all()
+
+
 def test_a_long_pause_across_the_whole_dex_is_refused():
     rows = [
         ("xyz:BUSY", f"2026-03-18 {h:02d}:{m:02d}:30", "1")
