@@ -201,7 +201,9 @@ done
 
 `run_campaign` then exports `SYNTH_BACKTESTER_OFFLINE_DATA_ROOT` into every sandbox — but only if
 that directory exists. The bundle holds one file per day under the competition's slug, so one directory
-serves all three competitions, and rerunning with a later `--eval-end` fetches only the new days.
+serves all three competitions. Every sandbox reads it, so build it with `--eval-end <data_cutoff>`
+only: a run with a later `--eval-end` into this directory adds field scores and rewards from after the
+cutoff, which agents could then backtest against.
 Note the bundle is not covered by `manifest.json` (which tracks only `date=*.parquet`), so
 `verify_snapshot` cannot detect tampering with it.
 
