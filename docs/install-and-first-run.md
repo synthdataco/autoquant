@@ -113,11 +113,18 @@ side rather than the aggregation.
 
 Two checks, and they read inside the partitions rather than counting filenames — `build_snapshot`
 links the files that exist and `manifest.json` records only their names, so a store of half-written
-days passes every structural check there is:
+days passes every structural check there is.
+
+The realized paths and the field scores cover 2026-07-24 to the cutoff. Field-relative backtests
+start on 2026-08-03 in the 24h competitions, after one 10-day smoothing window on the prices the
+store holds (see the constitution's history table), and on 2026-07-29 in crypto-1h, whose window is
+5 days. `build_offline_bundle` fetches the whole day before `eval_end − days`, so `DAYS` counts
+from 2026-07-25:
 
 ```bash
+DAYS=$(( ( $(date -ud <data_cutoff> +%s) - $(date -ud 2026-07-25 +%s) ) / 86400 ))
 uv run python scripts/audit_store.py --cutoff <data_cutoff> --require-from 2026-02-01
-uv run python scripts/audit_realized.py --cutoff <data_cutoff> --days 32
+uv run python scripts/audit_realized.py --cutoff <data_cutoff> --days "$DAYS"
 ```
 
 `audit_store.py` separates DAMAGE — a defect with a known repair — from review lines, which are
@@ -153,7 +160,7 @@ snapshot the sandbox mounts.
 ```bash
 for SLUG in crypto-24h com-equ-24h crypto-1h; do
   uv run python -m synth_lib.backtester.scripts.build_offline_bundle \
-    --competition "$SLUG" --days 32 --eval-end <data_cutoff>
+    --competition "$SLUG" --days "$DAYS" --eval-end <data_cutoff>
 done
 ```
 
@@ -197,7 +204,7 @@ concurrent agents rate-limit each other. Build that half directly into the snaps
 BUNDLE=campaign_runs/<name>/snapshot/offline_data
 for SLUG in crypto-24h com-equ-24h crypto-1h; do
   uv run python -m synth_lib.backtester.scripts.build_offline_bundle \
-    --competition "$SLUG" --days 32 --eval-end <data_cutoff> --out "$BUNDLE" --no-realized-paths
+    --competition "$SLUG" --days "$DAYS" --eval-end <data_cutoff> --out "$BUNDLE" --no-realized-paths
 done
 ```
 

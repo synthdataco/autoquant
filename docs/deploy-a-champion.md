@@ -87,3 +87,11 @@ request instead of quietly degrading, so your monitoring sees it.
   box and any backtesting you do.
 - Champions are frozen research artifacts: none of them adapt, retrain, or watch the field. Treat one
   as a starting point you now own, not a product.
+- **Daylight saving.** The US session and the US releases keep New York time, and European hours
+  keep London time. In UTC they move an hour twice a year: New York on the second Sunday of March and
+  the first Sunday of November, London on the last Sundays of March and October.
+  - A champion keyed on UTC hours keeps the profile it was fitted on. Fitted on summer months, it
+    sits an hour early on the US session all winter; fitted on both regimes, it smears the session
+    over two hours.
+  - Check how yours keys time of day (`tz_convert`, `ZoneInfo`, or a bare UTC hour). Score it on live
+    prompts after a switch before you rely on it.

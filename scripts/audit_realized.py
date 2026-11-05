@@ -10,11 +10,11 @@ ones whose minute history the venue cannot serve. It also decided, silently, whi
 each asset was measured against — and the assets with the best local data were the ones with no
 safety net. This script fails if any asset the verdict will score lacks paths over the window.
 
-    uv run python scripts/audit_realized.py --cutoff 2026-09-14 --days 32
+    uv run python scripts/audit_realized.py --cutoff <data_cutoff> --days "$DAYS"
 
-`--days` is the `--days` passed to build_offline_bundle, since that is what decides how far back
-the paths were fetched. The printed span is what an agent can actually backtest against: outside it
-a holed slice has nothing to fall back on.
+`--days` is the `--days` passed to build_offline_bundle (`DAYS` in docs/install-and-first-run.md),
+since that is what decides how far back the paths were fetched. The printed span is what an agent
+can actually backtest against: outside it a holed slice has nothing to fall back on.
 
 Each partition is opened rather than counted: an empty or truncated one covers no prompts, and a
 prompt with no cached array is scored on the points that remain — indistinguishable in the output
@@ -36,7 +36,7 @@ from synth_lib.benchmark.verdict.evaluate import COMPETITIONS
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--cutoff", required=True, type=date.fromisoformat, metavar="YYYY-MM-DD")
-    ap.add_argument("--days", type=int, default=32, help="the bundle's --days (default: 32)")
+    ap.add_argument("--days", type=int, required=True, help="the bundle's --days")
     ap.add_argument("--realized", type=Path, default=Path("market_data/realized"))
     args = ap.parse_args()
 

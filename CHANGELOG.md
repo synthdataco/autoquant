@@ -20,7 +20,7 @@ holds the current numbers.
 
 ## Unreleased: campaign-7
 
-The pin is at `22a9459`. Nothing below has run in a campaign yet.
+The pin is at `30f5150`. Nothing below has run in a campaign yet.
 
 ### Merged
 
@@ -83,17 +83,18 @@ The pin is at `22a9459`. Nothing below has run in a campaign yet.
     No `kind:` means `monte-carlo`, the sampled-paths competitions, so existing yamls are
     unchanged and set up byte-identical.
   - Another package can register a kind. The verdict scores `monte-carlo` only.
+- **A live champion starts on its stored calendar** ([synthdataco/synth-lib#86]). A calendar on
+  the volume no older than a day is served from startup, and the first refresh replaces it. Without
+  one, the assets wait for that refresh as before.
+- **Daylight saving** ([synthdataco/synth-lib#87]).
+  - The US session and the US releases keep New York time, and European hours London time, so in
+    UTC they move an hour at each switch. The snapshot holds both regimes.
+  - DATA.md lists the New York and London switches inside the snapshot and the next one after it,
+    and the NYSE session in UTC in each regime.
+  - The constitution says a profile can be keyed on New York or London time, and asks agents to
+    measure which clock each asset follows. It does not prescribe one.
 
 ### Planned, not built
-
-Constitution and DATA.md:
-
-- **Daylight saving.**
-  - The US session and the US releases move an hour in UTC twice a year: to EST on 2026-11-01, and
-    back on 2027-03-14.
-  - The snapshot holds both regimes, so a UTC-hour profile fitted on all of it smears the open, and
-    one fitted on summer months sits an hour early in winter.
-  - The plan: a method lesson, plus DATA.md naming the switches inside the data.
 
 Harness and verdict:
 
@@ -105,7 +106,7 @@ Harness and verdict:
   - An 11-day window therefore scores the 24h competitions on its last day only.
   - The trim stays. Generating the champion over one smoothing window before the scored window was
     considered and dropped: on a verdict that window is before the cutoff, so it is in sample.
-  - The plan: the constitution explains the trim to agents.
+  - The plan: the constitution explains the trim to agents ([synthdataco/synth-lib#88], in review).
   - Still open: how to run a short interim verdict. `--simulate-registration` scores every round, as
     a miner registered when the window opens.
 - **Field data from 2026-08-03 instead of the 32 days before the cutoff.** Champions tuned on the
@@ -122,6 +123,9 @@ Harness and verdict:
   - The constitution's breaks table gains the 2026-07-23 feed switch, the 2026-09-04 outlier cap
     and the 2026-10-28 prompt cadence.
   - DATA.md gives each competition's first ranked round and its scored prompts a day.
+  - The constitution and DATA.md are in review as [synthdataco/synth-lib#88]. The docs already build
+    the bundle from 2026-07-24 (`DAYS` in `docs/install-and-first-run.md`), and
+    `scripts/audit_realized.py` needs `--days`.
 - **Calendar.**
   - Label or drop the earnings dates Nasdaq lists as estimates.
   - Add NYSE special closures, which are still added by hand.
@@ -448,6 +452,9 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
 [synthdataco/synth-lib#82]: https://github.com/synthdataco/synth-lib/pull/82
 [synthdataco/synth-lib#84]: https://github.com/synthdataco/synth-lib/pull/84
 [synthdataco/synth-lib#85]: https://github.com/synthdataco/synth-lib/pull/85
+[synthdataco/synth-lib#86]: https://github.com/synthdataco/synth-lib/pull/86
+[synthdataco/synth-lib#87]: https://github.com/synthdataco/synth-lib/pull/87
+[synthdataco/synth-lib#88]: https://github.com/synthdataco/synth-lib/pull/88
 [synthdataco/autoquant#6]: https://github.com/synthdataco/autoquant/pull/6
 [synthdataco/autoquant#15]: https://github.com/synthdataco/autoquant/pull/15
 [synthdataco/autoquant#18]: https://github.com/synthdataco/autoquant/pull/18
