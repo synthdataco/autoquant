@@ -20,7 +20,7 @@ holds the current numbers.
 
 ## Unreleased: campaign-7
 
-The pin is at `759001b`. Nothing below has run in a campaign yet.
+The pin is at `22a9459`. Nothing below has run in a campaign yet.
 
 ### Merged
 
@@ -71,6 +71,18 @@ The pin is at `759001b`. Nothing below has run in a campaign yet.
   - **A day with a venue-wide pause longer than 15 minutes is refused,** instead of being filled.
   - **Re-ingest the archive range** before building campaign-7's snapshot: with `--force-refresh`,
     or into a fresh store. A champion built on gaps keeps being scored on gaps.
+- **The constitution names the live miner, and asks agents to explain their CRPS**
+  ([synthdataco/synth-lib#84]).
+  - Champions mine live after the campaign. Emission rewards every prompt answered (a miss scores
+    as the field's 95th percentile) and a model that holds up on contexts rougher than the
+    snapshot. CRPS stays the target.
+  - A first method lesson: break a backtest's CRPS down by asset, configuration, hour and day, read
+    the worst prompts against the field, and explain each anomaly before tuning.
+- **A campaign names its kind** ([synthdataco/synth-lib#85]).
+  - `kind:` in the campaign yaml picks the constitution, workspace, snapshot and interface check.
+    No `kind:` means `monte-carlo`, the sampled-paths competitions, so existing yamls are
+    unchanged and set up byte-identical.
+  - Another package can register a kind. The verdict scores `monte-carlo` only.
 
 ### Planned, not built
 
@@ -82,18 +94,10 @@ Constitution and DATA.md:
   - The snapshot holds both regimes, so a UTC-hour profile fitted on all of it smears the open, and
     one fitted on summer months sits an hour early in winter.
   - The plan: a method lesson, plus DATA.md naming the switches inside the data.
-- **Explain CRPS anomalies before tuning:** break CRPS down by asset, hour and day, and compare the
-  worst prompts with the field.
-- **Live emission.**
-  - What earns live:
-    - consistency under a reward that is top-heavy and smoothed over days;
-    - no missed prompts;
-    - contexts with gaps.
-  - First define which of these an agent can act on, then write the lesson.
-  - The interface check would use live-like contexts with gaps.
 
 Harness and verdict:
 
+- **An interface check on live-like contexts,** with gaps and a short history.
 - **A Score covers different rounds depending on the window's length.**
   - Without simulated registration, a backtest drops each competition's first `window_days` of
     reward rounds: 10 days for the 24h competitions, 5 for crypto-1h. The validator's moving average
@@ -442,6 +446,8 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
 [synthdataco/synth-lib#77]: https://github.com/synthdataco/synth-lib/pull/77
 [synthdataco/synth-lib#81]: https://github.com/synthdataco/synth-lib/pull/81
 [synthdataco/synth-lib#82]: https://github.com/synthdataco/synth-lib/pull/82
+[synthdataco/synth-lib#84]: https://github.com/synthdataco/synth-lib/pull/84
+[synthdataco/synth-lib#85]: https://github.com/synthdataco/synth-lib/pull/85
 [synthdataco/autoquant#6]: https://github.com/synthdataco/autoquant/pull/6
 [synthdataco/autoquant#15]: https://github.com/synthdataco/autoquant/pull/15
 [synthdataco/autoquant#18]: https://github.com/synthdataco/autoquant/pull/18
