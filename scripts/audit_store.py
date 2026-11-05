@@ -14,9 +14,9 @@ indistinguishable from one that was never read.
 
 Two severities. DAMAGE is a store defect with a known repair and exits non-zero — a day the
 partition itself marks unsettled, a day of pure NaN, a missing file, a store short of the cutoff.
-REVIEW is a fact about the market that only the operator can judge: every asset here trades 24/7,
-so a NaN minute is a minute in which nothing traded, not a session gap. Thin assets have many; how
-many is too many at a 24-hour horizon is a judgement, not a rule.
+REVIEW is a fact only the operator can judge. A NaN minute is one the store holds no price for: a
+minute without a trade in a store that leaves those NaN, where thin assets have many, otherwise a fetch
+that came back short. How many is too many at a 24-hour horizon is a judgement, not a rule.
 """
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ class Audit:
     days: int = 0
     first: date | None = None
     complete_from: date | None = None
-    untraded_share: float = 0.0
+    nan_share: float = 0.0
     damage: list[str] = field(default_factory=list)
     review: list[str] = field(default_factory=list)
 
@@ -91,7 +91,7 @@ def audit_asset(asset: str, store: Path, start: date, cutoff: date) -> Audit:
     have = {date.fromisoformat(f.stem[5:]) for f in files}
     out.days = len(files)
     out.first = min(have)
-    out.untraded_share = 100 * missing / total if total else 0.0
+    out.nan_share = 100 * missing / total if total else 0.0
     if cutoff in have:
         run = cutoff
         while (earlier := run - timedelta(days=1)) in have:
@@ -119,7 +119,7 @@ def audit_asset(asset: str, store: Path, start: date, cutoff: date) -> Audit:
         worst = max(holed, key=lambda x: x[1])
         longest = max(holed, key=lambda x: x[2])
         note = (
-            f"{len(holed)} day(s) with untraded minutes, worst {worst[0]} ({worst[1]}/{MINUTES_PER_DAY}),"
+            f"{len(holed)} day(s) with NaN minutes, worst {worst[0]} ({worst[1]}/{MINUTES_PER_DAY}),"
             f" longest run to end-of-day {longest[2]}min on {longest[0]}"
         )
         # The majors are quoted continuously and deeply, so a gap there is far more likely a short
@@ -145,11 +145,11 @@ def main() -> None:
     print(f"{args.store}   {args.start} .. {args.cutoff}\n")
     audits = [audit_asset(a, args.store, args.start, args.cutoff) for a in sorted(ALL_SYMBOLS)]
 
-    print(f"{'asset':8} {'first':>11} {'complete from':>14} {'days':>6} {'untraded':>9}  state")
+    print(f"{'asset':8} {'first':>11} {'complete from':>14} {'days':>6} {'NaN':>9}  state")
     for a in audits:
         run = a.complete_from.isoformat() if a.complete_from else "—"
         first = a.first.isoformat() if a.first else "—"
-        print(f"{a.asset:8} {first:>11} {run:>14} {a.days:>6} {a.untraded_share:>8.2f}%  {a.state}")
+        print(f"{a.asset:8} {first:>11} {run:>14} {a.days:>6} {a.nan_share:>8.2f}%  {a.state}")
 
     findings = [a for a in audits if a.damage or a.review]
     if findings:

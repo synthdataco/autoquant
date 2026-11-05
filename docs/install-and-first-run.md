@@ -36,8 +36,9 @@ A campaign needs two different things, from two different places.
 ### Minute prices
 
 `synth_lib.preparation` routes each asset to the venue it is scored against and writes daily parquet
-partitions (`market_data/prices/{ASSET}/1m/date=YYYY-MM-DD.parquet`, a full 1440-row minute grid with
-NaN where no trade occurred):
+partitions (`market_data/prices/{ASSET}/1m/date=YYYY-MM-DD.parquet`, a full 1440-row minute grid). A
+minute without a trade is the venue's flat candle: open, high, low and close at the previous close, no
+volume, no trades. Only a minute the venue printed nothing for is NaN:
 
 ```bash
 # Binance-routed assets: deep history straight from the venue. --days N ends today.
@@ -95,8 +96,9 @@ here because they are what to check if you write your own, or if a day looks wro
   an archive-derived minute one ULP from the same price fetched as JSON. Cast via string when the
   two must agree exactly.
 - **Mirror the partition contract**: one `date=YYYY-MM-DD.parquet` per asset-day, a full 1440-row
-  minute grid, NaN where no trade occurred. That is what `MinutePriceStore.ingest_day` produces and
-  what the snapshot builder and `generate_predictions.py` expect.
+  minute grid, a minute without a trade as the venue's flat candle at the previous close, NaN only
+  before the market's first price. That is what `MinutePriceStore.ingest_day` produces and what the
+  snapshot builder and `generate_predictions.py` expect.
 
 Reads are grouped by `(dex, day)` and column-projected, so the nine assets cost two reads a day rather
 than nine. Writing your own: `pyarrow.fs.S3FileSystem` has no `request_payer` option, so a projected
@@ -200,7 +202,10 @@ done
 ```
 
 `run_campaign` then exports `SYNTH_BACKTESTER_OFFLINE_DATA_ROOT` into every sandbox — but only if
-that directory exists. The slug is in the filenames, so one directory serves all three competitions.
+that directory exists. The bundle holds one file per day under the competition's slug, so one directory
+serves all three competitions. Every sandbox reads it, so build it with `--eval-end <data_cutoff>`
+only: a run with a later `--eval-end` into this directory adds field scores and rewards from after the
+cutoff, which agents could then backtest against.
 Note the bundle is not covered by `manifest.json` (which tracks only `date=*.parquet`), so
 `verify_snapshot` cannot detect tampering with it.
 

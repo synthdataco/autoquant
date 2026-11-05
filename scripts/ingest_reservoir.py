@@ -10,10 +10,16 @@ reads them, resamples to 1-minute OHLCV, and writes the partitions `MinutePriceS
 widened with `open/high/low/volume/trade_count`. `close` keeps the venue's own definition (the last
 1-second close in the minute), so the scored series is unchanged by the widening.
 
-The archive records one close, one volume and one trade count per second, so `open`/`high`/`low` are
-`first`/`max`/`min` over the 1-second closes inside each minute and `volume`/`trade_count` sum.
+Each minute aggregates its 1-second candles the way the venue builds its own 1-minute candle: `open`
+is the first open, `high` the highest high, `low` the lowest low and `close` the last close, while
+`volume`/`trade_count` sum.
 
-    uv sync --extra reservoir
+A minute without a trade has no row in the archive. The venue prints it as a flat candle — open,
+high, low and close at the previous close, no volume, no trades — and so does this script, carrying
+the close across days; only the minutes before a market's first price stay NaN. A day file in which
+no coin of the dex trades for more than `MAX_DEX_PAUSE_MINUTES` is refused as incomplete.
+
+    uv sync
     AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start 2025-08-01 --end 2026-08-29
 
 Access: the bucket is requester-pays, so reads are billed to your own AWS account and every call
@@ -46,9 +52,12 @@ RESERVOIR_BUCKET = "hydromancer-reservoir"
 RESERVOIR_REGION = "ap-northeast-1"
 SOURCE_NAME = "hydromancer-reservoir"
 
-# Projection is what keeps a requester-pays read small. `close` is the only column the archive is
-# guaranteed to carry; the rest are taken when present and derived when not.
-CANDLE_COLUMNS = ["coin", "timestamp", "close", "volume", "trade_count"]
+# Projection is what keeps a requester-pays read small: only the columns the minute aggregation uses.
+CANDLE_COLUMNS = ["coin", "timestamp", "open", "high", "low", "close", "volume", "trade_count"]
+
+# The venue keeps printing flat candles through a pause in trading: a longer run of minutes in which no
+# coin of the dex trades is a hole in the archive's file.
+MAX_DEX_PAUSE_MINUTES = 15
 
 # The widened partition. Readers select by name (`generate_predictions` takes timestamp+close only),
 # so the extra columns reach agents without touching scoring.
@@ -139,13 +148,25 @@ def reservoir_client() -> Any:
     return boto3.client("s3", region_name=RESERVOIR_REGION, config=config)
 
 
+def longest_dex_pause(timestamps: pd.Series, day: date) -> int:
+    """Longest run of minutes of `day` in which no coin of the dex traded."""
+    grid = pd.date_range(datetime.combine(day, datetime.min.time(), tzinfo=UTC), periods=MINUTES_PER_DAY, freq="1min")
+    traded = grid.isin(pd.to_datetime(timestamps, utc=True).dt.floor("min").unique())
+    longest = run = 0
+    for minute_traded in traded:
+        run = 0 if minute_traded else run + 1
+        longest = max(longest, run)
+    return longest
+
+
 def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str]) -> dict[str, pd.DataFrame]:
     """1-minute OHLCV for `coins` on `day`, resampled from the 1-second candles.
 
-    `close` is the last 1s close in the minute, which is by definition the venue's own 1-minute
-    candle close. open/high/low are first/max/min over those same closes; volume and trade_count
-    sum. Returns {} when the partition does not exist; coins absent that day are missing from the
-    result rather than present and empty.
+    open/high/low/close are the first open, highest high, lowest low and last close of the 1s candles
+    in the minute, which is how the venue builds its own 1-minute candle; volume and trade_count sum.
+    Only traded minutes are returned. Returns {} when the partition does not exist; coins absent that
+    day are missing from the result rather than present and empty. Raises when the file has a run of
+    more than MAX_DEX_PAUSE_MINUTES without a trade on any coin of the dex.
     """
     key = candles_key(dex, day)
     try:
@@ -160,14 +181,17 @@ def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str
     # Prices and volumes are decimal128 upstream. Route to float64 via string: Arrow's decimal ->
     # float64 is not correctly rounded (7413.9 lands on 7413.900000000001), which would leave an
     # archive-derived minute one ULP from the same price fetched as JSON from the venue.
-    for name in ("close", "volume"):
+    decimals = ["open", "high", "low", "close", "volume"]
+    for name in decimals:
         table = table.set_column(table.schema.get_field_index(name), name, table[name].cast(pa.string()))
     frame = table.to_pandas()
+    pause = longest_dex_pause(frame["timestamp"], day)
+    if pause > MAX_DEX_PAUSE_MINUTES:
+        raise RuntimeError(f"{key}: no trade on any {dex} coin for {pause} minutes; the file looks incomplete")
     frame = frame.loc[frame["coin"].isin(list(coins))]
     if frame.empty:
         return {}
-    frame["close"] = frame["close"].astype("float64")
-    frame["volume"] = frame["volume"].astype("float64")
+    frame[decimals] = frame[decimals].astype("float64")
     # Sort before bucketing so "first"/"last in the minute" are well defined.
     frame["timestamp"] = pd.to_datetime(frame["timestamp"], utc=True)
     frame = frame.sort_values("timestamp", kind="stable")
@@ -176,9 +200,9 @@ def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str
     out: dict[str, pd.DataFrame] = {}
     for coin, group in frame.groupby("coin", sort=True):
         per_minute = group.groupby("minute").agg(
-            open=("close", "first"),
-            high=("close", "max"),
-            low=("close", "min"),
+            open=("open", "first"),
+            high=("high", "max"),
+            low=("low", "min"),
             close=("close", "last"),
             volume=("volume", "sum"),
             trade_count=("trade_count", "sum"),
@@ -186,28 +210,53 @@ def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str
         per_minute.index.name = "timestamp"
         out[str(coin)] = per_minute
     print(
-        f"  {dex} {day.isoformat()}: {source.bytes_fetched / 1e6:.2f} of {size / 1e6:.2f} MB, " f"coins={sorted(out)}",
+        f"  {dex} {day.isoformat()}: {source.bytes_fetched / 1e6:.2f} of {size / 1e6:.2f} MB, "
+        f"longest dex pause {pause} min, coins={sorted(out)}",
         flush=True,
     )
     return out
 
 
-def write_day(store: MinutePriceStore, day: date, minutes: pd.DataFrame) -> None:
-    """Persist one asset-day: the store's partition contract, widened with OHLCV."""
+def write_day(
+    store: MinutePriceStore, day: date, minutes: pd.DataFrame, previous_close: float | None = None
+) -> float | None:
+    """Persist one asset-day as the venue's 1-minute candles, widened with OHLCV, and return its last close.
+
+    A minute without a trade is a flat candle at the last close before it — `previous_close` for the
+    minutes before the day's first trade — with no volume and no trades. Without a previous close those
+    leading minutes stay NaN.
+    """
     store.ensure_root()
     day_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC)
     grid = pd.date_range(day_start, periods=MINUTES_PER_DAY, freq="1min", tz="UTC")
     # float NaN, not pd.NA: a scalar pd.NA makes the column object dtype, which reads back as None
-    # and breaks float()/np.isfinite() consumers. NaN everywhere, never a 0 volume: a minute with no
-    # rows is one we have no record of, which is not the same claim as "nothing traded".
+    # and breaks float()/np.isfinite() consumers.
     frame = minutes.reindex(grid).astype("float64")
     frame.index.name = "timestamp"
     frame = frame[OHLCV_COLUMNS]
+    carried = frame["close"].ffill()
+    if previous_close is not None:
+        carried = carried.fillna(previous_close)
+    flat = frame["close"].isna() & carried.notna()
+    for column in ("open", "high", "low", "close"):
+        frame.loc[flat, column] = carried[flat]
+    frame.loc[flat, ["volume", "trade_count"]] = 0.0
     frame["source"] = SOURCE_NAME
     frame["ingested_at"] = datetime.now(tz=UTC).replace(microsecond=0)
     frame["is_final"] = day < datetime.now(tz=UTC).date()
     frame = frame.reset_index()
     frame.to_parquet(store.day_path(day), index=False)
+    last = carried.iloc[-1]
+    return None if pd.isna(last) else float(last)
+
+
+def stored_last_close(store: MinutePriceStore, day: date) -> float | None:
+    """The last close of the partition stored for `day`, or None when there is none."""
+    path = store.day_path(day)
+    if not path.exists():
+        return None
+    closes = pd.read_parquet(path, columns=["close"])["close"].dropna()
+    return float(closes.iloc[-1]) if len(closes) else None
 
 
 def days_between(start: date, end: date) -> Iterable[date]:
@@ -224,6 +273,9 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
     # One store per asset: only its path helpers are used here, never its venue client.
     stores = {a: MinutePriceStore(a) for a in assets}
     written = {a: 0 for a in assets}
+    # The close each asset's last written day ended on, with that day. A day that does not follow it
+    # starts from the stored previous day instead.
+    last_close: dict[str, tuple[date, float | None]] = {}
 
     for day in days_between(start, end):
         # One read per (dex, day) serves every coin on it — 2 reads a day, not 9.
@@ -242,12 +294,15 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
             continue
         for dex, coins in wanted.items():
             for coin, minutes in fetch_day_minute_ohlcv(client, dex, day, coins).items():
-                # Never persist an empty day: an all-NaN partition is indistinguishable from a real
-                # zero-trade day to every downstream reader, and `ingest_day` will skip it forever.
+                # Never persist an empty day: `ingest_day` would skip the partition forever.
                 if minutes.empty:
                     continue
                 asset = asset_of[coin]
-                write_day(stores[asset], day, minutes)
+                previous = day - timedelta(days=1)
+                carried_day, close = last_close.get(asset, (None, None))
+                if carried_day != previous:
+                    close = stored_last_close(stores[asset], previous)
+                last_close[asset] = (day, write_day(stores[asset], day, minutes, close))
                 written[asset] += int(minutes["close"].notna().sum())
 
     if dry_run:
