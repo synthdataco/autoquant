@@ -131,6 +131,21 @@ CLIs:
     kimi-code sends no effort at first, then `medium`, so a Kimi K3.1 Pro leg must set `effort`.
   - The harness turns kimi-code's session lock off. A lock left by a killed sandbox run would block
     every `-c`.
+- **Gemini legs move to the Antigravity CLI 1.5.2 (`agy`) with the next synth-lib pin.**
+  - No gemini-cli release knows a Gemini 4 model, so campaign-6's gemini-4-argon leg ran at the
+    API's default thinking level, `medium`. gemini-cli 0.61.0 stays in the image for archived
+    campaigns.
+  - The image installs `agy` from its release tarball, checked against its sha256, with
+    auto-update off.
+  - `agy` reaches the Gemini API through the proxy's `/gemini` passthrough, as gemini-cli does. The
+    leg's proxy key is minted without a budget cap, as for gemini-cli, and the driver enforces the
+    budget from the key's spend.
+  - `effort` on an `antigravity-cli` leg is passed as `--effort`. Gemini 4 Argon's top level is
+    `high`.
+  - Some calls leave the leg's model. `agy`'s flash-tier subagents run on Gemini 3.8 Flash, now
+    priced with its cached rate. Web search runs on its own model, and the proxy does not meter
+    Google Search grounding.
+  - No documented setting turns `agy`'s telemetry off in a headless run.
 
 Harness and verdict:
 

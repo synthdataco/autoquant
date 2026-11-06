@@ -20,6 +20,17 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/usr/local/bin U
 # kimi-code needs node >= 22.19.0.
 RUN npm install -g @anthropic-ai/claude-code@2.1.296 @openai/codex@0.156.1 @google/gemini-cli@0.61.0 \
     @moonshot-ai/kimi-code@2.5.2
+# Antigravity CLI (`agy`) from its release tarball, pinned by version and sha256. The tarball's one
+# binary, `antigravity`, goes to /usr/local/bin/agy: the installer's default ($HOME/.local/bin) lands
+# in /root, which sandbox_cmd mounts the per-run HOME over.
+RUN curl -fsSL -o /tmp/agy.tar.gz \
+      https://github.com/google-antigravity/antigravity-cli/releases/download/1.5.2/agy_cli_linux_x64.tar.gz && \
+    echo "da696a8dc6122a63d5ffbdd21b02c8a62d5361fba0ed7d3bc2d2619889e62711  /tmp/agy.tar.gz" | sha256sum -c - && \
+    tar -xzf /tmp/agy.tar.gz -C /tmp antigravity && \
+    install -m 0755 /tmp/antigravity /usr/local/bin/agy && \
+    rm /tmp/agy.tar.gz /tmp/antigravity
+# Without it, agy updates itself in the background and relaunches on the new version.
+ENV AGY_CLI_DISABLE_AUTO_UPDATE=true
 # The workspace is bind-mounted with the HOST owner's uid while the container runs as root, so
 # git refuses every command with "dubious ownership" (CVE-2022-24765 guard). System-level config:
 # /etc is baked into the image, unlike /root which is mounted over per run. Without this, every
