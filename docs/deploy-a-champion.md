@@ -80,13 +80,16 @@ context.
 ### Seed the Hyperliquid days from the archive
 
 `scripts/ingest_reservoir.py` builds them from Hydromancer Reservoir's 1-second archive, the same
-way it builds the campaign's store, which the champion was fitted and scored on. Run it from the
-directory the miner will run from, before the miner first starts, for the `CONTEXT_DAYS + 1` days up
-to yesterday; 31 days covers any champion:
+way it builds the campaign's store, which the champion was fitted and scored on. Run it before the
+miner first starts, for the `CONTEXT_DAYS + 1` days up to yesterday; 31 days covers any champion.
+Run it, and the miner, from the champion's own folder: its `market_data/` is then apart from the
+campaign store in the repo root, and `uv` still finds the repo's project from there.
 
 ```bash
 uv sync
-AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start <today - CONTEXT_DAYS - 1> --end <yesterday>
+cd champions/<name>
+AWS_PROFILE=<profile> uv run python ../../scripts/ingest_reservoir.py \
+  --start <today - CONTEXT_DAYS - 1> --end <yesterday>
 ```
 
 - The bucket is requester-pays: the reads are billed to your AWS account, which must be in the
@@ -97,15 +100,17 @@ AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start <today -
   the next day's minutes before their first trade.
 - The archive publishes a day some time after it ends, and the venue covers the last three days, so
   seed on the day the miner starts.
-- **Start each champion on an empty store.** The ingest skips a day already on disk, and the miner
-  skips a day it has settled, so a store reused from another champion or an older engine keeps
-  serving its old minutes.
+- **Start each champion on an empty store**, as a new champion folder is. The ingest skips a day
+  already on disk, and the miner skips a day it has settled, so a store reused from the campaign,
+  another champion or an older engine keeps serving its old minutes.
 
 ## Run
 
+From the champion's folder, which holds its store:
+
 ```bash
-NETWORK=finney NETUID=50 COLDKEY_NAME=<coldkey> HOTKEY_NAME=<hotkey> PORT=8091 \
-  ./champions/<name>/entrypoint.sh
+cd champions/<name>
+NETWORK=finney NETUID=50 COLDKEY_NAME=<coldkey> HOTKEY_NAME=<hotkey> PORT=8091 ./entrypoint.sh
 ```
 
 The miner warms up from the venues, starts a background refresh thread, and serves every competition
