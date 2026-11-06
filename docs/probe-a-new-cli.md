@@ -57,6 +57,11 @@ LITELLM_KEY_CODEX=$VKEY codex exec --skip-git-repo-check "Reply only: OK"
 GOOGLE_GEMINI_BASE_URL=http://localhost:4000/gemini GEMINI_API_KEY=$VKEY GEMINI_SANDBOX=false \
   gemini -p "Reply only: OK" --output-format json
 
+# Antigravity CLI — the same /gemini passthrough; it reads GEMINI_API_KEY only with modelProvider "gemini"
+mkdir -p ~/.gemini/antigravity-cli && echo '{"modelProvider": "gemini"}' > ~/.gemini/antigravity-cli/settings.json
+GOOGLE_GEMINI_BASE_URL=http://localhost:4000/gemini GEMINI_API_KEY=$VKEY AGY_CLI_DISABLE_AUTO_UPDATE=true \
+  agy -p "Reply only: OK" --model <real Google id> --effort high --output-format stream-json
+
 # Kimi Code — OpenAI-compatible via its KIMI_MODEL_* env family
 KIMI_MODEL_NAME=<alias> KIMI_MODEL_API_KEY=$VKEY KIMI_MODEL_PROVIDER_TYPE=openai \
   KIMI_MODEL_BASE_URL=http://localhost:4000/v1 kimi -p "Reply only: OK"
