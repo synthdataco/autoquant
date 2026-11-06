@@ -84,8 +84,10 @@ provably the nominated code. Its venv is built in one network-enabled sandbox pa
 never prices), then every (competition, asset) is generated in a **network-isolated** sandbox against
 a read-only price store, at the validator's own 1000 paths per prompt. Each prompt receives only
 prices up to its own timestamp — a truncation enforced at the API surface and covered by a dedicated
-test. Scoring then runs on the host through the official backtester, with the field's realized paths
-as ground truth.
+test. How far back they go is the champion's context length: `CONTEXT_DAYS` in its `modeling.py`,
+from 3 to 30 days, or 7 when it does not set one. Its own backtests and the live miner read the
+same value. Scoring then runs on the host through the official backtester, with the field's realized
+paths as ground truth.
 
 A `synth_default` baseline (the subnet's stock generator) is scored on the same window where
 available, as a sanity floor.

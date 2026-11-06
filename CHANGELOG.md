@@ -149,6 +149,20 @@ CLIs:
     Search grounding fees.
   - No documented setting turns `agy`'s telemetry off in a headless run.
 
+Task:
+
+- **The champion chooses its context length, with the next synth-lib pin.**
+  - `CONTEXT_DAYS` in `modeling.py`, a plain integer from 3 to 30, is how many days of minute
+    prices before each prompt `simulate()` receives. A champion without it gets 7, so every archived
+    champion keeps its context.
+  - The agent's backtests, the interface check, the verdict and the live miner read the same value.
+    Any other value is refused by all of them, from the agent's first backtest on.
+  - A context reaching back before an asset's first day in the store starts with NaN. A day missing
+    after that first day still fails.
+  - A live miner needs `CONTEXT_DAYS + 1` days in its store. Hyperliquid serves about 3.5 days, so a
+    longer context needs the miner's store seeded from the archive before its first start
+    ([docs/deploy-a-champion.md](docs/deploy-a-champion.md)).
+
 Harness and verdict:
 
 - **An interface check on live-like contexts,** with gaps and a short history.
