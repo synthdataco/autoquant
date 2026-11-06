@@ -116,6 +116,12 @@ The pin is at `71504c8`. Nothing below has run in a campaign yet.
     and the 2026-10-28 prompt cadence.
   - DATA.md gives each competition's first ranked round, its scored prompts a day by period, and
     com-equ-24h's fixed daily start times.
+- **`ingest_reservoir.py` reads a stored day again until it is settled.**
+  - It skips a stored day only when the partition says it is settled (`is_final`), as the price
+    store does. It used to skip any stored day, so a partition a venue top-up wrote while its day
+    was running, and that no later top-up completed, stayed partial.
+  - `--keep-going` logs a day the dex-pause check refuses and goes on with the next days, for
+    seeding a live miner's store. Without it, the refusal stops the run as before.
 
 ### Planned, not built
 

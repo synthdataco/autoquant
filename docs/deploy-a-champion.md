@@ -89,7 +89,7 @@ campaign store in the repo root, and `uv` still finds the repo's project from th
 uv sync
 cd champions/<name>
 AWS_PROFILE=<profile> uv run python ../../scripts/ingest_reservoir.py \
-  --start <today - CONTEXT_DAYS - 1> --end <yesterday>
+  --start <today - CONTEXT_DAYS - 1> --end <yesterday> --keep-going
 ```
 
 - The bucket is requester-pays: the reads are billed to your AWS account, which must be in the
@@ -100,9 +100,12 @@ AWS_PROFILE=<profile> uv run python ../../scripts/ingest_reservoir.py \
   the next day's minutes before their first trade.
 - The archive publishes a day some time after it ends, and the venue covers the last three days, so
   seed on the day the miner starts.
-- **Start each champion on an empty store**, as a new champion folder is. The ingest skips a day
-  already on disk, and the miner skips a day it has settled, so a store reused from the campaign,
-  another champion or an older engine keeps serving its old minutes.
+- `--keep-going` seeds the other days when the archive holds one incomplete, with no trade on the
+  whole dex for more than 15 minutes. That day is left to the venue, which reaches only the last
+  three days, so an older one stays NaN in the context. Without the flag, it stops the run.
+- **Start each champion on an empty store**, as a new champion folder is. The ingest and the miner
+  both skip a day they find settled on disk, so a store reused from the campaign, another champion
+  or an older engine keeps serving its old minutes.
 
 ## Run
 
