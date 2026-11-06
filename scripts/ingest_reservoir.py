@@ -17,7 +17,11 @@ is the first open, `high` the highest high, `low` the lowest low and `close` the
 A minute without a trade has no row in the archive. The venue prints it as a flat candle — open,
 high, low and close at the previous close, no volume, no trades — and so does this script, carrying
 the close across days; only the minutes before a market's first price stay NaN. A day file in which
-no coin of the dex trades for more than `MAX_DEX_PAUSE_MINUTES` is refused as incomplete.
+no coin of the dex trades for more than `MAX_DEX_PAUSE_MINUTES` is refused as incomplete, which stops
+the run; with `--keep-going` the refusal is logged and the run goes on with the next days.
+
+A day already in the store is skipped when its partition is settled (`is_final` true), as
+`MinutePriceStore` skips it. A partition written while its day was still running is read again.
 
     uv sync
     AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start 2025-08-01 --end 2026-08-29
@@ -77,6 +81,10 @@ FIRST_TRADE: dict[str, date] = {
     "SP500": date(2026, 3, 18),
     "SPCX": date(2026, 5, 17),
 }
+
+
+class IncompleteDayError(RuntimeError):
+    """A day file with a run of more than `MAX_DEX_PAUSE_MINUTES` without a trade on any coin of the dex."""
 
 
 def dex_for_coin(coin: str) -> str:
@@ -165,8 +173,8 @@ def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str
     open/high/low/close are the first open, highest high, lowest low and last close of the 1s candles
     in the minute, which is how the venue builds its own 1-minute candle; volume and trade_count sum.
     Only traded minutes are returned. Returns {} when the partition does not exist; coins absent that
-    day are missing from the result rather than present and empty. Raises when the file has a run of
-    more than MAX_DEX_PAUSE_MINUTES without a trade on any coin of the dex.
+    day are missing from the result rather than present and empty. Raises `IncompleteDayError` when the
+    file has a run of more than MAX_DEX_PAUSE_MINUTES without a trade on any coin of the dex.
     """
     key = candles_key(dex, day)
     try:
@@ -187,7 +195,7 @@ def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str
     frame = table.to_pandas()
     pause = longest_dex_pause(frame["timestamp"], day)
     if pause > MAX_DEX_PAUSE_MINUTES:
-        raise RuntimeError(f"{key}: no trade on any {dex} coin for {pause} minutes; the file looks incomplete")
+        raise IncompleteDayError(f"{key}: no trade on any {dex} coin for {pause} minutes; the file looks incomplete")
     frame = frame.loc[frame["coin"].isin(list(coins))]
     if frame.empty:
         return {}
@@ -259,6 +267,12 @@ def stored_last_close(store: MinutePriceStore, day: date) -> float | None:
     return float(closes.iloc[-1]) if len(closes) else None
 
 
+def stored_settled(store: MinutePriceStore, day: date) -> bool:
+    """Whether a partition is stored for `day` and marks itself settled."""
+    path = store.day_path(day)
+    return path.exists() and bool(pd.read_parquet(path, columns=["is_final"])["is_final"].all())
+
+
 def days_between(start: date, end: date) -> Iterable[date]:
     cursor = start
     while cursor <= end:
@@ -266,7 +280,7 @@ def days_between(start: date, end: date) -> Iterable[date]:
         cursor += timedelta(days=1)
 
 
-def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, dry_run: bool) -> None:
+def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, dry_run: bool, keep_going: bool) -> None:
     client = reservoir_client()
     coin_of = {a: HYPERLIQUID_SYMBOLS[a] for a in assets}
     asset_of = {coin: asset for asset, coin in coin_of.items()}
@@ -276,6 +290,7 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
     # The close each asset's last written day ended on, with that day. A day that does not follow it
     # starts from the stored previous day instead.
     last_close: dict[str, tuple[date, float | None]] = {}
+    refused: list[str] = []
 
     for day in days_between(start, end):
         # One read per (dex, day) serves every coin on it — 2 reads a day, not 9.
@@ -283,7 +298,7 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
         for asset, coin in coin_of.items():
             if day < FIRST_TRADE[asset]:
                 continue  # the market did not exist yet
-            if not force_refresh and stores[asset].day_path(day).exists():
+            if not force_refresh and stored_settled(stores[asset], day):
                 continue
             wanted.setdefault(dex_for_coin(coin), []).append(coin)
         if not wanted:
@@ -293,7 +308,15 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
             print(f"  {day.isoformat()}: would read {sorted(wanted)} for {targets}")
             continue
         for dex, coins in wanted.items():
-            for coin, minutes in fetch_day_minute_ohlcv(client, dex, day, coins).items():
+            try:
+                fetched = fetch_day_minute_ohlcv(client, dex, day, coins)
+            except IncompleteDayError as exc:
+                if not keep_going:
+                    raise
+                print(f"  refused: {exc}", flush=True)
+                refused.append(f"{dex} {day.isoformat()}")
+                continue
+            for coin, minutes in fetched.items():
                 # Never persist an empty day: `ingest_day` would skip the partition forever.
                 if minutes.empty:
                     continue
@@ -309,6 +332,8 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
         return
     for asset, minutes in sorted(written.items()):
         print(f"{asset:7} {minutes:>9,} minutes")
+    if refused:
+        print(f"refused {len(refused)} day file(s): {', '.join(refused)}")
 
 
 def main() -> None:
@@ -322,7 +347,12 @@ def main() -> None:
         metavar="ASSET",
         help="default: every Hyperliquid-routed competition asset",
     )
-    parser.add_argument("--force-refresh", action="store_true", help="re-read days already on disk")
+    parser.add_argument("--force-refresh", action="store_true", help="re-read settled days already on disk too")
+    parser.add_argument(
+        "--keep-going",
+        action="store_true",
+        help="log a day file refused as incomplete and go on with the next days, instead of stopping",
+    )
     parser.add_argument("--dry-run", action="store_true", help="report what would be read, fetch nothing")
     args = parser.parse_args()
 
@@ -332,8 +362,11 @@ def main() -> None:
     if args.start > args.end:
         raise SystemExit("--start must be on or before --end")
 
-    print(f"{args.start} -> {args.end}, assets={args.assets}, force_refresh={args.force_refresh}")
-    ingest(args.assets, args.start, args.end, args.force_refresh, args.dry_run)
+    print(
+        f"{args.start} -> {args.end}, assets={args.assets}, force_refresh={args.force_refresh}, "
+        f"keep_going={args.keep_going}"
+    )
+    ingest(args.assets, args.start, args.end, args.force_refresh, args.dry_run, args.keep_going)
 
 
 if __name__ == "__main__":

@@ -256,11 +256,19 @@ class FakeBucket(FakeS3):
         return super().get_object(**kwargs)
 
 
-def _run_ingest(tmp_path, monkeypatch, bodies: dict[date, bytes], start: date, end: date) -> MinutePriceStore:
+def _run_ingest(
+    tmp_path,
+    monkeypatch,
+    bodies: dict[date, bytes],
+    start: date,
+    end: date,
+    force_refresh: bool = True,
+    keep_going: bool = False,
+) -> MinutePriceStore:
     monkeypatch.chdir(tmp_path)
     keys = {ingest_reservoir.candles_key("xyz", d): body for d, body in bodies.items()}
     monkeypatch.setattr(ingest_reservoir, "reservoir_client", lambda: FakeBucket(keys))
-    ingest_reservoir.ingest(["SP500"], start, end, force_refresh=True, dry_run=False)
+    ingest_reservoir.ingest(["SP500"], start, end, force_refresh=force_refresh, dry_run=False, keep_going=keep_going)
     return MinutePriceStore("SP500")
 
 
@@ -303,17 +311,69 @@ def test_a_missing_day_starts_the_next_from_its_stored_partition(tmp_path: Path,
     assert (pd.read_parquet(store.day_path(date(2026, 3, 20)))["close"].iloc[:5] == 7416.0).all()
 
 
-def test_a_long_pause_across_the_whole_dex_is_refused():
+def _paused_day_file(day: str) -> bytes:
+    """A day file whose dex trades nothing from 09:00 to 09:19."""
     rows = [
-        ("xyz:BUSY", f"2026-03-18 {h:02d}:{m:02d}:30", "1")
-        for h in range(24)
-        for m in range(60)
-        if not (h == 9 and m < 20)
+        ("xyz:BUSY", f"{day} {h:02d}:{m:02d}:30", "1") for h in range(24) for m in range(60) if not (h == 9 and m < 20)
     ]
-    with pytest.raises(RuntimeError, match="20 minutes"):
+    return day_file(rows, busy=False)
+
+
+def test_a_long_pause_across_the_whole_dex_is_refused():
+    with pytest.raises(ingest_reservoir.IncompleteDayError, match="20 minutes"):
         ingest_reservoir.fetch_day_minute_ohlcv(
-            FakeS3(day_file(rows, busy=False)), "xyz", date(2026, 3, 18), ["xyz:BUSY"]
+            FakeS3(_paused_day_file("2026-03-18")), "xyz", date(2026, 3, 18), ["xyz:BUSY"]
         )
+
+
+def test_a_refused_day_stops_the_run_by_default(tmp_path: Path, monkeypatch):
+    bodies = {
+        date(2026, 3, 18): _paused_day_file("2026-03-18"),
+        date(2026, 3, 19): day_file([("xyz:SP500", "2026-03-19 00:05:10", "7420.0")]),
+    }
+    with pytest.raises(ingest_reservoir.IncompleteDayError):
+        _run_ingest(tmp_path, monkeypatch, bodies, date(2026, 3, 18), date(2026, 3, 19))
+    assert not MinutePriceStore("SP500").day_path(date(2026, 3, 19)).exists()
+
+
+def test_keep_going_logs_a_refused_day_and_ingests_the_next(tmp_path: Path, monkeypatch, capsys):
+    bodies = {
+        date(2026, 3, 18): _paused_day_file("2026-03-18"),
+        date(2026, 3, 19): day_file([("xyz:SP500", "2026-03-19 00:05:10", "7420.0")]),
+    }
+    store = _run_ingest(tmp_path, monkeypatch, bodies, date(2026, 3, 18), date(2026, 3, 19), keep_going=True)
+    assert not store.day_path(date(2026, 3, 18)).exists()
+    assert pd.read_parquet(store.day_path(date(2026, 3, 19)))["close"].iloc[5] == 7420.0
+    out = capsys.readouterr().out
+    assert "refused: by_dex/xyz/candles/1s/date=2026-03-18/candles.parquet" in out
+    assert "refused 1 day file(s): xyz 2026-03-18" in out
+
+
+def _store_partial_day(day: date, close: float, settled: bool) -> None:
+    """A partition holding one traded minute at 00:05, settled or not."""
+    store = MinutePriceStore("SP500")
+    ingest_reservoir.write_day(store, day, _minutes({f"{day.isoformat()} 00:05": close}))
+    frame = pd.read_parquet(store.day_path(day))
+    frame["is_final"] = settled
+    frame.to_parquet(store.day_path(day), index=False)
+
+
+def test_a_settled_day_on_disk_is_skipped(tmp_path: Path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    _store_partial_day(date(2026, 3, 19), 7416.0, settled=True)
+    bodies = {date(2026, 3, 19): day_file([("xyz:SP500", "2026-03-19 12:00:10", "7500.0")])}
+    store = _run_ingest(tmp_path, monkeypatch, bodies, date(2026, 3, 19), date(2026, 3, 19), force_refresh=False)
+    assert (pd.read_parquet(store.day_path(date(2026, 3, 19)))["close"].iloc[5:] == 7416.0).all()
+
+
+def test_an_unsettled_day_on_disk_is_read_again(tmp_path: Path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    _store_partial_day(date(2026, 3, 19), 7416.0, settled=False)
+    bodies = {date(2026, 3, 19): day_file([("xyz:SP500", "2026-03-19 12:00:10", "7500.0")])}
+    store = _run_ingest(tmp_path, monkeypatch, bodies, date(2026, 3, 19), date(2026, 3, 19), force_refresh=False)
+    frame = pd.read_parquet(store.day_path(date(2026, 3, 19)))
+    assert frame["close"].iloc[720] == 7500.0 and frame["close"].iloc[:720].isna().all()
+    assert frame["is_final"].all()
 
 
 def test_a_short_pause_across_the_whole_dex_is_a_quiet_market():
