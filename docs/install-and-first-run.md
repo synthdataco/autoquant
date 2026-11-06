@@ -283,9 +283,10 @@ Optional per-model keys, part of what a leg measures:
 
 - `effort`: the CLI's own reasoning-effort level — claude-code: `low`, `medium`, `high`, `xhigh`,
   `max`; codex: `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`, `ultra` (`ultra` also
-  turns on proactive sub-agent delegation). Which levels a model accepts is up to the model.
-  When omitted, each CLI applies its default for the model, which differs between models from the same
-  vendor.
+  turns on proactive sub-agent delegation); kimi-code: `low`, `high`, `max`, the K3 models' levels.
+  Which levels a model accepts is up to the model. When omitted, each CLI applies its default for
+  the model, which differs between models from the same vendor. A Kimi K3.1 Pro leg must set
+  `effort`: unset, kimi-code sends `medium` once the history holds thinking.
 - `ultracode: true` (claude-code only): Claude plans a dynamic workflow for every substantive task.
 - `workflow_size` (with `ultracode`): `unrestricted`, `small`, `medium` or `large`, the number of
   agents Claude aims for in a workflow (fewer than 5, 10 or 50). Advice to the model, not a cap.
