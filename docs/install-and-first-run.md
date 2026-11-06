@@ -251,10 +251,12 @@ What the real smoke must prove, per leg:
 
 1. The container starts and the agent finds `CAMPAIGN.md` at the workspace root.
 2. `uv sync` succeeds **inside** the sandbox (it needs the `bridge` network for pinned packages).
-3. `uv run agent/predict.py --asset BTC --days 2 --eval-end <date>` prints a `summary:` — proof the
-   read-only snapshot is readable and synth-lib scoring works in-container.
+3. `uv run agent/predict.py --asset BTC --days 2 --eval-end <date>` prints a
+   `summary (CONTEXT_DAYS N):` line — proof the read-only snapshot is readable and synth-lib
+   scoring works in-container.
 4. `BUDGET.md` is rewritten with climbing spend and the landing order arrives.
-5. When `CHAMPION` appears, `check interface:` in `BUDGET.md` reads `ok (24h + 1h)`.
+5. When `CHAMPION` appears, `check interface:` in `BUDGET.md` starts with
+   `ok (24h + 1h), CONTEXT_DAYS N`.
 6. Isolation: inside the container, `ls /workspace` shows no operator code, and
    `ls /workspace/market_data/prices/BTC/1m | tail` stops at `data_cutoff`.
 
