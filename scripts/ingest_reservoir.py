@@ -42,6 +42,7 @@ import argparse
 import io
 import os
 from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any, Iterable, Sequence
 
 import boto3
@@ -255,35 +256,43 @@ def write_day(
         frame.loc[flat, column] = carried[flat]
     frame.loc[flat, ["volume", "trade_count"]] = 0.0
     path = store.day_path(day)
-    if path.exists():
-        stored = pd.read_parquet(path)
+    stored = read_stored(path)
+    if stored is not None:
         stored.index = pd.to_datetime(stored["timestamp"], utc=True)
         frame = frame.fillna(stored.reindex(index=grid, columns=OHLCV_COLUMNS))
     frame["source"] = SOURCE_NAME
     frame["ingested_at"] = datetime.now(tz=UTC).replace(microsecond=0)
     frame["is_final"] = day < datetime.now(tz=UTC).date()
     frame = frame.reset_index()
-    # A run killed mid-write leaves the partial file, never a truncated partition.
-    partial = path.with_name(f"{path.name}.partial")
-    frame.to_parquet(partial, index=False)
-    os.replace(partial, path)
+    # A run killed mid-write leaves the temporary file, never a truncated partition.
+    tmp = path.with_name(f"{path.name}.tmp")
+    frame.to_parquet(tmp, index=False)
+    os.replace(tmp, path)
     last = carried.iloc[-1]
     return None if pd.isna(last) else float(last)
 
 
-def stored_last_close(store: MinutePriceStore, day: date) -> float | None:
-    """The last close of the partition stored for `day`, or None when there is none."""
-    path = store.day_path(day)
+def read_stored(path: Path, columns: list[str] | None = None) -> pd.DataFrame | None:
+    """The partition at `path`, or None when there is none or it cannot be read."""
     if not path.exists():
         return None
-    closes = pd.read_parquet(path, columns=["close"])["close"].dropna()
+    try:
+        return pd.read_parquet(path, columns=columns)
+    except (OSError, ValueError):
+        return None
+
+
+def stored_last_close(store: MinutePriceStore, day: date) -> float | None:
+    """The last close of the partition stored for `day`, or None when there is none."""
+    stored = read_stored(store.day_path(day), ["close"])
+    closes = stored["close"].dropna() if stored is not None else pd.Series(dtype="float64")
     return float(closes.iloc[-1]) if len(closes) else None
 
 
 def stored_settled(store: MinutePriceStore, day: date) -> bool:
-    """Whether a partition is stored for `day` and marks itself settled."""
-    path = store.day_path(day)
-    return path.exists() and bool(pd.read_parquet(path, columns=["is_final"])["is_final"].all())
+    """Whether a readable partition is stored for `day` and marks itself settled."""
+    stored = read_stored(store.day_path(day), ["is_final"])
+    return stored is not None and bool(stored["is_final"].all())
 
 
 def days_between(start: date, end: date) -> Iterable[date]:
