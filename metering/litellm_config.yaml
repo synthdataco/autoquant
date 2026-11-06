@@ -188,13 +188,15 @@ model_list:
   # its place through cost attribution rather than routing — and the model postdates the proxy
   # image, so the price has to be explicit or the leg meters as zero spend and never hits its cap.
   # Introductory rates, in force to 2026-12-31; they double on 2027-01-01.
+  # The Antigravity CLI's flash-tier subagents call it on a gemini-4-argon leg too.
   - model_name: gemini-3.8-flash
     litellm_params:
       model: gemini/gemini-3.8-flash
       api_key: os.environ/GEMINI_API_KEY
     model_info:
-      input_cost_per_token: 0.00000075   # $0.75 / 1M
-      output_cost_per_token: 0.00000375  # $3.75 / 1M
+      input_cost_per_token: 0.00000075          # $0.75 / 1M
+      output_cost_per_token: 0.00000375         # $3.75 / 1M
+      cache_read_input_token_cost: 0.000000075  # $0.075 / 1M
 
   # Gemini 4 Argon, routed and priced like 3.8 Flash. Introductory rates, in force to 2026-11-30;
   # they double on 2026-12-01 (ai.google.dev/gemini-api/docs/latest-model).
