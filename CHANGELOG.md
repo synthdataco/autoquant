@@ -119,6 +119,18 @@ The pin is at `71504c8`. Nothing below has run in a campaign yet.
 
 ### Planned, not built
 
+CLIs:
+
+- **Kimi Code 2.5.2, and `effort` on kimi-code legs, land with the next synth-lib pin.**
+  - The image installs `@moonshot-ai/kimi-code@2.5.2` from npm, with the other CLIs. The
+    `kimi-k3.1-pro` alias serves Kimi K3.1 Pro through the Vercel AI Gateway, on Moonshot's own
+    hosting.
+  - The harness writes `effort` to the leg's `~/.kimi-code/config.toml` as `[thinking] effort`, and
+    kimi-code sends it as `reasoning_effort`. Unset, kimi-code sends no effort at first, then
+    `medium`.
+  - The harness turns kimi-code's session lock off. A lock left by a killed sandbox run would block
+    every `-c`.
+
 Harness and verdict:
 
 - **An interface check on live-like contexts,** with gaps and a short history.
