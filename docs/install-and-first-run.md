@@ -56,10 +56,12 @@ minutes (about 3.5 days), so for HYPE and every tokenised equity/commodity perp 
 fill the last three days. A campaign whose `data_cutoff` is older than that gets **no** Hyperliquid
 history from `market_data` at all — and `com-equ-24h` is a third of the Score.
 
-Hence `--days 2`, not 3. A request the venue cannot serve returns nothing, and `ingest_day` persists
-that as a 1440-row all-NaN partition marked final: `build_snapshot` links it (it only errors when
-*no* partition matches), agents read it as "listed, and traded zero times all day", and every later
-ingest skips it.
+Hence `--days 2`, not 3. A day the venue holds only in part is stored with NaN before the retention
+edge and marked settled, so no later ingest reads it again unless
+`ingest_reservoir.py --force-refresh` replaces it from the archive. A day it no longer holds at all
+comes back empty, and `ingest_day` stores it as a 1440-row all-NaN partition, unsettled:
+`build_snapshot` links it (it only errors when *no* partition matches), and agents read it as
+"listed, and traded zero times all day" until `ingest_reservoir.py` re-reads it from the archive.
 
 Everything older comes from the archive:
 

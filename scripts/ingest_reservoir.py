@@ -21,7 +21,9 @@ no coin of the dex trades for more than `MAX_DEX_PAUSE_MINUTES` is refused as in
 the run; with `--keep-going` the refusal is logged and the run goes on with the next days.
 
 A day already in the store is skipped when its partition is settled (`is_final` true), as
-`MinutePriceStore` skips it. A partition written while its day was still running is read again.
+`MinutePriceStore` skips it. A partition written while its day was still running is read again, and
+the minutes the archive leaves without a price keep its candles. Each partition is written to a
+temporary file beside it and renamed into place.
 
     uv sync
     AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start 2025-08-01 --end 2026-08-29
@@ -38,6 +40,7 @@ from __future__ import annotations
 
 import argparse
 import io
+import os
 from datetime import date, datetime, timedelta, timezone
 from typing import Any, Iterable, Sequence
 
@@ -151,7 +154,9 @@ class S3RangeFile(io.RawIOBase):
 def reservoir_client() -> Any:
     config = botocore.config.Config(
         max_pool_connections=32,
-        retries={"max_attempts": 5, "mode": "standard"},
+        connect_timeout=10,
+        read_timeout=60,
+        retries={"max_attempts": 3, "mode": "standard"},
     )
     return boto3.client("s3", region_name=RESERVOIR_REGION, config=config)
 
@@ -232,7 +237,7 @@ def write_day(
 
     A minute without a trade is a flat candle at the last close before it — `previous_close` for the
     minutes before the day's first trade — with no volume and no trades. Without a previous close those
-    leading minutes stay NaN.
+    leading minutes keep the candles of the partition already stored for the day, or stay NaN.
     """
     store.ensure_root()
     day_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC)
@@ -249,11 +254,19 @@ def write_day(
     for column in ("open", "high", "low", "close"):
         frame.loc[flat, column] = carried[flat]
     frame.loc[flat, ["volume", "trade_count"]] = 0.0
+    path = store.day_path(day)
+    if path.exists():
+        stored = pd.read_parquet(path)
+        stored.index = pd.to_datetime(stored["timestamp"], utc=True)
+        frame = frame.fillna(stored.reindex(index=grid, columns=OHLCV_COLUMNS))
     frame["source"] = SOURCE_NAME
     frame["ingested_at"] = datetime.now(tz=UTC).replace(microsecond=0)
     frame["is_final"] = day < datetime.now(tz=UTC).date()
     frame = frame.reset_index()
-    frame.to_parquet(store.day_path(day), index=False)
+    # A run killed mid-write leaves the partial file, never a truncated partition.
+    partial = path.with_name(f"{path.name}.partial")
+    frame.to_parquet(partial, index=False)
+    os.replace(partial, path)
     last = carried.iloc[-1]
     return None if pd.isna(last) else float(last)
 
