@@ -17,7 +17,13 @@ is the first open, `high` the highest high, `low` the lowest low and `close` the
 A minute without a trade has no row in the archive. The venue prints it as a flat candle — open,
 high, low and close at the previous close, no volume, no trades — and so does this script, carrying
 the close across days; only the minutes before a market's first price stay NaN. A day file in which
-no coin of the dex trades for more than `MAX_DEX_PAUSE_MINUTES` is refused as incomplete.
+no coin of the dex trades for more than `MAX_DEX_PAUSE_MINUTES` is refused as incomplete, which stops
+the run; with `--keep-going` the refusal is logged and the run goes on with the next days.
+
+A day already in the store is skipped when its partition is settled (`is_final` true), as
+`MinutePriceStore` skips it. A partition written while its day was still running is read again, and
+the minutes the archive leaves without a price keep its candles. Each partition is written to a
+temporary file beside it and renamed into place.
 
     uv sync
     AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start 2025-08-01 --end 2026-08-29
@@ -34,7 +40,9 @@ from __future__ import annotations
 
 import argparse
 import io
+import os
 from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any, Iterable, Sequence
 
 import boto3
@@ -77,6 +85,10 @@ FIRST_TRADE: dict[str, date] = {
     "SP500": date(2026, 3, 18),
     "SPCX": date(2026, 5, 17),
 }
+
+
+class IncompleteDayError(RuntimeError):
+    """A day file with a run of more than `MAX_DEX_PAUSE_MINUTES` without a trade on any coin of the dex."""
 
 
 def dex_for_coin(coin: str) -> str:
@@ -143,7 +155,9 @@ class S3RangeFile(io.RawIOBase):
 def reservoir_client() -> Any:
     config = botocore.config.Config(
         max_pool_connections=32,
-        retries={"max_attempts": 5, "mode": "standard"},
+        connect_timeout=10,
+        read_timeout=60,
+        retries={"max_attempts": 3, "mode": "standard"},
     )
     return boto3.client("s3", region_name=RESERVOIR_REGION, config=config)
 
@@ -165,8 +179,8 @@ def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str
     open/high/low/close are the first open, highest high, lowest low and last close of the 1s candles
     in the minute, which is how the venue builds its own 1-minute candle; volume and trade_count sum.
     Only traded minutes are returned. Returns {} when the partition does not exist; coins absent that
-    day are missing from the result rather than present and empty. Raises when the file has a run of
-    more than MAX_DEX_PAUSE_MINUTES without a trade on any coin of the dex.
+    day are missing from the result rather than present and empty. Raises `IncompleteDayError` when the
+    file has a run of more than MAX_DEX_PAUSE_MINUTES without a trade on any coin of the dex.
     """
     key = candles_key(dex, day)
     try:
@@ -187,7 +201,7 @@ def fetch_day_minute_ohlcv(client: Any, dex: str, day: date, coins: Sequence[str
     frame = table.to_pandas()
     pause = longest_dex_pause(frame["timestamp"], day)
     if pause > MAX_DEX_PAUSE_MINUTES:
-        raise RuntimeError(f"{key}: no trade on any {dex} coin for {pause} minutes; the file looks incomplete")
+        raise IncompleteDayError(f"{key}: no trade on any {dex} coin for {pause} minutes; the file looks incomplete")
     frame = frame.loc[frame["coin"].isin(list(coins))]
     if frame.empty:
         return {}
@@ -224,7 +238,7 @@ def write_day(
 
     A minute without a trade is a flat candle at the last close before it — `previous_close` for the
     minutes before the day's first trade — with no volume and no trades. Without a previous close those
-    leading minutes stay NaN.
+    leading minutes keep the candles of the partition already stored for the day, or stay NaN.
     """
     store.ensure_root()
     day_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC)
@@ -241,22 +255,44 @@ def write_day(
     for column in ("open", "high", "low", "close"):
         frame.loc[flat, column] = carried[flat]
     frame.loc[flat, ["volume", "trade_count"]] = 0.0
+    path = store.day_path(day)
+    stored = read_stored(path)
+    if stored is not None:
+        stored.index = pd.to_datetime(stored["timestamp"], utc=True)
+        frame = frame.fillna(stored.reindex(index=grid, columns=OHLCV_COLUMNS))
     frame["source"] = SOURCE_NAME
     frame["ingested_at"] = datetime.now(tz=UTC).replace(microsecond=0)
     frame["is_final"] = day < datetime.now(tz=UTC).date()
     frame = frame.reset_index()
-    frame.to_parquet(store.day_path(day), index=False)
+    # A run killed mid-write leaves the temporary file, never a truncated partition.
+    tmp = path.with_name(f"{path.name}.tmp")
+    frame.to_parquet(tmp, index=False)
+    os.replace(tmp, path)
     last = carried.iloc[-1]
     return None if pd.isna(last) else float(last)
 
 
-def stored_last_close(store: MinutePriceStore, day: date) -> float | None:
-    """The last close of the partition stored for `day`, or None when there is none."""
-    path = store.day_path(day)
+def read_stored(path: Path, columns: list[str] | None = None) -> pd.DataFrame | None:
+    """The partition at `path`, or None when there is none or it cannot be read."""
     if not path.exists():
         return None
-    closes = pd.read_parquet(path, columns=["close"])["close"].dropna()
+    try:
+        return pd.read_parquet(path, columns=columns)
+    except (OSError, ValueError):
+        return None
+
+
+def stored_last_close(store: MinutePriceStore, day: date) -> float | None:
+    """The last close of the partition stored for `day`, or None when there is none."""
+    stored = read_stored(store.day_path(day), ["close"])
+    closes = stored["close"].dropna() if stored is not None else pd.Series(dtype="float64")
     return float(closes.iloc[-1]) if len(closes) else None
+
+
+def stored_settled(store: MinutePriceStore, day: date) -> bool:
+    """Whether a readable partition is stored for `day` and marks itself settled."""
+    stored = read_stored(store.day_path(day), ["is_final"])
+    return stored is not None and bool(stored["is_final"].all())
 
 
 def days_between(start: date, end: date) -> Iterable[date]:
@@ -266,7 +302,7 @@ def days_between(start: date, end: date) -> Iterable[date]:
         cursor += timedelta(days=1)
 
 
-def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, dry_run: bool) -> None:
+def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, dry_run: bool, keep_going: bool) -> None:
     client = reservoir_client()
     coin_of = {a: HYPERLIQUID_SYMBOLS[a] for a in assets}
     asset_of = {coin: asset for asset, coin in coin_of.items()}
@@ -276,6 +312,7 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
     # The close each asset's last written day ended on, with that day. A day that does not follow it
     # starts from the stored previous day instead.
     last_close: dict[str, tuple[date, float | None]] = {}
+    refused: list[str] = []
 
     for day in days_between(start, end):
         # One read per (dex, day) serves every coin on it — 2 reads a day, not 9.
@@ -283,7 +320,7 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
         for asset, coin in coin_of.items():
             if day < FIRST_TRADE[asset]:
                 continue  # the market did not exist yet
-            if not force_refresh and stores[asset].day_path(day).exists():
+            if not force_refresh and stored_settled(stores[asset], day):
                 continue
             wanted.setdefault(dex_for_coin(coin), []).append(coin)
         if not wanted:
@@ -293,7 +330,15 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
             print(f"  {day.isoformat()}: would read {sorted(wanted)} for {targets}")
             continue
         for dex, coins in wanted.items():
-            for coin, minutes in fetch_day_minute_ohlcv(client, dex, day, coins).items():
+            try:
+                fetched = fetch_day_minute_ohlcv(client, dex, day, coins)
+            except IncompleteDayError as exc:
+                if not keep_going:
+                    raise
+                print(f"  refused: {exc}", flush=True)
+                refused.append(f"{dex} {day.isoformat()}")
+                continue
+            for coin, minutes in fetched.items():
                 # Never persist an empty day: `ingest_day` would skip the partition forever.
                 if minutes.empty:
                     continue
@@ -309,6 +354,8 @@ def ingest(assets: Sequence[str], start: date, end: date, force_refresh: bool, d
         return
     for asset, minutes in sorted(written.items()):
         print(f"{asset:7} {minutes:>9,} minutes")
+    if refused:
+        print(f"refused {len(refused)} day file(s): {', '.join(refused)}")
 
 
 def main() -> None:
@@ -322,7 +369,12 @@ def main() -> None:
         metavar="ASSET",
         help="default: every Hyperliquid-routed competition asset",
     )
-    parser.add_argument("--force-refresh", action="store_true", help="re-read days already on disk")
+    parser.add_argument("--force-refresh", action="store_true", help="re-read settled days already on disk too")
+    parser.add_argument(
+        "--keep-going",
+        action="store_true",
+        help="log a day file refused as incomplete and go on with the next days, instead of stopping",
+    )
     parser.add_argument("--dry-run", action="store_true", help="report what would be read, fetch nothing")
     args = parser.parse_args()
 
@@ -332,8 +384,11 @@ def main() -> None:
     if args.start > args.end:
         raise SystemExit("--start must be on or before --end")
 
-    print(f"{args.start} -> {args.end}, assets={args.assets}, force_refresh={args.force_refresh}")
-    ingest(args.assets, args.start, args.end, args.force_refresh, args.dry_run)
+    print(
+        f"{args.start} -> {args.end}, assets={args.assets}, force_refresh={args.force_refresh}, "
+        f"keep_going={args.keep_going}"
+    )
+    ingest(args.assets, args.start, args.end, args.force_refresh, args.dry_run, args.keep_going)
 
 
 if __name__ == "__main__":
