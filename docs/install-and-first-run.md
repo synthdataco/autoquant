@@ -30,7 +30,7 @@ A campaign needs two different things, from two different places.
 
 | What                                                       | Purpose                                                                                                             | Source                                                                               |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| 1-minute closes per asset, in a local `market_data/` store | The **model's input**: the 7-day context each prompt hands to `simulate()`, and the price series agents backtest on | Venue clients in `synth_lib.preparation` (Binance, Hyperliquid), or your own archive |
+| 1-minute closes per asset, in a local `market_data/` store | The **model's input**: the context each prompt hands to `simulate()`, and the price series agents backtest on       | Venue clients in `synth_lib.preparation` (Binance, Hyperliquid), or your own archive |
 | Realized paths + field scores/rewards                      | The **scoring ground truth**: the arrays the validator's own CRPS consumed, and the field to rank against           | The public Synth API, via `synth_lib.backtester.scripts.build_offline_bundle`        |
 
 ### Minute prices

@@ -244,15 +244,15 @@ uv run python -m synth_lib.benchmark.verdict.run_verdict --campaign $C \
 
 Two data sources, two roles — do not conflate them:
 
-| Data | Source | Role |
-| --- | --- | --- |
-| 1-minute prices | your local store | the champion's INPUT: the 7-day context per prompt. synth-lib's loader also requires a partition to exist for every day it touches. |
-| Realized paths + field scores | the public API, fetched by `prepare_offline_bundle` (automatic, first step) | the scoring GROUND TRUTH: the arrays the validator's own CRPS consumed, and the field to rank against. |
+| Data                          | Source                                                                      | Role                                                                                                                                                                               |
+| ----------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1-minute prices               | your local store                                                            | the champion's INPUT: the context per prompt, `CONTEXT_DAYS` days (7 unless the champion sets it). synth-lib's loader also requires a partition to exist for every day it touches. |
+| Realized paths + field scores | the public API, fetched by `prepare_offline_bundle` (automatic, first step) | the scoring GROUND TRUTH: the arrays the validator's own CRPS consumed, and the field to rank against.                                                                             |
 
 No-lookahead chain, per leg: clone the workspace bundle and check out `CHAMPION.sha` (the scored code
 is provably the nominated code) → one `uv sync` sandbox pass on `bridge` (pinned packages, never
 prices) → generation in `--network none` sandboxes with the data root mounted read-only → the
-generator hands each prompt only `series.loc[t − 7d : t]`, which a dedicated test enforces.
+generator hands each prompt only the `CONTEXT_DAYS` days up to `t`, which a dedicated test enforces.
 
 Gotchas: the backtester refuses an unsettled window (`eval_end ≤ now − horizon − 1d`) and scoring
 reads realized prices past `window_end`, so wait for the calendar. Use `--no-gpu` when something else
@@ -264,7 +264,8 @@ so treat its verdict on past windows with suspicion.
 
 `--window-end D` scores the prompts scored before D 00:00 UTC, and the generator reads price
 partitions through D itself. Every asset therefore needs `date=D.parquet` (a partial one is enough)
-and every day from seven days before `--window-start`:
+and every day from `CONTEXT_DAYS` days before `--window-start`, taking the largest among the legs
+scored (7 for a champion that does not set it, 30 at most):
 
 ```bash
 for A in BTC ETH SOL XRP; do
@@ -275,7 +276,7 @@ AWS_PROFILE=<profile> uv run python scripts/ingest_reservoir.py --start <first m
 for A in HYPE XAU NVDAX TSLAX AAPLX GOOGLX SP500 SPCX WTIOIL; do
   uv run python -m synth_lib.preparation.market_data --asset $A --start <D> --end <D>
 done
-uv run python scripts/audit_store.py --cutoff <D - 1> --require-from <window start - 7 days>
+uv run python scripts/audit_store.py --cutoff <D - 1> --require-from <window start - CONTEXT_DAYS days>
 ```
 
 Never ask the venue for a Hyperliquid day past its retention: the empty answer is persisted as an

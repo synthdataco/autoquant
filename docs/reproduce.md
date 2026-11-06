@@ -10,7 +10,8 @@ agent's own backtests.
 ## What you need
 
 - Python 3.12+, `uv`, Docker (the generation step runs network-isolated in a container).
-- A local minute-price store covering the window plus 7 days of context before it — see the engine's
+- A local minute-price store covering the window plus the champion's context before it, `CONTEXT_DAYS`
+  days in its `modeling.py` or 7 when it sets none — see the engine's
   [install-and-first-run.md](install-and-first-run.md) for how to fill one (Binance for the cryptos; Hyperliquid retains only ~3.5 days, so the
   tokenised equity/commodity assets need either accumulated history or Hyperliquid's S3 archive).
 - Network access to `api.synthdata.co` for the field scores and realized paths.
