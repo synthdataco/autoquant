@@ -372,8 +372,24 @@ def test_an_unsettled_day_on_disk_is_read_again(tmp_path: Path, monkeypatch):
     bodies = {date(2026, 3, 19): day_file([("xyz:SP500", "2026-03-19 12:00:10", "7500.0")])}
     store = _run_ingest(tmp_path, monkeypatch, bodies, date(2026, 3, 19), date(2026, 3, 19), force_refresh=False)
     frame = pd.read_parquet(store.day_path(date(2026, 3, 19)))
-    assert frame["close"].iloc[720] == 7500.0 and frame["close"].iloc[:720].isna().all()
+    assert (frame["close"].iloc[720:] == 7500.0).all()
+    # With no stored previous day, the stored closes before the archive's first trade stay.
+    assert frame["close"].iloc[:5].isna().all() and (frame["close"].iloc[5:720] == 7416.0).all()
     assert frame["is_final"].all()
+
+
+def test_a_failed_write_leaves_the_stored_partition_whole(tmp_path: Path, monkeypatch):
+    store = MinutePriceStore("SP500", root=tmp_path)
+    ingest_reservoir.write_day(store, date(2026, 3, 19), _minutes({"2026-03-19 00:05": 7416.0}))
+
+    def killed(self, path, **kwargs):
+        Path(path).write_bytes(b"PAR1")
+        raise OSError("killed mid-write")
+
+    monkeypatch.setattr(pd.DataFrame, "to_parquet", killed)
+    with pytest.raises(OSError):
+        ingest_reservoir.write_day(store, date(2026, 3, 19), _minutes({"2026-03-19 00:05": 7500.0}))
+    assert pd.read_parquet(store.day_path(date(2026, 3, 19)))["close"].iloc[5] == 7416.0
 
 
 def test_a_short_pause_across_the_whole_dex_is_a_quiet_market():
