@@ -127,6 +127,11 @@ The pin is at `71504c8`. Nothing below has run in a campaign yet.
   - A stalled route to the bucket fails the read sooner: 10 s to connect, 60 s per read, 3 attempts.
   - `--keep-going` logs a day the dex-pause check refuses and goes on with the next days, for
     seeding a live miner's store. Without it, the refusal stops the run as before.
+- **The proxy prices the cache writes the gateway bills** ([synthdataco/autoquant#29]). The gateway
+  reports and bills cache writes for gpt-6-astra ($12.50 / 1M) and Kimi K3.1 Pro (the input rate).
+  Their entries priced cached reads only, so LiteLLM metered written tokens at zero: on a call writing
+  a 5k-token prefix, astra metered $0.0003 where the gateway charged $0.068. With the write prices,
+  the metered cost equals the gateway's.
 
 ### Planned, not built
 
@@ -523,3 +528,4 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
 [synthdataco/autoquant#21]: https://github.com/synthdataco/autoquant/pull/21
 [synthdataco/autoquant#22]: https://github.com/synthdataco/autoquant/pull/22
 [synthdataco/autoquant#27]: https://github.com/synthdataco/autoquant/pull/27
+[synthdataco/autoquant#29]: https://github.com/synthdataco/autoquant/pull/29
