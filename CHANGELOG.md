@@ -20,7 +20,7 @@ holds the current numbers.
 
 ## Unreleased: campaign-7
 
-The pin is at `71504c8`. Nothing below has run in a campaign yet.
+The pin is at `ca0c760`. Nothing below has run in a campaign yet.
 
 ### Merged
 
@@ -132,13 +132,8 @@ The pin is at `71504c8`. Nothing below has run in a campaign yet.
   Their entries priced cached reads only, so LiteLLM metered written tokens at zero: on a call writing
   a 5k-token prefix, astra metered $0.0003 where the gateway charged $0.068. With the write prices,
   the metered cost equals the gateway's.
-
-### Planned, not built
-
-CLIs:
-
-- **Kimi Code 2.5.2.** The image install and the `kimi-k3.1-pro` alias are built here. The
-  harness side, `effort` on kimi-code legs and the session lock, lands with the next synth-lib pin.
+- **Kimi Code 2.5.2** ([synthdataco/autoquant#24], [synthdataco/synth-lib#89],
+  [synthdataco/synth-lib#93]).
   - The image installs `@moonshot-ai/kimi-code@2.5.2` from npm, with the other CLIs. The
     `kimi-k3.1-pro` alias serves Kimi K3.1 Pro through the Vercel AI Gateway, on Moonshot's own
     hosting.
@@ -147,8 +142,10 @@ CLIs:
     kimi-code sends no effort at first, then `medium`, so a Kimi K3.1 Pro leg must set `effort`.
   - The harness turns kimi-code's session lock off. A lock left by a killed sandbox run would block
     every `-c`.
-- **Antigravity CLI 1.5.2 (`agy`) for Gemini legs.** The image install is built here. The harness
-  side, `antigravity-cli` legs in place of gemini-cli's, lands with the next synth-lib pin.
+  - kimi-code compacts against a 1,048,576-token window, Kimi K3.1 Pro's, instead of the 262,144 it
+    assumes for a model defined by environment variables.
+- **Antigravity CLI 1.5.2 (`agy`) for Gemini legs** ([synthdataco/autoquant#25],
+  [synthdataco/synth-lib#90]): `cli: antigravity-cli` in place of gemini-cli.
   - No gemini-cli release knows a Gemini 4 model, so campaign-6's gemini-4-argon leg ran at the
     API's default thinking level, `medium`. gemini-cli 0.61.0 stays in the image for archived
     campaigns.
@@ -164,10 +161,7 @@ CLIs:
     priced with its cached rate. Web search runs on its own model. The proxy does not meter Google
     Search grounding fees.
   - No documented setting turns `agy`'s telemetry off in a headless run.
-
-Task:
-
-- **The champion chooses its context length, with the next synth-lib pin.**
+- **The champion chooses its context length** ([synthdataco/synth-lib#91], [synthdataco/autoquant#26]).
   - `CONTEXT_DAYS` in `modeling.py`, a plain integer from 3 to 30, is how many days of minute
     prices before each prompt `simulate()` receives. A champion without it gets 7, so every archived
     champion keeps its context.
@@ -178,6 +172,8 @@ Task:
   - A live miner needs `CONTEXT_DAYS + 1` days in its store. Hyperliquid serves about 3.5 days, so a
     longer context needs the miner's store seeded from the archive before its first start
     ([docs/deploy-a-champion.md](docs/deploy-a-champion.md)).
+
+### Planned, not built
 
 Harness and verdict:
 
@@ -521,11 +517,18 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
 [synthdataco/synth-lib#86]: https://github.com/synthdataco/synth-lib/pull/86
 [synthdataco/synth-lib#87]: https://github.com/synthdataco/synth-lib/pull/87
 [synthdataco/synth-lib#88]: https://github.com/synthdataco/synth-lib/pull/88
+[synthdataco/synth-lib#89]: https://github.com/synthdataco/synth-lib/pull/89
+[synthdataco/synth-lib#90]: https://github.com/synthdataco/synth-lib/pull/90
+[synthdataco/synth-lib#91]: https://github.com/synthdataco/synth-lib/pull/91
+[synthdataco/synth-lib#93]: https://github.com/synthdataco/synth-lib/pull/93
 [synthdataco/autoquant#6]: https://github.com/synthdataco/autoquant/pull/6
 [synthdataco/autoquant#15]: https://github.com/synthdataco/autoquant/pull/15
 [synthdataco/autoquant#18]: https://github.com/synthdataco/autoquant/pull/18
 [synthdataco/autoquant#19]: https://github.com/synthdataco/autoquant/pull/19
 [synthdataco/autoquant#21]: https://github.com/synthdataco/autoquant/pull/21
 [synthdataco/autoquant#22]: https://github.com/synthdataco/autoquant/pull/22
+[synthdataco/autoquant#24]: https://github.com/synthdataco/autoquant/pull/24
+[synthdataco/autoquant#25]: https://github.com/synthdataco/autoquant/pull/25
+[synthdataco/autoquant#26]: https://github.com/synthdataco/autoquant/pull/26
 [synthdataco/autoquant#27]: https://github.com/synthdataco/autoquant/pull/27
 [synthdataco/autoquant#29]: https://github.com/synthdataco/autoquant/pull/29

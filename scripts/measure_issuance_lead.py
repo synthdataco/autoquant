@@ -41,7 +41,7 @@ import pandas as pd
 from synth.validator.crps_calculation import calculate_crps_for_miner, calculate_total_score_for_miner
 
 from synth_lib.backtester.config import VOL_CRPS_1H_DATE, competition_for, slug_for
-from synth_lib.benchmark.generate_predictions import CONTEXT_MINUTES, load_simulate
+from synth_lib.benchmark.generate_predictions import context_days_of, load_module
 
 SEED_ENV = "SYNTH_BENCHMARK_SEED"
 # The store labels a minute bar by its OPEN time (Binance k[OPEN_TIME]), so the row labelled t
@@ -126,11 +126,13 @@ def main() -> None:
     starts = scored_times - pd.Timedelta(seconds=args.time_length)
     picked = starts.iloc[np.linspace(0, len(starts) - 1, min(args.prompts, len(starts))).astype(int)]
 
-    simulate = load_simulate(args.leg / "modeling.py")
+    module = load_module(args.leg / "modeling.py")
+    simulate = module.simulate
+    context = pd.Timedelta(days=context_days_of(module))
     prices = load_closes(
         args.data_root,
         args.asset,
-        picked.min() - pd.Timedelta(minutes=CONTEXT_MINUTES),
+        picked.min() - context,
         picked.max() + pd.Timedelta(seconds=args.time_length),
     )
     step = args.time_length // comp.time_increment + 1
@@ -154,7 +156,7 @@ def main() -> None:
         )
         out = {"staleness_s": (lead + extra).total_seconds()}
         for label, cutoff in (("full", t), ("lagged", t - lead - extra)):
-            ctx = prices.loc[t - pd.Timedelta(minutes=CONTEXT_MINUTES) : cutoff]
+            ctx = prices.loc[t - context : cutoff]
             sim = simulate(
                 asset=args.asset,
                 start_time=t.isoformat(),
