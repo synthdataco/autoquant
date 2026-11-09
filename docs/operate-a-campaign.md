@@ -281,8 +281,10 @@ done
 uv run python scripts/audit_store.py --cutoff <D - 1> --require-from <window start - CONTEXT_DAYS - 1 day>
 ```
 
-Never ask the venue for a Hyperliquid day past its retention: the empty answer is persisted as an
-all-NaN partition marked final, and every later ingest skips it.
+Ask the venue only for Hyperliquid days it still holds whole. A day it holds only in part is stored
+with NaN before the retention edge and marked settled, so no later ingest reads it again unless
+`ingest_reservoir.py --force-refresh` replaces it from the archive. A day it no longer holds at all
+is stored unsettled, and `ingest_reservoir.py` re-reads it from the archive.
 
 The verdict fetches the rest itself: the field's scores, and one realized path per scored prompt not
 yet cached in `market_data/realized/` (about a thousand per day of window).

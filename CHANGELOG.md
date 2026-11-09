@@ -116,6 +116,17 @@ The pin is at `71504c8`. Nothing below has run in a campaign yet.
     and the 2026-10-28 prompt cadence.
   - DATA.md gives each competition's first ranked round, its scored prompts a day by period, and
     com-equ-24h's fixed daily start times.
+- **`ingest_reservoir.py` reads a stored day again until it is settled** ([synthdataco/autoquant#27]).
+  - It skips a stored day only when the partition says it is settled (`is_final`), as the price
+    store does. It used to skip any stored day, so a partition a venue top-up wrote while its day
+    was running, and that no later top-up completed, stayed partial.
+  - Minutes the archive leaves without a price, before the day's first trade when no previous day
+    is stored, keep the stored partition's candles.
+  - A partition is written to a temporary file and renamed into place, so a killed run never leaves
+    a truncated one.
+  - A stalled route to the bucket fails the read sooner: 10 s to connect, 60 s per read, 3 attempts.
+  - `--keep-going` logs a day the dex-pause check refuses and goes on with the next days, for
+    seeding a live miner's store. Without it, the refusal stops the run as before.
 
 ### Planned, not built
 
@@ -511,3 +522,4 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
 [synthdataco/autoquant#19]: https://github.com/synthdataco/autoquant/pull/19
 [synthdataco/autoquant#21]: https://github.com/synthdataco/autoquant/pull/21
 [synthdataco/autoquant#22]: https://github.com/synthdataco/autoquant/pull/22
+[synthdataco/autoquant#27]: https://github.com/synthdataco/autoquant/pull/27
