@@ -237,5 +237,25 @@ model_list:
       output_cost_per_token: 0.00002          # $20.00 / 1M
       cache_read_input_token_cost: 0.0000002  # $0.20 / 1M
 
+  # Kimi K3.1 Pro via the Vercel AI Gateway (gateway id `moonshotai/kimi-k3.1-pro`), pinned to Moonshot's
+  # own hosting. Moonshot list prices (platform.kimi.ai/docs/pricing/chat), which the gateway charges on
+  # its moonshotai endpoint; Moonshot bills 5-minute cache writes at the input rate.
+  - model_name: kimi-k3.1-pro
+    litellm_params:
+      model: openai/moonshotai/kimi-k3.1-pro
+      api_base: https://ai-gateway.vercel.sh/v1
+      api_key: os.environ/AI_GATEWAY_API_KEY
+      extra_body:
+        providerOptions:
+          gateway:
+            only: ["moonshotai"]
+      # kimi-code sends reasoning_effort; LiteLLM rejects params it cannot vouch for on a custom
+      # model unless told to pass them through.
+      allowed_openai_params: ["reasoning_effort"]
+    model_info:
+      input_cost_per_token: 0.000002          # $2.00 / 1M
+      output_cost_per_token: 0.00001          # $10.00 / 1M
+      cache_read_input_token_cost: 0.0000002  # $0.20 / 1M
+
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

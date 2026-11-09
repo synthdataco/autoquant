@@ -11,16 +11,15 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
 # sandbox_cmd mounts the per-run HOME over — a symlink from /usr/local/bin dangles at runtime
 # and every leg re-discovers "uv missing" and self-installs.
 RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/usr/local/bin UV_NO_MODIFY_PATH=1 sh
-# The 3 CLIs, versions pinned at build time
+# The CLIs, versions pinned at build time
 # PINNED, because the CLI is the experiment's subject: an unpinned rebuild changes it silently.
 # A patch release is enough — resume-flag parsing has changed between adjacent versions, which
 # breaks a leg the driver cannot then land. Bump deliberately, one at a time, and smoke after.
 # claude-code >= 2.1.294: below it, a prompt Stop hook written as instructions (the goal hook) can
 # let a session stop that it should hold, and below 2.1.284 turning ultracode on forces effort to xhigh.
-RUN npm install -g @anthropic-ai/claude-code@2.1.296 @openai/codex@0.156.1 @google/gemini-cli@0.61.0
-# Kimi Code is not on npm. KIMI_INSTALL_DIR=/usr/local: the default ($HOME/.kimi-code) would be
-# hidden at runtime — sandbox_cmd mounts the per-run HOME over /root.
-RUN curl -fsSL https://code.kimi.com/kimi-code/install.sh | KIMI_INSTALL_DIR=/usr/local KIMI_NO_MODIFY_PATH=1 bash -s -- --version 0.32.0
+# kimi-code needs node >= 22.19.0.
+RUN npm install -g @anthropic-ai/claude-code@2.1.296 @openai/codex@0.156.1 @google/gemini-cli@0.61.0 \
+    @moonshot-ai/kimi-code@2.5.2
 # The workspace is bind-mounted with the HOST owner's uid while the container runs as root, so
 # git refuses every command with "dubious ownership" (CVE-2022-24765 guard). System-level config:
 # /etc is baked into the image, unlike /root which is mounted over per run. Without this, every
