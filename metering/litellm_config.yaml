@@ -6,6 +6,10 @@
 # cache_read_input_token_cost is silently ignored and cached tokens bill at the full input rate
 # (github.com/BerriAI/litellm/issues/27191). A cached-token rate that silently falls back to the full
 # input rate overstates an agentic leg's cost several-fold.
+#
+# The gateway reports cache writes (cache_write_tokens) for some models. An entry that prices cached
+# reads but not cache_creation_input_token_cost meters those written tokens at zero, which understates
+# a leg's cost many-fold: price writes on every gateway entry whose provider bills them.
 model_list:
   - model_name: claude-model
     litellm_params:
@@ -168,6 +172,7 @@ model_list:
       input_cost_per_token: 0.00001              # $10.00 / 1M
       output_cost_per_token: 0.00005             # $50.00 / 1M
       cache_read_input_token_cost: 0.000001      # $1.00 / 1M (OpenAI list; gateway page omits it)
+      cache_creation_input_token_cost: 0.0000125  # $12.50 / 1M, the gateway's charge for a cache write
   # GPT-6 Sol replaces GPT-5.6 Sol at half its price. The gateway publishes no cached-input rate
   # for it, so cache reads meter at the full input price — an over-estimate, which is the safe
   # direction for a budget cap.
@@ -258,6 +263,7 @@ model_list:
       input_cost_per_token: 0.000002          # $2.00 / 1M
       output_cost_per_token: 0.00001          # $10.00 / 1M
       cache_read_input_token_cost: 0.0000002  # $0.20 / 1M
+      cache_creation_input_token_cost: 0.000002  # $2.00 / 1M, the input rate
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
