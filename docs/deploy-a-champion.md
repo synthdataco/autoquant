@@ -2,7 +2,7 @@
 
 A published champion is a runnable miner, not just a paper result. `synth_lib.serving` wraps its
 `simulate()` in the live response contract and keeps a local price store warm so each request gets a
-real 7-day context.
+real context of the length the champion chose.
 
 ## Take a copy
 
@@ -47,24 +47,70 @@ integer metadata fields and prices that round-trip through 8 significant digits,
 output from a backtested model does not satisfy. `miner.py` fixes exactly that, and the gate proves
 it per champion.
 
-## Warm the price store
+## Its context length
+
+From campaign-7, a champion's `modeling.py` may set `CONTEXT_DAYS`: a plain integer at module level,
+from 3 to 30. It is how many days of minute prices before each prompt `simulate()` receives, in the
+champion's own backtests, in its verdict and live. A champion without it gets 7 days, as every
+earlier champion did.
 
 ```bash
-for A in BTC ETH SOL XRP; do uv run python -m synth_lib.preparation.market_data --asset $A --days 30; done
-for A in HYPE XAU NVDAX TSLAX AAPLX GOOGLX SP500 SPCX WTIOIL; do
-  uv run python -m synth_lib.preparation.market_data --asset $A --days 3   # the rest, venue-limited
-done
+grep -n '^CONTEXT_DAYS' champions/claude_opus_5/modeling.py    # prints nothing: 7 days
 ```
 
-Hyperliquid keeps ~3.5 days of minutes, so the tokenised equity/commodity assets start with a short
-context and fill in as the miner's background refresh accumulates days. Run it a few days before you
-care about those competitions' scores.
+Any other value, `14.0` or `True` included, is refused: the contract gate fails, and so does the
+miner.
+
+## Warm the price store
+
+The miner keeps one store per asset, `market_data/prices/<ASSET>/1m/date=YYYY-MM-DD.parquet` under
+the directory it runs from. Each request reads `CONTEXT_DAYS + 1` days of it: a window of D days
+touches D + 1 daily partitions, the oldest and today's both partial. The miner warms the store at
+startup and refreshes it every minute, from the venue each asset is scored against:
+
+| Assets                                                      | Venue       | History the venue serves               | Before the first start                                |
+| ----------------------------------------------------------- | ----------- | -------------------------------------- | ----------------------------------------------------- |
+| BTC, ETH, SOL, XRP                                          | Binance     | all of it                              | nothing: the warm-up fetches every day                |
+| HYPE, XAU, NVDAX, TSLAX, AAPLX, GOOGLX, SP500, SPCX, WTIOIL | Hyperliquid | the last 5,000 minutes, about 3.5 days | with `CONTEXT_DAYS` above 3, seed it from the archive |
+
+Unseeded, a Hyperliquid-routed asset is served with about 3.5 days of prices and NaN before them,
+and gains one day for each day the miner runs: a 30-day champion would wait four weeks for its full
+context.
+
+### Seed the Hyperliquid days from the archive
+
+`scripts/ingest_reservoir.py` builds them from Hydromancer Reservoir's 1-second archive, the same
+way it builds the campaign's store, which the champion was fitted and scored on. Run it before the
+miner first starts, for the `CONTEXT_DAYS + 1` days up to yesterday; 31 days covers any champion.
+Run it, and the miner, from the champion's own folder: its `market_data/` is then apart from the
+campaign store in the repo root, and `uv` still finds the repo's project from there.
+
+```bash
+uv sync
+cd champions/<name>
+AWS_PROFILE=<profile> uv run python ../../scripts/ingest_reservoir.py \
+  --start <today - CONTEXT_DAYS - 1> --end <yesterday>
+```
+
+- The bucket is requester-pays: the reads are billed to your AWS account, which must be in the
+  commercial partition.
+- **Seed before the first start.** The miner's warm-up stores the oldest day the venue still partly
+  holds as settled, and the miner never fetches a settled day again.
+- The day before the context's oldest day is seeded for its last close: the ingest carries it into
+  the next day's minutes before their first trade.
+- The archive publishes a day some time after it ends, and the venue covers the last three days, so
+  seed on the day the miner starts.
+- **Start each champion on an empty store**, as a new champion folder is. The ingest skips a day
+  already on disk, and the miner skips a day it has settled, so a store reused from the campaign,
+  another champion or an older engine keeps serving its old minutes.
 
 ## Run
 
+From the champion's folder, which holds its store:
+
 ```bash
-NETWORK=finney NETUID=50 COLDKEY_NAME=<coldkey> HOTKEY_NAME=<hotkey> PORT=8091 \
-  ./champions/<name>/entrypoint.sh
+cd champions/<name>
+NETWORK=finney NETUID=50 COLDKEY_NAME=<coldkey> HOTKEY_NAME=<hotkey> PORT=8091 ./entrypoint.sh
 ```
 
 The miner warms up from the venues, starts a background refresh thread, and serves every competition
@@ -82,9 +128,9 @@ request instead of quietly degrading, so your monitoring sees it.
 
 ## Before you trust it
 
-- Measure per-prompt latency on your hardware. The validator allows roughly the prompt's lead time
-  (about a minute), but a champion above a few seconds per prompt at 1000 paths will strain both your
-  box and any backtesting you do.
+- Measure per-prompt latency on your hardware, at the champion's context length. The validator
+  allows roughly the prompt's lead time (about a minute), but a champion above a few seconds per
+  prompt at 1000 paths will strain both your box and any backtesting you do.
 - Champions are frozen research artifacts: none of them adapt, retrain, or watch the field. Treat one
   as a starting point you now own, not a product.
 - **Daylight saving.** The US session and the US releases keep New York time, and European hours
