@@ -20,7 +20,7 @@ holds the current numbers.
 
 ## Unreleased: campaign-7
 
-The pin is at `ca0c760`. Nothing below has run in a campaign yet.
+The pin is at `39bd62d`. Nothing below has run in a campaign yet.
 
 ### Merged
 
@@ -172,6 +172,10 @@ The pin is at `ca0c760`. Nothing below has run in a campaign yet.
   - A live miner needs `CONTEXT_DAYS + 1` days in its store. Hyperliquid serves about 3.5 days, so a
     longer context needs the miner's store seeded from the archive before its first start
     ([docs/deploy-a-champion.md](docs/deploy-a-champion.md)).
+- **The snapshot leaves out realized paths that start on the cutoff day** ([synthdataco/synth-lib#94]).
+  A realized-path partition is named after its prompts' start day, and a 24h path runs into the next
+  day, so the one dated on the cutoff held prices from the forward window. campaign-6's snapshot held
+  18 such files (`realized/*/date=2026-10-11.parquet`); no transcript reads one by name.
 
 ### Planned, not built
 
@@ -521,6 +525,7 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
 [synthdataco/synth-lib#90]: https://github.com/synthdataco/synth-lib/pull/90
 [synthdataco/synth-lib#91]: https://github.com/synthdataco/synth-lib/pull/91
 [synthdataco/synth-lib#93]: https://github.com/synthdataco/synth-lib/pull/93
+[synthdataco/synth-lib#94]: https://github.com/synthdataco/synth-lib/pull/94
 [synthdataco/autoquant#6]: https://github.com/synthdataco/autoquant/pull/6
 [synthdataco/autoquant#15]: https://github.com/synthdataco/autoquant/pull/15
 [synthdataco/autoquant#18]: https://github.com/synthdataco/autoquant/pull/18
