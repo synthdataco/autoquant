@@ -20,7 +20,7 @@ holds the current numbers.
 
 ## Unreleased: campaign-7
 
-The pin is at `74dd175`. campaign-7's first five legs ran `39bd62d`.
+The pin is at `11fded2`. campaign-7's first five legs ran `39bd62d`.
 
 ### Merged
 
