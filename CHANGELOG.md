@@ -325,8 +325,8 @@ From [synthdataco/synth-lib#58], [synthdataco/synth-lib#59] and [synthdataco/syn
   [Planned, not built](#planned-not-built)).
 
 - **gemini-4-argon with simulated registration on 10-25:** 25.9.
-- **`cutoff-30d`** (10-11 → 11-10) can be scored from about 11-12. Until it is, campaign-6 has no
-  leaderboard row.
+- **`cutoff-30d`** (10-11 → 11-10): gemini-4-argon 38.5, opus-5-5 14.3, gpt-6-astra 13.4 and
+  muse-wonder 5.9. gemini-4-argon is the leaderboard's top row.
 - **The archive keeps the calendar the legs read:** `campaign_results/campaign-6/calendar/`.
 - **gpt-6-astra's first nomination failed the 1h interface check.**
   - Its 1h path imported a file beside `modeling.py`, which the probe's loader could not find.
