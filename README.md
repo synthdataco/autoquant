@@ -10,9 +10,9 @@ The opponents are ~250 live miners on [Synth SN50](https://synthdata.co), financ
 win. The scorer is the subnet's own validator code. The metric is money.
 
 **Still unsolved.** No frontier model, given one shot inside that envelope, has taken the top spot.
-Over a month of live scoring, the best champion earns, averaged over the three competitions, 33% of
-what the best other miner earns. It reached 1st in crypto-1h and crypto-24h, but averaged 106th and
-91st there over the month, and 169th in com-equ-24h.
+Over a month of live scoring, the best champion earns, averaged over the three competitions, 38.5%
+of what the best other miner earns. It reached 1st in crypto-1h and crypto-24h, but averaged 134th
+and 101st there over the month, and 146th in com-equ-24h.
 
 ## Leaderboard
 
@@ -24,12 +24,16 @@ aggregation.
 
 | Model                  | Campaign   | Window             | Score    | crypto-1h | crypto-24h | com-equ-24h | Spend           |
 | ---------------------- | ---------- | ------------------ | -------- | --------- | ---------- | ----------- | --------------- |
+| gemini-4-argon         | campaign-6 | 2026-10-11 → 11-10 | **38.5** | 134       | 101        | 146         | 15.9 h / $70.95 |
 | claude-opus-5          | campaign-2 | 2026-07-27 → 08-26 | **33.5** | 106       | 91         | 169         | 3.8 h / $25.67  |
 | claude-opus-5-5        | campaign-4 | 2026-09-14 → 10-14 | **29**   | 146       | 199        | 105         | 2.0 h / $8.10   |
 | gpt-6-astra            | campaign-4 | 2026-09-14 → 10-14 | **21.4** | 149       | 156        | 200         | 0.8 h / $18.32  |
+| claude-opus-5-5        | campaign-6 | 2026-10-11 → 11-10 | **14.3** | 190       | 171        | 180         | 3.1 h / $11.78  |
 | claude-fable-5-1       | campaign-3 | 2026-08-29 → 09-28 | **13.5** | 144       | 180        | 182         | 2.9 h / $58.55  |
+| gpt-6-astra            | campaign-6 | 2026-10-11 → 11-10 | **13.4** | 180       | 213        | 192         | 4.8 h / $88.41  |
 | gpt-6-astra            | campaign-3 | 2026-08-29 → 09-28 | **11.6** | 164       | 149        | 211         | 3.2 h / $93.60  |
 | gemini-3.1-pro-preview | campaign-2 | 2026-07-27 → 08-26 | **6.4**  | 198       | 243        | 197         | —               |
+| muse-wonder-1.0        | campaign-6 | 2026-10-11 → 11-10 | **5.9**  | 225       | 174        | 195         | 3.7 h / $7.16   |
 | gpt-5                  | campaign-2 | 2026-07-27 → 08-26 | **5.4**  | 198       | 252        | 198         | —               |
 | claude-opus-5          | campaign-4 | 2026-09-14 → 10-14 | **4.9**  | 230       | 220        | 231         | 12.2 h / $86.68 |
 | gpt-6-sol              | campaign-4 | 2026-09-14 → 10-14 | **3.5**  | 236       | 214        | 240         | 15.4 h / $4.72  |
@@ -90,12 +94,13 @@ miner: [docs/deploy-a-champion.md](docs/deploy-a-champion.md).
 
 ## Results
 
-| Campaign                                   | Panel                                                        | Envelope              |
-| ------------------------------------------ | ------------------------------------------------------------ | --------------------- |
-| [campaign-1](campaign_results/campaign-1/) | gemini-3.1-pro-preview, glm-5.2, kimi-k3                     | $100 / 24 h per model |
-| [campaign-2](campaign_results/campaign-2/) | claude-opus-5, gpt-5, revised constitution                   | $100 / 18 h per model |
-| [campaign-3](campaign_results/campaign-3/) | claude-fable-5-1, gpt-5.6-sol, gpt-6-astra, gemini-3.8-flash | $100 / 18 h per model |
-| [campaign-4](campaign_results/campaign-4/) | claude-opus-5, claude-opus-5-5, gpt-6-astra, gpt-6-sol       | $100 / 18 h per model |
+| Campaign                                   | Panel                                                         | Envelope              |
+| ------------------------------------------ | ------------------------------------------------------------- | --------------------- |
+| [campaign-1](campaign_results/campaign-1/) | gemini-3.1-pro-preview, glm-5.2, kimi-k3                      | $100 / 24 h per model |
+| [campaign-2](campaign_results/campaign-2/) | claude-opus-5, gpt-5, revised constitution                    | $100 / 18 h per model |
+| [campaign-3](campaign_results/campaign-3/) | claude-fable-5-1, gpt-5.6-sol, gpt-6-astra, gemini-3.8-flash  | $100 / 18 h per model |
+| [campaign-4](campaign_results/campaign-4/) | claude-opus-5, claude-opus-5-5, gpt-6-astra, gpt-6-sol        | $100 / 18 h per model |
+| [campaign-6](campaign_results/campaign-6/) | claude-opus-5-5, gpt-6-astra, gemini-4-argon, muse-wonder-1.0 | $100 / 18 h per model |
 
 Each leg directory **is** the champion: the agent's whole workspace at the commit it nominated —
 `modeling.py` and the calibration artifacts it loads, `report.md` (the agent's own write-up, the most
@@ -118,9 +123,9 @@ needs a GPU-capable box, provider keys and a few hundred dollars; a `cli: fake` 
 
 ## Caveats worth reading before quoting a number
 
-- **Three windows.** Scores are relative to whoever was mining that month: campaign-2 is scored on
-  2026-07-27 → 08-26, campaign-3 on 08-29 → 09-28 and campaign-4 on 09-14 → 10-14, so only rows from
-  the same campaign are a head-to-head, even for the same model.
+- **Four windows.** Scores are relative to whoever was mining that month: campaign-2 is scored on
+  2026-07-27 → 08-26, campaign-3 on 08-29 → 09-28, campaign-4 on 09-14 → 10-14 and campaign-6 on
+  10-11 → 11-10, so only rows from the same campaign are a head-to-head, even for the same model.
 - **Pseudo-out-of-sample.** A window starts on its campaign's data cutoff, the last day of the
   agents' price snapshot, and the agents could query the live field's API while they worked.
 - **campaign-2 is scored from rebuilt workspaces.** Its original workspaces were not kept, so each
