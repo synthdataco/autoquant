@@ -1,0 +1,1457 @@
+{
+  "reference": "holiday/neighboring ordinary weekday scale, each normalized by causal ml_vol",
+  "fits": {
+    "2026-03-01": [
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6201768510591016,
+        "n_dates": 5
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7170091043034641,
+        "n_dates": 5
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6660372944455185,
+        "n_dates": 5
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7102268630328312,
+        "n_dates": 5
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7303140098573935,
+        "n_dates": 5
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7303140098573935,
+        "n_dates": 5
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5950809157949072,
+        "n_dates": 5
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6264262673610033,
+        "n_dates": 5
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6613545723899769,
+        "n_dates": 5
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6173731183563966,
+        "n_dates": 5
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6852375362886632,
+        "n_dates": 5
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6852375362886632,
+        "n_dates": 5
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.43604464305379187,
+        "n_dates": 5
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.46809453538425566,
+        "n_dates": 5
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.46443217589874697,
+        "n_dates": 5
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.49223332193337993,
+        "n_dates": 5
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.5609135666961613,
+        "n_dates": 5
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.5609135666961613,
+        "n_dates": 5
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8857751556374834,
+        "n_dates": 5
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.764262655853449,
+        "n_dates": 5
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8777590742369883,
+        "n_dates": 5
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.7646962432180252,
+        "n_dates": 5
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8573564713525672,
+        "n_dates": 5
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8573564713525672,
+        "n_dates": 5
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 5
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 5
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 5
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 5
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 5
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 5
+      }
+    ],
+    "2026-07-01": [
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6117323206442884,
+        "n_dates": 8
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6917684740087509,
+        "n_dates": 8
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6722300826067914,
+        "n_dates": 8
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7486355409427718,
+        "n_dates": 8
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7075933370131714,
+        "n_dates": 8
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7306144840780705,
+        "n_dates": 8
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5551200807778429,
+        "n_dates": 8
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.565236843296205,
+        "n_dates": 8
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6167145409561442,
+        "n_dates": 8
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5780869690494451,
+        "n_dates": 8
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6127536405261098,
+        "n_dates": 8
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6160729031272004,
+        "n_dates": 8
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.35225143493221556,
+        "n_dates": 8
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3767089184997057,
+        "n_dates": 8
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3726286453674544,
+        "n_dates": 8
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.4003415813841742,
+        "n_dates": 8
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.4476814320100916,
+        "n_dates": 8
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.43555059023728604,
+        "n_dates": 8
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8501995193877874,
+        "n_dates": 8
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.7264483512283947,
+        "n_dates": 8
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8477096280840932,
+        "n_dates": 8
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.7827662598472469,
+        "n_dates": 8
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.801184799291658,
+        "n_dates": 8
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9424225944297192,
+        "n_dates": 8
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 8
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 8
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 8
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 8
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 0.9440151395134632,
+        "n_dates": 8
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 0.8849775671225262,
+        "n_dates": 8
+      }
+    ],
+    "2026-08-01": [
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6194756239886318,
+        "n_dates": 9
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.684536391804597,
+        "n_dates": 9
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6750588513602593,
+        "n_dates": 9
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7975986126726391,
+        "n_dates": 9
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6979103809079806,
+        "n_dates": 9
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7320736697593146,
+        "n_dates": 9
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5791617122017078,
+        "n_dates": 9
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5611097715008144,
+        "n_dates": 9
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6220177947113209,
+        "n_dates": 9
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5960217407506997,
+        "n_dates": 9
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5983535297066461,
+        "n_dates": 9
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6142099875357783,
+        "n_dates": 9
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3432823038615818,
+        "n_dates": 9
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.36313799047498585,
+        "n_dates": 9
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3594620951860594,
+        "n_dates": 9
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3907043273954076,
+        "n_dates": 9
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.42139513196789696,
+        "n_dates": 9
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.44340570903821797,
+        "n_dates": 9
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8987087068086528,
+        "n_dates": 9
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.7550742449376818,
+        "n_dates": 9
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8849201976746851,
+        "n_dates": 9
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8215475665556391,
+        "n_dates": 9
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.8412167121766136,
+        "n_dates": 9
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 1.0,
+        "n_dates": 9
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 9
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 9
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 9
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 9
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 0.9542545606701075,
+        "n_dates": 9
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 0.8915339484649152,
+        "n_dates": 9
+      }
+    ],
+    "2026-10-01": [
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.614974316932141,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6739669673281066,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6785235377236445,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.8125368744869084,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7178248862010177,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7425250753384399,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5849800765726276,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5544306143756024,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6134281626798415,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6034195191436132,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5891456276652858,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6176022664785441,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3393261459378327,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3528380626651384,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.34379606337880086,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.37949539833276547,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.39730259305178894,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.43227207410858337,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9313704382206095,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.80962258177768,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9232309589172976,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.894028259468231,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9034208207909321,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 0.9096227373210655,
+        "n_dates": 10
+      }
+    ],
+    "2026-11-01": [
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.614974316932141,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6739669673281066,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6785235377236445,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.8125368744869084,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7178248862010177,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7425250753384399,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5849800765726276,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5544306143756024,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6134281626798415,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6034195191436132,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5891456276652858,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6176022664785441,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3393261459378327,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3528380626651384,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.34379606337880086,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.37949539833276547,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.39730259305178894,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.43227207410858337,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9313704382206095,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.80962258177768,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9232309589172976,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.894028259468231,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9034208207909321,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 0.9096227373210655,
+        "n_dates": 10
+      }
+    ],
+    "2026-11-09": [
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.614974316932141,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6739669673281066,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.6785235377236445,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.8125368744869084,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7178248862010177,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 0,
+        "hi": 240,
+        "amplitude": 0.7425250753384399,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5849800765726276,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5544306143756024,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6134281626798415,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6034195191436132,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.5891456276652858,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 240,
+        "hi": 570,
+        "amplitude": 0.6176022664785441,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3393261459378327,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.3528380626651384,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.34379606337880086,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.37949539833276547,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.39730259305178894,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 570,
+        "hi": 960,
+        "amplitude": 0.43227207410858337,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9313704382206095,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.80962258177768,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9232309589172976,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.894028259468231,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 0.9034208207909321,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 960,
+        "hi": 1200,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "NVDAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "GOOGLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "TSLAX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "AAPLX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "SPCX",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 1.0,
+        "n_dates": 10
+      },
+      {
+        "asset": "SP500",
+        "event": "NYSE_CLOSED",
+        "lo": 1200,
+        "hi": 1440,
+        "amplitude": 0.9096227373210655,
+        "n_dates": 10
+      }
+    ]
+  }
+}

@@ -1,0 +1,576 @@
+{
+ "sha": "8a06e838f69448f7e2456e1ef3bb0d3917749806",
+ "files": [
+  {
+   "path": "agent/research/fit_profiles.py",
+   "bytes": 6268,
+   "sha256": "1849c53fb988d5f051f53108297275663e7dd68e63003b10ecce17dfd826c609",
+   "why": "Fits the per-asset New-York-time weekly profiles (a1/a5/v1/v5/z1/z5 keys). The served agent/profiles.npz is its --cutoff 2026-11-09 --exclude-events --moh output, blob-identical to research/profilesxm_2026-11-09.npz (b6d8c3e2; minute-of-hour added in commit 7dcf382, v4.1). sweep.py's walk-forward profile files come from it too."
+  },
+  {
+   "path": "agent/research/fit_events.py",
+   "bytes": 2995,
+   "sha256": "ff849c8c54ad894504e9c2c8c421d4765891bb28acc8ed42f7ffded9ddbce312",
+   "why": "Fits the event variance multipliers from the calendar against an event-excluded a1 profile. The served agent/events.json is its --cutoff 2026-11-09 output, blob-identical to research/eventsx_2026-11-09.json (3e41cff2). Journal iteration 7; report section 2."
+  },
+  {
+   "path": "agent/research/data.py",
+   "bytes": 961,
+   "sha256": "9f8634d04a1ec13aae6f8c132b06062dc07b0b2ec2cff2e862da40ad0a00bd43",
+   "why": "load_all/ALL_ASSETS minute-price helpers (the only in-tree module the research imports): used by fit_profiles.py, fit_events.py, har_fit.py, har.py, events.py, tc_reg.py and the data-exploration scripts."
+  },
+  {
+   "path": "agent/research/har_fit.py",
+   "bytes": 3253,
+   "sha256": "50c5a6efb4014622a60b0ce6a420141b39ba0fca38c420159647527fe244c437",
+   "why": "QLIKE simplex fit of the three-EWMA mixing weights per lead window: the source of GROUPS hl/knots/w in modeling.py (journal iteration 3); its absolute-return refit is report experiment #24 / journal iteration 18 (discarded)."
+  },
+  {
+   "path": "agent/research/har.py",
+   "bytes": 2796,
+   "sha256": "739612991cd688bf3e34a69fc7c1204ebf537fb6267168ced1f4881108f62177",
+   "why": "First QLIKE exploration over 2-EWMA mixes per lead (journal iteration 3), the predecessor of har_fit.py."
+  },
+  {
+   "path": "agent/research/events.py",
+   "bytes": 2535,
+   "sha256": "b86e834e257fe8e8efa8702d66b751d30185b9c892dd249dc1034a9d97fbe609",
+   "why": "Event effect-size exploration that preceded fit_events.py (journal iteration 7)."
+  },
+  {
+   "path": "agent/research/evalrun.py",
+   "bytes": 9517,
+   "sha256": "18706a7acec45e4c6eefae6f9fd3f9bc9fca643c5a5add4dbd914939b97758cd",
+   "why": "Batch evaluation harness (synth-lib score_crps plus the field's best/p10/p50 join). Produces every walk-forward CRPS in journal.md and report.md section 3; journal.md line 4 names it; run by sweep.py."
+  },
+  {
+   "path": "agent/research/sweep.py",
+   "bytes": 2591,
+   "sha256": "b3627944a06eb5dcc5920402432f25e784954af920090a771e534a9b63273989",
+   "why": "Defines walk-forward windows A/B/S/C and their profile files, and runs param configs through evalrun.py then compare.py (journal 'Validation protocol', report section 3)."
+  },
+  {
+   "path": "agent/research/compare.py",
+   "bytes": 1127,
+   "sha256": "4d632e346cb6ba987164098b11ed3ee33bd963555a70a9e292f1fcc6782c634f",
+   "why": "Paired per-asset % change of mean CRPS (better_cells, day-clustered t) behind every keep/discard verdict; named in journal 'Validation protocol'; called by sweep.py."
+  },
+  {
+   "path": "agent/research/compare_ev.py",
+   "bytes": 1238,
+   "sha256": "60c1399eaec68ecb9171ce2ef57d2a88a21e4d3607ce2d656e00b74df0e425be",
+   "why": "Paired comparison restricted to prompts whose horizon holds an event of each type: the CPI/EARNINGS/FOMC rows of journal iteration 7."
+  },
+  {
+   "path": "agent/research/official_eval.sh",
+   "bytes": 698,
+   "sha256": "7037d83d8bc2ce63f1d8c4f792265327529617d6ed46f884bce2c5d831877eff",
+   "why": "Driver of the official numbers in CHAMPION, report section 4 and journal iterations 13/15/16: runs a predict.py per configuration and asset into research/official/<tag>/."
+  },
+  {
+   "path": "agent/predict.py",
+   "bytes": 16038,
+   "sha256": "169fa062016ba7d712f288566b8de02f0d178b06f14fbf568c8dd47fd305e5e2",
+   "why": "Official synth-lib backtester cited as agent/predict.py in CHAMPION, report section 4, journal and suggestions.md; official_eval.sh ran it for the champion_v5/v7 logs. Harness-provided (unchanged since the campaign-baseline commit c499c1d)."
+  },
+  {
+   "path": "agent/research/starter_eval/predict.py",
+   "bytes": 16093,
+   "sha256": "af131938497364419eedb16451fe164173254851ba84cbd37d98a71d1e0b906b",
+   "why": "predict.py copy (only WORKSPACE = parents[2] differs) that imports its sibling starter modeling.py; official_eval.sh ran it for research/official/starter, the starter column of CHAMPION and report section 4."
+  },
+  {
+   "path": "agent/research/starter_eval/modeling.py",
+   "bytes": 1251,
+   "sha256": "761ac3a69aacd29e79e53a20a11e2f78b9b9f543ccf3a98304b2a71ae1d44c4a",
+   "why": "The starter log-normal martingale baseline that starter_eval/predict.py loads: the 'starter' column in every CHAMPION, report and journal table."
+  },
+  {
+   "path": "agent/research/v1_modeling.py",
+   "bytes": 5358,
+   "sha256": "cdead0ee84d19b10a211dd6fe1d4c65af696f68d079f4cc9339c129b86364896",
+   "why": "The v1 seasonal-EWMA scale-mixture model (journal iteration 1), the ancestor of agent/modeling.py."
+  },
+  {
+   "path": "agent/research/best_miners.py",
+   "bytes": 1351,
+   "sha256": "7586b6b07537ae331bcb840d22b5957a78288c29ca6e0a86dec58fb2acb42041",
+   "why": "Best single field miner vs the per-prompt p10 (journal 'Benchmark: the best SINGLE miner', report section 1, suggestions.md item 1)."
+  },
+  {
+   "path": "agent/research/field_summary.py",
+   "bytes": 1156,
+   "sha256": "d7b8a95097c662a6a489bd0401708521ca36c157bdb2b9bd10b547cde29f6551",
+   "why": "Per-competition/asset field CRPS summary from the offline bundle (journal iteration 0 field facts)."
+  },
+  {
+   "path": "agent/research/breakdown.py",
+   "bytes": 2142,
+   "sha256": "84975b38e00459b4602506eb29f50e50ab6338c787b9b4b7cea15d1979d3f66a",
+   "why": "Per-interval CRPS breakdown via synth's calculate_total_score_for_miner: the score-share table in report section 1."
+  },
+  {
+   "path": "agent/research/gap_by.py",
+   "bytes": 1067,
+   "sha256": "e4671562cf2e057c92eb07c7a8e9bf089e1a483a85ce7b3e2ed8ebbd2128f783",
+   "why": "Gap to field p10 by NY hour and day (journal iteration 5: where is the gap? weekends)."
+  },
+  {
+   "path": "agent/research/gap_state.py",
+   "bytes": 2042,
+   "sha256": "3af529948115b0b60f70ed84e94aff4f3017b0488f06574adde15981cd3adeec",
+   "why": "Gap to field p10 by quintile of model state (journal iteration 14)."
+  },
+  {
+   "path": "agent/research/vs_miner.py",
+   "bytes": 2262,
+   "sha256": "23cd427bceb2462b501993dbd261546a0de18579da00d4b903c30ab6f59508fb",
+   "why": "Where the best 1h field miner beats the model, by realised/forecast vol quintile and NY hour block (journal iteration 14)."
+  },
+  {
+   "path": "agent/research/inspect_prompt.py",
+   "bytes": 2266,
+   "sha256": "3b1cc17d640aeea3c892253f1018d249c4ee55e3da397fdf06e7e8ff105f3ade",
+   "why": "Single-prompt inspection of model sigma vs realised returns: the XAU case of journal iteration 5 and the SP500 Friday case of journal iteration 12."
+  },
+  {
+   "path": "agent/research/calib.py",
+   "bytes": 2386,
+   "sha256": "66bc3ab83135af1ffb37320207605311b66890e32b6bef686bfef5f607e24b13",
+   "why": "Calibration diagnostic: mean(u^2) of standardised step returns by NY weekday x hour block (profile/weekend checks of journal iterations 5 and 11)."
+  },
+  {
+   "path": "agent/research/pit.py",
+   "bytes": 2086,
+   "sha256": "1be589191833dd6e690d7b8bcc16e69c30de6fe3205a83a2ef7ad4e2d0fd4459",
+   "why": "PIT histogram of k-step returns under the fan (the BTC 1-min PIT of journal iteration 5)."
+  },
+  {
+   "path": "agent/research/vol_pit.py",
+   "bytes": 1890,
+   "sha256": "1010fabeb679597a02d58d31c82173bf3f1f21a4d5bbaa03e8fb43c6be1652fd",
+   "why": "PIT of realised 60/15-min volatility within the paths (journal iteration 14): the basis for the 1h mix_sd 0.6 / nu 7 change in v7."
+  },
+  {
+   "path": "agent/research/tc_reg.py",
+   "bytes": 2345,
+   "sha256": "e6b08f74158e2738015998012dac8727a869870349bab03c72b9277d01e510c7",
+   "why": "Trade-count regression on the HAR forecast (journal iteration 14, discarded)."
+  },
+  {
+   "path": "agent/research/seasonality.py",
+   "bytes": 1633,
+   "sha256": "a04c2147c3a84edeb4459982957ac869f1f4c8b73d99defda4790a3c0b38dee6",
+   "why": "UTC vs New-York-clock intraday profiles, weekday vs weekend, both DST regimes (journal iteration 0; why the profiles are keyed on NY time)."
+  },
+  {
+   "path": "agent/research/vr5.py",
+   "bytes": 1084,
+   "sha256": "5b38ac111a4f4c4df24bc83379c93cf95dcdd6c761f46a5da9d023e074f76539",
+   "why": "Robust variance ratios at the 24h prompt's scales (journal iteration 0 data facts)."
+  },
+  {
+   "path": "agent/research/weekend.py",
+   "bytes": 1269,
+   "sha256": "b664b9f14e9640c50d31fd748cb8d94c8dbc4ad565930761d54a9d7387771fa0",
+   "why": "Per-weekend 5-min rms and zero share (journal iterations 5/16: weekend activity varies ~10x, the basis of v8's weekend factor; suggestions.md)."
+  },
+  {
+   "path": "agent/research/wkprof.py",
+   "bytes": 862,
+   "sha256": "0438608b2b02cbff87818cc5e67232e1c6c32b2405a85830b0f1a722574645e6",
+   "why": "Hourly 5-min rms Friday 08:00 to Monday 06:00 NY (journal iteration 12, the Friday-afternoon prompts)."
+  },
+  {
+   "path": "agent/research/zero_by.py",
+   "bytes": 747,
+   "sha256": "f76ac7da0110676c9867f3d9257317c6c8a829aea509518a1474b3194381e489",
+   "why": "Share of zero k-min returns by NY weekday/hour (journal iteration 4, zero-return mass)."
+  },
+  {
+   "path": "agent/research/zero_frac.py",
+   "bytes": 675,
+   "sha256": "58b92b1e6ca365072181f6c4a4170123096c8525a7563770fbce28af64f4507b",
+   "why": "Share of zero 1-min returns per asset (journal iteration 0 data facts, iteration 4)."
+  },
+  {
+   "path": "agent/research/events_2026-08-01.json",
+   "bytes": 6234,
+   "sha256": "3e46110c5699abc6982cfa89e24fe72be80282bb65bc1050d4a0cce1dafc46df",
+   "why": "fit_events.py walk-forward multipliers from events strictly before 2026-08-01 (window A), the series without the x suffix: an events_<cutoff>.json that journal iteration 7 cites for the walk-forward evaluation."
+  },
+  {
+   "path": "agent/research/events_2026-09-01.json",
+   "bytes": 6231,
+   "sha256": "e32677e7424b357acfb534a9b9b53d475aef6d121d6d7cfb327e950f197a554c",
+   "why": "fit_events.py walk-forward multipliers from events strictly before 2026-09-01 (holdout window S), the series without the x suffix: an events_<cutoff>.json that journal iteration 7 cites for the walk-forward evaluation."
+  },
+  {
+   "path": "agent/research/events_2026-10-01.json",
+   "bytes": 6231,
+   "sha256": "1b12dc1aaa9abd2716c3ab83143fe0347682c05e069fc16292c61e3999c1859b",
+   "why": "fit_events.py walk-forward multipliers from events strictly before 2026-10-01 (windows B/C), the series without the x suffix: an events_<cutoff>.json that journal iteration 7 cites for the walk-forward evaluation."
+  },
+  {
+   "path": "agent/research/events_2026-11-09.json",
+   "bytes": 6232,
+   "sha256": "5e66291b86741582d7cda260b989951d2d5ceabaf8a71f07a2b2fe59582c8585",
+   "why": "fit_events.py walk-forward multipliers from events strictly before 2026-11-09 (the final cutoff), the series without the x suffix: an events_<cutoff>.json that journal iteration 7 cites for the walk-forward evaluation."
+  },
+  {
+   "path": "agent/research/eventsx_2026-08-01.json",
+   "bytes": 5835,
+   "sha256": "5521369be3c667388df46eb23d667cdb3006e891968dace6ec63922c250e6e2f",
+   "why": "fit_events.py walk-forward multipliers from events strictly before 2026-08-01 (window A) against the event-excluded profile, the x series whose 2026-11-09 member is the served events.json: an events_<cutoff>.json that journal iteration 7 cites."
+  },
+  {
+   "path": "agent/research/eventsx_2026-09-01.json",
+   "bytes": 5832,
+   "sha256": "146d58fccd9d6acba99d605a772a41623ef70fca25627a20c8bd3f113d8a9865",
+   "why": "fit_events.py walk-forward multipliers from events strictly before 2026-09-01 (holdout window S) against the event-excluded profile, the x series whose 2026-11-09 member is the served events.json: an events_<cutoff>.json that journal iteration 7 cites."
+  },
+  {
+   "path": "agent/research/eventsx_2026-10-01.json",
+   "bytes": 5832,
+   "sha256": "a03098a71b4180eec438ffe20639e098b982a810c8e58a82bb78e9dfddda31af",
+   "why": "fit_events.py walk-forward multipliers from events strictly before 2026-10-01 (windows B/C) against the event-excluded profile, the x series whose 2026-11-09 member is the served events.json: an events_<cutoff>.json that journal iteration 7 cites."
+  },
+  {
+   "path": "agent/research/official/starter/com-equ-24h_AAPLX.log",
+   "bytes": 1172,
+   "sha256": "bdb380cecdee02dbfc4e4d7ea0f35614d3801c335d0d959b921d2d8ce128db7e",
+   "why": "official_eval.sh log (summary mean_crps) for starter com-equ-24h/AAPLX; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/com-equ-24h_GOOGLX.log",
+   "bytes": 1182,
+   "sha256": "e58a9cdd7e3a60a823c6f5c0e102358ecc920cda30273398dd3822b8f68c98fa",
+   "why": "official_eval.sh log (summary mean_crps) for starter com-equ-24h/GOOGLX; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/com-equ-24h_NVDAX.log",
+   "bytes": 1126,
+   "sha256": "9a4aa97a0b691ae33bfe0b2a1a14fdb72425f15fcf83972b3846fff3cb1288b3",
+   "why": "official_eval.sh log (summary mean_crps) for starter com-equ-24h/NVDAX; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/com-equ-24h_SP500.log",
+   "bytes": 1125,
+   "sha256": "c1455491c950c47bdb6cb29e2142eb8bdb17a9d5e9c28f26b8a3e315b98d4815",
+   "why": "official_eval.sh log (summary mean_crps) for starter com-equ-24h/SP500; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/com-equ-24h_SPCX.log",
+   "bytes": 1117,
+   "sha256": "c649e545018c5ad12458d83811c34f2976bea1d4080257b54341146f7e2601dd",
+   "why": "official_eval.sh log (summary mean_crps) for starter com-equ-24h/SPCX; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/com-equ-24h_TSLAX.log",
+   "bytes": 1128,
+   "sha256": "b2b3e87bd630a2c1dce56d4e23139f103ba21439da7dea7fc1a6dc4edf41a517",
+   "why": "official_eval.sh log (summary mean_crps) for starter com-equ-24h/TSLAX; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/com-equ-24h_WTIOIL.log",
+   "bytes": 1179,
+   "sha256": "6579da592735c304709eb0b36fbe1c4f417f8b9a76398c0e8f319d452f8f97ab",
+   "why": "official_eval.sh log (summary mean_crps) for starter com-equ-24h/WTIOIL; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/com-equ-24h_XAU.log",
+   "bytes": 1109,
+   "sha256": "30e839e38028cae376383159ed33cdabd9018d16f254d37b6c533266bcab51f8",
+   "why": "official_eval.sh log (summary mean_crps) for starter com-equ-24h/XAU; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-1h_BTC.log",
+   "bytes": 1054,
+   "sha256": "489274d4d4c3b44652ab211439fa9477adcbc0b2c94954cfb547d8322716e99c",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-1h/BTC; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-1h_ETH.log",
+   "bytes": 1054,
+   "sha256": "7688baec203f470bdea1e345aaceb312a3e03c15d57297c4e7e7750b6be36776",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-1h/ETH; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-1h_HYPE.log",
+   "bytes": 1065,
+   "sha256": "b9826c6794dcdf8f7effd7b8efefeab668856ebfe744555bd91d52026cfbf20d",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-1h/HYPE; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-1h_SOL.log",
+   "bytes": 1055,
+   "sha256": "f3530a7eaf8def21b67ee4fa5506dfcbebad1c0e951e5f375eb11fab33beccae",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-1h/SOL; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-1h_XRP.log",
+   "bytes": 1053,
+   "sha256": "1ee49ff67c0c2b00ec4444d12463d78af63ec5c4108a816d157c0d02fcfd54a8",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-1h/XRP; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-24h_BTC.log",
+   "bytes": 1100,
+   "sha256": "4b86ddb0693c21847c414b567b50af57944af8cbf6641daf7bc3bc6a6875232d",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-24h/BTC; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-24h_ETH.log",
+   "bytes": 1101,
+   "sha256": "0f676e66823625b01b6b0e29873bca361ba45e0e1aaa8d5e644477fb08608844",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-24h/ETH; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-24h_HYPE.log",
+   "bytes": 1107,
+   "sha256": "cfb92c14a885bd15aa7642012aa344e60e9a04d49aba16219f8da8ccf06e39fa",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-24h/HYPE; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-24h_SOL.log",
+   "bytes": 1099,
+   "sha256": "25f56a231e5c8bd9139b9ed722661e79f4d5cef4f5c28873230bf6a603d14da4",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-24h/SOL; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/starter/crypto-24h_XRP.log",
+   "bytes": 1100,
+   "sha256": "58fe85024c24bc6c33a1bd8289edb007d91f3630f4defa88dacd41c87fb2b9b2",
+   "why": "official_eval.sh log (summary mean_crps) for starter crypto-24h/XRP; averaged over assets it gives the starter column of CHAMPION and report section 4 (4606.76 / 3304.04 / 988.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/com-equ-24h_AAPLX.log",
+   "bytes": 1170,
+   "sha256": "318bf33c57b317630a48c4c738816c1e7356d7fd010d1400e1494c7d2f434776",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 com-equ-24h/AAPLX; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/com-equ-24h_GOOGLX.log",
+   "bytes": 1177,
+   "sha256": "71765692b1e51d6e20f3618fca1a026578845de3298cba3f77ba52b02a449a9a",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 com-equ-24h/GOOGLX; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/com-equ-24h_NVDAX.log",
+   "bytes": 1125,
+   "sha256": "0ee1de10a64fc2ef3425af49f5997b2369939903d606e4666ce967e2654510b0",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 com-equ-24h/NVDAX; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/com-equ-24h_SP500.log",
+   "bytes": 1125,
+   "sha256": "ec00f767f83d1c920e0959db1f895f3adf08c8b9bab7ace0ce3b874bc3671a27",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 com-equ-24h/SP500; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/com-equ-24h_SPCX.log",
+   "bytes": 1115,
+   "sha256": "6efb389d4114c0b8c332571127d537430eb69645504540cd87fcfd249f8a7e65",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 com-equ-24h/SPCX; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/com-equ-24h_TSLAX.log",
+   "bytes": 1123,
+   "sha256": "2b8d6285667cc3c006026d5fba9f3d494f8ef1b98745c333ef457b2f296b7eb4",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 com-equ-24h/TSLAX; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/com-equ-24h_WTIOIL.log",
+   "bytes": 1179,
+   "sha256": "f38bd73d417b3a042283f15509b0b1262b8407cfcad0f9a77535451e8a180e5f",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 com-equ-24h/WTIOIL; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/com-equ-24h_XAU.log",
+   "bytes": 1110,
+   "sha256": "f40ecfe990d27097d406a575eb48a00854d0e057f8b3a70c1648b122ef09cd50",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 com-equ-24h/XAU; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-1h_BTC.log",
+   "bytes": 1053,
+   "sha256": "0f514852497b5c07b677d6ef6fc38415dc5cf5c73d7f139f8879ff17beaf8e3d",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-1h/BTC; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-1h_ETH.log",
+   "bytes": 1053,
+   "sha256": "4f18fb8878a17c15f9df297efb9e7c13be29053c1f8a9852746803007d153004",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-1h/ETH; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-1h_HYPE.log",
+   "bytes": 1064,
+   "sha256": "b2e356c40b2dbd312ad9d115f34a8a2b6d9c301ff4891504b36f72427c9a7038",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-1h/HYPE; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-1h_SOL.log",
+   "bytes": 1053,
+   "sha256": "5c16f2185ad8ff2c2bbb6add7712220a50ff0f1c7c2234382ce7abfd42b0ce57",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-1h/SOL; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-1h_XRP.log",
+   "bytes": 1054,
+   "sha256": "bc545809dc4d67970871feab7571c66414350aa5d204ca16b6d16d31717d600c",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-1h/XRP; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-24h_BTC.log",
+   "bytes": 1098,
+   "sha256": "259fd0546b8a99c01f58a35cb65f40a3b28043777201ac08fe348ba8c7daa7fa",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-24h/BTC; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-24h_ETH.log",
+   "bytes": 1101,
+   "sha256": "58ada2be7b24b36f10795bd6eeecbd0114172a7476a4a8d19f986c0ee45d1673",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-24h/ETH; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-24h_HYPE.log",
+   "bytes": 1108,
+   "sha256": "032f4f3fcf2a433291c30ccb5a011150cbcfe0f1ef2c6d7f1135087050423e46",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-24h/HYPE; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-24h_SOL.log",
+   "bytes": 1099,
+   "sha256": "6ce7cc3277b75463f2a402e7b01a4b307553477789c193ed24acc4d7e4f59ebe",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-24h/SOL; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v5/crypto-24h_XRP.log",
+   "bytes": 1099,
+   "sha256": "cc88c0b95a478d99e371eaec9fb7511304ab5272713fedafe763e20d96e62d10",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v5 crypto-24h/XRP; averaged over assets it gives the v5 row of journal iteration 13 (4439.62 / 3039.04 / 926.78)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/com-equ-24h_AAPLX.log",
+   "bytes": 1171,
+   "sha256": "cda1397d5690d9439b329f52b01716a6f311ea65398c423305bea1c79b933eec",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 com-equ-24h/AAPLX; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/com-equ-24h_GOOGLX.log",
+   "bytes": 1179,
+   "sha256": "df9b75e01f5c464155bcc892dd9a95f33b5b2f22a15946a4f256b35f956e8b6d",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 com-equ-24h/GOOGLX; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/com-equ-24h_NVDAX.log",
+   "bytes": 1124,
+   "sha256": "588af1d89ccc44ab873676559492a62aeff93b8cd2244635b272ab473632befe",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 com-equ-24h/NVDAX; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/com-equ-24h_SP500.log",
+   "bytes": 1125,
+   "sha256": "55acd00b36a926c39bc3278406691b3f696057c7fb6fb3cef9ed918a3ba1b5d3",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 com-equ-24h/SP500; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/com-equ-24h_SPCX.log",
+   "bytes": 1115,
+   "sha256": "4bbdba75fcc124d888454daca7aae91ee93e3955a5deb130c3ff971401f1051c",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 com-equ-24h/SPCX; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/com-equ-24h_TSLAX.log",
+   "bytes": 1124,
+   "sha256": "fd600ae0fb402b9af53e41767a29b90191e72048b2c24d4b30938f447c7b2172",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 com-equ-24h/TSLAX; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/com-equ-24h_WTIOIL.log",
+   "bytes": 1179,
+   "sha256": "e0dbe38b253ad29cae5ea66ca278efbbe684c9d063736e7bf991c7c60c5ec942",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 com-equ-24h/WTIOIL; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/com-equ-24h_XAU.log",
+   "bytes": 1110,
+   "sha256": "9961dc06f325fd8058645a3191c6bc4acf4a5a2908f15a625d1b0acd1cea6cb1",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 com-equ-24h/XAU; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-1h_BTC.log",
+   "bytes": 1054,
+   "sha256": "5a5961343e559148ed8ca4953b8199f6e6996fc87a28b3a64d7a4cb6648ea122",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-1h/BTC; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40); v8's CRYPTO_1H 925.40 also resolves here, since 1h_we_mix_sd = 0 leaves the 1h output unchanged."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-1h_ETH.log",
+   "bytes": 1054,
+   "sha256": "7a17c86a1dcfdb6f4b1f1fb8e5f9219d885c0c093a6ad67dbe44c0d49dfc7aa4",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-1h/ETH; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40); v8's CRYPTO_1H 925.40 also resolves here, since 1h_we_mix_sd = 0 leaves the 1h output unchanged."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-1h_HYPE.log",
+   "bytes": 1063,
+   "sha256": "764a758b90f11e97c5fa94f8f1990e64b1e7214575886561785f96292ab26a56",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-1h/HYPE; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40); v8's CRYPTO_1H 925.40 also resolves here, since 1h_we_mix_sd = 0 leaves the 1h output unchanged."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-1h_SOL.log",
+   "bytes": 1054,
+   "sha256": "b25db8b32402bafcceca010540234d346af8de7705f47bed1f6ea6ae76a8cbfb",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-1h/SOL; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40); v8's CRYPTO_1H 925.40 also resolves here, since 1h_we_mix_sd = 0 leaves the 1h output unchanged."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-1h_XRP.log",
+   "bytes": 1051,
+   "sha256": "f076db5bef63f640b3911fc8f1b87899b3562d4ac15811d5bd4e12e8468be44c",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-1h/XRP; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40); v8's CRYPTO_1H 925.40 also resolves here, since 1h_we_mix_sd = 0 leaves the 1h output unchanged."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-24h_BTC.log",
+   "bytes": 1099,
+   "sha256": "be5c7652f5f710c174580a19b989bc8fac6a57b99d03266b8a9822d1c44c26d8",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-24h/BTC; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-24h_ETH.log",
+   "bytes": 1096,
+   "sha256": "6e57622e0b1e654633a1feb9d9cc31a453c324974d72c6db007375c8938ab1fc",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-24h/ETH; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-24h_HYPE.log",
+   "bytes": 1108,
+   "sha256": "bc394308e8d3ff10fb8e746f224d9ae4c75c5461d44fe02221d4feb9cf87641b",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-24h/HYPE; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-24h_SOL.log",
+   "bytes": 1100,
+   "sha256": "6586a45b199a6eb3a6602bed58a63ef9be5f042f1ff6e48067c2c74e77c2aaf8",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-24h/SOL; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "agent/research/official/champion_v7/crypto-24h_XRP.log",
+   "bytes": 1101,
+   "sha256": "4344ef51bdee4976c2126955c34a35752fd21abb2a9b9dd589b5546dcf648c17",
+   "why": "official_eval.sh log (summary mean_crps) for champion_v7 crypto-24h/XRP; averaged over assets it gives the v7 row of CHAMPION, report section 4 and journal iteration 15 (4436.95 / 3037.12 / 925.40)."
+  },
+  {
+   "path": "pyproject.toml",
+   "bytes": 451,
+   "sha256": "a8fa2864dbc9993e8b4025971f3969ef79c7cf0ff65b500c93c1bf998395bb9d",
+   "why": "The workspace environment the research ran in (synth-lib pinned to rev 39bd62d)."
+  },
+  {
+   "path": "uv.lock",
+   "bytes": 467548,
+   "sha256": "654466342711eb24337364cff93099c32aeb990055bb72d523a7a37429d43ebb",
+   "why": "Locked dependency set of that environment (pandas 3.1.1, pyarrow 26.0.1, numpy 2.3.5, scipy 1.18.1, tzdata 2026.6)."
+  }
+ ],
+ "rest": "git clone workspace.bundle && git checkout 8a06e838f69448f7e2456e1ef3bb0d3917749806"
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "asset": "BTC",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "BTC",
+    "time_length": 3600,
+    "exact_parity": true
+  },
+  {
+    "asset": "ETH",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "ETH",
+    "time_length": 3600,
+    "exact_parity": true
+  },
+  {
+    "asset": "SOL",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "SOL",
+    "time_length": 3600,
+    "exact_parity": true
+  },
+  {
+    "asset": "XRP",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "XRP",
+    "time_length": 3600,
+    "exact_parity": true
+  },
+  {
+    "asset": "HYPE",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "HYPE",
+    "time_length": 3600,
+    "exact_parity": true
+  },
+  {
+    "asset": "XAU",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "NVDAX",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "GOOGLX",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "TSLAX",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "AAPLX",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "WTIOIL",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "SPCX",
+    "time_length": 86400,
+    "exact_parity": true
+  },
+  {
+    "asset": "SP500",
+    "time_length": 86400,
+    "exact_parity": true
+  }
+]

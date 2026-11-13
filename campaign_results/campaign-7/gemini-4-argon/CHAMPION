@@ -1,0 +1,32 @@
+sha: a1345d94a62fc5ebe65788947e6e791457dea1a1
+agent_dir: agent
+profiles:
+  - low
+  - high
+notes: |
+  Champion Model (Iteration 7, CONTEXT_DAYS = 28) vs. Starter Baseline (Iteration 0, commit dee4d2d, CONTEXT_DAYS = 7),
+  evaluated with the official synth_lib.backtester.backtest (via agent/predict.py) at num_simulations = 1000 paths, stride = 5:
+
+  1. 2-Regime Benchmark (36 cells across R1_Aug [2026-08-13..2026-08-20] and R2_Nov [2026-10-31..2026-11-07], 1,224 prompts):
+     - CRYPTO_24H (BTC, ETH, SOL, XRP, HYPE):
+       * Starter Baseline: mean cw_crps = 3156.06 (R1_Aug = 2235.67, R2_Nov = 4075.39), mean unw_crps = 3350.24
+       * Champion (Iter 7): mean cw_crps = 3015.33 (R1_Aug = 2143.35, R2_Nov = 3887.32), mean unw_crps = 3206.44 (-4.46% cw / -4.29% unw, 10/10 cells improved)
+     - COM_EQU_24H (XAU, NVDAX, GOOGLX, TSLAX, AAPLX, WTIOIL, SPCX, SP500):
+       * Starter Baseline: mean cw_crps = 2280.53 (R1_Aug = 1621.25, R2_Nov = 2939.81), mean unw_crps = 2806.43
+       * Champion (Iter 7): mean cw_crps = 2046.08 (R1_Aug = 1408.75, R2_Nov = 2683.41), mean unw_crps = 2506.39 (-10.28% cw / -10.69% unw, 16/16 cells improved)
+     - CRYPTO_1H (BTC, ETH, SOL, XRP, HYPE, latest post-2026-09-22 formula):
+       * Starter Baseline: mean cw_crps = 857.58 (R1_Aug = 691.77, R2_Nov = 1023.40), mean unw_crps = 908.73
+       * Champion (Iter 7): mean cw_crps = 824.73 (R1_Aug = 658.91, R2_Nov = 990.55), mean unw_crps = 874.51 (-3.83% cw / -3.77% unw, 10/10 cells improved)
+     - Total 2-Regime Cell Win Rate: 36 / 36 cells (100.0%) improved over Starter Baseline.
+
+  2. 4-Regime Out-of-Sample Generalization Benchmark (72 cells across R1_Aug [Aug 13-20], R2_Sep [Sep 11-18 holdout], R3_Oct [Oct 08-15 holdout], R4_Nov [Oct 31-Nov 07], 2,448 prompts):
+     - CRYPTO_24H:
+       * Starter Baseline: 4-regime mean cw_crps = 3537.09 (R1_Aug = 2235.67, R2_Sep = 2016.29, R3_Oct = 5821.02, R4_Nov = 4075.39), mean unw_crps = 3756.58
+       * Champion (Iter 7): 4-regime mean cw_crps = 3405.67 (R1_Aug = 2143.35, R2_Sep = 1956.92, R3_Oct = 5635.09, R4_Nov = 3887.32), mean unw_crps = 3623.72 (-3.72% cw / -3.54% unw, 20/20 cells improved)
+     - COM_EQU_24H:
+       * Starter Baseline: 4-regime mean cw_crps = 2020.37 (R1_Aug = 1621.25, R2_Sep = 1347.90, R3_Oct = 2172.52, R4_Nov = 2939.81), mean unw_crps = 2472.22
+       * Champion (Iter 7): 4-regime mean cw_crps = 1809.17 (R1_Aug = 1408.75, R2_Sep = 1189.03, R3_Oct = 1955.50, R4_Nov = 2683.41), mean unw_crps = 2202.03 (-10.45% cw / -10.93% unw, 32/32 cells improved)
+     - CRYPTO_1H:
+       * Starter Baseline: 4-regime mean cw_crps = 886.15 (R1_Aug = 691.77, R2_Sep = 604.60, R3_Oct = 1224.81, R4_Nov = 1023.40), mean unw_crps = 940.55
+       * Champion (Iter 7): 4-regime mean cw_crps = 850.07 (R1_Aug = 658.91, R2_Sep = 580.66, R3_Oct = 1170.18, R4_Nov = 990.55), mean unw_crps = 903.37 (-4.07% cw / -3.95% unw, 20/20 cells improved)
+     - Total 4-Regime Cell Win Rate: 72 / 72 cells (100.0%, including 36 / 36 on untouched Sep & Oct holdout regimes) improved over Starter Baseline (-6.98% mean cell relative CRPS reduction).

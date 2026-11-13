@@ -1,0 +1,67 @@
+{
+  "cases": [
+    {
+      "horizon": 3600,
+      "paths": 1,
+      "seconds": 1.10754613399331,
+      "passed": true
+    },
+    {
+      "horizon": 3600,
+      "paths": 3,
+      "seconds": 0.037130616008653305,
+      "passed": true
+    },
+    {
+      "horizon": 3600,
+      "paths": 999,
+      "seconds": 0.05551617400487885,
+      "passed": true
+    },
+    {
+      "horizon": 3600,
+      "paths": 1000,
+      "seconds": 0.1265550109965261,
+      "passed": true
+    },
+    {
+      "horizon": 3600,
+      "paths": 1001,
+      "seconds": 0.055715185997541994,
+      "passed": true
+    },
+    {
+      "horizon": 86400,
+      "paths": 1,
+      "seconds": 0.09686991600028705,
+      "passed": true
+    },
+    {
+      "horizon": 86400,
+      "paths": 3,
+      "seconds": 0.06790805599302985,
+      "passed": true
+    },
+    {
+      "horizon": 86400,
+      "paths": 999,
+      "seconds": 0.13245558500057086,
+      "passed": true
+    },
+    {
+      "horizon": 86400,
+      "paths": 1000,
+      "seconds": 0.11489912899560295,
+      "passed": true
+    },
+    {
+      "horizon": 86400,
+      "paths": 1001,
+      "seconds": 0.14781719600432552,
+      "passed": true
+    }
+  ],
+  "seed_repeatable": true,
+  "seed_changes_fan": true,
+  "input_unchanged": true
+}

@@ -1,0 +1,186 @@
+{
+ "sha": "6e3fc56c96fde4abf279d4b25acb9c0e3ef4f4a5",
+ "files": [
+  {
+   "path": "research/train.py",
+   "bytes": 13681,
+   "sha256": "b718c8131963066cada8a19161983c2d35f8cba45288c0ddc6fb702736f7c8c9",
+   "why": "Fits every agent/params/model_<asset>_<tag>.json (train.py:235 writes them) by differentiable CRPS replay in torch; cited in report.md section 2 and journal iterations 1-3."
+  },
+  {
+   "path": "research/fit_profiles.py",
+   "bytes": 10159,
+   "sha256": "2bc4749fc0f991eadb1e3e7b2809e9ae2a8bb05fa666bec67adaa59660852ba1",
+   "why": "Fits every agent/params/profile_<asset>.json (fit_profiles.py:186): NY-week variance profile, UTC daily profile, event multiplier tables; cited in journal iteration 1."
+  },
+  {
+   "path": "research/build_dataset.py",
+   "bytes": 4002,
+   "sha256": "e3247fecbe9908a25b5b28a37c4f9efcc9ce7af025a0aaf0357549b32f248096",
+   "why": "Builds the per-(asset, format) training sets train.py reads, using agent/core.py's feature code; run by research/pipeline.sh."
+  },
+  {
+   "path": "research/common.py",
+   "bytes": 1893,
+   "sha256": "80f0c4ecf1b3b5ea3af1b56ca3117c781c30ad8b17534c1f589c16064b50b4c1",
+   "why": "In-tree module imported by train.py, fit_profiles.py, build_dataset.py and the EDA/diagnostic scripts: asset lists, coefficients, minute-price loader."
+  },
+  {
+   "path": "research/pipeline.sh",
+   "bytes": 737,
+   "sha256": "4e7047a73913c010bfcfa22ca79537d9f40d3953cac6b25ea9740eb78c9808f1",
+   "why": "Fit chain behind the served parameters: fit_profiles.py -> build_dataset.py -> train.py; takes the fold dates as arguments (fold B used 2026-10-01, see the params metadata)."
+  },
+  {
+   "path": "agent/predict.py",
+   "bytes": 29249,
+   "sha256": "4430555656938b6d191159becf4e220385fc7164563f024e3feb064b614e2042",
+   "why": "Official-scorer evaluator (synth-lib backtester) behind every CRPS number in CHAMPION, report.md and journal.md; CHAMPION cites it."
+  },
+  {
+   "path": "research/eval_all.sh",
+   "bytes": 839,
+   "sha256": "3bf507cd5ab29d2402c2fb95a637f161c4a7df40879eeeb9cb5762f481ad7cd7",
+   "why": "Driver of the official 24h + 1h evaluations through agent/predict.py (baseline, fold A and champion tables in report.md and journal.md)."
+  },
+  {
+   "path": "research/after_fB3.sh",
+   "bytes": 1222,
+   "sha256": "13841a96a7955c8b0e672943c9e6046176ad5dd24d10e157344c5e9000e2b6f4",
+   "why": "Fold-B v3 evaluations and the one-clock vs two-clock post-DST comparison (report.md rows 3d/3e, journal iteration 3)."
+  },
+  {
+   "path": "research/ablate_fB3.sh",
+   "bytes": 949,
+   "sha256": "7cb7e6f72dd90ccb2c9ec0ad94ea8e3d6fcb7abad48ea55e038e5a3533759e72",
+   "why": "Trainer ablations on fold B cited in report.md rows 3b/3c and journal iteration 3."
+  },
+  {
+   "path": "research/starter_modeling.py",
+   "bytes": 1251,
+   "sha256": "761ac3a69aacd29e79e53a20a11e2f78b9b9f543ccf3a98304b2a71ae1d44c4a",
+   "why": "Harness starter model evaluated as the baseline: the 'starter' column of CHAMPION, report.md and journal iteration 0."
+  },
+  {
+   "path": "research/robust.py",
+   "bytes": 4133,
+   "sha256": "d32f68601ac094a52247800ae99f4dccc7629a9ae9f9776d9006f77b22ffdf39",
+   "why": "Robustness checks of simulate() (constant, short, NaN-heavy, gappy contexts; unknown asset; missing calendar) cited in journal iteration 4."
+  },
+  {
+   "path": "research/check_consistency.py",
+   "bytes": 1371,
+   "sha256": "10f28163ff1701612d4e767a6b3ddbcb0cb54c2a0a967e7aa132dbc2bf46fac6",
+   "why": "Train/serve consistency check of core.py features vs the dataset builder, behind core.py's 'what is fitted is what is served'."
+  },
+  {
+   "path": "research/diag_scale.py",
+   "bytes": 3645,
+   "sha256": "24ae540de6f50ecbfb5c5bde649dc2b1cf2b4925228d74f6ff5ab25af79ec67e",
+   "why": "Per-cell CRPS-optimal width multiplier diagnostic cited by name in report.md section 3 and journal iteration 2."
+  },
+  {
+   "path": "research/diag_calib.py",
+   "bytes": 1667,
+   "sha256": "cb72c1fcb54ac401c1d05181a8b85d4174926e68a51024b0a60fca143f4b126d",
+   "why": "Calibration table by session x horizon behind journal iteration 1's width finding (weekend steps too wide)."
+  },
+  {
+   "path": "research/diag_week.py",
+   "bytes": 1565,
+   "sha256": "729bc1550a5cf001f011af2759cad263c0def4890ce06766151364ec17287213",
+   "why": "Calibration by hour of the NY week, used with diag_calib.py for the iteration 1-2 width findings."
+  },
+  {
+   "path": "research/where_lose.py",
+   "bytes": 1267,
+   "sha256": "66f66e85bc030140efbaccf81fc6f135543004e97536c2bc94c8cfba4d2360f9",
+   "why": "Per-prompt gap to the field median by group, cited as research/where_lose*.py in report.md section 3."
+  },
+  {
+   "path": "research/where_lose2.py",
+   "bytes": 1195,
+   "sha256": "2d673c63fb82044594e293644b3272f5cb60e687141eb81dbb1b919944d9579c",
+   "why": "Gap to field median/p05 over time and by volatility state, cited as research/where_lose*.py in report.md section 3."
+  },
+  {
+   "path": "research/vs_top.py",
+   "bytes": 1879,
+   "sha256": "afa56b30f12bbf3e1701b529018c92d4c004ce545281ad663a4dc75e2f09410a",
+   "why": "Ours vs the top-K miners, cited as vs_top*.py in report.md section 3."
+  },
+  {
+   "path": "research/vs_top_day.py",
+   "bytes": 1142,
+   "sha256": "82c8c2136a7d80a5f2b30f8058f7696fad7d1bda2b97879daf5468f19b71251a",
+   "why": "Ours vs the top-K miners per day, cited as vs_top*.py in report.md section 3."
+  },
+  {
+   "path": "research/vs_top_exante.py",
+   "bytes": 2370,
+   "sha256": "bf1ddcb02fd9c79031a1cf61284f3bbd053f4d31a74aaa7f2dae22f89c056b0f",
+   "why": "Ours vs the top-K miners by ex-ante volatility state, cited as vs_top*.py in report.md section 3."
+  },
+  {
+   "path": "research/event_split.py",
+   "bytes": 1479,
+   "sha256": "43d4c7ce1eefcd4e3a0ed8f934a462efff8b3a095e5c01637a04b6ed491da031",
+   "why": "Gap to the field by event type, cited by name in report.md section 3 (line 69) and journal iteration 3."
+  },
+  {
+   "path": "research/field_stats.py",
+   "bytes": 1307,
+   "sha256": "fbf90eb5c80b3d5abc9e30e27f8f945091312859396f38cdc183daf0354c1bad",
+   "why": "Field CRPS levels from the offline bundle (journal iteration 0); writes the field tables the vs_top*.py scripts read."
+  },
+  {
+   "path": "research/eda1.py",
+   "bytes": 1303,
+   "sha256": "2f9db7d60233f41e0f12ed5ed87ef92dd3e868172411eddf86dda372e31d89b2",
+   "why": "EDA behind journal iteration 0: variance ratios and zero-return mass per asset."
+  },
+  {
+   "path": "research/eda2.py",
+   "bytes": 1290,
+   "sha256": "2168d7a589ced6adc47b7d63f83bcaa46316a2c9ddb52441e107d0aa19de9cc6",
+   "why": "EDA behind journal iteration 0: hourly volatility profile on the NY vs UTC clock per DST regime."
+  },
+  {
+   "path": "research/eda3.py",
+   "bytes": 2000,
+   "sha256": "0a2616a27c8fa9f7767e730986230cee3306da654f254c20823156768a35b23a",
+   "why": "EDA behind journal iteration 1: crypto minute-of-hour pattern, release-minute sizes, zero-return share by day type."
+  },
+  {
+   "path": "research/eda_reopen.py",
+   "bytes": 1401,
+   "sha256": "312ab405470fc3cec4ac27758ebb758fe7790e2d0d3ff62a33a61ef7ff3caae4",
+   "why": "EDA behind journal iteration 2 (journal.md:146-147): size of the Sunday/CME reopen minute (WTI, XAU, NVDAX)."
+  },
+  {
+   "path": "research/peek_profile.py",
+   "bytes": 452,
+   "sha256": "040783ac75ee1c1ab4a640a0498eb96e61e31cd03c088556d6851acaadae5fd7",
+   "why": "Prints the fitted profile's sd multiplier around the Sunday 18:00/20:00 reopens; its output is the evidence for journal.md:147 ('the 5-min weekend buckets spread that minute over five'), which led to the iteration-3 change in fit_profiles.py."
+  },
+  {
+   "path": "research/eda_twoclock.py",
+   "bytes": 1625,
+   "sha256": "4a0855ca6a4328305e1428c47d15b85b914caed094a9b7b92d582567a2250586",
+   "why": "EDA behind journal iteration 3 hypothesis (c): UTC-fixed volatility component beyond the NY-clock profile."
+  },
+  {
+   "path": "pyproject.toml",
+   "bytes": 451,
+   "sha256": "a8fa2864dbc9993e8b4025971f3969ef79c7cf0ff65b500c93c1bf998395bb9d",
+   "why": "Workspace environment the research ran in (synth-lib pin, numpy, pandas, torch)."
+  },
+  {
+   "path": "uv.lock",
+   "bytes": 467572,
+   "sha256": "cc469764fd15d57c93514def8fa745054c1e9da0579ac8999ef98006afdbe3be",
+   "why": "Locked versions of that environment (467 KB text)."
+  }
+ ],
+ "rest": "git clone workspace.bundle && git checkout 6e3fc56c96fde4abf279d4b25acb9c0e3ef4f4a5"
+}

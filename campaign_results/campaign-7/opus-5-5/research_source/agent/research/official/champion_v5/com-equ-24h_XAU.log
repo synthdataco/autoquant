@@ -1,0 +1,16 @@
+predictions generated: 109
+  [com-equ-24h/XAU] fetching scored prompts (2026-10-29 → 2026-11-08)...
+  [com-equ-24h/XAU] 27904 score rows (109 prompts) in 0.0s
+  [com-equ-24h/XAU] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/XAU] 713547 rewards rows (2836 update rounds) in 0.3s
+  [com-equ-24h/XAU] scoring 109 prompts against local predictions...
+  [com-equ-24h/XAU] scored 109 prompts in 11.6s
+  [com-equ-24h/XAU] computing smoothed scores over 109 reward rounds...
+  [com-equ-24h/XAU] smoothed scores done in 1.8s (total backtest: 14.0s)
+summary (CONTEXT_DAYS 21): {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 109, 'mean_crps': 1651.4350434884263, 'final_smoothed_score': 23.830998911302814, 'realized_points_expected': 31501, 'realized_points_scored': 31501, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             75 prompts  gap +1.79%
+  FOMC                 16 prompts  gap +0.49%
+  GDP                  11 prompts  gap +0.84%
+  NFP                  10 prompts  gap +1.32%
+  PCE                  11 prompts  gap +0.84%

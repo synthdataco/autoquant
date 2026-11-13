@@ -1,0 +1,36 @@
+"""Starter model written by the harness: log-normal martingale calibrated on the context.
+
+This is a deliberately simple STARTING POINT — replace it with your own model.
+Contract: simulate(...) -> (start_timestamp, time_increment, *paths), each path has
+time_length//time_increment + 1 points starting at the context's last price.
+"""
+
+from __future__ import annotations
+
+import numpy as np
+import os
+from vol_models import valid_returns
+
+# Days of minute history simulate() receives as context_prices: a plain int from 3 to 30.
+CONTEXT_DAYS = 7
+
+
+def simulate(
+    asset: str,
+    start_time,
+    time_increment: int = 300,
+    time_length: int = 86_400,
+    num_simulations: int = 1000,
+    context_prices=None,
+):
+    seed = int(os.environ.get("SYNTH_BENCHMARK_SEED", "20261108"))
+    steps = time_length // time_increment + 1
+    # Preserve the starter law while refusing to bridge a missing minute.
+    last, rets, _ = valid_returns(context_prices)
+    rets = rets[np.isfinite(rets)]
+    per_step_sigma = float(np.std(rets)) * (time_increment / 60.0) ** 0.5 if rets.size > 10 else 1e-3
+    rng = np.random.default_rng(seed)
+    shocks = rng.normal(0.0, per_step_sigma, size=(num_simulations, steps))
+    shocks[:, 0] = 0.0
+    paths = last * np.exp(np.cumsum(shocks, axis=1))
+    return (start_time, time_increment, *[p.tolist() for p in paths])

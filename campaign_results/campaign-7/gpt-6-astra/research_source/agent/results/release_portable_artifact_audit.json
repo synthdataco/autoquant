@@ -1,0 +1,196 @@
+{
+  "passed": true,
+  "context_days": 7,
+  "loaded_volatility_models": 12,
+  "xgboost_imported": false,
+  "latest_fit": "2026-11-09",
+  "artifact_bytes": 19315018,
+  "source_and_artifacts": [
+    {
+      "path": "agent/artifacts/closures.json",
+      "bytes": 31406,
+      "tracked": true,
+      "sha256": "1a426b4f19e35fc78344482393f0bff92e73cb6cf90abd6b1604e32ee6764843"
+    },
+    {
+      "path": "agent/artifacts/events.json",
+      "bytes": 855146,
+      "tracked": true,
+      "sha256": "6262002fd5a39772bc446353014ea35caff9775efc6852b444883f8b72216e4a"
+    },
+    {
+      "path": "agent/artifacts/ml/manifest.json",
+      "bytes": 57045,
+      "tracked": true,
+      "sha256": "752e8d684d076b632846a7601aaea89e9e89cdd818ef3b938459b7a7599e6ad6"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_3600_2026-03-01.npz",
+      "bytes": 14934,
+      "tracked": true,
+      "sha256": "b7969dcc080bb17f4ff40f1c0d788476598f3579095b863b100a82ba175560b7"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_3600_2026-07-01.npz",
+      "bytes": 17385,
+      "tracked": true,
+      "sha256": "b16b39154dabb11df6c6c3f737d67fc1314c68e7f235965587f2f0bf7b9d4561"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_3600_2026-08-01.npz",
+      "bytes": 19679,
+      "tracked": true,
+      "sha256": "ad32479b02acb0830a87b577da6a128c6338ecb8a3e0315fb35017a267a5515f"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_3600_2026-10-01.npz",
+      "bytes": 23215,
+      "tracked": true,
+      "sha256": "fa7f3509a7aea3c57b359ddf9b0edd917410f492067c7f54d8775c96efcf73cb"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_3600_2026-11-01.npz",
+      "bytes": 33852,
+      "tracked": true,
+      "sha256": "a302c8958c44eadddd30cbaa9e58d290359f62e313c9e7e56bbde134814ce25b"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_3600_2026-11-09.npz",
+      "bytes": 14588,
+      "tracked": true,
+      "sha256": "a16fb685b32e1959ac0c27a7a1b37c1081d6f2a257c3ebe8f053763c566e3e4e"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_86400_2026-03-01.npz",
+      "bytes": 13647,
+      "tracked": true,
+      "sha256": "99c83e81d7bb66e2834c24f4bc72cf36f2aa68d77b918855806d5014ecea28c7"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_86400_2026-07-01.npz",
+      "bytes": 13558,
+      "tracked": true,
+      "sha256": "1c2c17895e294ca6757a8e8ed8671b732772fcbd87b4592200a3539eba3e95d8"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_86400_2026-08-01.npz",
+      "bytes": 17414,
+      "tracked": true,
+      "sha256": "161658abd481b7b76f280b7fe3b825513172aa5e876a5ae5140ecf273f5dac76"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_86400_2026-10-01.npz",
+      "bytes": 33580,
+      "tracked": true,
+      "sha256": "b53cd189415b1c27fbba7c12a4a42df55254a2ac065c060e3fb1791bafd1875b"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_86400_2026-11-01.npz",
+      "bytes": 23131,
+      "tracked": true,
+      "sha256": "b5e24ccb4e49ef9647a108b8ea11bedcad7b07735628f54db5dbf6b2012dd44f"
+    },
+    {
+      "path": "agent/artifacts/ml_portable/vol_86400_2026-11-09.npz",
+      "bytes": 17881,
+      "tracked": true,
+      "sha256": "91cafd135ace6b168d652980bf3c8b6e79912aba60c19574a031e6f6b5c2fcd7"
+    },
+    {
+      "path": "agent/artifacts/seasonality.json",
+      "bytes": 4791385,
+      "tracked": true,
+      "sha256": "bfa174a433b264044dc085a6201d3de41e33ddb49a742fb42cbc3ed86a5cc420"
+    },
+    {
+      "path": "agent/artifacts/seasonality_abs5m.json",
+      "bytes": 13337172,
+      "tracked": true,
+      "sha256": "561e80c95b0e2aab74764f829f01fd6d2df0ba171ba61927a5f6e8367bf71a69"
+    },
+    {
+      "path": "agent/audit_release_artifacts.py",
+      "bytes": 2307,
+      "tracked": true,
+      "sha256": "f03b90abb48776f2daa6764a7ef98fe22dc20a32751f01d66313bd2806ada177"
+    },
+    {
+      "path": "agent/calendar_models.py",
+      "bytes": 4722,
+      "tracked": true,
+      "sha256": "9f99deacb0684a7931a7ba50e9beecf2fe7717612f1d91be7b19e7093effc82f"
+    },
+    {
+      "path": "agent/candidate_models.py",
+      "bytes": 2682,
+      "tracked": true,
+      "sha256": "2e8adbdbe0132a00dd8f6c5e2433ba22ced5cf9928a2a89266a845be93123331"
+    },
+    {
+      "path": "agent/closure_models.py",
+      "bytes": 3752,
+      "tracked": true,
+      "sha256": "43c3e42d81805f05a83ef9f4ef279be4623a0c50258a653fb190ed393ab673c8"
+    },
+    {
+      "path": "agent/integrated_models.py",
+      "bytes": 4097,
+      "tracked": true,
+      "sha256": "5517ba87d2476994efd2ff0a098ae052ce3aeb033381a3bcf17e663194e68531"
+    },
+    {
+      "path": "agent/ml_features.py",
+      "bytes": 5559,
+      "tracked": true,
+      "sha256": "6018f21f20e06481893f340c3b1b16553319f991bbb74a4a308970917a613a2f"
+    },
+    {
+      "path": "agent/ml_models.py",
+      "bytes": 2239,
+      "tracked": true,
+      "sha256": "0bf93ceb720c04a3e948082c98c8b1b0c6cff4c893f4ffb6562f74c8c8f87c4d"
+    },
+    {
+      "path": "agent/modeling.py",
+      "bytes": 1302,
+      "tracked": true,
+      "sha256": "1086a9785cbbe6ecd83306354c2efa997ee0e8b7ce330b4fbb19ed3163426050"
+    },
+    {
+      "path": "agent/portable_trees.py",
+      "bytes": 1913,
+      "tracked": true,
+      "sha256": "7945467c4cd78a2f41fdfe8f51dce1fec7c08cce466a9f31c7bcf029c875a726"
+    },
+    {
+      "path": "agent/profile_models.py",
+      "bytes": 2842,
+      "tracked": true,
+      "sha256": "d3e5ca32e9ac36f2764df79a15dd7d7e5e8c51bd1d0a2aa0762e33d8359da36f"
+    },
+    {
+      "path": "agent/sampling_models.py",
+      "bytes": 2431,
+      "tracked": true,
+      "sha256": "224507f8869063e6149510a313c19c7de850c497d35aeb4a117d2d14e68315cb"
+    },
+    {
+      "path": "agent/seasonal_models.py",
+      "bytes": 3482,
+      "tracked": true,
+      "sha256": "808c44a92740b7aeaf006e46ddd6bd1b4068b3314ca2d8a4cf5c0b22cbcdd7df"
+    },
+    {
+      "path": "agent/separated_models.py",
+      "bytes": 2151,
+      "tracked": true,
+      "sha256": "001d889a858604956bca2b83ec49ff00988d4ecf56e5ee3ee46b7c68689f51ec"
+    },
+    {
+      "path": "agent/vol_models.py",
+      "bytes": 2243,
+      "tracked": true,
+      "sha256": "9fe77c886cbad88accef5f702ba2055fadf0d5c8d4d8e4bedeb73edbe3ca5369"
+    }
+  ]
+}

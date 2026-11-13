@@ -1,0 +1,190 @@
+{
+  "passed": true,
+  "context_days": 7,
+  "loaded_volatility_models": 12,
+  "latest_fit": "2026-11-09",
+  "artifact_bytes": 23916102,
+  "source_and_artifacts": [
+    {
+      "path": "agent/artifacts/closures.json",
+      "bytes": 31406,
+      "sha256": "1a426b4f19e35fc78344482393f0bff92e73cb6cf90abd6b1604e32ee6764843",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/events.json",
+      "bytes": 855146,
+      "sha256": "6262002fd5a39772bc446353014ea35caff9775efc6852b444883f8b72216e4a",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/manifest.json",
+      "bytes": 57045,
+      "sha256": "752e8d684d076b632846a7601aaea89e9e89cdd818ef3b938459b7a7599e6ad6",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_3600_2026-03-01.ubj",
+      "bytes": 288576,
+      "sha256": "46c37f58574663304c6ec02674d724b84b040c3b11bdf85d1eb95f45d09b2740",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_3600_2026-07-01.ubj",
+      "bytes": 339852,
+      "sha256": "7e5ce16f57838d2d49b13a19cd6ef6c36cc506fc2e0957c75dadb13016ba3290",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_3600_2026-08-01.ubj",
+      "bytes": 386530,
+      "sha256": "95e41ee66a897e17703d96abd3be51191ff43886091075dc0573d4fd20c52043",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_3600_2026-10-01.ubj",
+      "bytes": 460757,
+      "sha256": "031d3a23910c6459a451e790dded9e101cf18fb05fff15cd7d424c5a6df53d2f",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_3600_2026-11-01.ubj",
+      "bytes": 684964,
+      "sha256": "5219aa8c138e6b65d06d2af1fd58a4533285f771b3dd6b4e88775200cfadc704",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_3600_2026-11-09.ubj",
+      "bytes": 278468,
+      "sha256": "ae4e54636bf7bc692bfe82b1cfcb742f822ef17d70ad5cfd447a6dc3b36d4da9",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_86400_2026-03-01.ubj",
+      "bytes": 265434,
+      "sha256": "91a1fc7873cdc289f1bb9d367b565ba00e01847acf7761aad76e9c2f7d0ec134",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_86400_2026-07-01.ubj",
+      "bytes": 266454,
+      "sha256": "22d00187bd12739431978ae4b7b7a49836f658c3be11ebc3c5acc24bc5ecd6c0",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_86400_2026-08-01.ubj",
+      "bytes": 348993,
+      "sha256": "20ad2ab39843475af658cfc2641dfedc3c3c4f328e02b3297fb59930d2a76820",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_86400_2026-10-01.ubj",
+      "bytes": 697831,
+      "sha256": "57bb4a2dff11d92c11cd2553317944c905ea7cd038fbb82b1235c15be88a344d",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_86400_2026-11-01.ubj",
+      "bytes": 472334,
+      "sha256": "fb3b69c1a5a06eec4ee1ed3dd60aa1ec544be7052d68fa324bb1e65075ed3595",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/ml/vol_86400_2026-11-09.ubj",
+      "bytes": 353755,
+      "sha256": "1dae13bb5e46e80bf0fc931c8538cf3a15fb00ff5f0d7a6a00b33f8ecde56c80",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/seasonality.json",
+      "bytes": 4791385,
+      "sha256": "bfa174a433b264044dc085a6201d3de41e33ddb49a742fb42cbc3ed86a5cc420",
+      "tracked": true
+    },
+    {
+      "path": "agent/artifacts/seasonality_abs5m.json",
+      "bytes": 13337172,
+      "sha256": "561e80c95b0e2aab74764f829f01fd6d2df0ba171ba61927a5f6e8367bf71a69",
+      "tracked": true
+    },
+    {
+      "path": "agent/calendar_models.py",
+      "bytes": 4722,
+      "sha256": "9f99deacb0684a7931a7ba50e9beecf2fe7717612f1d91be7b19e7093effc82f",
+      "tracked": true
+    },
+    {
+      "path": "agent/candidate_models.py",
+      "bytes": 2682,
+      "sha256": "2e8adbdbe0132a00dd8f6c5e2433ba22ced5cf9928a2a89266a845be93123331",
+      "tracked": true
+    },
+    {
+      "path": "agent/closure_models.py",
+      "bytes": 3752,
+      "sha256": "43c3e42d81805f05a83ef9f4ef279be4623a0c50258a653fb190ed393ab673c8",
+      "tracked": true
+    },
+    {
+      "path": "agent/integrated_models.py",
+      "bytes": 4089,
+      "sha256": "f65e32ef0078adcb55b173c538d426e76d7e33b6572dd90a71e862d82f5480b8",
+      "tracked": true
+    },
+    {
+      "path": "agent/ml_features.py",
+      "bytes": 5559,
+      "sha256": "6018f21f20e06481893f340c3b1b16553319f991bbb74a4a308970917a613a2f",
+      "tracked": true
+    },
+    {
+      "path": "agent/ml_models.py",
+      "bytes": 2104,
+      "sha256": "f3f59ab4bbd643827b4a70690cc01e788cc7db9a6d34101451871933d0dc8232",
+      "tracked": true
+    },
+    {
+      "path": "agent/modeling.py",
+      "bytes": 1221,
+      "sha256": "ff0ce82b2e1e63091dd97dc49c7ef18f413d08d4d04f24d07b665553a3bd6786",
+      "tracked": true
+    },
+    {
+      "path": "agent/profile_models.py",
+      "bytes": 2842,
+      "sha256": "d3e5ca32e9ac36f2764df79a15dd7d7e5e8c51bd1d0a2aa0762e33d8359da36f",
+      "tracked": true
+    },
+    {
+      "path": "agent/sampling_models.py",
+      "bytes": 2431,
+      "sha256": "224507f8869063e6149510a313c19c7de850c497d35aeb4a117d2d14e68315cb",
+      "tracked": true
+    },
+    {
+      "path": "agent/seasonal_models.py",
+      "bytes": 3482,
+      "sha256": "808c44a92740b7aeaf006e46ddd6bd1b4068b3314ca2d8a4cf5c0b22cbcdd7df",
+      "tracked": true
+    },
+    {
+      "path": "agent/segment_models.py",
+      "bytes": 2569,
+      "sha256": "da54756da60b7b2c3611782bcde96feff1cb854ad855da297446794febc96c4f",
+      "tracked": true
+    },
+    {
+      "path": "agent/separated_models.py",
+      "bytes": 2151,
+      "sha256": "001d889a858604956bca2b83ec49ff00988d4ecf56e5ee3ee46b7c68689f51ec",
+      "tracked": true
+    },
+    {
+      "path": "agent/vol_models.py",
+      "bytes": 2243,
+      "sha256": "9fe77c886cbad88accef5f702ba2055fadf0d5c8d4d8e4bedeb73edbe3ca5369",
+      "tracked": true
+    }
+  ],
+  "checks": "All serving imports and required artifact files exist and are tracked; every volatility booster loads on CPU. No prediction or score uses post-cutoff prices."
+}

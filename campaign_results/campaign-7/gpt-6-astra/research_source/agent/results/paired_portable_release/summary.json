@@ -1,0 +1,99 @@
+{
+  "baseline_tags": [
+    "combined_checkpoint_general"
+  ],
+  "candidate_tags": [
+    "portable_release_general"
+  ],
+  "configuration_filter": null,
+  "window_filter": null,
+  "uncertainty_method": "Paired calendar-week cluster bootstrap, all assets and prompts retained within each sampled week. No interval is reported with fewer than two weeks. Exploratory intervals do not account for model selection.",
+  "replicates": 4000,
+  "seed": 20261108,
+  "configurations": {
+    "crypto1": {
+      "prompts": 1680,
+      "scored_days": 28,
+      "calendar_weeks": 5,
+      "baseline_crps": 874.4322721021031,
+      "candidate_crps": 874.4322721021031,
+      "change_pct": 0.0,
+      "week_block_change_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "equal_day_change_pct": 0.0,
+      "cells_improved": 0,
+      "cells": 20,
+      "weeks_improved": 0,
+      "post_cadence": {
+        "prompts": 420,
+        "baseline_crps": 832.4172974856634,
+        "candidate_crps": 832.4172974856634,
+        "change_pct": 0.0
+      },
+      "post_us_dst": {
+        "prompts": 420,
+        "baseline_crps": 832.4172974856634,
+        "candidate_crps": 832.4172974856634,
+        "change_pct": 0.0
+      }
+    },
+    "crypto24": {
+      "prompts": 1680,
+      "scored_days": 28,
+      "calendar_weeks": 5,
+      "baseline_crps": 4181.558780002256,
+      "candidate_crps": 4181.558780002256,
+      "change_pct": 0.0,
+      "week_block_change_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "equal_day_change_pct": 0.0,
+      "cells_improved": 0,
+      "cells": 20,
+      "weeks_improved": 0,
+      "post_cadence": {
+        "prompts": 420,
+        "baseline_crps": 4010.852004543184,
+        "candidate_crps": 4010.852004543184,
+        "change_pct": 0.0
+      },
+      "post_us_dst": {
+        "prompts": 420,
+        "baseline_crps": 4010.852004543184,
+        "candidate_crps": 4010.852004543184,
+        "change_pct": 0.0
+      }
+    },
+    "other24": {
+      "prompts": 2688,
+      "scored_days": 28,
+      "calendar_weeks": 5,
+      "baseline_crps": 2307.291646150442,
+      "candidate_crps": 2307.291646150442,
+      "change_pct": 0.0,
+      "week_block_change_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "equal_day_change_pct": 0.0,
+      "cells_improved": 0,
+      "cells": 32,
+      "weeks_improved": 0,
+      "post_cadence": {
+        "prompts": 672,
+        "baseline_crps": 3217.9512787478243,
+        "candidate_crps": 3217.9512787478243,
+        "change_pct": 0.0
+      },
+      "post_us_dst": {
+        "prompts": 672,
+        "baseline_crps": 3217.9512787478243,
+        "candidate_crps": 3217.9512787478243,
+        "change_pct": 0.0
+      }
+    }
+  }
+}

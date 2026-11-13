@@ -1,0 +1,16 @@
+{
+  "runs_done": [
+    "opus-5-5",
+    "gpt-6-astra",
+    "gemini-4-argon",
+    "kimi-k3-1-pro",
+    "fable-5-2",
+    "gemini-4-carbon"
+  ],
+  "sandbox_image": {
+    "name": "synth-bench-sandbox",
+    "id": "sha256:ead71df4ebed31ccb17342e175d475831487d55b4575ee58a57f8d4ee71704d1",
+    "digest": "synth-bench-sandbox@sha256:ead71df4ebed31ccb17342e175d475831487d55b4575ee58a57f8d4ee71704d1"
+  },
+  "forward_window_start": "2026-11-11T05:16:42.465113+00:00"
+}

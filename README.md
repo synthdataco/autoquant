@@ -94,13 +94,14 @@ miner: [docs/deploy-a-champion.md](docs/deploy-a-champion.md).
 
 ## Results
 
-| Campaign                                   | Panel                                                         | Envelope              |
-| ------------------------------------------ | ------------------------------------------------------------- | --------------------- |
-| [campaign-1](campaign_results/campaign-1/) | gemini-3.1-pro-preview, glm-5.2, kimi-k3                      | $100 / 24 h per model |
-| [campaign-2](campaign_results/campaign-2/) | claude-opus-5, gpt-5, revised constitution                    | $100 / 18 h per model |
-| [campaign-3](campaign_results/campaign-3/) | claude-fable-5-1, gpt-5.6-sol, gpt-6-astra, gemini-3.8-flash  | $100 / 18 h per model |
-| [campaign-4](campaign_results/campaign-4/) | claude-opus-5, claude-opus-5-5, gpt-6-astra, gpt-6-sol        | $100 / 18 h per model |
-| [campaign-6](campaign_results/campaign-6/) | claude-opus-5-5, gpt-6-astra, gemini-4-argon, muse-wonder-1.0 | $100 / 18 h per model |
+| Campaign                                   | Panel                                                                                          | Envelope              |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------- | --------------------- |
+| [campaign-1](campaign_results/campaign-1/) | gemini-3.1-pro-preview, glm-5.2, kimi-k3                                                       | $100 / 24 h per model |
+| [campaign-2](campaign_results/campaign-2/) | claude-opus-5, gpt-5, revised constitution                                                     | $100 / 18 h per model |
+| [campaign-3](campaign_results/campaign-3/) | claude-fable-5-1, gpt-5.6-sol, gpt-6-astra, gemini-3.8-flash                                   | $100 / 18 h per model |
+| [campaign-4](campaign_results/campaign-4/) | claude-opus-5, claude-opus-5-5, gpt-6-astra, gpt-6-sol                                         | $100 / 18 h per model |
+| [campaign-6](campaign_results/campaign-6/) | claude-opus-5-5, gpt-6-astra, gemini-4-argon, muse-wonder-1.0                                  | $100 / 18 h per model |
+| [campaign-7](campaign_results/campaign-7/) | claude-opus-5-5, gpt-6-astra, gemini-4-argon, kimi-k3.1-pro, claude-fable-5-2, gemini-4-carbon | $100 / 18 h per model |
 
 Each leg directory **is** the champion: the agent's whole workspace at the commit it nominated —
 `modeling.py` and the calibration artifacts it loads, `report.md` (the agent's own write-up, the most
@@ -110,6 +111,19 @@ scripts — plus `CHAMPION` (the nomination record), the verdict (`verdict.json`
 diagnostic windows, and the serving shell `miner.py` / `entrypoint.sh` that runs it as a live miner.
 From campaign-4 on, the workspace sits in the leg's `champion_source/` and the serving shell is
 generated from it at deploy time (`synth_lib.serving.unpack_champion`).
+
+From campaign-7 on, a leg splits the workspace in three:
+
+- `champion_source/` holds only the files the champion reads while serving. `SERVING.json` lists
+  each one with its hash and why it is there, and the calls that proved the set: served alone, it
+  gives the same output as the whole tree at the champion's commit on every call.
+- `research_source/` holds the research and training code behind the champion, with
+  `RESEARCH.json`.
+- `workspace.bundle` holds everything the agent committed:
+  `git clone workspace.bundle ws && git -C ws checkout <CHAMPION sha>`.
+
+campaign-7 is not on the leaderboard: its champions run as live miners rather than through a
+verdict.
 
 campaign-2 also carries three older **in-sample** windows per leg. They are the overfitting check, not
 a second leaderboard: they showed the 1-hour edge decaying with distance from the data cutoff while

@@ -1,0 +1,25 @@
+sha: "225754dd773b50f18219e61ab2352d66192802cf"
+agent_dir: agent
+profiles:
+  - low
+  - high
+notes: |
+  Champion Model (CONTEXT_DAYS = 30, pure NumPy/SciPy inference ~0.20s/24h, ~0.04s/1h at 1000 paths):
+  1. Seasonality v3 (America/New_York 7x288 5m & 1m + 60m intra-hour moh): Two-pass slot-adaptive Huber with 90d recency, NYMEX/COMEX/NYSE & US Spot Crypto ETF (08:30/09:30/16:00 NY) session segmentation, un-smeared Sunday 18:00-18:05 NY CME Globex & Crypto Futures reopen, and NYSE_CLOSED / NYSE_EARLY_CLOSE holiday dampening across TradFi and crypto.
+  2. LOEO-Validated Minute-Resolved Scheduled Event Kernels ($SYNTH_BENCHMARK_CALENDAR): 24 5m-on-1m (90m) and 5 1m (30m) excess-variance kernels (FOMC, CPI, NFP, PPI, PCE, and ticker-specific EARNINGS with 2-regime 24h continuation).
+  3. Causal 30d Scale-Matched Garman-Klass + Close-to-Close Hybrid HAR-EWMA, Online Empirical-Bayes TradFi Session Adaptation, Activity-Weighted EWMA, Closed-Weekend Ornstein-Uhlenbeck Tethering, and Causal Weekend Flat-Bar Antithetic Zero-Inflation.
+  4. Randomized Latin-Hypercube Stratified Quantile (LHS) Student-t + Intrapath AR(1) Stochastic Volatility Cascade with Leverage Correlation (M=1000 vol_scoring_blocks calibrated on CRYPTO_1H), plus Tesla T4 Differentiable Direct-CRPS Residual MLP (mlpeq24) on COM_EQU_24H.
+
+  Official Backtested 1000-Path CRPS via agent/predict.py (--num-simulations 1000 --seed 42 --latest-formula):
+  A) Strict Out-of-Sample 3-Window Mean (W1: 2026-08-15..08-25, W2: 2026-09-27..10-07, W3: 2026-10-28..11-07; 54/54 cells improved vs Starter Baseline, trained strictly <= 2026-08-10):
+     - CRYPTO_24H : Champion = 4089.222 coef-weighted (4389.393 unweighted) vs Starter Baseline = 4241.010 coef-weighted (4546.311 unweighted) [-3.58%, 15/15 cells improved; Field Median = 4098.761]
+     - COM_EQU_24H: Champion = 1767.430 coef-weighted (2129.605 unweighted) vs Starter Baseline = 1987.226 coef-weighted (2412.161 unweighted) [-11.06%, 24/24 cells improved; Field Median = 1774.155]
+     - CRYPTO_1H  : Champion =  878.808 coef-weighted ( 942.935 unweighted) vs Starter Baseline =  931.026 coef-weighted ( 997.704 unweighted) [-5.61%, 15/15 cells improved; Field Median =  877.340]
+  B) Per-Window Strict OOS Coef-Weighted CRPS (Champion vs Starter Baseline):
+     - W1 (High-Vol Breakout) : CRYPTO_24H 4842.335 vs 4963.767 (-2.45%) | COM_EQU_24H 1413.362 vs 1617.007 (-12.59%) | CRYPTO_1H 1036.142 vs 1090.717 (-5.00%)
+     - W2 (Low-Vol Calm)      : CRYPTO_24H 3254.689 vs 3454.494 (-5.78%) | COM_EQU_24H 1386.821 vs 1650.180 (-15.96%) | CRYPTO_1H  709.478 vs  761.853 (-6.87%)
+     - W3 (DST + Q3 Earnings) : CRYPTO_24H 4170.643 vs 4304.769 (-3.12%) | COM_EQU_24H 2502.107 vs 2694.490 ( -7.14%) | CRYPTO_1H  890.804 vs  940.509 (-5.28%)
+  C) Post-Cutoff-Refit Sanity Check on W3 (calibration_params.npz refitted <= 2026-11-08; mlpeq24 inner-trained <= 2026-09-23):
+     - CRYPTO_24H : 4160.073 coef-weighted (4440.962 unweighted)
+     - COM_EQU_24H: 2496.463 coef-weighted (2930.290 unweighted)
+     - CRYPTO_1H  :  890.001 coef-weighted ( 949.589 unweighted)

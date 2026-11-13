@@ -1,0 +1,210 @@
+[
+  {
+    "asset": "BTC",
+    "period": "all",
+    "rows": 669600,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "BTC",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "ETH",
+    "period": "all",
+    "rows": 669600,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "ETH",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "SOL",
+    "period": "all",
+    "rows": 669600,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "SOL",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "XRP",
+    "period": "all",
+    "rows": 669600,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "XRP",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "HYPE",
+    "period": "all",
+    "rows": 669600,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "HYPE",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "XAU",
+    "period": "all",
+    "rows": 463680,
+    "missing_closes": 882,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "XAU",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "NVDAX",
+    "period": "all",
+    "rows": 521280,
+    "missing_closes": 1204,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "NVDAX",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "GOOGLX",
+    "period": "all",
+    "rows": 512640,
+    "missing_closes": 976,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "GOOGLX",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "TSLAX",
+    "period": "all",
+    "rows": 519840,
+    "missing_closes": 871,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "TSLAX",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "AAPLX",
+    "period": "all",
+    "rows": 508320,
+    "missing_closes": 873,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "AAPLX",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "WTIOIL",
+    "period": "all",
+    "rows": 442080,
+    "missing_closes": 874,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "WTIOIL",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "SPCX",
+    "period": "all",
+    "rows": 253440,
+    "missing_closes": 1353,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "SPCX",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "SP500",
+    "period": "all",
+    "rows": 339840,
+    "missing_closes": 806,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  },
+  {
+    "asset": "SP500",
+    "period": "reported_baseline",
+    "rows": 188640,
+    "missing_closes": 0,
+    "internal_bad_closes": 0,
+    "timestamp_gaps": 0
+  }
+]

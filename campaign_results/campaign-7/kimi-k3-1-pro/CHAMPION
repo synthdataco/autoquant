@@ -1,0 +1,9 @@
+sha: 933c67a05ca9be160d75199b8749cdc5848f933a
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Official synth-lib CRPS at 1000 paths, equal-asset means, on identical starter/champion prompts with 100% realized coverage.
+  CRYPTO_24H (10 scored days ending 2026-11-08, 1200 prompts): champion 4494.773379; starter 4607.926948; change -2.4556%.
+  COM_EQU_24H (10 scored days ending 2026-11-08, 870 prompts): champion 3119.334143; starter 3304.761512; change -5.6109%.
+  CRYPTO_1H (5 scored days ending 2026-11-08, latest formula, 3600 prompts): champion 942.752021; starter 979.258185; change -3.7279%.
+  Every asset improved. The model supports both 24h and 1h formats, honors requested path counts, and passed positive-finite-path, all-NaN, missing-calendar, odd-path-count, and seed-reproducibility checks. Measured 1000-path generation latency: 0.063s at 24h and 0.021s at 1h.

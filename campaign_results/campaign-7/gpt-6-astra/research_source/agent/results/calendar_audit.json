@@ -1,0 +1,156 @@
+{
+  "event_from_supplied_calendar": "2026-10-14T12:30:00+00:00",
+  "context_ends": "2026-10-14T12:13:00+00:00",
+  "seed": 20261108,
+  "calendar_absent_matches_no_event_model": true,
+  "refresh_changes_forecast": true,
+  "network_blocked": true,
+  "research_flag_invariant": true,
+  "cases": [
+    {
+      "case": "absent_env",
+      "paths": 1000,
+      "seconds": 0.02229664399055764,
+      "passed": true
+    },
+    {
+      "case": "missing_file",
+      "paths": 1000,
+      "seconds": 0.02054445000248961,
+      "passed": true
+    },
+    {
+      "case": "empty_calendar",
+      "paths": 1000,
+      "seconds": 0.03689543799555395,
+      "passed": true
+    },
+    {
+      "case": "refresh_at_same_path",
+      "paths": 1000,
+      "seconds": 0.02755420199537184,
+      "passed": true
+    },
+    {
+      "case": "repeat_refreshed_calendar",
+      "paths": 1000,
+      "seconds": 0.02477950300090015,
+      "passed": true
+    },
+    {
+      "case": "remove_event_at_same_path",
+      "paths": 1000,
+      "seconds": 0.026869533001445234,
+      "passed": true
+    },
+    {
+      "case": "atomic_refresh_preserved_mtime",
+      "paths": 1000,
+      "seconds": 0.028798803003155626,
+      "passed": true
+    },
+    {
+      "case": "in_place_refresh_preserved_mtime",
+      "paths": 1000,
+      "seconds": 0.026189722993876785,
+      "passed": true
+    },
+    {
+      "case": "unknown_type",
+      "paths": 1000,
+      "seconds": 0.03448935299820732,
+      "passed": true
+    },
+    {
+      "case": "supplied_calendar",
+      "paths": 1000,
+      "seconds": 0.027730206013075076,
+      "passed": true
+    },
+    {
+      "case": "count_1",
+      "paths": 1,
+      "seconds": 0.024935228007961996,
+      "passed": true
+    },
+    {
+      "case": "repeat_count_1",
+      "paths": 1,
+      "seconds": 0.02191989601124078,
+      "passed": true
+    },
+    {
+      "case": "count_3",
+      "paths": 3,
+      "seconds": 0.02546221000375226,
+      "passed": true
+    },
+    {
+      "case": "repeat_count_3",
+      "paths": 3,
+      "seconds": 0.022357576992362738,
+      "passed": true
+    },
+    {
+      "case": "count_999",
+      "paths": 999,
+      "seconds": 0.032603696003207006,
+      "passed": true
+    },
+    {
+      "case": "repeat_count_999",
+      "paths": 999,
+      "seconds": 0.024917097005527467,
+      "passed": true
+    },
+    {
+      "case": "count_1000",
+      "paths": 1000,
+      "seconds": 0.024230030001490377,
+      "passed": true
+    },
+    {
+      "case": "repeat_count_1000",
+      "paths": 1000,
+      "seconds": 0.02426198399916757,
+      "passed": true
+    },
+    {
+      "case": "count_1001",
+      "paths": 1001,
+      "seconds": 0.033933127007912844,
+      "passed": true
+    },
+    {
+      "case": "repeat_count_1001",
+      "paths": 1001,
+      "seconds": 0.025347240996779874,
+      "passed": true
+    },
+    {
+      "case": "ignored_candidate_basic",
+      "paths": 1000,
+      "seconds": 0.02490177800063975,
+      "passed": true
+    },
+    {
+      "case": "ignored_prof_abs5m60",
+      "paths": 1000,
+      "seconds": 0.027767684994614683,
+      "passed": true
+    },
+    {
+      "case": "ignored_event_clean",
+      "paths": 1000,
+      "seconds": 0.024899183990783058,
+      "passed": true
+    },
+    {
+      "case": "ignored_integrated_sv",
+      "paths": 1000,
+      "seconds": 0.02528833800170105,
+      "passed": true
+    }
+  ],
+  "max_seconds": 0.03689543799555395
+}

@@ -24,6 +24,7 @@ campaign_results/**/*.pth filter=lfs diff=lfs merge=lfs -text
 campaign_results/**/*.safetensors filter=lfs diff=lfs merge=lfs -text
 campaign_results/**/*.pkl filter=lfs diff=lfs merge=lfs -text
 campaign_results/**/*.joblib filter=lfs diff=lfs merge=lfs -text
+campaign_results/**/*.ubj filter=lfs diff=lfs merge=lfs -text
 
 # NOT in LFS, deliberately: verdicts, configs and an artifact's json sidecar are small text that
 # reviewers read in the browser and the leaderboard parses (`*.json`, `*.yaml`, `*.md`, `*.py`).

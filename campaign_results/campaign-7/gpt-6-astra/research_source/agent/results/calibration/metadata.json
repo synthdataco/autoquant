@@ -1,0 +1,10 @@
+{
+  "model": "modeling",
+  "source_scores": "combined_checkpoint_general",
+  "paths": 1000,
+  "context_days": 7,
+  "seed": "20261108",
+  "unique_forecasts": 6048,
+  "crps_computed": false,
+  "interpretation": "Descriptive reused research samples; overlapping horizons and assets are not independent."
+}

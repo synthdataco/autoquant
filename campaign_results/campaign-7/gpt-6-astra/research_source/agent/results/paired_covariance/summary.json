@@ -1,0 +1,74 @@
+{
+  "baseline_tags": [
+    "combined_checkpoint_general"
+  ],
+  "candidate_tags": [
+    "covariance_general"
+  ],
+  "configuration_filter": [
+    "crypto24",
+    "other24"
+  ],
+  "window_filter": null,
+  "uncertainty_method": "Paired calendar-week cluster bootstrap, all assets and prompts retained within each sampled week. Exploratory intervals do not account for model selection.",
+  "replicates": 4000,
+  "seed": 20261108,
+  "configurations": {
+    "crypto24": {
+      "prompts": 1680,
+      "scored_days": 28,
+      "calendar_weeks": 5,
+      "baseline_crps": 4181.558780002256,
+      "candidate_crps": 4180.078073103255,
+      "change_pct": -0.03541040499256409,
+      "week_block_change_pct_ci95": [
+        -0.055004180347140164,
+        0.0012162602192944405
+      ],
+      "equal_day_change_pct": -0.03541040499255299,
+      "cells_improved": 14,
+      "cells": 20,
+      "weeks_improved": 4,
+      "post_cadence": {
+        "prompts": 420,
+        "baseline_crps": 4010.852004543184,
+        "candidate_crps": 4010.625870160578,
+        "change_pct": -0.005638063492496848
+      },
+      "post_us_dst": {
+        "prompts": 420,
+        "baseline_crps": 4010.852004543184,
+        "candidate_crps": 4010.625870160578,
+        "change_pct": -0.005638063492496848
+      }
+    },
+    "other24": {
+      "prompts": 2688,
+      "scored_days": 28,
+      "calendar_weeks": 5,
+      "baseline_crps": 2307.291646150442,
+      "candidate_crps": 2306.6183973931775,
+      "change_pct": -0.029179178903870895,
+      "week_block_change_pct_ci95": [
+        -0.04746541842275409,
+        0.00021794970643806977
+      ],
+      "equal_day_change_pct": -0.029179178903837588,
+      "cells_improved": 18,
+      "cells": 32,
+      "weeks_improved": 3,
+      "post_cadence": {
+        "prompts": 672,
+        "baseline_crps": 3217.9512787478243,
+        "candidate_crps": 3216.334012032957,
+        "change_pct": -0.05025765074655464
+      },
+      "post_us_dst": {
+        "prompts": 672,
+        "baseline_crps": 3217.9512787478243,
+        "candidate_crps": 3216.334012032957,
+        "change_pct": -0.05025765074655464
+      }
+    }
+  }
+}

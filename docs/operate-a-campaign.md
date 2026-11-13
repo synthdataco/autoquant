@@ -214,8 +214,9 @@ json.dump(s, open('$D/state.json', 'w'), indent=2)
 "
 
 # champion source in the clear, one tree per leg (keep each workspace.bundle: the verdict clones it)
+# CHAMPION is YAML: an agent may quote the sha
 for leg in "$D"/*/; do
-  L=$(basename "$leg"); SHA=$(awk '/^(sha|commit):/ {print $2; exit}' "$leg/CHAMPION" 2>/dev/null) || continue
+  L=$(basename "$leg"); SHA=$(awk '/^(sha|commit):/ {print $2; exit}' "$leg/CHAMPION" 2>/dev/null | tr -d "\"'") || continue
   [ -n "$SHA" ] && git clone -q "$leg/workspace.bundle" /tmp/ch-$L && git -C /tmp/ch-$L checkout -q "$SHA" \
     && rm -rf /tmp/ch-$L/.git && mkdir -p "$leg/champion_source" && cp -r /tmp/ch-$L/* "$leg/champion_source/" \
     && rm -rf /tmp/ch-$L
@@ -225,6 +226,35 @@ done
 The tree is `champion_source/`, never `champion/`: next to the `CHAMPION` file, macOS and Windows see
 the two as one name, so a download or checkout there loses one of them. `unpack_champion` reads the
 same folder.
+
+### From campaign-7 on: the serving set
+
+The loop above publishes the whole tree at the sha. From campaign-7 on, that tree is cut in two
+before committing, and the rest stays in `workspace.bundle`:
+
+- **`champion_source/`: the files the champion reads while serving.**
+  - **Trace.** Run the champion in the campaign's sandbox image, with no network, the leg's own
+    environment and the snapshot calendar. Call `simulate()` for every asset of every competition,
+    at starts on both sides of the cutoff, the last on the newest full day in the store. Record
+    every file in the tree it opens: file access times catch reads made in C, which Python's audit
+    hook does not see.
+  - **Why starts after the cutoff.** A champion can pick a dated file by the context's last day.
+    campaign-7's gpt-6-astra loads the newest fit dated on or before that day, and its newest fits
+    are dated 2026-11-09: a start before then never loads them.
+  - **Review.** Read the champion's code for reads those calls cannot reach: fallbacks for short
+    or gappy contexts, holiday and daylight-saving branches, and dated files a later date would
+    pick. Add them to the set. Code behind an environment variable the live miner never sets stays
+    out.
+  - **Proof.** Serve the set alone, under a fixed `SYNTH_BENCHMARK_SEED`. Every call's output must
+    equal the whole tree's, and two passes over the whole tree must agree with each other.
+  - **`SERVING.json`** records each file's hash and why it is there, the calls and their output
+    hashes, and the packages serving imported.
+- **`research_source/`: the research and training code behind the champion,** chosen by the same
+  review, with `RESEARCH.json`. It covers the scripts that fitted the files the champion loads, the
+  drivers behind the results its report cites, and the summaries those results come from.
+
+Do this before deleting `campaign_runs`, while each leg's environment still exists. A leg that is
+not deterministic under the seed cannot be proven, and publishes its whole tree.
 
 A claude-code leg's `sessions/` holds, per session, its workflows' scripts and results
 (`workflows/`) and its sub-agents' transcripts (`subagents/`): the work of its workflow agents,

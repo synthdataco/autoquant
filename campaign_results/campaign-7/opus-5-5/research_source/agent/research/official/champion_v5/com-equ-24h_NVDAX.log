@@ -1,0 +1,16 @@
+predictions generated: 109
+  [com-equ-24h/NVDAX] fetching scored prompts (2026-10-29 → 2026-11-08)...
+  [com-equ-24h/NVDAX] 27904 score rows (109 prompts) in 0.0s
+  [com-equ-24h/NVDAX] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/NVDAX] 716079 rewards rows (2846 update rounds) in 0.4s
+  [com-equ-24h/NVDAX] scoring 109 prompts against local predictions...
+  [com-equ-24h/NVDAX] scored 109 prompts in 10.0s
+  [com-equ-24h/NVDAX] computing smoothed scores over 109 reward rounds...
+  [com-equ-24h/NVDAX] smoothed scores done in 2.0s (total backtest: 12.7s)
+summary (CONTEXT_DAYS 21): {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 109, 'mean_crps': 3496.509134920318, 'final_smoothed_score': 46.666776153840864, 'realized_points_expected': 31501, 'realized_points_scored': 31501, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             75 prompts  gap +1.38%
+  FOMC                 16 prompts  gap +0.52%
+  GDP                  11 prompts  gap +1.48%
+  NFP                  10 prompts  gap +2.50%
+  PCE                  11 prompts  gap +1.48%

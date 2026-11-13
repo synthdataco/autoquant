@@ -1,0 +1,30 @@
+{
+ "sha": "933c67a05ca9be160d75199b8749cdc5848f933a",
+ "files": [
+  {
+   "path": "agent/predict.py",
+   "bytes": 16865,
+   "sha256": "922cd190f9ddb8653a3a4e3304fde103008312bff84fcf5b1ad5695bd04b2911",
+   "why": "Backtest driver (the official synth-lib backtester) behind every CRPS figure in CHAMPION, report.md and journal.md Iterations 0-13. The agent made two changes. SYNTH_MODELING_PATH (predict.py:75) loads a different model for paired runs. --result-stem / save_result (lines 250, 296, 329, 343) saves the summary JSON and the per-prompt parquet, and suggestions.md proposes it as a standard CLI option."
+  },
+  {
+   "path": "agent/starter_model.py",
+   "bytes": 912,
+   "sha256": "7dc4672c0f7ba30bf3f782b0560e44d8dfdae94269e9e59e5bf7ba5b89924504",
+   "why": "Seeded copy of the harness starter (CONTEXT_DAYS 7, full-context Gaussian). It is the 'starter' side of the paired runs in CHAMPION's notes, report.md Results and the journal's starter tables and Iteration 13, loaded through predict.py's SYNTH_MODELING_PATH."
+  },
+  {
+   "path": "pyproject.toml",
+   "bytes": 451,
+   "sha256": "a8fa2864dbc9993e8b4025971f3969ef79c7cf0ff65b500c93c1bf998395bb9d",
+   "why": "The environment the research ran in: synth-lib pinned at 39bd62d, plus numpy>=2.2, pandas>=2.3 and torch>=2.0. The champion does not import torch."
+  },
+  {
+   "path": "uv.lock",
+   "bytes": 467572,
+   "sha256": "cc469764fd15d57c93514def8fa745054c1e9da0579ac8999ef98006afdbe3be",
+   "why": "Locked environment for the research and the trace: numpy 2.3.5, pandas 3.1.1, torch 2.15.0, and pyarrow 26.0.1. synth-lib pulls in pyarrow, and modeling.py:83 needs it to read the calendar parquet."
+  }
+ ],
+ "rest": "git clone workspace.bundle && git checkout 933c67a05ca9be160d75199b8749cdc5848f933a"
+}

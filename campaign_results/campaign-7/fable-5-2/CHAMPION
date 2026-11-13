@@ -1,0 +1,19 @@
+sha: 6e3fc56c96fde4abf279d4b25acb9c0e3ef4f4a5
+agent_dir: agent
+profiles: [low, high]
+notes: |
+  Seasonal, session-aware log-normal stochastic-volatility simulator; every parameter fitted on the
+  validator's CRPS (agent/core.py, agent/modeling.py, agent/params/). CONTEXT_DAYS 30. Stochastic,
+  seeded from SYNTH_BENCHMARK_SEED. Interface probe: ok (24h + 1h), 0.5 s / 0.1 s per call.
+  Served parameters: profile, event tables and model fitted on data before 2026-10-01, so both windows
+  below are OUT OF SAMPLE for them.
+  Backtested CRPS per configuration, official scorer (agent/predict.py), 1000 paths, validator prompts
+  scored 2026-10-08 -> 2026-11-07, champion exactly as served (asset-coefficient weighted mean CRPS),
+  next to the harness starter (constant-sigma log-normal) on the same prompts:
+    CRYPTO_24H  champion 3663.19  starter 3785.58  (-3.23 %; paired vs best miner -0.02 %, vs median miner -0.26 %)
+    COM_EQU_24H champion 1799.38  starter 1988.95  (-9.53 %; paired vs best miner -0.01 %, vs median miner -0.72 %)
+    CRYPTO_1H   champion  791.12  starter  833.37  (-5.07 %; paired vs best miner -0.06 %, vs median miner -0.33 %)
+  Per asset, CRPS (paired rank among miners): XAU 1255.88 (1/228), NVDAX 2313.13 (1/230), GOOGLX 2114.14 (55/236), TSLAX 2812.17 (1/232), AAPLX 1529.61 (5/233), WTIOIL 2919.58 (225/233), SPCX 3772.52 (43/225), SP500 853.07 (1/235), BTC 2495.26 (1/235), ETH 3502.18 (1/233), SOL 4214.10 (1/229), XRP 3946.66 (1/233), HYPE 5280.17 (88/234);
+  1h: BTC 538.15 (1/226), ETH 752.41 (1/226), SOL 916.59 (1/226), XRP 856.93 (1/226), HYPE 1133.73 (34/226).
+  Same parameters on the longer window 2026-10-02 -> 2026-11-07 (quantile matching off):
+  CRYPTO_24H 3535.55, COM_EQU_24H 1696.93, CRYPTO_1H 760.73.

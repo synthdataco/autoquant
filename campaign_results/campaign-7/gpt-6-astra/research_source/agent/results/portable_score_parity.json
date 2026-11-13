@@ -1,0 +1,5 @@
+{
+  "paired_prompts": 6048,
+  "all_official_scores_bitwise_equal": true,
+  "maximum_absolute_score_difference": 0.0
+}

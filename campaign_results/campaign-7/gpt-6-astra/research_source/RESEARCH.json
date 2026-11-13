@@ -1,0 +1,918 @@
+{
+ "sha": "5fbf8572b2481903fbb228220fa2b03115012c77",
+ "files": [
+  {
+   "path": "agent/alternate_models.py",
+   "bytes": 2287,
+   "sha256": "b2ca364d9d55e1691f58c3150ba409aeef0ac095fea7b2a56f6dd3cb044f2f1f",
+   "why": "Training-history, regularization and ensemble variants (report: changing horizon/regularization/weighting misses the 0.2% threshold)."
+  },
+  {
+   "path": "agent/analyze_events.py",
+   "bytes": 3260,
+   "sha256": "9741fab96bd43a5f677a5adef2c909542879a3cd53d8a58279fea1826a9d76f6",
+   "why": "Matched-event analysis behind results/events (report 'Known events')."
+  },
+  {
+   "path": "agent/analyze_paired.py",
+   "bytes": 6549,
+   "sha256": "996e66375bb2ed446adde0bfe5a174dfeca0796d9a0a327b667f81d8959c3f23",
+   "why": "Writes the results/paired_* comparison directories (week-block intervals) cited by CHAMPION, report and journal. REPRODUCE.md 'Historical scores'."
+  },
+  {
+   "path": "agent/antithetic_models.py",
+   "bytes": 2122,
+   "sha256": "277afbe29bd7eb84e90e3e468af600ac34b34f67e7170878bd3d908bf066c79d",
+   "why": "Antithetic scale sharing (report: worsens hourly crypto by 0.013%); results/antithetic_audit.json."
+  },
+  {
+   "path": "agent/audit_calendar.py",
+   "bytes": 6421,
+   "sha256": "0f04a112dd3175be08450aacdf78dd0c5f0e3cf26972b216bb1be9f995901987",
+   "why": "Calendar fallback/refresh audit behind results/calendar_audit.json (the report's 24-case audit). REPRODUCE.md."
+  },
+  {
+   "path": "agent/audit_cold_parity.py",
+   "bytes": 1652,
+   "sha256": "5180cb82154589852172e602d699b327520fcf935a3cfe5826f5e1ad3d121306",
+   "why": "Writes results/cold_context_parity.json (leading-NaN vs native three-day parity, report and journal)."
+  },
+  {
+   "path": "agent/audit_interface.py",
+   "bytes": 4468,
+   "sha256": "cd31889fdf93d87aa5b738adbc18e302d4cff7db32d2cdd4aba59014daf156af",
+   "why": "Serving-contract audit behind results/interface_*_audit.json (the report's 72 serving cases with XGBoost blocked). REPRODUCE.md."
+  },
+  {
+   "path": "agent/audit_release_artifacts.py",
+   "bytes": 2307,
+   "sha256": "f03b90abb48776f2daa6764a7ef98fe22dc20a32751f01d66313bd2806ada177",
+   "why": "Writes results/release_portable_artifact_audit.json, the agent's own list and hashes of required serving files. REPRODUCE.md."
+  },
+  {
+   "path": "agent/audit_temporal_sampling.py",
+   "bytes": 2176,
+   "sha256": "8ebbd6e8d5e531315aab8b4cae62a7a1abb68c646b5c8ff00aecb7b2e5f69904",
+   "why": "Writes results/temporal_sampling_audit.json (Sobol stream-coupling pitfall in the report's transient-state paragraph; journal-cited)."
+  },
+  {
+   "path": "agent/baseline.py",
+   "bytes": 1353,
+   "sha256": "2297f95fff18349a1ffa78c4996f1ad7519c3161ce8a316c50b6fb41d182c41d",
+   "why": "The seeded starter model every CHAMPION/report reduction is measured against (journal iteration 1)."
+  },
+  {
+   "path": "agent/calendar_complete_models.py",
+   "bytes": 854,
+   "sha256": "7c0abf0bf49dff186a3b939b65c4ea804601843792cdc0b3a8c4e3e392bf4970",
+   "why": "Calendar effects over the Gaussian checkpoint, the report's 91-day calendar attribution."
+  },
+  {
+   "path": "agent/calibration_models.py",
+   "bytes": 1375,
+   "sha256": "88dc012a299b8f4c89dacbe4b01f600f004a94a431163210946aa9bde14dede3",
+   "why": "Width correction check for the log-scale target (journal width/calibration study)."
+  },
+  {
+   "path": "agent/capacity_models.py",
+   "bytes": 1125,
+   "sha256": "f6f29a479a8df81f3bd9f261d89fb82971e926f2465821c7f352410428de8e31",
+   "why": "Deeper-tree variant (report: deeper trees improve at most 0.123%)."
+  },
+  {
+   "path": "agent/cold_models.py",
+   "bytes": 1109,
+   "sha256": "431096fd3ceadae3d9b6a02506319c2be2245231817d1cce68d5519c0a366ea0",
+   "why": "Matched three-day cold-start training (report: adds only 0.071%, discarded; results/paired_combined_cold)."
+  },
+  {
+   "path": "agent/cold_serving_models.py",
+   "bytes": 557,
+   "sha256": "5ff963341634e049e221f5d41b23f87a59f9b78711ff7fe195b4aed991ab2bfa",
+   "why": "Serves the checkpoint with three real days and leading NaN days (report sparse-context paragraph)."
+  },
+  {
+   "path": "agent/combined_checkpoint.py",
+   "bytes": 877,
+   "sha256": "6906186475df02aa855d3bb55e03c3cd103ed8b70dde0f36a4a812a8564c022f",
+   "why": "Frozen combined serving law behind results/combined_checkpoint_general and the calibration diagnostics (journal; REPRODUCE.md primary evidence)."
+  },
+  {
+   "path": "agent/combined_models.py",
+   "bytes": 1833,
+   "sha256": "309505e2662bd3422732cec87eadb1bd0959f773f185754ebe89d21bd34084e8",
+   "why": "Scale-mixture and Sobol/antithetic distribution ablations that selected the 0.4 mixture (report 'Distribution and finite-fan error')."
+  },
+  {
+   "path": "agent/compare.py",
+   "bytes": 2112,
+   "sha256": "bea58ba77d7228e388d36ee3b41fe609762e5d104045e189cc7ac7df884466fa",
+   "why": "Loads saved official score frames and pairs them; imported by analyze_paired.py, plot_research.py and diagnose_calibration.py."
+  },
+  {
+   "path": "agent/context14_models.py",
+   "bytes": 127,
+   "sha256": "bf36f019ba296d9a9556e02e8a06b2c53b0990990b15b10740693ed6e6d33cc0",
+   "why": "Fourteen-day input-length ablation (report: slightly worsens daily scores)."
+  },
+  {
+   "path": "agent/context3_models.py",
+   "bytes": 128,
+   "sha256": "b6fd61246b344000b5ed8e3f80be108b63b30cf93bb69f9db23a960ae22c1f2e",
+   "why": "Three-day input-length ablation (report: context stays seven days)."
+  },
+  {
+   "path": "agent/context30_models.py",
+   "bytes": 125,
+   "sha256": "3c5c7e3daa38f98eeb261f4377c58c8053e97825de3ac2a7544dc29c1e36ec6f",
+   "why": "Thirty-day input-length ablation (report: slightly worsens daily scores)."
+  },
+  {
+   "path": "agent/covariance_models.py",
+   "bytes": 1496,
+   "sha256": "53d6406f068ea77c6ecc14d2d2d2988ea2388466a6a3dc4e2df11cab82fdad21",
+   "why": "Daily covariance perturbation (report: 0.035%/0.029%, below threshold; results/paired_covariance)."
+  },
+  {
+   "path": "agent/curve_models.py",
+   "bytes": 1880,
+   "sha256": "de49b8fd8f4b020c95c8410a56e4362f81e363ec052c0642e67e7b40455093fa",
+   "why": "Hand-designed future-volatility tilt (report: gains only hundredths of a percent)."
+  },
+  {
+   "path": "agent/diagnose_calibration.py",
+   "bytes": 4687,
+   "sha256": "ae27ae0c4acb38da057158368968224672a1a184ed237157fa7532e0e819106c",
+   "why": "Writes results/calibration/ (coverage numbers in report 'Limitations'; journal-cited)."
+  },
+  {
+   "path": "agent/direction_models.py",
+   "bytes": 2278,
+   "sha256": "a41a1fe39d946cd1de873662349faaa950fe2b1d641555f49463446e9c21c214",
+   "why": "Conditional drift variant (report: directional forecasts worsen crypto)."
+  },
+  {
+   "path": "agent/empirical_models.py",
+   "bytes": 3412,
+   "sha256": "414946b88af15548c75fb733142ddfac5c7b645ba0ac209e558b98db82c35560",
+   "why": "Empirical innovation laws (report: worsen one-hour CRPS in the turbulent window)."
+  },
+  {
+   "path": "agent/event_lookback_models.py",
+   "bytes": 2133,
+   "sha256": "d80c3bba36692f5b1d6bc5eceedb581b0d183f7a84dc5d393029c9984f8a976e",
+   "why": "180-day event-fit lookback (report: worsens all three conditional scores; results/paired_event180)."
+  },
+  {
+   "path": "agent/event_reference_models.py",
+   "bytes": 2973,
+   "sha256": "71b4fd22ebd613990224f740e8fddbfcd83cb02e315fc91ed3ddf5f550e20cbe",
+   "why": "Daily-scale event reference (report: at most 0.033%, below 0.5%)."
+  },
+  {
+   "path": "agent/explore.py",
+   "bytes": 3526,
+   "sha256": "7b8267f6424a6c0bcb708a146dee9bfdc86ea4a0bc904c24b2aca2094c9e58e5",
+   "why": "load_asset() snapshot reader imported by fit_seasonality, make_ml_data, fit_events, fit_closures and analyze_events; also writes results/descriptive."
+  },
+  {
+   "path": "agent/export_portable_trees.py",
+   "bytes": 3420,
+   "sha256": "f3d1f37a0f403c0900cdb19f4bcf9b0706efaa72b06fc2310bbb5e56d0d6c67e",
+   "why": "Converts the artifacts/ml .ubj forests to the served artifacts/ml_portable/*.npz and writes results/portable_tree_parity.json (bitwise parity). CHAMPION notes and REPRODUCE.md."
+  },
+  {
+   "path": "agent/fit_closures.py",
+   "bytes": 6425,
+   "sha256": "8ac74df49e73a164eae4e336fb846fefaf08e6a56767561f99af648da85d32b1",
+   "why": "Fits artifacts/closures.json (served NYSE closure attenuation) and results/closures/*.csv. REPRODUCE.md 'Training provenance'; report closure paragraph."
+  },
+  {
+   "path": "agent/fit_events.py",
+   "bytes": 6362,
+   "sha256": "02f6694fa3cfcc3ac211cde9e79491436ac42f6d62c817bda38335b5c7195c63",
+   "why": "Fits artifacts/events.json (served forward event kernels, 365-day lookback) and results/events/leave_one_event_out*.csv. REPRODUCE.md 'Training provenance'; report 'Known events'."
+  },
+  {
+   "path": "agent/fit_microseason.py",
+   "bytes": 2323,
+   "sha256": "4bfaf18300637d44795f7e269b52012d12b68d075db4a50739d4e97649955768",
+   "why": "Fits the minute-of-hour profile and results/microseason_diagnostics.csv (report)."
+  },
+  {
+   "path": "agent/fit_seasonality.py",
+   "bytes": 3675,
+   "sha256": "417b043b6e41db9809910627c36d4bbcaabc01b39b9937bcb7796d41d5857180",
+   "why": "Fits artifacts/seasonality.json (default, 96-bin variance) and seasonality_abs5m.json (--statistic absolute --bins 288); both are served. REPRODUCE.md 'Training provenance'."
+  },
+  {
+   "path": "agent/fit_volatility_prior.py",
+   "bytes": 1748,
+   "sha256": "e321fa32f120c1643fa2f63445620c948401c503a3674db219d15c10fb5a5d65",
+   "why": "Fits the sparse-context prior used by volatility_prior.py (report)."
+  },
+  {
+   "path": "agent/fit_zero_mass.py",
+   "bytes": 2852,
+   "sha256": "01ed6fc565a3a768571838e2a60632c57ed0dff4a7e46cd08e050a5830603010",
+   "why": "Fits the zero-return probabilities used by zero_mass_models.py (report)."
+  },
+  {
+   "path": "agent/gamma_models.py",
+   "bytes": 1833,
+   "sha256": "9853989eebf6fba3cc4d979f5f3250e865a9c93c57b7ffeb79e2587b3b9b6d0b",
+   "why": "Gamma-deviance target variant (report: best gain 0.128%, discarded)."
+  },
+  {
+   "path": "agent/gap_models.py",
+   "bytes": 2068,
+   "sha256": "47947634bff08ff4cd697d4c2f55052bc44017008d82372bdf727f47578cf0b7",
+   "why": "Synthetic stale-context gaps and volatility aging (report: 3h/12h gap penalties; aging below 0.5%)."
+  },
+  {
+   "path": "agent/gaussian_checkpoint.py",
+   "bytes": 937,
+   "sha256": "46e02a0e09a2cbff67d3e7c066365859fc28b6c1810802e84351bf755913d668",
+   "why": "Frozen learned-Gaussian checkpoint, the 'Learned Gaussian checkpoint' row of the report's 91-day table (journal: frozen for reproducible ablations)."
+  },
+  {
+   "path": "agent/group_models.py",
+   "bytes": 1348,
+   "sha256": "80b751b11a6d8e41c240d3e27064416f6627357690f1469bc9db2e544928ae65",
+   "why": "Separate daily crypto vs commodity/equity regressions (report: at most 0.058%, discarded)."
+  },
+  {
+   "path": "agent/innovation_models.py",
+   "bytes": 1614,
+   "sha256": "fffd4165667a9fe42e074d55b39072bdc14bd4babca05dfd3c4ad9ae5f8a5422",
+   "why": "Student-t and stochastic-volatility ablations (report: t(5) one-hour benefit reverses in November)."
+  },
+  {
+   "path": "agent/linear_models.py",
+   "bytes": 1999,
+   "sha256": "4330bcd8eba0f196783c0fed263c45c4e1dd7ae74ed5ff06a3076a7767ac2ecf",
+   "why": "Ridge reference and tree blend (report: worsens all three configurations)."
+  },
+  {
+   "path": "agent/lookback_models.py",
+   "bytes": 936,
+   "sha256": "6774351aae180f1ab7f063074e147c5e9ce4a2ed75e0efd886f85737faf66b89",
+   "why": "Future-profile lookback 60/240 vs 120 days (report: no useful benefit)."
+  },
+  {
+   "path": "agent/make_direction_data.py",
+   "bytes": 2199,
+   "sha256": "888718214f2853bc1be18d80003d04a72d9af065cf79e4a9879ab34bb54e8dc9",
+   "why": "Builds directional labels for train_direction.py (report)."
+  },
+  {
+   "path": "agent/make_ml_data.py",
+   "bytes": 5136,
+   "sha256": "3858dbe3323e3f7e582fefaa0c40e2bfb34fb8ac15c838f60c0450a6ae9d4206",
+   "why": "Builds the causal feature/forward-label cache (agent/cache) that train_ml.py fits the served volatility forests on; uses ml_features.vector_features. REPRODUCE.md 'Training provenance'."
+  },
+  {
+   "path": "agent/make_neural_data.py",
+   "bytes": 2783,
+   "sha256": "ce0157449ab9e6bccdd2252ceab7093d905fee8fc57d2fa5dd8840106e06a17b",
+   "why": "Builds the neural training sequences (report neural paragraph)."
+  },
+  {
+   "path": "agent/make_segment_data.py",
+   "bytes": 3200,
+   "sha256": "034f58805e96ac3594ea0096457b2aa83ed58c7eb87e7a4debee0e641ca6c381",
+   "why": "Builds forward segment labels for train_segments.py (report)."
+  },
+  {
+   "path": "agent/matched_models.py",
+   "bytes": 2660,
+   "sha256": "ad61007b4ccdeebbb25d0bc742ac40dd0fef8ea066836359bc5cd56c2380c75e",
+   "why": "Learned volatility refitted under the robust 5-minute profile (report: refitting does not fix the gold regression)."
+  },
+  {
+   "path": "agent/measure_dependence.py",
+   "bytes": 1520,
+   "sha256": "936c63159fe9a022b0dfe53de3400712a0c1d10e7fa24758bf6e5f33029d193e",
+   "why": "Descriptive horizon scaling and return dependence (writes results/descriptive/dependence.csv), background to the report's daily-covariance experiment."
+  },
+  {
+   "path": "agent/microseason_models.py",
+   "bytes": 2312,
+   "sha256": "34fce5ae438f88fca36e10e078956480f536adff958a60eb43c523a381749aa7",
+   "why": "Minute-of-hour refinement (report: about 0.022%); unreached import of integrated_models."
+  },
+  {
+   "path": "agent/neural_features.py",
+   "bytes": 2884,
+   "sha256": "de1f84215d7cc477130f520ca12385765d8b2299e7dc111e8838e85da831b174",
+   "why": "Multiscale sequence features for the neural experiment (imported by neural_models.py/make_neural_data.py)."
+  },
+  {
+   "path": "agent/neural_models.py",
+   "bytes": 2314,
+   "sha256": "ff2d2061de0d509ad6b0943d2e3e6e6ad38105079dfca0ee289f6d49c893aa0f",
+   "why": "Recurrent-encoder serving for the neural experiment (report: fails the 0.3% threshold)."
+  },
+  {
+   "path": "agent/plot_broad_results.py",
+   "bytes": 2226,
+   "sha256": "774eaa19afdb42649d6c551c7b4cfe361f619a352aec129c995990dac631f235",
+   "why": "Draws figures/broad_asset_improvements.png (report.md) from results/paired_candidate_starter_wide/asset.csv."
+  },
+  {
+   "path": "agent/plot_calibration.py",
+   "bytes": 3283,
+   "sha256": "88ee018dacf143d113cb41817e9292fe01c5fa81942a3d9008532236f041410c",
+   "why": "Draws figures/calibration_coverage.png (report.md) from results/calibration/configuration.csv and window.csv."
+  },
+  {
+   "path": "agent/plot_profile_diagnosis.py",
+   "bytes": 3323,
+   "sha256": "9334e0b01e2b5c2a02e1ff71656e77e3b8bda02477dc885e4b29078548839b5e",
+   "why": "Draws figures/profile_normalization_failure.png (report.md gold diagnosis) and writes results/xau_profile_plot_values.csv."
+  },
+  {
+   "path": "agent/plot_research.py",
+   "bytes": 2620,
+   "sha256": "4df3f328e901939f60cf2b9b2ee7bbd79bf5a225e800fad06bb86a4532e29ee2",
+   "why": "Draws figures/core_improvements.png and closure_results.png cited in report.md, from saved scores and results/closures/crps_by_date.csv."
+  },
+  {
+   "path": "agent/predict.py",
+   "bytes": 21475,
+   "sha256": "eaf935e0e9dfdd24712036326e1a9dc55bdd57a53338afad78d2cb5407db7cc3",
+   "why": "Official synth-lib backtester wrapper that produced every CRPS score cited (CHAMPION names agent/predict.py). Called by run_suite.py."
+  },
+  {
+   "path": "agent/quantile_models.py",
+   "bytes": 2943,
+   "sha256": "ca40e214a22ecc4db3cae17dbf67cfc81611251f1279dd0db747bb8055e40ae9",
+   "why": "Conditional volatility-quantile law (report: does not clearly beat the fixed mixture)."
+  },
+  {
+   "path": "agent/risklabel_models.py",
+   "bytes": 1272,
+   "sha256": "105e8466f71dff50664216cf0e25d6a2cc268bb252d597471625640dc59a98e4",
+   "why": "Risk-weighted label variant (report: gains at most 0.022%)."
+  },
+  {
+   "path": "agent/run_suite.py",
+   "bytes": 4751,
+   "sha256": "96957938fcbc5a38a36cd68bbb7e3bbd35de592c88662ad4adc30df3ccbb8d22",
+   "why": "Experiment driver: runs predict.py per asset/window and writes every results/<tag>/ suite; also defines ROOT/CRYPTO/OTHER imported by all fitting scripts. REPRODUCE.md 'Historical scores'."
+  },
+  {
+   "path": "agent/run_variants.py",
+   "bytes": 1341,
+   "sha256": "41f687fc854e9933912a71c3f94642fb3bc45d89c35ce0e745497ecb00302bc4",
+   "why": "Runs a SYNTH_RESEARCH_VARIANT family through run_suite.py; produced the *_dev/*_confirm suites the journal and report compare."
+  },
+  {
+   "path": "agent/scale_models.py",
+   "bytes": 969,
+   "sha256": "439a149b0453fef064d8690b0cb27dc4d5d41c2ea7e249fd2da51c935846d4ca",
+   "why": "Robust/global scale calibration vs the learned forecast, plus the uniform widening grid (report: widening helps August, hurts October)."
+  },
+  {
+   "path": "agent/segment_models.py",
+   "bytes": 2569,
+   "sha256": "da54756da60b7b2c3611782bcde96feff1cb854ad855da297446794febc96c4f",
+   "why": "Learned future-segment curve (report: misses the 0.2% confirmation threshold); unreached import of integrated_models."
+  },
+  {
+   "path": "agent/sparse_models.py",
+   "bytes": 1077,
+   "sha256": "71c06e0d40442a56b93faac3a65d1c04e47965fe535a9e273e0da846f26a553d",
+   "why": "One-price and ten-minute sparse-context stress tests (report; results/paired_sparse*)."
+  },
+  {
+   "path": "agent/summarize_research.py",
+   "bytes": 1896,
+   "sha256": "86909ab392a78e716ea6664b266d78cd0198e6e34572d3bb8939382f3e96ba55",
+   "why": "Writes results/research_registry.csv, which report.md and REPRODUCE.md cite as the index of completed suites."
+  },
+  {
+   "path": "agent/temporal_mixture_invalid.py",
+   "bytes": 2030,
+   "sha256": "d8ed3bc45590142c8a81e74cee203c7062fec6f7c244f2a1bc8a414351d5bcfd",
+   "why": "Preserved invalid sampler of the stopped run (report sampling pitfall; results/temporal_mixture_general/INVALID.md)."
+  },
+  {
+   "path": "agent/temporal_mixture_models.py",
+   "bytes": 2278,
+   "sha256": "5578c8d63df455ebce3d3d290a6b1142e39f039990f90d25cb8276288054a248",
+   "why": "Path vs transient-state log-scale split (report: at most 0.023%)."
+  },
+  {
+   "path": "agent/train_direction.py",
+   "bytes": 3537,
+   "sha256": "09f6b8e508447557e2c013c4580df0996df5dfdcc120735e778f9a8f622fe95a",
+   "why": "Trains the purged directional regressions used by direction_models.py (report)."
+  },
+  {
+   "path": "agent/train_groups.py",
+   "bytes": 654,
+   "sha256": "4963046de59d3c81bf55230ed806b63002ef7acc33185da8867ab5f1e91dc711",
+   "why": "Runs the two group-specific train_ml.py fits behind group_models.py (report)."
+  },
+  {
+   "path": "agent/train_linear.py",
+   "bytes": 3400,
+   "sha256": "7c90626ec11fc480e367c082f9920268a0440323df6f430603004d156eedf6bc",
+   "why": "Trains the ridge reference used by linear_models.py (report)."
+  },
+  {
+   "path": "agent/train_ml.py",
+   "bytes": 5873,
+   "sha256": "ee820eba302ea8e4eb675a3345a57277b59f45f044cb38658d40eb345043ee3d",
+   "why": "Trains the chronological, purged depth-3 XGBoost volatility forests and writes artifacts/ml/manifest.json (served) and the .ubj originals; also the gamma/weighted/long/recent variants the report discards. REPRODUCE.md 'Training provenance'."
+  },
+  {
+   "path": "agent/train_neural.py",
+   "bytes": 8918,
+   "sha256": "ab6992d63d2f0c77c98f255e2a92d9c49d6e1318778874c563f2ce865ca4c45b",
+   "why": "Trains the twelve chronological neural fits; writes results/neural (report neural paragraph)."
+  },
+  {
+   "path": "agent/train_quantile.py",
+   "bytes": 2780,
+   "sha256": "029bb7571f870759e6343c2f18154dd0ccff7431d6c24880a13f77f81f0a86fc",
+   "why": "Trains the quantile forests used by quantile_models.py (report)."
+  },
+  {
+   "path": "agent/train_segments.py",
+   "bytes": 3755,
+   "sha256": "90915db65023f5abbe2ee676c38c044ff478ebe37a95704e72ed75787a452e7c",
+   "why": "Trains the segment-curve regressions used by segment_models.py (report)."
+  },
+  {
+   "path": "agent/validate_results.py",
+   "bytes": 1607,
+   "sha256": "4f361135d603104bda03a187e0d13d04a909df41ddb45e74ad0a0f407987cfa2",
+   "why": "Writes results/result_audit.json (the report's 1,038,608-score output audit). REPRODUCE.md."
+  },
+  {
+   "path": "agent/volatility_prior.py",
+   "bytes": 1189,
+   "sha256": "f26dcd94980c4f3ed8af07aa1175a1ed5024699131bdb939f58ce3c5d2aae863",
+   "why": "Causal asset/horizon scale prior for sparse contexts (report: discarded)."
+  },
+  {
+   "path": "agent/width_models.py",
+   "bytes": 850,
+   "sha256": "056a90abfd67ec60b4bd0e268c473f72279dd6bee9dc9466b44e7354cd5ca124",
+   "why": "One-hour 1.05 width multiplier reopened after the precision study (report: worsens overall CRPS by 0.052%)."
+  },
+  {
+   "path": "agent/zero_mass_models.py",
+   "bytes": 3664,
+   "sha256": "cce02f054bab954ac84968812432d34374d6892d8a7d3e4a32cc4785d0a6ed2a",
+   "why": "Zero-return atom variant (report: at most 0.036%)."
+  },
+  {
+   "path": "agent/results/paired_candidate_starter_wide/asset.csv",
+   "bytes": 1384,
+   "sha256": "d2770345fa66c69553aad3bfc964a0f27b299b8596ad4afb89dd81fcef26e93e",
+   "why": "Champion vs starter 91-day paired comparison (asset.csv), CHAMPION's cited evidence and REPRODUCE.md primary evidence; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_candidate_starter_wide/cells.csv",
+   "bytes": 1589,
+   "sha256": "4289cf24ca6667fbb7b64c31a2aa137077b02eacb86d509a38d2eadd089e85c2",
+   "why": "Champion vs starter 91-day paired comparison (cells.csv), CHAMPION's cited evidence and REPRODUCE.md primary evidence; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_candidate_starter_wide/day.csv",
+   "bytes": 25828,
+   "sha256": "79dda2402061be06ffb0c353c4170348cae3414030317656545bf45f6c33981c",
+   "why": "Champion vs starter 91-day paired comparison (day.csv), CHAMPION's cited evidence and REPRODUCE.md primary evidence; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_candidate_starter_wide/extremes.csv",
+   "bytes": 8761,
+   "sha256": "c03543497775fd2d29c17a5344cb740f40085017f5e483f2eb54c6c1807dbf54",
+   "why": "Champion vs starter 91-day paired comparison (extremes.csv), CHAMPION's cited evidence and REPRODUCE.md primary evidence; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_candidate_starter_wide/intervals.csv",
+   "bytes": 1623,
+   "sha256": "2ad02726ed9266c0ddbaac4edfb0ad7b95c78e496ab49438aea1f8b378f3f672",
+   "why": "Champion vs starter 91-day paired comparison (intervals.csv), CHAMPION's cited evidence and REPRODUCE.md primary evidence; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_candidate_starter_wide/summary.json",
+   "bytes": 2881,
+   "sha256": "0989a90af052e4e215418343fb61edfa5bf025bce0a14834f1ce0fb90636904f",
+   "why": "Champion vs starter 91-day paired comparison (summary.json), CHAMPION's cited evidence and REPRODUCE.md primary evidence; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_candidate_starter_wide/week.csv",
+   "bytes": 4044,
+   "sha256": "211b2dccf0ce0e552ff7e8e0e3ad76747f77926377e3a0429153ecff7a7f1480",
+   "why": "Champion vs starter 91-day paired comparison (week.csv), CHAMPION's cited evidence and REPRODUCE.md primary evidence; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_candidate_starter_wide/window.csv",
+   "bytes": 292,
+   "sha256": "1170295bc03a674c045c1b1dffe2a5d73cad989e5d8c56ade6e094b08d8a5cb0",
+   "why": "Champion vs starter 91-day paired comparison (window.csv), CHAMPION's cited evidence and REPRODUCE.md primary evidence; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_serving_parity/asset.csv",
+   "bytes": 1093,
+   "sha256": "b4a106a8f91ee2d28059a573f8d9fb6ee7c36db9bdc6f0b1f18c8a826b980ddd",
+   "why": "Serving-module vs candidate parity over 6048 scores (asset.csv), cited by CHAMPION and journal; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_serving_parity/cells.csv",
+   "bytes": 4948,
+   "sha256": "69f0d573687e12732e52e8fa82156d64a2a303cb759ca5f3cedb8fa67acb66d0",
+   "why": "Serving-module vs candidate parity over 6048 scores (cells.csv), cited by CHAMPION and journal; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_serving_parity/day.csv",
+   "bytes": 6597,
+   "sha256": "2ce3c7d2a3278db8c55e57a131e93462dbe38957e4b745a90da37b4244195a02",
+   "why": "Serving-module vs candidate parity over 6048 scores (day.csv), cited by CHAMPION and journal; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_serving_parity/extremes.csv",
+   "bytes": 7682,
+   "sha256": "4ad3dbae6e934a0276497a282365bc8279b8a8a99cf6382f6e092d60fc2012d5",
+   "why": "Serving-module vs candidate parity over 6048 scores (extremes.csv), cited by CHAMPION and journal; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_serving_parity/intervals.csv",
+   "bytes": 1280,
+   "sha256": "77c210ad9b2888bf526142e494b3024ced60bdd4efae44024e3d66e0f24d8c85",
+   "why": "Serving-module vs candidate parity over 6048 scores (intervals.csv), cited by CHAMPION and journal; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_serving_parity/summary.json",
+   "bytes": 2604,
+   "sha256": "edb2429036d06645c8481e7c97b1de35e208a3df0e0da48b5b76c0e48cbe1ca3",
+   "why": "Serving-module vs candidate parity over 6048 scores (summary.json), cited by CHAMPION and journal; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_serving_parity/week.csv",
+   "bytes": 1224,
+   "sha256": "ce22db580821dcd701e816bf31151244ad1eb35b1e369976290c7de53513818a",
+   "why": "Serving-module vs candidate parity over 6048 scores (week.csv), cited by CHAMPION and journal; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_serving_parity/window.csv",
+   "bytes": 814,
+   "sha256": "e521fcbe92e1376e2881c86ea5c03187c3238c649ec1916e396a9a33c80f2a89",
+   "why": "Serving-module vs candidate parity over 6048 scores (window.csv), cited by CHAMPION and journal; written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/portable_score_parity.json",
+   "bytes": 118,
+   "sha256": "e57d6a7198cdd7a40dae9151955de8246c5ecc10916d98d6076a5d95c4bc96d3",
+   "why": "CHAMPION and REPRODUCE.md: all 6048 official scores equal after the NumPy export."
+  },
+  {
+   "path": "agent/results/research_registry.csv",
+   "bytes": 61734,
+   "sha256": "920d68fa841d599f5a9024b17f53dc1b861dc5f650a4fd9d7cdc80b1f2bd441f",
+   "why": "Index of completed suites cited by report.md and REPRODUCE.md; written by summarize_research.py."
+  },
+  {
+   "path": "agent/results/release_portable_artifact_audit.json",
+   "bytes": 6217,
+   "sha256": "28283a9435f3218a7a7ec681f0b8a8ec2ebb9a1fad3ce4e63df22e4ab754f4b0",
+   "why": "Required serving files and hashes, cited by REPRODUCE.md and journal; written by audit_release_artifacts.py."
+  },
+  {
+   "path": "agent/results/portable_tree_parity.json",
+   "bytes": 8847,
+   "sha256": "f1579fc92c67eb923a09e518bf7a0e89652189e4d555073a2d1609269ae1520d",
+   "why": "Bitwise XGBoost-vs-NumPy parity on 49,152 rows (CHAMPION notes, REPRODUCE.md, journal); written by export_portable_trees.py."
+  },
+  {
+   "path": "agent/results/baseline_wide_field/suite.json",
+   "bytes": 15243,
+   "sha256": "9f82ee854c62a140d1302820038ec8ee70f0fa9959c5dfda374282ce31ef9946",
+   "why": "Per-asset summary of the 91-day starter suite, REPRODUCE.md primary evidence (score frames left out)."
+  },
+  {
+   "path": "agent/results/candidate_calendar_wide_field/suite.json",
+   "bytes": 17383,
+   "sha256": "ecff86c3f7b90c929a785ae525c130c4d5b6ed6dc5c5596b929f1424856860ff",
+   "why": "Per-asset summary of the 91-day champion suite, REPRODUCE.md primary evidence (score frames left out)."
+  },
+  {
+   "path": "agent/results/combined_checkpoint_general/suite.json",
+   "bytes": 67011,
+   "sha256": "1068509dab147762b898d33c0e60a6ab272314f9f1b3e887c7876ec44dbec45a",
+   "why": "Four-window combined-checkpoint suite summary, REPRODUCE.md primary evidence and journal serving-parity entry."
+  },
+  {
+   "path": "agent/results/portable_release_general/suite.json",
+   "bytes": 67023,
+   "sha256": "d84d39283ee21e0948940a145f0464e3ae0bcc43b2ba5f6e7e2bc965ad08f578",
+   "why": "Four-window replay of the NumPy export, cited by REPRODUCE.md."
+  },
+  {
+   "path": "agent/results/result_audit.json",
+   "bytes": 93,
+   "sha256": "1cf4722f5189ece41041de78e2f6f1b1fefd64d0b9121ca1e756c18c45350bd1",
+   "why": "Saved-score audit cited by journal and report; written by validate_results.py."
+  },
+  {
+   "path": "agent/results/calendar_audit.json",
+   "bytes": 3400,
+   "sha256": "aacb95a093d598fc0668ab1145b840edf737392405c0859dac8f99fa81b42137",
+   "why": "24-case calendar audit cited by journal and report; written by audit_calendar.py."
+  },
+  {
+   "path": "agent/results/temporal_sampling_audit.json",
+   "bytes": 2256,
+   "sha256": "e375e348119267d4c78501dd904716684ecbd54776e934942cced70cc3ec9a16",
+   "why": "Sobol coupling diagnosis cited by journal; written by audit_temporal_sampling.py."
+  },
+  {
+   "path": "agent/results/sampling_precision.csv",
+   "bytes": 1494,
+   "sha256": "53e000ac4a4d5628c060db90a7d70b57401b653d86b06c8b432434ca9a43153c",
+   "why": "Four-seed Gaussian vs mixture Sobol comparison (journal; report: crypto1 875.098973 to 874.378343)."
+  },
+  {
+   "path": "agent/results/sampling_audit.json",
+   "bytes": 914,
+   "sha256": "a27c39a9ffae8f9c5661b9fe50e71b21b5d35093f5ba065676d1a3511b98888c",
+   "why": "Path-count/seed audit of the Sobol mixture cited by journal."
+  },
+  {
+   "path": "agent/results/risk_label_parity.csv",
+   "bytes": 1486,
+   "sha256": "222997287e1885ee2a7a0d65aa1f6c3ac064c18daa7a8d6fbb9461cee1ffbde5",
+   "why": "Train/serve parity of the risk-weighted label experiment, cited by journal."
+  },
+  {
+   "path": "agent/results/release_artifact_audit.json",
+   "bytes": 6075,
+   "sha256": "8ac0b2ba6a27a7760dfc38c2cc935536888f2df0e3d222dd24a2f3ce36c7f6ff",
+   "why": "Earlier required-artifact hash audit cited by journal."
+  },
+  {
+   "path": "agent/results/price_grid_audit.json",
+   "bytes": 4109,
+   "sha256": "7eb901bfa4d86c03720ccb57a978fdd4f2c7872493b5dd90fa901c762a7bdad1",
+   "why": "Missing-close and timestamp-gap audit of the snapshot, cited by journal (starter validity fix)."
+  },
+  {
+   "path": "agent/results/interface_release_audit.json",
+   "bytes": 13019,
+   "sha256": "78dff829640a82a7d8ef235bbc6869da6199d994b6cd8d11a67af0b1bdd37116",
+   "why": "Final 72-case interface audit (journal; report serving paragraph); written by audit_interface.py."
+  },
+  {
+   "path": "agent/results/interface_portable_audit.json",
+   "bytes": 13051,
+   "sha256": "866e4b3dc2dfc37e980f81d9c22322e8486e9c7fdd1ed8171835e4a4aea078e7",
+   "why": "Interface audit of the NumPy export with XGBoost blocked (journal); written by audit_interface.py."
+  },
+  {
+   "path": "agent/results/interface_combined_audit.json",
+   "bytes": 13029,
+   "sha256": "080a760eb6fb62374c7c5dca570262b8b2c7099a4545988dee7da8f6745144aa",
+   "why": "Interface audit of the combined checkpoint (journal); written by audit_interface.py."
+  },
+  {
+   "path": "agent/results/cold_context_parity.json",
+   "bytes": 1455,
+   "sha256": "799c5b930b3c784d213b5748db8328c0647d34bab0d93fe20d7b84d7ba9da3d7",
+   "why": "Leading-NaN parity cited by journal; written by audit_cold_parity.py."
+  },
+  {
+   "path": "agent/results/calendar_refresh_reproduction.json",
+   "bytes": 137,
+   "sha256": "988fecf769ca70b3accfa74b87358349eca3f97cf10185c35786e41f331f3a02",
+   "why": "Stale-calendar-cache reproduction cited by journal and report."
+  },
+  {
+   "path": "agent/results/antithetic_audit.json",
+   "bytes": 1251,
+   "sha256": "b2b517fb37d687c1e7d0592892424a9bb0dca186a9b706e58f4f3ad3a7d756ae",
+   "why": "Antithetic sampling audit cited by journal."
+  },
+  {
+   "path": "agent/results/shocks/past_residual_buckets.csv",
+   "bytes": 624,
+   "sha256": "fff9a9699f9f6608e67e5609aba144137695090087f2dd56d34437952890b2ef",
+   "why": "Shock-cap evidence cited by journal (report: no automatic shock cap)."
+  },
+  {
+   "path": "agent/results/events/causal_amplitude_spread.csv",
+   "bytes": 606,
+   "sha256": "29c5e6da06015fdd672404582bcd130479370df0d0332f2aae336581d8e5079e",
+   "why": "Event-amplitude dispersion evidence cited by journal (report: extra dispersion screened out)."
+  },
+  {
+   "path": "agent/results/paired_ml_wide/extremes.csv",
+   "bytes": 8753,
+   "sha256": "fced0afb29d69c05c7d7e8e05105a788d411e9f3f99f79a559b9a0495a3bf659",
+   "why": "Largest individual losses cited explicitly by journal (report: no shock cap)."
+  },
+  {
+   "path": "agent/results/paired_ml_wide/summary.json",
+   "bytes": 2843,
+   "sha256": "3013472bfcf16555c4141cbb1caa4d94ad2497f0b533666b982c98a7d409740b",
+   "why": "91-day learned-checkpoint vs starter comparison cited by journal (report table row)."
+  },
+  {
+   "path": "agent/results/paired_winter_starter/summary.json",
+   "bytes": 1618,
+   "sha256": "ff07b261285d6fd851be6fceea7bea3eb9cb9b65fde4455150ff5648e07dddc4",
+   "why": "Headline summary of March 2-6 winter check vs starter (report); journal cites results/paired_winter_starter/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_winter_gaussian/summary.json",
+   "bytes": 1626,
+   "sha256": "581353917581887f1878bc05ad60c47133e9e512c53497c96914ad06ebf49896",
+   "why": "Headline summary of March 2-6 winter check vs learned Gaussian (report); journal cites results/paired_winter_gaussian/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_sparse10_dev/summary.json",
+   "bytes": 1767,
+   "sha256": "605dd4a3f6f3762f639f36c67846e6fc01317db157cca5b724bda24a6c212287",
+   "why": "Headline summary of ten-minute sparse-context prior (report: discarded); journal cites results/paired_sparse10_dev/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_sparse1_dev/summary.json",
+   "bytes": 1760,
+   "sha256": "a204b78872e9c1348ba738701bb9162b63fd1605c8ccbfb0ebab3203a5b426ed",
+   "why": "Headline summary of one-price sparse prior, development (report); journal cites results/paired_sparse1_dev/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_sparse1_confirm/summary.json",
+   "bytes": 2892,
+   "sha256": "335b112ba09097001e96dd773a6a8dbef974c5d68127f09bfccfb46168fa17b6",
+   "why": "Headline summary of one-price sparse prior, confirmation (report: 3.880%/5.318% crypto); journal cites results/paired_sparse1_confirm/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_portable_release/summary.json",
+   "bytes": 2678,
+   "sha256": "c54caa77d953560bdbf95165c5fa39c184ffd25d40a1f6602d5bc52d2226baa3",
+   "why": "Headline summary of NumPy-export replay vs prior scores; journal cites results/paired_portable_release/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_event180/summary.json",
+   "bytes": 2904,
+   "sha256": "29f35a8219d185e8aada066c465cc34a523f9f62a0aec7777fb1280a3f85bb06",
+   "why": "Headline summary of 180- vs 365-day event fit (report); journal cites results/paired_event180/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_covariance/summary.json",
+   "bytes": 2134,
+   "sha256": "bbe52e04ec2be02d68548886a94846ff056bb429a4605be84d2dc9212d88a87b",
+   "why": "Headline summary of daily covariance perturbation (report); journal cites results/paired_covariance/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_combined_cold/summary.json",
+   "bytes": 2917,
+   "sha256": "0b18f9c6814caca6dd0fd7caeb1dd3cf45368d3863f21c5ddd50e0739d4a96b1",
+   "why": "Headline summary of three real days vs same-information Gaussian (report: 0.226%/0.555%/0.177%); journal cites results/paired_combined_cold/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_candidate_combined_wide/summary.json",
+   "bytes": 2904,
+   "sha256": "4a3439990815e717eeb33d480845c1c661d0230717392f633440951de078fa3d",
+   "why": "Headline summary of calendar attribution over the separated-shape mixture (report: 0.052%/0.309%/0.048%); journal cites results/paired_candidate_combined_wide/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/paired_candidate_calendar_wide/summary.json",
+   "bytes": 2921,
+   "sha256": "3ae440786234198afcaaab53007f3ecba5cf48909ae1a847639b205620207188",
+   "why": "Headline summary of calendar attribution over the original Gaussian (report: 0.045%/0.319%/0.040%); journal cites results/paired_candidate_calendar_wide/ (other per-cell CSVs left out); written by analyze_paired.py."
+  },
+  {
+   "path": "agent/results/calibration/metadata.json",
+   "bytes": 303,
+   "sha256": "00aeb8027009decc69f0cfdf2434899a3935604d76a1686328d4c40a17d5b9d3",
+   "why": "Source and settings of the coverage diagnostics (journal-cited results/calibration/); written by diagnose_calibration.py."
+  },
+  {
+   "path": "agent/results/calibration/configuration.csv",
+   "bytes": 2403,
+   "sha256": "08fe62008b11e84cc58a1f6b904844de3b3e6d26b99ad1ea8d16cf043aa8689a",
+   "why": "Coverage by configuration in report 'Limitations'; read by plot_calibration.py."
+  },
+  {
+   "path": "agent/results/calibration/window.csv",
+   "bytes": 8765,
+   "sha256": "04068a86fbdfd8929b2a784362eab7d589f975a8cca2592ffe8325e635a35fb7",
+   "why": "Coverage by window (August 68.1% terminal coverage in report); read by plot_calibration.py."
+  },
+  {
+   "path": "agent/results/calibration/asset.csv",
+   "bytes": 12429,
+   "sha256": "741bfc6df138b760606b7a61bce2b2228e2573d0b1524c9f09b5439dc2d2ee2e",
+   "why": "Coverage by asset from diagnose_calibration.py (journal-cited results/calibration/)."
+  },
+  {
+   "path": "agent/results/closures/crps_by_date.csv",
+   "bytes": 371,
+   "sha256": "c651f0f4bc5d1403ffa26567ac7a2c72fe3d95e91bed0cdbb734e819de350e2f",
+   "why": "Per-date closure CRPS behind report's -5.82% and closure_results.png (read by plot_research.py)."
+  },
+  {
+   "path": "agent/results/closures/leave_one_date_out.csv",
+   "bytes": 455,
+   "sha256": "5a06815bc775b885ccbc4b252fa535512c10c31bd40d6fd84476a99e2ab766d4",
+   "why": "Closure amplitude stability (report: 0.216-0.245); written by fit_closures.py."
+  },
+  {
+   "path": "agent/results/events/leave_one_event_out.csv",
+   "bytes": 15893,
+   "sha256": "997a806aee66c20e83e4d79335d08d013603e7608e9ccf8aa1a86120816b3753",
+   "why": "Leave-one-event-out stability of the served event kernels; written by fit_events.py (report 'Known events')."
+  },
+  {
+   "path": "agent/results/xau_profile_diagnosis.csv",
+   "bytes": 659,
+   "sha256": "4708eada5151e43ee4d6e64e5bbbe8373c8e4fd51624c1ebd103dd83558c7e2f",
+   "why": "Per-prompt XAU old/new profile step scales behind the report's gold regression paragraph."
+  },
+  {
+   "path": "agent/results/xau_profile_plot_values.csv",
+   "bytes": 191,
+   "sha256": "42924562d513a3bbb0dec2f00e1fc138b73b0f43c32479a979402ccfcd79b109",
+   "why": "Values plotted in profile_normalization_failure.png (6.50 vs 11.66 vs 5.62 bps); written by plot_profile_diagnosis.py."
+  },
+  {
+   "path": "agent/results/temporal_mixture_general/INVALID.md",
+   "bytes": 503,
+   "sha256": "04aefe51ff9eb7c67c8cf5bb060920c14f586f918754116065c1d1b25eb64fae",
+   "why": "Marks the invalid temporal-mixture run excluded from comparisons; cited by REPRODUCE.md."
+  },
+  {
+   "path": "pyproject.toml",
+   "bytes": 493,
+   "sha256": "a84b47568bebefa485ea6fb7ac64642365bcd87bfad74708096cfe5ab91374fd",
+   "why": "Workspace dependencies (synth-lib pin, numpy, pandas, torch, xgboost) the research ran in."
+  },
+  {
+   "path": "uv.lock",
+   "bytes": 470037,
+   "sha256": "6d57f0456198345762f110309338b5adb28887428fb2c7a8b80c403b4bd1efdd",
+   "why": "Locked environment of the research workspace (REPRODUCE.md: uv sync)."
+  },
+  {
+   "path": "agent/REPRODUCE.md",
+   "bytes": 6091,
+   "sha256": "ab81a6829bd61d858989a1fcd3dc0597c4761a480817ec5707f55d1fc0f8a76b",
+   "why": "Agent's reproduction guide: commands, serving artifacts and training provenance."
+  },
+  {
+   "path": "agent/research_plan.md",
+   "bytes": 2163,
+   "sha256": "c1feb2e6f093db9cd246ac91375ad0ae1819f8dccd6394b58fae58c9985c234a",
+   "why": "Agent's preregistered campaign plan and windows."
+  },
+  {
+   "path": "agent/figures/broad_asset_improvements.png",
+   "bytes": 135148,
+   "sha256": "ecfc93e9e2c47953150acef65e3c9df82938e40bc5e0dcaafa3e23402918a456",
+   "why": "Figure embedded in report.md (broad per-asset reduction); made by plot_broad_results.py."
+  },
+  {
+   "path": "agent/figures/calibration_coverage.png",
+   "bytes": 171255,
+   "sha256": "9e5fc7109045e8fdb5400ab3f22e58d738911abd3b9ef7ac5d360bbade574210",
+   "why": "Figure embedded in report.md 'Limitations' (coverage); made by plot_calibration.py."
+  },
+  {
+   "path": "agent/figures/closure_results.png",
+   "bytes": 71947,
+   "sha256": "7946807a3d06d4673c8f85c5bb62069704917a89a8c7f67e59eee5d79f035a28",
+   "why": "Figure embedded in report.md (closure dates); made by plot_research.py."
+  },
+  {
+   "path": "agent/figures/core_improvements.png",
+   "bytes": 117764,
+   "sha256": "fb443db1f2d4723f60cb7e2ed2b1d25477df45c92cf46aa7dc8291b34ec61e31",
+   "why": "Figure embedded in report.md (core reductions); made by plot_research.py."
+  },
+  {
+   "path": "agent/figures/profile_normalization_failure.png",
+   "bytes": 294394,
+   "sha256": "998a580d32d0264008c289d59f99664fd95bbe43811e7ecc28d8143a1bd1fe35",
+   "why": "Figure embedded in report.md (gold normalization failure); made by plot_profile_diagnosis.py."
+  },
+  {
+   "path": "agent/results/descriptive/summary.json",
+   "bytes": 5796,
+   "sha256": "a8251380b9f08f3787b8f9f5b9e6eb96374a36913297e586284f019d1d50970f",
+   "why": "Per-asset descriptive statistics written by explore.py:63 (sigma, return quantiles, var5_vs_5var1, weekday/weekend ratio; aggregates, no price rows). Only record of journal.md:59's five-minute variance ratios (AAPLX 0.891, NVDAX 0.932)."
+  },
+  {
+   "path": "agent/results/descriptive/dependence.csv",
+   "bytes": 75762,
+   "sha256": "00f693a73bfcd40b6930c44d14f75e1f6db0f084a8d0b765094c52e74b8c50c1",
+   "why": "Monthly asset x horizon variance ratios written by measure_dependence.py:33 (1,026 aggregate rows, no prices). Only record of journal.md:130's June-November five-minute ratios (medians 0.979-1.066) and the variance-ratio remark behind the covariance experiment (journal.md:841)."
+  }
+ ],
+ "rest": "git clone workspace.bundle && git checkout 5fbf8572b2481903fbb228220fa2b03115012c77"
+}

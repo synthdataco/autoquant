@@ -1,0 +1,62 @@
+[
+  {
+    "paths": 1,
+    "shape": [
+      1,
+      61
+    ],
+    "finite": true,
+    "positive": true,
+    "start_correct": true,
+    "repeat": true,
+    "seed_changes": true
+  },
+  {
+    "paths": 3,
+    "shape": [
+      3,
+      61
+    ],
+    "finite": true,
+    "positive": true,
+    "start_correct": true,
+    "repeat": true,
+    "seed_changes": true
+  },
+  {
+    "paths": 999,
+    "shape": [
+      999,
+      61
+    ],
+    "finite": true,
+    "positive": true,
+    "start_correct": true,
+    "repeat": true,
+    "seed_changes": true
+  },
+  {
+    "paths": 1000,
+    "shape": [
+      1000,
+      61
+    ],
+    "finite": true,
+    "positive": true,
+    "start_correct": true,
+    "repeat": true,
+    "seed_changes": true
+  },
+  {
+    "paths": 1001,
+    "shape": [
+      1001,
+      61
+    ],
+    "finite": true,
+    "positive": true,
+    "start_correct": true,
+    "repeat": true,
+    "seed_changes": true
+  }
+]

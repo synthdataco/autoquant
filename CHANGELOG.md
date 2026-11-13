@@ -13,14 +13,62 @@ holds the current numbers.
 
 | Campaign       | First leg  | Cutoff → scored window   | Engine    | GPU        |
 | -------------- | ---------- | ------------------------ | --------- | ---------- |
+| campaign-7     | 2026-11-10 | 2026-11-08 → live        | `39bd62d` | T4 (16 GB) |
 | campaign-6     | 2026-10-21 | 2026-10-11 → 10-12…10-22 | `6117938` | T4 (16 GB) |
 | campaign-5-gpu | not run    | —                        | —         | —          |
 | campaign-4     | 2026-09-29 | 2026-09-14 → 09-15…09-25 | `56fa368` | L4 (24 GB) |
 | campaign-3     | 2026-09-08 | 2026-08-29 → 08-30…09-09 | `782a44f` | L4 (24 GB) |
 
-## Unreleased: campaign-7
+## Unreleased: campaign-8
 
-The pin is at `11fded2`. campaign-7's first five legs ran `39bd62d`.
+The pin is at `11fded2`.
+
+### Planned, not built
+
+Harness and verdict:
+
+- **An interface check on live-like contexts,** with gaps and a short history.
+- **A Score covers different rounds depending on the window's length.**
+  - Without simulated registration, a backtest drops each competition's first `window_days` of
+    reward rounds: 10 days for the 24h competitions, 5 for crypto-1h. The validator's moving average
+    in those rounds reads scores from before the window, which the backtest does not fetch.
+  - An 11-day window therefore scores the 24h competitions on its last day only.
+  - The trim stays. Generating the champion over one smoothing window before the scored window was
+    considered and dropped: on a verdict that window is before the cutoff, so it is in sample.
+  - The constitution explains the trim to agents ([synthdataco/synth-lib#88]).
+  - Still open: how to run a short interim verdict. `--simulate-registration` scores every round, as
+    a miner registered when the window opens.
+- **Calendar.**
+  - Label or drop the earnings dates Nasdaq lists as estimates.
+  - Add NYSE special closures, which are still added by hand.
+  - Build the calendar daily from before the cutoff, so an event found later is not backdated.
+- **Smoke.** The smoke test should cover:
+  - a calendar read without a guard;
+  - a `predict.py` window that contains events;
+  - a champion that imports a file beside `modeling.py`.
+- **Operations.**
+  - Delete each leg's proxy key when the leg ends.
+  - A leg takes about 12 GB of disk: share one wheel cache across legs.
+
+### To decide
+
+- The objective's window: 10 days or 30, now that the leaderboard reads 30.
+- The panel.
+- Whether a campaign with open internet access is campaign-8 or a separate campaign. In it, the
+  agents could use any data source and their champions would define their own live context. It
+  would need its own leaderboard.
+
+## campaign-7
+
+Panel:
+
+- claude-code: opus-5-5 and fable-5-2 (`claude-fable-5-2-model`), effort `max` with `goal`.
+- codex: gpt-6-astra, effort `max`.
+- antigravity-cli: gemini-4-argon, and gemini-4-carbon through agy's model gateway, effort `high`.
+- kimi-code: kimi-k3.1-pro, effort `max`.
+
+$100 / 18 h, engine `39bd62d` for the first five legs and `11fded2` for gemini-4-carbon, which ran
+last. $395.23 spent over the six legs, plus $3.48 on a first fable-5-2 launch that was stopped.
 
 ### Merged
 
@@ -190,40 +238,19 @@ The pin is at `11fded2`. campaign-7's first five legs ran `39bd62d`.
   - In this mode agy sends `maxOutputTokens` 32768, half its API-key-route value, and labels on each
     request.
 
-### Planned, not built
+### Results
 
-Harness and verdict:
-
-- **An interface check on live-like contexts,** with gaps and a short history.
-- **A Score covers different rounds depending on the window's length.**
-  - Without simulated registration, a backtest drops each competition's first `window_days` of
-    reward rounds: 10 days for the 24h competitions, 5 for crypto-1h. The validator's moving average
-    in those rounds reads scores from before the window, which the backtest does not fetch.
-  - An 11-day window therefore scores the 24h competitions on its last day only.
-  - The trim stays. Generating the champion over one smoothing window before the scored window was
-    considered and dropped: on a verdict that window is before the cutoff, so it is in sample.
-  - The constitution explains the trim to agents ([synthdataco/synth-lib#88]).
-  - Still open: how to run a short interim verdict. `--simulate-registration` scores every round, as
-    a miner registered when the window opens.
-- **Calendar.**
-  - Label or drop the earnings dates Nasdaq lists as estimates.
-  - Add NYSE special closures, which are still added by hand.
-  - Build the calendar daily from before the cutoff, so an event found later is not backdated.
-- **Smoke.** The smoke test should cover:
-  - a calendar read without a guard;
-  - a `predict.py` window that contains events;
-  - a champion that imports a file beside `modeling.py`.
-- **Operations.**
-  - Delete each leg's proxy key when the leg ends.
-  - A leg takes about 12 GB of disk: share one wheel cache across legs.
-
-### To decide
-
-- The objective's window: 10 days or 30, now that the leaderboard reads 30.
-- The panel.
-- Whether a campaign with open internet access is campaign-7 or a separate campaign. In it, the
-  agents could use any data source and their champions would define their own live context. It
-  would need its own leaderboard.
+- **No verdict.** The champions run as live miners on Synth SN50.
+- **A leg publishes its serving set, its research files and its bundle** in three parts:
+  `champion_source/`, `research_source/` and `workspace.bundle` ([README](README.md#results)).
+  - The serving set is traced over 108 `simulate` calls in the sandbox, reviewed for branches the
+    calls do not reach, and served alone to prove byte-identical output. gpt-6-astra's
+    `champion_source/` goes from the 21,248 files (386 MB) at its commit to 22.
+  - `CHAMPION` is YAML, and gemini-4-carbon quoted its sha. The archive loop strips the quotes.
+- **Rules audit:** gemini-4-argon's report and `CHAMPION` give figures no run produced
+  (constraint 4); fable-5-2 and gemini-4-carbon judged experiments with a torch copy of the metric
+  (constraint 3). The details are in
+  [campaign_results/campaign-7](campaign_results/campaign-7/README.md#publishers-notes).
 
 ## campaign-6
 
@@ -470,7 +497,7 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
   (`scripts/ingest_reservoir.py`, [synthdataco/autoquant#6]).
   - Open, high and low are the first, highest and lowest 1-second close.
   - Volume and trade counts are summed.
-  - campaign-7 changes this: see [Unreleased: campaign-7](#unreleased-campaign-7).
+  - campaign-7 changes this: see [campaign-7](#campaign-7).
 - **DATA.md is generated at setup:** the schema, the NaN semantics, and coverage per asset by era.
 - **Bundle fixes made during setup:**
   - one oversized score no longer aborts a bundle;

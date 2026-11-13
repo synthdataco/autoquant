@@ -1,0 +1,587 @@
+{
+  "module": "modeling",
+  "context_days": 7,
+  "cases": [
+    {
+      "asset": "BTC",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.6402515410009073,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "BTC",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.05867856100667268,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "BTC",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.04223383999487851,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "BTC",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04497075099789072,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "BTC",
+      "time_length": 3600,
+      "case": "normal",
+      "seconds": 0.04464951700356323,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "BTC",
+      "time_length": 3600,
+      "case": "three_real_days",
+      "seconds": 0.021614122000755742,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "BTC",
+      "time_length": 3600,
+      "case": "internal_two_day_gap",
+      "seconds": 0.02245913700608071,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "BTC",
+      "time_length": 3600,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.023574995997478254,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "ETH",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.039294276997679844,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "ETH",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.04308565398969222,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "ETH",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.04102106500067748,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "ETH",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.044229966995771974,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "ETH",
+      "time_length": 3600,
+      "case": "normal",
+      "seconds": 0.02531593399180565,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "ETH",
+      "time_length": 3600,
+      "case": "three_real_days",
+      "seconds": 0.0209057460015174,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "ETH",
+      "time_length": 3600,
+      "case": "internal_two_day_gap",
+      "seconds": 0.022337118003633805,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "ETH",
+      "time_length": 3600,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.021822398994117975,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SOL",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.037216059005004354,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SOL",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.0401610920089297,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SOL",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.03863977099535987,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SOL",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04271080199396238,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SOL",
+      "time_length": 3600,
+      "case": "normal",
+      "seconds": 0.024712293001357466,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SOL",
+      "time_length": 3600,
+      "case": "three_real_days",
+      "seconds": 0.020638301997678354,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SOL",
+      "time_length": 3600,
+      "case": "internal_two_day_gap",
+      "seconds": 0.021854361999430694,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SOL",
+      "time_length": 3600,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.021535371008212678,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XRP",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.03600559200276621,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XRP",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.04366218199720606,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XRP",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.04027020100329537,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XRP",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.041675208005472086,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XRP",
+      "time_length": 3600,
+      "case": "normal",
+      "seconds": 0.02621755699510686,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XRP",
+      "time_length": 3600,
+      "case": "three_real_days",
+      "seconds": 0.02143902900570538,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XRP",
+      "time_length": 3600,
+      "case": "internal_two_day_gap",
+      "seconds": 0.022741744003724307,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XRP",
+      "time_length": 3600,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.02184392100025434,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "HYPE",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.03571540000848472,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "HYPE",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.03771097400749568,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "HYPE",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.03858341000159271,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "HYPE",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.03916859099990688,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "HYPE",
+      "time_length": 3600,
+      "case": "normal",
+      "seconds": 0.02416045099380426,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "HYPE",
+      "time_length": 3600,
+      "case": "three_real_days",
+      "seconds": 0.02182678999088239,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "HYPE",
+      "time_length": 3600,
+      "case": "internal_two_day_gap",
+      "seconds": 0.02175105999049265,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "HYPE",
+      "time_length": 3600,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.02221156000450719,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XAU",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.33960449299775064,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XAU",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.048302605995559134,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XAU",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.047926956991432235,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "XAU",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04354279600374866,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "NVDAX",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.04814870700647589,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "NVDAX",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.046314401988638565,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "NVDAX",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.04487061400141101,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "NVDAX",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04507689899764955,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "GOOGLX",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.045501656000851654,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "GOOGLX",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.04295992400147952,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "GOOGLX",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.04307600199535955,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "GOOGLX",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04499052799656056,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "TSLAX",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.045823434003978036,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "TSLAX",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.04224286800308619,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "TSLAX",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.04323645599652082,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "TSLAX",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04384580100304447,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "AAPLX",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.045081969001330435,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "AAPLX",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.0558965890086256,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "AAPLX",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.044170378998387605,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "AAPLX",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04317569499835372,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "WTIOIL",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.04336664099537302,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "WTIOIL",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.04000131999782752,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "WTIOIL",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.03991785200196318,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "WTIOIL",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04100190699682571,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SPCX",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.04416586000297684,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SPCX",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.04208600700076204,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SPCX",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.0437260070029879,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SPCX",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04398529000172857,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SP500",
+      "time_length": 86400,
+      "case": "normal",
+      "seconds": 0.045116522000171244,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SP500",
+      "time_length": 86400,
+      "case": "three_real_days",
+      "seconds": 0.04247650600154884,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SP500",
+      "time_length": 86400,
+      "case": "internal_two_day_gap",
+      "seconds": 0.04520231200149283,
+      "paths": 1000,
+      "passed": true
+    },
+    {
+      "asset": "SP500",
+      "time_length": 86400,
+      "case": "trailing_three_hour_gap",
+      "seconds": 0.04636767499323469,
+      "paths": 1000,
+      "passed": true
+    }
+  ],
+  "seed_repeatability": true,
+  "seed_changes_fan": true,
+  "odd_path_count": 17,
+  "network_blocked": true,
+  "max_seconds": 0.6402515410009073
+}

@@ -1,0 +1,16 @@
+predictions generated: 109
+  [com-equ-24h/SP500] fetching scored prompts (2026-10-29 → 2026-11-08)...
+  [com-equ-24h/SP500] 27904 score rows (109 prompts) in 0.1s
+  [com-equ-24h/SP500] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/SP500] 714559 rewards rows (2840 update rounds) in 0.6s
+  [com-equ-24h/SP500] scoring 109 prompts against local predictions...
+  [com-equ-24h/SP500] scored 109 prompts in 18.7s
+  [com-equ-24h/SP500] computing smoothed scores over 109 reward rounds...
+  [com-equ-24h/SP500] smoothed scores done in 1.9s (total backtest: 21.6s)
+summary (CONTEXT_DAYS 21): {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 109, 'mean_crps': 1290.6021732069191, 'final_smoothed_score': 30.14024314692979, 'realized_points_expected': 31501, 'realized_points_scored': 31501, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             75 prompts  gap +4.40%
+  FOMC                 16 prompts  gap +1.04%
+  GDP                  11 prompts  gap +1.57%
+  NFP                  10 prompts  gap +3.25%
+  PCE                  11 prompts  gap +1.57%

@@ -1,0 +1,126 @@
+{
+ "sha": "225754dd773b50f18219e61ab2352d66192802cf",
+ "files": [
+  {
+   "path": "research/fit_seasonality_v1.py",
+   "bytes": 21733,
+   "sha256": "4a95cf744748943cede054c36a9f234fde59913b2296c181267514a7dcb05958",
+   "why": "Fitting script. It writes the week5m_/week1m_/moh_ tables, hol_cash_mult, prior sigmas and wknd_ou_kappa into agent/calibration_params.npz (--out, line 442). Journal: iter 1, iter 2, iter 5 and final refit step 2 (--train-end 2026-11-08). Most other research scripts import its ALL_ASSETS and load_1m_closes."
+  },
+  {
+   "path": "research/fit_event_kernels_v4.py",
+   "bytes": 17924,
+   "sha256": "3786870b29eb6acb37c1352d3ab4de00f42edf098254c5d3e6068d70ebf6d831",
+   "why": "Fitting script. It writes the LOEO-validated ev5m_*/ev1m_* event kernels and the earnings continuation scalars into agent/calibration_params.npz (lines 361-385). Journal: iter 4 and final refit step 3. CHAMPION item 2."
+  },
+  {
+   "path": "research/train_iter6_gpu_direct_crps.py",
+   "bytes": 45969,
+   "sha256": "476adb1056046aea1096a2176201a0eb31d77a607e0918b41a92a914d6faff06",
+   "why": "T4 training script for the mlpeq24 Direct-CRPS residual MLP. CHAMPION item 4, journal iter 6 and final refit step 4 (--only-comps mlpeq24). It writes the heads npz that merge_gpu_heads.py merges, and several later scripts import it."
+  },
+  {
+   "path": "research/merge_gpu_heads.py",
+   "bytes": 1559,
+   "sha256": "b330fa74a02cc01dcb25b8da33f00d8d2650529a55904a1bef702990a23e1f0e",
+   "why": "Merges the kept mlpeq24_* arrays from the heads npz into agent/calibration_params.npz (journal line 214, --only defaults to mlpeq24). The served MLP weights come from here."
+  },
+  {
+   "path": "research/study_iter4_events_loeo.py",
+   "bytes": 9092,
+   "sha256": "1423a79d3d4538bae1d49ff3a2dd433610d18867288d4a62721a5aaabb980022",
+   "why": "Leave-One-Event-Out QLIKE/CRPS study of the event-kernel families. It is behind the LOEO inclusion rule cited in CHAMPION item 2, report.md section 'Layer 2' and journal iter 4. The docs do not name the script."
+  },
+  {
+   "path": "research/calibrate_iter4_events.py",
+   "bytes": 5288,
+   "sha256": "a12b35ba64a1234f9f782e78b49e393795122ed25fc4fef76017e04839ac767e",
+   "why": "CRPS sweep over 1,662 pre/post-event prompts. It fixed _EVENT_EXCESS_SCALE_5M/_1M at 1.00 (modeling.py:61-64). Journal line 148."
+  },
+  {
+   "path": "research/calibrate_iter3_stochvol_t.py",
+   "bytes": 9379,
+   "sha256": "2c199252e4d5bbc058412cb86d306b0a1fb3136d94d32eb53bce4a4e927678fb",
+   "why": "Calibration of the Student-t and AR(1) stochastic-volatility parameters (nu, tau_vov, hl_steps, rho_lev, c_scale), which are hardcoded at modeling.py:974-994. Journal line 108 (iter 3)."
+  },
+  {
+   "path": "research/study_iter2_weekend_dynamics.py",
+   "bytes": 3546,
+   "sha256": "50fe01d12fa1137331c12882989febe16718c538057eddc822fff38d28e603a3",
+   "why": "Iter 2 study of the Empirical-Bayes session shrinkage and the closed-exchange weekend OU kappa. It is behind _online_session_adjustments and wknd_ou_kappa (journal iter 2, line 74). The docs do not name the script."
+  },
+  {
+   "path": "research/check_har_term_structure.py",
+   "bytes": 5973,
+   "sha256": "cc32cadf40fe575b494740f5410f3fd7ed0087f091f762c254a08e08e32b5e10",
+   "why": "Calibration of the multi-scale HAR-EWMA weights and the horizon decay used in the v_short/v_long blends. Journal line 47."
+  },
+  {
+   "path": "research/diagnose_iter7_pre_aug10.py",
+   "bytes": 33699,
+   "sha256": "1f5a9646ffc953f88aef3cafbdbd04e55531eb8c2162b20716dc83aca139c805",
+   "why": "Iter 7 diagnostics and ablations (LHS shocks, the w_gk Garman-Klass hybrid, weekend EB). Journal line 251. Imported by check_eq24_lhs_gpu, tune_iter7_joint_gpu and test_iter8."
+  },
+  {
+   "path": "research/tune_iter7_joint_gpu.py",
+   "bytes": 20024,
+   "sha256": "a3c43b2aee9ae815daac0d462161c94a17f592fe445cd42088796e83633a7d59",
+   "why": "Iter 7 joint M=1000 sweep of (nu, tau_vov, hl, c_scale) and w_gk, behind the final shock parameters. Journal line 251. Provides gen_shocks_gpu_v2 to other scripts."
+  },
+  {
+   "path": "research/check_eq24_lhs_gpu.py",
+   "bytes": 9806,
+   "sha256": "f561e2fd9cf00bfdad9a7e7ef23efb7d4733fd369691d617cdaded7bce253b03",
+   "why": "Iter 7 Stage-2C check of COM_EQU_24H LHS with mlpeq24 active, plus the CRYPTO_1H nu bowl. Journal line 251."
+  },
+  {
+   "path": "research/diagnose_iter8_weekend_and_moh.py",
+   "bytes": 11878,
+   "sha256": "453c24272ea68830f5a3a7b83b3012f3e31a114ad58eb345081b67ccb6c7ade0",
+   "why": "Iter 8 residual diagnostic of the weekend and minute-of-hour profiles. It motivated Seasonality v3. Journal line 270."
+  },
+  {
+   "path": "research/test_iter8_crypto_seasonality_v3_gpu.py",
+   "bytes": 17390,
+   "sha256": "5edf8e2c57d83c718085491e1c69dd42ecac6ac2012e9365244389ced766f623",
+   "why": "Iter 8 test of crypto Seasonality v3 (ETF session boundaries, Sunday CME reopen, NYSE holiday dampening). Journal line 275. CHAMPION item 1."
+  },
+  {
+   "path": "research/test_anchored_sv_gpu.py",
+   "bytes": 8955,
+   "sha256": "9c5d7b7ed28b8b5736a9515f2f7ca52beb50d976de1eb5c41876c8208b924f5e",
+   "why": "Ablation of spot-anchored against stationary stochastic volatility. It kept the stationary h0 that modeling.py uses. Journal line 204."
+  },
+  {
+   "path": "research/train_iter6_1h_low_dof_gpu.py",
+   "bytes": 18893,
+   "sha256": "6c81a83eab4396e86c38c20987fd7dc689392d04426236edc1f2691d2f04ebe4",
+   "why": "Low-DOF CRYPTO_1H head, discarded. Journal line 209; report.md section on discarded GPU heads."
+  },
+  {
+   "path": "research/compare_runs.py",
+   "bytes": 5635,
+   "sha256": "efe198ff13f573f63684f867a9da847496921c29f04403f93e42447cb9191d7c",
+   "why": "Cell-by-cell comparison of two 3-window prompt parquet sets (54 cells). The docs do not name it, but it produces the 'N/54 cells improved' counts in CHAMPION line 14, report.md and every journal verdict."
+  },
+  {
+   "path": "agent/predict.py",
+   "bytes": 20665,
+   "sha256": "b6c3ae4056445e7464ef505506c48b49861480dc12ebfe8827147b72c8a60507",
+   "why": "The agent's modified backtest driver (multi-competition, --fast-crps, ProcessPool scoring). CHAMPION line 13 cites it for the OOS CRPS figures; also report.md section 5.1 and journal lines 7, 11 and 305."
+  },
+  {
+   "path": "pyproject.toml",
+   "bytes": 451,
+   "sha256": "c2da3baebd02d6af8fdaf7bc95fac34955a74122b6dabb9bc93b85b5d7c6213a",
+   "why": "Workspace environment: pinned synth-lib rev, numpy, pandas, torch."
+  },
+  {
+   "path": "uv.lock",
+   "bytes": 467572,
+   "sha256": "ad1eba216c039fb229474cd5965a54dabf2f43c0d70384ba07829b070996a6f5",
+   "why": "Locked environment the research ran in (467 KB)."
+  }
+ ],
+ "rest": "git clone workspace.bundle && git checkout 225754dd773b50f18219e61ab2352d66192802cf"
+}

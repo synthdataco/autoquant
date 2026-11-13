@@ -1,0 +1,683 @@
+{
+ "sha": "225754dd773b50f18219e61ab2352d66192802cf",
+ "files": [
+  {
+   "path": "agent/calibration_params.npz",
+   "bytes": 154053,
+   "sha256": "b9a7f1ddeea8f9c9086c6d713504aee54ea94019b4b2db7f8b743cc659a8a7fc",
+   "why": "traced"
+  },
+  {
+   "path": "agent/modeling.py",
+   "bytes": 56613,
+   "sha256": "1d21e7f874f7404a0ef34af0d901a2fd0cf687e94c75c005f25ada527b17477e",
+   "why": "traced"
+  }
+ ],
+ "packages": {
+  "numpy": "numpy==2.3.5",
+  "pandas": "pandas==3.1.1",
+  "scipy": "scipy==1.18.1"
+ },
+ "unreached_imports": [],
+ "starts": [
+  "2026-11-02T21:00:00+00:00",
+  "2026-11-06T13:30:00+00:00",
+  "2026-11-08T12:00:00+00:00",
+  "2026-11-09T13:30:00+00:00",
+  "2026-11-09T21:00:00+00:00",
+  "2026-11-10T04:00:00+00:00"
+ ],
+ "seed": "20261108",
+ "calendar_sha256": "5f604b2c71189b59098edeb41045158fd574e5521c7530d192b5a3bd56951cb1",
+ "calls": [
+  {
+   "asset": "BTC",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "99f20c09e5dc30619ec603263865acc86894e21e484b5a950503b877de964083"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "dbf7209f9ef4f7752ce3b729e88e215e9d9fcc21b07a50c7ad45897dc8dc5af9"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "bb5f6f5df4ce05a621c69e8a5d7ae8abe83e9e96d8e7835e190b07479cfa2c52"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "0409238fd56952efaa455c84fc704de67b49016fc7c76e40d241d225c372d6bb"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "536a49c24a3967abf24ff75871a8d50599783331cee42f061bc901b1252d67eb"
+  },
+  {
+   "asset": "XAU",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "58f5b1dbdde16294336cade1db3d0a9f28872b642d27a77a2d126740fb604ad2"
+  },
+  {
+   "asset": "NVDAX",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "8a57b7fc0f1394163d1b4e6e64f0f9ab6b889efc99e5cfde5057ffc32990097d"
+  },
+  {
+   "asset": "GOOGLX",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "03caff41045569c77c592fe07fd90af18f303cc03a183eb3d2c7e3510533587b"
+  },
+  {
+   "asset": "TSLAX",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "d311ca4d4901c614e1cec39280de537b16cc067d887dcda85a05b0bb39c763c8"
+  },
+  {
+   "asset": "AAPLX",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "e1943a741821299fe254f785e4512bf568d7fe31849dd5974e8ec552477caa1a"
+  },
+  {
+   "asset": "WTIOIL",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "e8ea10a84b2423f75b4571c43d422f008f764914cb43956e5b4a5a90b06709c4"
+  },
+  {
+   "asset": "SPCX",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "806cf5e37286174cef5f79904a2e3be562e5841bdba3a2e3873cb58ec585e307"
+  },
+  {
+   "asset": "SP500",
+   "time_increment": 300,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "d5bfeadee9340e54915979d8b1a0efdc1855ad011c2d6efdf763f25488a224e5"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 60,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "bd5fd5f68fc469410fa7dd8b95df258f55fc98f061ff9cba0a8fba07075d3447"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 60,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "4d759c8a35540611e18ef0f5aa9b739adf77bbf90d108b4e0deb9ea4cace9226"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 60,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "4917dcaa374098f9d70cdb2df9c07d81ce54afc8dbea4ed4c0e8557046925211"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 60,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "e71b299687d739ffe014997f9cfb36952bbc785d1e7ba5db8f2cdb539b870db6"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 60,
+   "start": "2026-11-02T21:00:00+00:00",
+   "sha": "af2a500e017d6af287ff0f919d1a075ef672a58cb045000b5aa5f195b6907f3e"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "22e7ba86924e05ea6670450d904a51a19f05c4003442edb45585d9fd7fb98648"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "55d87b363e5effc531fbd4435fb80c0b7cf76434ae6c70ba8091b552d01ed6d5"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "ffd11eaa84a0711dc0e3f3620c263401d5fae0c97a0c498b019ea888098d3c9e"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "bce33cdc3dd91c1b8b45a265a93274dc780370f289fe08a25e35a0d4cf40ae2a"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "7f7fe4fc153ff695fffbe23014486ecaef66d3dbfc0bfc057d0e4648c3ec5864"
+  },
+  {
+   "asset": "XAU",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "e2897bc174568eb218d8ad2bd5b7c7a0c268b5a6c2041a04113e684b453a47ca"
+  },
+  {
+   "asset": "NVDAX",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "e5bb156d611e568a0afba1ddea4381f25b67ce139bb665b000698b0e346e13c9"
+  },
+  {
+   "asset": "GOOGLX",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "24d3a7b47f05349f32b7150a36efe74dea1669679dfae92ea9c56708bd611745"
+  },
+  {
+   "asset": "TSLAX",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "7d829ea7c0d08bf44a2d07454aff4743b20c68aa4bb7c257b889faa19dfc396a"
+  },
+  {
+   "asset": "AAPLX",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "5e26a36328ece9ea957eb194185fe2066606026b868b337bc677a1d9d0db972b"
+  },
+  {
+   "asset": "WTIOIL",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "e3a08373f7e0108e1b6fb42aa1a054142fd765d9f90b800bd08cb3c773c441ac"
+  },
+  {
+   "asset": "SPCX",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "91f81c05db206bb95c5cf218a0c7fe1763360a22e7baa37689864c38821f3b5b"
+  },
+  {
+   "asset": "SP500",
+   "time_increment": 300,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "83d397e4d99f4f451657432abf9e0b381820d43d5c81604cf1cd2f2bb55541fe"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 60,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "c4e7489641dac3caa0789469503207b8c9733caffd8050f7a6df3d29b53c8414"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 60,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "2832eaa261f63924c894388750b9cd0d71dfa0ff7950ffdf96dcef9f6c539b9e"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 60,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "4b16abae11df263fd9c40326ff1c1534fdf4291728098643a857da6a1b82783f"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 60,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "7efd463094ed6decf652ca1f30239e30f872fd5bec2344ac520e620503ced869"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 60,
+   "start": "2026-11-06T13:30:00+00:00",
+   "sha": "614e873a8a26a35d6e544481fd4505328997bdee0c2626a8e494ea3fd82c26cf"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "607bf6fbe1bed3cf950ccacfc02a598d6cdafc94367895561e4b055fc4fd9f30"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "034e278ff4cb8d6da2e81ae5a8cf8359f028c98497d93c5caed8033f600536a5"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "31624992a7a39393b8134a38f0ee46aeaa7b7879fabec19d83bb01d2b5ad5b55"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "5bc05d8cd0da1d15b53c6fda132099e2797d26efda6addfc4f2e1a6445542081"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "17bb32fa719d6b752e670a59855b22a008ef8b8b3b321ed6f159df8efdd3319b"
+  },
+  {
+   "asset": "XAU",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "675b916d3a2bc30b2690392568b2c5c2be66113cd3f02d5f2696f2cdfaf1c731"
+  },
+  {
+   "asset": "NVDAX",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "7b51a57ca6d59711fb7cc418ad9d542d1e660abd306ba89db7b2b70a319f9209"
+  },
+  {
+   "asset": "GOOGLX",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "376b3acf489ec659bf1b91cf5bb69732e336027298dfb78cd494a3b938f0d81a"
+  },
+  {
+   "asset": "TSLAX",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "2904a73998fb5da87491b9cc95296bf2d038d13bc41d610437d824d0b7e356e4"
+  },
+  {
+   "asset": "AAPLX",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "8a46f30a762d49ac16196a8a953ca4645a32fb01c97dacc6f1a9345ad9e77199"
+  },
+  {
+   "asset": "WTIOIL",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "78602a78bc0ce236fb6468c347ec91b48620d00449b3238c515d6ad0a480db19"
+  },
+  {
+   "asset": "SPCX",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "331c55bbded6352dbed30a6a29d97778b2d1ecbaa7ead3888a9fe1a1d87f1e0d"
+  },
+  {
+   "asset": "SP500",
+   "time_increment": 300,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "dcd01a9bf61edd52f082e19e19510e3a7ef3a4283d585784ff195fdfe5c37abf"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 60,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "c54a696530e259a5b2514a432a610dda26c84fe6447ab9c66ec39714b1444c52"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 60,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "b2a1ac08f51fca692e4cfc6b0751c7ec53e9402e8f1bd7fdbd728679f667df51"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 60,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "cdb9db609b1d197485933cf479db3813f81856a803a2425ce8040b38b567a5d0"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 60,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "b4e7b50aafe1163f1016564347d1a7b5f10f1985190d4974db8279b480fd77f9"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 60,
+   "start": "2026-11-08T12:00:00+00:00",
+   "sha": "362fa860049d90b04d750122d689a699dac6c77322ee2e9c1dc6c0b34832a4d4"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "e0386fce3c4b8285d378c4fa4995bfe60a5373fadb7c0599d5c5203a0f4b01ac"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "f121d8a0d5ff769c2e246f5be94427fb509ddebb1eb3b6def0182998a53f5251"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "b0f2326f07bab1035ea58ae649228bf7e5229af20a9f273895fb7337400b4593"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "226ac5d1cb0ed5406b42e766684658d6da41ef045e8f5730c72415f5eca50d1d"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "5af53a596d360c5176dc75b31f41d7e2046c1617d3caa1ee945241dbd3964440"
+  },
+  {
+   "asset": "XAU",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "5699bf7faa42f7927dc685142890f80be8f4e8df81b1d1bbfb6716afc1b95b77"
+  },
+  {
+   "asset": "NVDAX",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "d51678fa0f6557103754ff561058dcab1b2facf86077a6aec1464bb3429bd4dd"
+  },
+  {
+   "asset": "GOOGLX",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "36749f2eaf5f9e20595ced907fcd1f67b2ba04cd00e854e4614b610785004ba4"
+  },
+  {
+   "asset": "TSLAX",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "5fb5ca402ad33a83f4af8200d94225dcb515bfbdd6aed67dba3574e2618ac2d4"
+  },
+  {
+   "asset": "AAPLX",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "b5b991c9410705badfef91fc795c4190fb786a3ccdfb5bb99c3f989c3fcb2204"
+  },
+  {
+   "asset": "WTIOIL",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "d76210cd64bf0fbb6289a8e5998eaf809c0e9cd97b8aa109cbad4783e537ef86"
+  },
+  {
+   "asset": "SPCX",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "14c45d1294d2ad6b18c7c3677577bfd21839d8bb28aa851915e7b2bf88c0e58d"
+  },
+  {
+   "asset": "SP500",
+   "time_increment": 300,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "e31e8355ba4c94e8eeac12e23d91287c7fcfc0e4b86607ba6d1fd57df255dc1d"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 60,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "fe293f68158dc37620fbb286475e8c1c1127334ffb758734111ff41106e9bac0"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 60,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "7073c39e91ba3ebd9a7d12dd65c4860fa17ea0bf92a7029bd7ea444c7c842e08"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 60,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "02871df0a31662e18e363fa2e9dae94684b8d86e7dcc9d013c5d74e7f078e2f7"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 60,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "38f85c4c1207f72f41f45ca539b4e877d868365ceff8380e3b5f07339fe56b08"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 60,
+   "start": "2026-11-09T13:30:00+00:00",
+   "sha": "f1a1d1e71f93e318aee4b30bdc94978c3527bb9cf6f5dcbdeecddfdf679adf7e"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "5569e2bffa4abeaf3986473728f64a160734a01a18f442fc2255558b35bbfab6"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "e1c65c72181de3444fc33621a6f60bce5d79cd08dbb402cb00919d57f5782802"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "2ee25ba2e814271f797517e9120ada5b89358c79635a9458106367506acf7cef"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "c036d915a2616edccd51a747837675c97f43a47ec2d1a0cbc607b4a90903476c"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "3a7de48d5b1ce016cf921bd2d4b8e501596bc63b0da0e8e07cabc1d5536bcfc6"
+  },
+  {
+   "asset": "XAU",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "fc9298abcc17c1bc79231bb078d828ca3a62aa2ec4ef6bea6cca393fec828fdd"
+  },
+  {
+   "asset": "NVDAX",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "09f8eb3f8cc9dfb5ba1ed85119fd53ff758fcb3bdbe07b72d1bc494b9b959b12"
+  },
+  {
+   "asset": "GOOGLX",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "a394b30817c17efa42878eedc8fb87d1f4a12cdd340c8edf5125d53e9ec9c69d"
+  },
+  {
+   "asset": "TSLAX",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "7026c5196a3fbd366d4f0a8eb102aea4d2b46cd07622fa65d3ae5f9a7cf8f780"
+  },
+  {
+   "asset": "AAPLX",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "aee5ad76092ee89cad0cbb1319669001e22d66394c1a9cd3bddd8ef22055532b"
+  },
+  {
+   "asset": "WTIOIL",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "2ded9bb2d313d31bcfc1ec2175fc69b515a0fc6f6007f7ccfef8eb623b58a717"
+  },
+  {
+   "asset": "SPCX",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "202bd8c3a5cb44aa9dd7342643ec074cc8744035b30c7767df037b4ffef64d5e"
+  },
+  {
+   "asset": "SP500",
+   "time_increment": 300,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "ca4045930edeb1e50b0b4c9ed72823d6a4f30dcb4df9a9259b3eb0541cbc115e"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 60,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "5b929d2815cc9a3811fef5a0106685125fea1b920c3c5c0ee34e8b2dc427da1a"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 60,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "ddb7255ebe0d904eed131782808570b51996c4f5ac9666dc37cc498ef4c3aa13"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 60,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "3d5236d3eee60e059d4541dfc22afccdf7e4f9a826eb44df0f89b726b94f72a4"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 60,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "6b44f0ba0b1dd93421924dedbc772f9c313c21cf2ea0843a0ecc63a5511246c3"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 60,
+   "start": "2026-11-09T21:00:00+00:00",
+   "sha": "5bc3eb1ac3d23b24dbb7ac02fa75a1d75af722d76c45e61cb1a9a6cdcb42d059"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "43f1350e325726f0dabb3b05e0d279a93ffeb49bea25bc2c9ab07e0f41a94eb0"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "6765614dfbf364cad68d3e489864f193ef072afe10df152628bc26a5c977b455"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "f8147fa14cf5c374d872346c57cd5e4d68f07d2d6a774a4bd8c16033960cd88c"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "cc41c3eb62a00f193ee8a9da1f99d30a64066bee95ad6a91dc658d54a3526c00"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "66cb49132f034842419ea9748c89858b5018738b240766d5ad13b46542b2e03d"
+  },
+  {
+   "asset": "XAU",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "a3515c4d435a91aa50f69feb0d0b7a71d5519e9405eae8022e485c45aa128d7d"
+  },
+  {
+   "asset": "NVDAX",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "8ae123bb206c10d525247dc3ced42947add180e8f1bdcf23c2efe57bb45ce7c6"
+  },
+  {
+   "asset": "GOOGLX",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "675ffeb69e757f20c1bea20bd013e43943d2c87d13f8a6881dd6e3e394012849"
+  },
+  {
+   "asset": "TSLAX",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "35d84bd5f8b881d4c9ae40f4948d63f74e685d0b5b6473d08c6829a61d20a603"
+  },
+  {
+   "asset": "AAPLX",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "f7f918a1af3cbf264d3ad7c9da42f966a25f2569e4b725772251b95cee96c4e9"
+  },
+  {
+   "asset": "WTIOIL",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "c701d9b416fc5a1806cf63185ea389178d074bbbcec22ddb0efa6ab252377fe5"
+  },
+  {
+   "asset": "SPCX",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "60e030c147f3e2c0dcf1735ef347ff4feb29de36d16bc7d84598e3f10877db7f"
+  },
+  {
+   "asset": "SP500",
+   "time_increment": 300,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "b435f143335be2102360569d7c41e5dffaca87cb80a476a5436e55af4cc6d529"
+  },
+  {
+   "asset": "BTC",
+   "time_increment": 60,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "9f28f684d7927df31fc4a761a934b7e84cc4bb628341dfc847bb0d59b09b05d2"
+  },
+  {
+   "asset": "ETH",
+   "time_increment": 60,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "332835df568d877ae15315b9b3f92ee913166ac29a051fd679755406e02b764c"
+  },
+  {
+   "asset": "SOL",
+   "time_increment": 60,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "82811d64b292258ca547145eb7e64371d8c4f014b6713643779d03b332da6adf"
+  },
+  {
+   "asset": "XRP",
+   "time_increment": 60,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "52dc4974ea34c32e4af696c3ce0ac7266a808d20c90e79aa99b89ffc9f7baf34"
+  },
+  {
+   "asset": "HYPE",
+   "time_increment": 60,
+   "start": "2026-11-10T04:00:00+00:00",
+   "sha": "2fb0d6e24bbbaa8e9119a0936504bf503391bb84c8a129820b7afafafc460905"
+  }
+ ]
+}

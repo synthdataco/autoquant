@@ -1,0 +1,17 @@
+predictions generated: 108
+  [com-equ-24h/GOOGLX] fetching scored prompts (2026-10-29 → 2026-11-07)...
+  [com-equ-24h/GOOGLX] 27648 score rows (108 prompts) in 0.0s
+  [com-equ-24h/GOOGLX] fetching rewards history (prompt_name=com-equ-24h)...
+  [com-equ-24h/GOOGLX] 710791 rewards rows (2825 update rounds) in 0.4s
+  [com-equ-24h/GOOGLX] scoring 108 prompts against local predictions...
+  [com-equ-24h/GOOGLX] scored 108 prompts in 9.5s
+  [com-equ-24h/GOOGLX] computing smoothed scores over 108 reward rounds...
+  [com-equ-24h/GOOGLX] smoothed scores done in 2.0s (total backtest: 12.2s)
+summary (CONTEXT_DAYS 21): {'miner_name': 'campaign', 'miner_id': 999, 'num_prompts': 108, 'mean_crps': 3721.520763371151, 'final_smoothed_score': 133.3636466247814, 'realized_points_expected': 31212, 'realized_points_scored': 31212, 'realized_coverage': 1.0}
+event split (mean gap to each prompt's best miner):
+  no event             74 prompts  gap +1.56%
+  EARNINGS             17 prompts  gap +8.10%
+  FOMC                 16 prompts  gap +7.98%
+  GDP                  11 prompts  gap +4.80%
+  NFP                  10 prompts  gap +3.60%
+  PCE                  11 prompts  gap +4.80%

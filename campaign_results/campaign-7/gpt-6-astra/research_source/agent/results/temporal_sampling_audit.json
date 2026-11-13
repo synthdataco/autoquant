@@ -1,0 +1,94 @@
+[
+  {
+    "seed": 20261108,
+    "dimensions_per_process": 61,
+    "paths": 1000,
+    "invalid_separate_engine_correlations_min_max": [
+      -0.9202420735448676,
+      0.9665877359811453
+    ],
+    "joint_same_coordinate_correlations_min_max": [
+      -0.04195744313891817,
+      0.06226592542800257
+    ],
+    "joint_scale_mean_min_max": [
+      0.9977599765023357,
+      1.001001563404053
+    ],
+    "joint_log_scale_sd_min_max": [
+      0.39562945519585024,
+      0.402993444772686
+    ],
+    "population_scale_mean": 1.0,
+    "population_log_scale_sd": 0.4
+  },
+  {
+    "seed": 20261108,
+    "dimensions_per_process": 289,
+    "paths": 1000,
+    "invalid_separate_engine_correlations_min_max": [
+      -0.9838999859498183,
+      0.9527218142246138
+    ],
+    "joint_same_coordinate_correlations_min_max": [
+      -0.13862461865451847,
+      0.2173351707177209
+    ],
+    "joint_scale_mean_min_max": [
+      0.9939662021972616,
+      1.001817166839722
+    ],
+    "joint_log_scale_sd_min_max": [
+      0.3847956644460012,
+      0.40503418378336037
+    ],
+    "population_scale_mean": 1.0,
+    "population_log_scale_sd": 0.4
+  },
+  {
+    "seed": 91117,
+    "dimensions_per_process": 61,
+    "paths": 1000,
+    "invalid_separate_engine_correlations_min_max": [
+      -0.9703895295000704,
+      0.9426619970330831
+    ],
+    "joint_same_coordinate_correlations_min_max": [
+      -0.025098860711353716,
+      0.12524201084715353
+    ],
+    "joint_scale_mean_min_max": [
+      0.9978399600983262,
+      1.0015243666623548
+    ],
+    "joint_log_scale_sd_min_max": [
+      0.3941038266045043,
+      0.40271331556613893
+    ],
+    "population_scale_mean": 1.0,
+    "population_log_scale_sd": 0.4
+  },
+  {
+    "seed": 91117,
+    "dimensions_per_process": 289,
+    "paths": 1000,
+    "invalid_separate_engine_correlations_min_max": [
+      -0.9485577491155028,
+      0.9814708025400238
+    ],
+    "joint_same_coordinate_correlations_min_max": [
+      -0.09028040008433667,
+      0.24701641137976774
+    ],
+    "joint_scale_mean_min_max": [
+      0.9944055918314282,
+      1.006103018512554
+    ],
+    "joint_log_scale_sd_min_max": [
+      0.3846733436844763,
+      0.41506600178787
+    ],
+    "population_scale_mean": 1.0,
+    "population_log_scale_sd": 0.4
+  }
+]

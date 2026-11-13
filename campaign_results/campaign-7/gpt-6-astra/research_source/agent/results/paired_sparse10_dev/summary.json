@@ -1,0 +1,63 @@
+{
+  "baseline_tags": [
+    "sparse_base10_dev"
+  ],
+  "candidate_tags": [
+    "sparse_prior10_dev"
+  ],
+  "configuration_filter": null,
+  "window_filter": null,
+  "uncertainty_method": "Paired calendar-week cluster bootstrap, all assets and prompts retained within each sampled week. Exploratory intervals do not account for model selection.",
+  "replicates": 4000,
+  "seed": 20261108,
+  "configurations": {
+    "crypto1": {
+      "prompts": 840,
+      "scored_days": 14,
+      "calendar_weeks": 2,
+      "baseline_crps": 1025.386948229465,
+      "candidate_crps": 1012.955645823714,
+      "change_pct": -1.2123523151153726,
+      "week_block_change_pct_ci95": [
+        -1.8332015708157678,
+        -0.8675545915081684
+      ],
+      "equal_day_change_pct": -1.2123523151153504,
+      "cells_improved": 9,
+      "cells": 10,
+      "weeks_improved": 2
+    },
+    "crypto24": {
+      "prompts": 840,
+      "scored_days": 14,
+      "calendar_weeks": 2,
+      "baseline_crps": 4769.125680689364,
+      "candidate_crps": 4735.852733818369,
+      "change_pct": -0.6976739364559004,
+      "week_block_change_pct_ci95": [
+        -2.466112557751776,
+        0.2093199445163174
+      ],
+      "equal_day_change_pct": -0.6976739364559004,
+      "cells_improved": 9,
+      "cells": 10,
+      "weeks_improved": 1
+    },
+    "other24": {
+      "prompts": 1344,
+      "scored_days": 14,
+      "calendar_weeks": 2,
+      "baseline_crps": 1827.5462437809654,
+      "candidate_crps": 1775.0855111832616,
+      "change_pct": -2.870555685046261,
+      "week_block_change_pct_ci95": [
+        -3.6216637410332098,
+        -2.247044697610656
+      ],
+      "equal_day_change_pct": -2.8705556850462943,
+      "cells_improved": 16,
+      "cells": 16,
+      "weeks_improved": 2
+    }
+  }
+}

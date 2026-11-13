@@ -1,0 +1,7 @@
+{
+  "before_rows": 0,
+  "expected_after_rows": 1,
+  "actual_cached_after_rows": 0,
+  "mtime_preserved": true,
+  "bug_reproduced": true
+}

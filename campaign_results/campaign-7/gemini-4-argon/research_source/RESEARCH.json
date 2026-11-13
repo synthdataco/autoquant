@@ -1,0 +1,18 @@
+{
+ "sha": "a1345d94a62fc5ebe65788947e6e791457dea1a1",
+ "files": [
+  {
+   "path": "agent/predict.py",
+   "bytes": 21332,
+   "sha256": "9f7db8372c1a100a6197793b2fac187577759d08a14a8568d39555d0bd8efd29",
+   "why": "The backtest driver behind every CRPS figure that CHAMPION, report.md and journal.md cite; CHAMPION:8 names it. The agent rewrote it in commit d84dcb0 (+202/-70 lines): it added ProcessPoolExecutor scoring, the field comparison against scores.parquet, and the --competition loop at predict.py:427-466, which prints the unweighted_mean_crps and the ASSET_COEFFICIENTS-weighted coef_weighted_crps that the documents quote as unw_crps and cw_crps. Its only in-tree import is agent/modeling.py (predict.py:75). Its other imports are the public synth and synth_lib packages."
+  },
+  {
+   "path": "pyproject.toml",
+   "bytes": 451,
+   "sha256": "a8fa2864dbc9993e8b4025971f3969ef79c7cf0ff65b500c93c1bf998395bb9d",
+   "why": "The environment the research ran in: public synth-lib pinned at rev 39bd62d, plus numpy, pandas and torch. No uv.lock exists in TREE or in any commit of workspace.bundle, so this file is the only record of the environment."
+  }
+ ],
+ "rest": "git clone workspace.bundle && git checkout a1345d94a62fc5ebe65788947e6e791457dea1a1"
+}
