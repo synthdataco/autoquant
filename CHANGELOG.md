@@ -20,7 +20,7 @@ holds the current numbers.
 
 ## Unreleased: campaign-7
 
-The pin is at `39bd62d`. Nothing below has run in a campaign yet.
+The pin is at `11fded2`. campaign-7's first five legs ran `39bd62d`.
 
 ### Merged
 
@@ -176,6 +176,19 @@ The pin is at `39bd62d`. Nothing below has run in a campaign yet.
   A realized-path partition is named after its prompts' start day, and a 24h path runs into the next
   day, so the one dated on the cutoff held prices from the forward window. campaign-6's snapshot held
   18 such files (`realized/*/date=2026-10-11.parquet`); no transcript reads one by name.
+- **Claude Fable 5.2 and Gemini 4 Carbon in the proxy** ([synthdataco/autoquant#32]).
+  - `claude-fable-5-2-model` is priced like Fable 5.1: $8 / $40 per 1M, cache reads $0.20,
+    cache writes $10.
+  - `gemini-4-carbon` is priced like Gemini 4 Argon, at the same introductory rates to 2026-11-30.
+- **Antigravity CLI legs can use agy's model gateway** ([synthdataco/synth-lib#95],
+  [synthdataco/autoquant#32]).
+  - `agy` 1.5.2 and 1.5.5 refuse Gemini 4 Carbon on the API-key route (`not recognized as a known
+    model`): they check `--model` against a list built into the CLI.
+  - With `gateway: true`, agy runs in model-gateway mode and takes its model list from the Gemini
+    API. A relay on the sandbox's localhost adds the leg's proxy key and forwards to the proxy's
+    `/gemini` passthrough, so the leg's spend is metered as before.
+  - In this mode agy sends `maxOutputTokens` 32768, half its API-key-route value, and labels on each
+    request.
 
 ### Planned, not built
 
@@ -526,6 +539,7 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
 [synthdataco/synth-lib#91]: https://github.com/synthdataco/synth-lib/pull/91
 [synthdataco/synth-lib#93]: https://github.com/synthdataco/synth-lib/pull/93
 [synthdataco/synth-lib#94]: https://github.com/synthdataco/synth-lib/pull/94
+[synthdataco/synth-lib#95]: https://github.com/synthdataco/synth-lib/pull/95
 [synthdataco/autoquant#6]: https://github.com/synthdataco/autoquant/pull/6
 [synthdataco/autoquant#15]: https://github.com/synthdataco/autoquant/pull/15
 [synthdataco/autoquant#18]: https://github.com/synthdataco/autoquant/pull/18
@@ -537,3 +551,4 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
 [synthdataco/autoquant#26]: https://github.com/synthdataco/autoquant/pull/26
 [synthdataco/autoquant#27]: https://github.com/synthdataco/autoquant/pull/27
 [synthdataco/autoquant#29]: https://github.com/synthdataco/autoquant/pull/29
+[synthdataco/autoquant#32]: https://github.com/synthdataco/autoquant/pull/32

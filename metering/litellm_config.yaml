@@ -124,6 +124,17 @@ model_list:
       output_cost_per_token: 0.00005              # $50.00 / 1M
       cache_read_input_token_cost: 0.00000025     # $0.25 / 1M
       cache_creation_input_token_cost: 0.0000125  # $12.50 / 1M
+  # Claude Fable 5.2, released 2026-11-09, priced explicitly like 5.1. Anthropic list: cache
+  # reads $0.20, cache writes at the 5-minute rate (1.25x input).
+  - model_name: claude-fable-5-2-model
+    litellm_params:
+      model: anthropic/claude-fable-5-2
+      api_key: os.environ/ANTHROPIC_API_KEY
+    model_info:
+      input_cost_per_token: 0.000008              # $8.00 / 1M
+      output_cost_per_token: 0.00004              # $40.00 / 1M
+      cache_read_input_token_cost: 0.0000002      # $0.20 / 1M
+      cache_creation_input_token_cost: 0.00001    # $10.00 / 1M
   # Claude Opus 5.5, released 2026-09-22 — newer than the proxy image, so the same explicit
   # pricing applies. Anthropic list: cache reads are 5% of input here, not the usual 10%.
   - model_name: claude-opus-5-5-model
@@ -208,6 +219,18 @@ model_list:
   - model_name: gemini-4-argon
     litellm_params:
       model: gemini/gemini-4-argon
+      api_key: os.environ/GEMINI_API_KEY
+    model_info:
+      input_cost_per_token: 0.000002          # $2.00 / 1M
+      output_cost_per_token: 0.00001          # $10.00 / 1M
+      cache_read_input_token_cost: 0.0000001  # $0.10 / 1M
+
+  # Gemini 4 Carbon, routed and priced like Argon, at the same introductory rates to 2026-11-30.
+  # An antigravity-cli leg reaches it only with `gateway: true`: agy offers it on the API-key route
+  # only through the model gateway's list.
+  - model_name: gemini-4-carbon
+    litellm_params:
+      model: gemini/gemini-4-carbon
       api_key: os.environ/GEMINI_API_KEY
     model_info:
       input_cost_per_token: 0.000002          # $2.00 / 1M

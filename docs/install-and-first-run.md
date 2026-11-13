@@ -300,6 +300,10 @@ Optional per-model keys, part of what a leg measures:
   omitted, the CLI's default applies: up to 16, fewer on fewer CPUs.
 - `goal: true` (claude-code only): an evaluator on the leg's model checks, at every stop, that the
   constitution allows it — the landing order carried out, or an evidenced early nomination.
+- `gateway: true` (antigravity-cli only): agy runs in model-gateway mode, behind a relay on the
+  sandbox's localhost that adds the leg's proxy key. agy then takes its model list from the Gemini
+  API instead of its built-in one, which a newer model (Gemini 4 Carbon) needs. The whole list is
+  open to agy's sub-agents too, so give every model they call a price in the proxy.
 
 Every claude-code leg runs its sub-agents and workflow agents on its own model, and at its
 `effort` when it sets one. It allows no other model: a request a safety classifier flags fails as a
