@@ -21,7 +21,15 @@ holds the current numbers.
 
 ## Unreleased: campaign-8
 
-The pin is at `11fded2`.
+The pin is at `aa57980`.
+
+### Merged
+
+- **A champion can pre-warm its market data before registration** ([synthdataco/synth-lib#97]).
+  - `entrypoint.sh --prewarm` fills `market_data/` and the event calendar once, with no wallet and
+    no chain, then exits. A miner started afterwards on that volume fetches only the days not yet
+    settled, and serves the stored calendar at once.
+  - On every start, the crypto-1h assets warm up and serve first.
 
 ### Planned, not built
 
@@ -567,6 +575,7 @@ $100 / 18 h, engine `782a44f`, with claude-code 2.1.263, codex 0.146.0 and gemin
 [synthdataco/synth-lib#93]: https://github.com/synthdataco/synth-lib/pull/93
 [synthdataco/synth-lib#94]: https://github.com/synthdataco/synth-lib/pull/94
 [synthdataco/synth-lib#95]: https://github.com/synthdataco/synth-lib/pull/95
+[synthdataco/synth-lib#97]: https://github.com/synthdataco/synth-lib/pull/97
 [synthdataco/autoquant#6]: https://github.com/synthdataco/autoquant/pull/6
 [synthdataco/autoquant#15]: https://github.com/synthdataco/autoquant/pull/15
 [synthdataco/autoquant#18]: https://github.com/synthdataco/autoquant/pull/18
